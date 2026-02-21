@@ -1,4 +1,4 @@
-import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo'
+import { generateOrganizationSchema, generateWebSiteSchema } from '../lib/seo'
 
 export default function SchemaOrg() {
   const organizationSchema = generateOrganizationSchema()
