@@ -147,3 +147,262 @@ body {
 .animation-delay-4000 {
   animation-delay: 4s;
 }
+
+/* Стили для портфолио */
+
+/* Градиентные фоны для карточек проектов */
+.bg-gradient-project-1 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.bg-gradient-project-2 {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.bg-gradient-project-3 {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.bg-gradient-project-4 {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.bg-gradient-project-5 {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+/* Анимация для карточек портфолио */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Стили для фильтров портфолио */
+.filter-button {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: 9999px;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.filter-button.active {
+  background-color: #2563eb;
+  color: white;
+}
+
+.filter-button:not(.active) {
+  background-color: white;
+  color: #374151;
+}
+
+.dark .filter-button:not(.active) {
+  background-color: #1f2937;
+  color: #e5e7eb;
+}
+
+.filter-button:not(.active):hover {
+  background-color: #f3f4f6;
+}
+
+.dark .filter-button:not(.active):hover {
+  background-color: #374151;
+}
+
+/* Стили для тегов проектов */
+.project-tag {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  background-color: #f3f4f6;
+  font-size: 0.75rem;
+  border-radius: 9999px;
+  color: #4b5563;
+}
+
+.dark .project-tag {
+  background-color: #374151;
+  color: #d1d5db;
+}
+
+/* Стили для статистики проектов */
+.project-stat {
+  text-align: center;
+}
+
+.project-stat-value {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.dark .project-stat-value {
+  color: #9ca3af;
+}
+
+/* Анимация появления карточек */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Задержки анимации для карточек */
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+/* Стили для страницы портфолио */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  position: relative;
+  background-color: var(--bg-card);
+  border-radius: 1rem;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover {
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  transform: translateY(-0.5rem);
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, transparent, rgba(59, 130, 246, 0.1));
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+/* Стили для иконок соцсетей в футере */
+.social-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+}
+
+.social-icon:hover .social-icon-whatsapp {
+  color: #22c55e;
+}
+
+.social-icon:hover .social-icon-telegram {
+  color: #3b82f6;
+}
+
+.social-icon:hover .social-icon-facebook {
+  color: #2563eb;
+}
+
+/* Стили для ссылок в футере */
+.footer-link {
+  color: #d1d5db;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition-property: color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.footer-link:hover {
+  color: white;
+}
+
+.footer-link-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #60a5fa;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.footer-link:hover .footer-link-icon {
+  transform: translateX(0.25rem);
+}
+
+/* Групповые стили для кнопок в футере */
+.social-icon-group {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Стили для текста в футере */
+.footer-text {
+  color: #9ca3af;
+  font-size: 0.875rem;
+}
+
+.footer-text-light {
+  color: #d1d5db;
+  font-size: 0.875rem;
+}
+
+/* Стили для заголовков в футере */
+.footer-heading {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}

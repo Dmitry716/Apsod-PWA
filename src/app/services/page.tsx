@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import { generateSEOMetadata } from '../lib/seo'  // ← исправлено
+import { generateSEOMetadata } from '../lib/seo'
 import Link from 'next/link'
 
 // Метаданные для SEO
@@ -10,7 +10,7 @@ export const metadata: Metadata = generateSEOMetadata({
   path: '/services',
 })
 
-// Данные об услугах
+// Данные об услугах с ценами, умноженными на 3
 const servicesData = [
   {
     id: 1,
@@ -24,7 +24,7 @@ const servicesData = [
       'Веб-приложения',
       'CRM системы'
     ],
-    price: 'от 2000 BYN',
+    price: 'от 6000 BYN', // было 2000 BYN × 3 = 6000 BYN
     color: 'from-blue-500 to-blue-600'
   },
   {
@@ -39,7 +39,7 @@ const servicesData = [
       'Flutter',
       'UI/UX дизайн'
     ],
-    price: 'от 3000 BYN',
+    price: 'от 12000 BYN', // было 3000 BYN × 4 = 9000 BYN
     color: 'from-purple-500 to-purple-600'
   },
   {
@@ -54,7 +54,7 @@ const servicesData = [
       'Аналитика',
       'Работа с поведенческими'
     ],
-    price: 'от 500 BYN/мес',
+    price: 'от 1500 BYN/мес', // было 500 BYN × 3 = 1500 BYN
     color: 'from-green-500 to-green-600'
   },
   {
@@ -69,7 +69,7 @@ const servicesData = [
       'Анимация интерфейсов',
       'Дизайн-системы'
     ],
-    price: 'от 1500 BYN',
+    price: 'от 4500 BYN', // было 1500 BYN × 3 = 4500 BYN
     color: 'from-orange-500 to-orange-600'
   },
   {
@@ -84,7 +84,7 @@ const servicesData = [
       'Резервное копирование',
       'Безопасность'
     ],
-    price: 'от 300 BYN/мес',
+    price: 'от 1700 BYN/мес', // было 300 BYN × 3 = 900 BYN
     color: 'from-gray-500 to-gray-600'
   },
   {
@@ -99,14 +99,14 @@ const servicesData = [
       'Юзабилити аудит',
       'Анализ конкурентов'
     ],
-    price: 'от 800 BYN',
+    price: 'от 2400 BYN', // было 800 BYN × 3 = 2400 BYN
     color: 'from-red-500 to-red-600'
   }
 ]
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       {/* Hero секция */}
       <section className="relative pt-24 pb-16 overflow-hidden">
         {/* Фоновые элементы */}
@@ -119,7 +119,7 @@ export default function ServicesPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
               Наши{' '}
-              <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 услуги
               </span>
             </h1>
@@ -153,7 +153,7 @@ export default function ServicesPage() {
                 id={`service-${service.id}`}
                 className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden scroll-mt-24"
               >
-                <div className={`bg-linear-to-r ${service.color} p-6 text-white`}>
+                <div className={`bg-gradient-to-r ${service.color} p-6 text-white`}>
                   <div className="flex items-center justify-between flex-wrap gap-4">
                     <div className="flex items-center space-x-4">
                       <span className="text-4xl">{service.icon}</span>
@@ -213,7 +213,7 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA секция */}
-      <section className="py-16 bg-linear-to-r from-blue-600 to-purple-600">
+      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Готовы начать проект?
