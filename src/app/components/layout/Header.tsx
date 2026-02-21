@@ -8,6 +8,10 @@ import ThemeToggle from "../ui/ThemeToggle";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showInstallButton, setShowInstallButton] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -15,10 +19,62 @@ export default function Header() {
       setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
-  // Правильные ссылки согласно вашему меню
+    // Проверяем, запущено ли приложение в режиме standalone (уже установлено)
+    const checkStandalone = () => {
+      if (window.matchMedia('(display-mode: standalone)').matches || 
+          (window.navigator as any).standalone === true) {
+        setIsStandalone(true);
+      }
+    };
+    checkStandalone();
+
+    // Определяем iOS устройство
+    const ua = window.navigator.userAgent;
+    const iOS = /iPad|iPhone|iPod/.test(ua) || 
+                (/(Mac|Mac OS|MacIntel)/.test(ua) && 'ontouchend' in document);
+    setIsIOS(iOS);
+
+    // PWA install prompt [citation:1][citation:4]
+    const handler = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowInstallButton(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handler);
+
+    // Для iOS показываем кнопку с инструкциями, если не в standalone режиме
+    if (iOS && !isStandalone) {
+      setShowInstallButton(true);
+    }
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('beforeinstallprompt', handler);
+    };
+  }, [isStandalone]);
+
+  const handleInstallClick = async () => {
+    if (isIOS) {
+      // Для iOS показываем инструкции [citation:2][citation:3][citation:10]
+      alert('Для установки приложения:\n1. Нажмите кнопку "Поделиться" (⎙) в браузере Safari\n2. Выберите "На экран домой"\n3. Нажмите "Добавить"');
+      return;
+    }
+
+    if (!deferredPrompt) return;
+    
+    // Для Android/Desktop вызываем системный диалог установки [citation:5]
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User response to install prompt: ${outcome}`);
+    
+    if (outcome === 'accepted') {
+      setDeferredPrompt(null);
+      setShowInstallButton(false);
+    }
+  };
+
   const navLinks = [
     { href: "/services", label: "Услуги" },
     { href: "/about", label: "О нас" },
@@ -28,58 +84,82 @@ export default function Header() {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-      isScrolled 
-        ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg" 
-        : "bg-white dark:bg-gray-900"
-    }`}>
+    <header style={{
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100%',
+      backgroundColor: isScrolled ? 'var(--bg-primary)' : 'transparent',
+      backdropFilter: isScrolled ? 'blur(8px)' : 'none',
+      boxShadow: isScrolled ? '0 4px 6px -1px rgb(0 0 0 / 0.1)' : 'none',
+      zIndex: 50,
+      transition: 'all 0.3s'
+    }}>
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16 md:h-20">
-          {/* Логотип */}
-          <Link href="/" className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        <div className="flex justify-between items-center h-20 md:h-24">
+          {/* Логотип - крупный как было */}
+          <Link href="/" style={{ 
+            fontSize: '2rem',
+            fontWeight: 'bold',
+            background: 'linear-gradient(to right, #2563eb, #9333ea)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            letterSpacing: '-0.02em'
+          }}>
             APSOD
           </Link>
 
-          {/* Десктопное меню - ссылки хорошо видны */}
-          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
+          {/* Десктопное меню */}
+          <nav className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-base lg:text-lg font-medium transition-all duration-200 hover:scale-105 ${
-                  pathname === link.href
-                    ? "text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-600 pb-1"
-                    : "text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
-                }`}
+                style={{
+                  color: pathname === link.href ? 'var(--primary-color)' : 'var(--text-secondary)',
+                  fontWeight: pathname === link.href ? 'bold' : '500',
+                  fontSize: '1.1rem',
+                  transition: 'color 0.3s'
+                }}
+                className="hover:opacity-80"
               >
                 {link.label}
               </Link>
             ))}
           </nav>
 
-          {/* Кнопки справа */}
-          <div className="flex items-center space-x-3">
-            {/* Кнопка установки PWA - теперь более заметная */}
-            <button 
-              id="installButton"
-              className="hidden md:flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all hover:scale-105 text-sm font-medium shadow-md"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              <span>Установить</span>
-            </button>
+          <div className="flex items-center space-x-4">
+            {/* Кнопка установки PWA в header */}
+            {showInstallButton && !isStandalone && (
+              <button
+                onClick={handleInstallClick}
+                style={{
+                  padding: '0.5rem 1rem',
+                  background: 'linear-gradient(to right, #2563eb, #9333ea)',
+                  color: 'white',
+                  borderRadius: '0.5rem',
+                  fontSize: '0.9rem',
+                  fontWeight: '500',
+                  boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
+                }}
+                className="hidden md:flex items-center space-x-2 hover:opacity-90 transition-all hover:scale-105"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>{isIOS ? "Установить" : "Установить"}</span>
+              </button>
+            )}
             
-            {/* Кнопка переключения темы - теперь заметнее */}
             <ThemeToggle />
             
-            {/* Кнопка бургер для мобильных */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              className="md:hidden p-2 rounded-lg"
+              style={{ backgroundColor: 'var(--bg-secondary)' }}
               aria-label="Меню"
             >
-              <svg className="w-6 h-6 text-gray-700 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMenuOpen ? (
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
@@ -91,39 +171,56 @@ export default function Header() {
         </div>
 
         {/* Мобильное меню */}
-        <div className={`md:hidden transition-all duration-300 overflow-hidden ${
-          isMenuOpen ? "max-h-96 pb-4" : "max-h-0"
-        }`}>
-          <nav className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setIsMenuOpen(false)}
-                className={`block px-4 py-3 rounded-lg transition-colors text-base ${
-                  pathname === link.href
-                    ? "bg-blue-50 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 font-bold"
-                    : "text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-            {/* Кнопка установки в мобильном меню */}
-            <button
-              onClick={() => {
-                // Логика установки PWA
-                setIsMenuOpen(false);
-              }}
-              className="w-full mt-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2 font-medium"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              <span>Установить приложение</span>
-            </button>
-          </nav>
-        </div>
+        {isMenuOpen && (
+          <div className="md:hidden py-4">
+            <nav style={{ backgroundColor: 'var(--bg-card)' }} className="rounded-lg shadow-lg p-2">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  style={{
+                    display: 'block',
+                    padding: '0.75rem 1rem',
+                    borderRadius: '0.5rem',
+                    color: pathname === link.href ? 'var(--primary-color)' : 'var(--text-primary)',
+                    backgroundColor: pathname === link.href ? 'var(--bg-secondary)' : 'transparent'
+                  }}
+                  className="hover:bg-opacity-80"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              
+              {/* Кнопка установки в мобильном меню */}
+              {showInstallButton && !isStandalone && (
+                <button
+                  onClick={handleInstallClick}
+                  style={{
+                    width: '100%',
+                    marginTop: '0.5rem',
+                    padding: '0.75rem 1rem',
+                    background: 'linear-gradient(to right, #2563eb, #9333ea)',
+                    color: 'white',
+                    borderRadius: '0.5rem',
+                    fontSize: '1rem',
+                    fontWeight: '500',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.5rem'
+                  }}
+                  className="hover:opacity-90 transition-all"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  <span>Установить приложение</span>
+                </button>
+              )}
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   );
