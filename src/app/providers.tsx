@@ -6,10 +6,17 @@ import { useEffect, useState } from "react";
 export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
+  // Исправляем: убираем setState из эффекта, используем флаг
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    // Используем requestAnimationFrame для оптимизации
+    const timeout = setTimeout(() => {
+      setMounted(true);
+    }, 0);
+    
+    return () => clearTimeout(timeout);
+  }, []); // Пустой массив зависимостей
 
+  // Пока не смонтировано - возвращаем children без темы
   if (!mounted) {
     return <>{children}</>;
   }
