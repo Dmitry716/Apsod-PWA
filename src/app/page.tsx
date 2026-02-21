@@ -6,12 +6,6 @@ export default function Home() {
     <>
       <PWAInstall />
       
-      {/* Тестовый блок */}
-      <div className="test-block">
-        🔍 Тест: должен быть синим на светлой теме и красным на темной
-      </div>
-
-      {/* Hero секция */}
       <section className="min-h-screen" style={{ 
         background: 'linear-gradient(to bottom right, var(--bg-primary), var(--bg-secondary))'
       }}>
@@ -35,23 +29,22 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Статистика */}
-            <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-              <div className="card">
-                <div className="text-3xl font-bold" style={{ color: 'var(--primary-color)' }}>100+</div>
-                <div style={{ color: 'var(--text-muted)' }}>проектов</div>
+            <div className="stats-grid">
+              <div className="stat-item">
+                <div className="stat-value">100+</div>
+                <div className="stat-label">проектов</div>
               </div>
-              <div className="card">
-                <div className="text-3xl font-bold" style={{ color: 'var(--primary-color)' }}>5+</div>
-                <div style={{ color: 'var(--text-muted)' }}>лет опыта</div>
+              <div className="stat-item">
+                <div className="stat-value">5+</div>
+                <div className="stat-label">лет опыта</div>
               </div>
-              <div className="card">
-                <div className="text-3xl font-bold" style={{ color: 'var(--primary-color)' }}>50+</div>
-                <div style={{ color: 'var(--text-muted)' }}>клиентов</div>
+              <div className="stat-item">
+                <div className="stat-value">50+</div>
+                <div className="stat-label">клиентов</div>
               </div>
-              <div className="card">
-                <div className="text-3xl font-bold" style={{ color: 'var(--primary-color)' }}>15+</div>
-                <div style={{ color: 'var(--text-muted)' }}>специалистов</div>
+              <div className="stat-item">
+                <div className="stat-value">15+</div>
+                <div className="stat-label">специалистов</div>
               </div>
             </div>
           </div>

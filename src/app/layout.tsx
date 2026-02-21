@@ -1,18 +1,17 @@
 import type { Metadata } from 'next'
-import Header from './components/layout/Header'
+import { Inter } from 'next/font/google'
 import { Providers } from './providers'
+import Header from './components/layout/Header'
 import PWAInstall from './components/PWAInstall'
 import './globals.css'
+
+const inter = Inter({ subsets: ['latin', 'cyrillic'] })
 
 export const metadata: Metadata = {
   title: 'APSOD - IT компания',
   description: 'Профессиональная команда, которая делает технологии инструментом для роста вашего бизнеса',
-  manifest: '/manifest.json',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'APSOD',
-  },
+  metadataBase: new URL('https://apsod-pwa.vercel.app'),
+  manifest: '/manifest.json', // ← теперь с запятой и правильно
 }
 
 export default function RootLayout({
@@ -22,11 +21,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ru" suppressHydrationWarning>
-      <body>
+      <body className={inter.className}>
         <Providers>
           <Header />
           <PWAInstall />
-          <main className="pt-16">
+          <main className="pt-16 md:pt-20 min-h-screen">
             {children}
           </main>
         </Providers>

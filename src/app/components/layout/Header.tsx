@@ -20,7 +20,6 @@ export default function Header() {
     };
     window.addEventListener("scroll", handleScroll);
 
-    // Проверяем, запущено ли приложение в режиме standalone (уже установлено)
     const checkStandalone = () => {
       if (window.matchMedia('(display-mode: standalone)').matches || 
           (window.navigator as any).standalone === true) {
@@ -29,13 +28,11 @@ export default function Header() {
     };
     checkStandalone();
 
-    // Определяем iOS устройство
     const ua = window.navigator.userAgent;
     const iOS = /iPad|iPhone|iPod/.test(ua) || 
                 (/(Mac|Mac OS|MacIntel)/.test(ua) && 'ontouchend' in document);
     setIsIOS(iOS);
 
-    // PWA install prompt [citation:1][citation:4]
     const handler = (e: any) => {
       e.preventDefault();
       setDeferredPrompt(e);
@@ -44,7 +41,6 @@ export default function Header() {
 
     window.addEventListener('beforeinstallprompt', handler);
 
-    // Для iOS показываем кнопку с инструкциями, если не в standalone режиме
     if (iOS && !isStandalone) {
       setShowInstallButton(true);
     }
@@ -57,17 +53,14 @@ export default function Header() {
 
   const handleInstallClick = async () => {
     if (isIOS) {
-      // Для iOS показываем инструкции [citation:2][citation:3][citation:10]
       alert('Для установки приложения:\n1. Нажмите кнопку "Поделиться" (⎙) в браузере Safari\n2. Выберите "На экран домой"\n3. Нажмите "Добавить"');
       return;
     }
 
     if (!deferredPrompt) return;
     
-    // Для Android/Desktop вызываем системный диалог установки [citation:5]
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
-    console.log(`User response to install prompt: ${outcome}`);
     
     if (outcome === 'accepted') {
       setDeferredPrompt(null);
@@ -97,7 +90,6 @@ export default function Header() {
     }}>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-20 md:h-24">
-          {/* Логотип - крупный как было */}
           <Link href="/" style={{ 
             fontSize: '2rem',
             fontWeight: 'bold',
@@ -109,7 +101,6 @@ export default function Header() {
             APSOD
           </Link>
 
-          {/* Десктопное меню */}
           <nav className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
@@ -129,7 +120,6 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center space-x-4">
-            {/* Кнопка установки PWA в header */}
             {showInstallButton && !isStandalone && (
               <button
                 onClick={handleInstallClick}
@@ -147,7 +137,7 @@ export default function Header() {
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-                <span>{isIOS ? "Установить" : "Установить"}</span>
+                <span>Установить</span>
               </button>
             )}
             
@@ -170,7 +160,6 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Мобильное меню */}
         {isMenuOpen && (
           <div className="md:hidden py-4">
             <nav style={{ backgroundColor: 'var(--bg-card)' }} className="rounded-lg shadow-lg p-2">
@@ -192,7 +181,6 @@ export default function Header() {
                 </Link>
               ))}
               
-              {/* Кнопка установки в мобильном меню */}
               {showInstallButton && !isStandalone && (
                 <button
                   onClick={handleInstallClick}
