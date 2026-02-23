@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест API уведомлений (защищено)</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .password-form {
+            max-width: 400px;
+            margin: 100px auto;
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .password-form input {
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .password-form button {
+            padding: 10px 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .password-form button:hover {
+            background: #1d4ed8;
+        }
+        .error-message {
+            color: #ef4444;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 10px;
+        }
+        h3 {
+            color: #2563eb;
+            margin-top: 30px;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+        button:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+        input, select {
+            padding: 8px 12px;
+            margin: 5px;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 100%;
+            max-width: 300px;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+        }
+        pre {
+            background: #f3f4f6;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+        }
+        .success { color: #10b981; font-weight: bold; }
+        .error { color: #ef4444; font-weight: bold; }
+        .info { color: #6b7280; }
+        .status-box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #e5e7eb;
+            border-radius: 5px;
+        }
+        .subscription-item {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 10px 0;
+            font-size: 12px;
+        }
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .input-group {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .badge {
+            background: #2563eb;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        .section-divider {
+            margin-top: 40px;
+            border-top: 2px solid #2563eb;
+            padding-top: 20px;
+        }
+        .section-title {
+            color: #2563eb;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .logout-btn {
+            background: #dc2626;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .logout-btn:hover {
+            background: #b91c1c;
+        }
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: #e5e7eb;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Контент будет загружен динамически -->
+    </div>
+
+    <script>
+        // ========== ЗАЩИТА ПАРОЛЕМ ==========
+        // Установите свой пароль здесь
+        const DEV_PASSWORD = 'apsod2026'; // ← ИЗМЕНИТЕ НА СВОЙ ПАРОЛЬ!
+        
+        // Проверка наличия доступа
+        function checkAccess() {
+            // Проверяем в localStorage (постоянное хранение)
+            if (localStorage.getItem('dev_access') === DEV_PASSWORD) {
+                return true;
+            }
+            
+            // Проверяем в sessionStorage (до закрытия браузера)
+            if (sessionStorage.getItem('dev_temp_access') === DEV_PASSWORD) {
+                return true;
+            }
+            
+            return false;
+        }
+        
+        // Показать форму входа
+        function showLoginForm() {
+            const app = document.getElementById('app');
+            
+            app.innerHTML = `
+                <div class="password-form">
+                    <h2>🔒 Доступ к тестовой странице</h2>
+                    <p>Введите пароль для продолжения:</p>
+                    <input type="password" id="password" placeholder="Пароль" />
+                    <br />
+                    <button onclick="verifyPassword()">Войти</button>
+                    <div class="error-message" id="passwordError"></div>
+                    <p style="margin-top: 20px; font-size: 12px; color: #666;">
+                        * Только для разработчиков и тестировщиков
+                    </p>
+                    <p style="font-size: 11px; color: #999;">
+                        Пароль: ${DEV_PASSWORD}
+                    </p>
+                </div>
+            `;
+        }
+        
+        // Проверка введенного пароля
+        window.verifyPassword = function() {
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('passwordError');
+            
+            if (password === DEV_PASSWORD) {
+                // Сохраняем в sessionStorage (до закрытия вкладки)
+                sessionStorage.setItem('dev_temp_access', password);
+                // Загружаем основное содержимое
+                loadMainContent();
+            } else {
+                errorDiv.textContent = '❌ Неверный пароль';
+            }
+        };
+        
+        // Запомнить меня (опционально)
+        window.rememberMe = function() {
+            const password = document.getElementById('password').value;
+            if (password === DEV_PASSWORD) {
+                localStorage.setItem('dev_access', password);
+                sessionStorage.setItem('dev_temp_access', password);
+                loadMainContent();
+            }
+        };
+        
+        // Выход из системы
+        window.logout = function() {
+            localStorage.removeItem('dev_access');
+            sessionStorage.removeItem('dev_temp_access');
+            showLoginForm();
+        };
+        
+        // ========== ОСНОВНОЙ КОНТЕНТ ==========
+        function loadMainContent() {
+            const app = document.getElementById('app');
+            
+            app.innerHTML = `
+                <div class="container">
+                    <div class="header-bar">
+                        <span>🔓 Доступ разрешен</span>
+                        <button onclick="logout()" class="logout-btn">Выйти</button>
+                    </div>
+
+                    <h1>🔔 Тест API уведомлений APSOD</h1>
+                    
+                    <!-- Секция 1: Управление подписками -->
+                    <div class="section-title">📋 Управление подписками</div>
+                    <div class="button-group">
+                        <button onclick="testSubscribe()" id="subscribeBtn" style="background: #2563eb;">📝 1. Создать тестовую подписку</button>
+                        <button onclick="testGetSubscriptions()" id="getBtn" style="background: #059669;">📋 2. Получить список подписок</button>
+                        <button onclick="testDeleteAll()" id="deleteBtn" style="background: #dc2626;">🗑️ 3. Удалить все подписки</button>
+                    </div>
+
+                    <!-- Секция 2: Отправка уведомлений -->
+                    <div class="section-divider">
+                        <div class="section-title">📤 Отправка уведомлений</div>
+                        
+                        <div class="input-group">
+                            <div style="margin-bottom: 15px;">
+                                <input type="text" id="notifyTitle" placeholder="Заголовок" value="Новое уведомление от APSOD" style="width: 250px;">
+                                <span class="badge">обязательно</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <input type="text" id="notifyBody" placeholder="Текст уведомления" value="Привет! Это тестовое уведомление" style="width: 350px;">
+                                <span class="badge">обязательно</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <input type="text" id="notifyUrl" placeholder="URL для перехода (опционально)" value="/blog" style="width: 300px;">
+                                <span class="badge">необязательно</span>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <input type="text" id="notifyIcon" placeholder="Иконка (опционально)" value="/icons/icon-192x192.png" style="width: 300px;">
+                            </div>
+                        </div>
+
+                        <div class="button-group">
+                            <button onclick="testSendNotification()" id="sendBtn" style="background: #10b981;">📨 Отправить простое</button>
+                            <button onclick="testSendAdvanced()" id="sendAdvancedBtn" style="background: #8b5cf6;">🚀 Отправить расширенное</button>
+                            <button onclick="testSendToAll()" id="sendAllBtn" style="background: #f59e0b;">📢 Отправить всем</button>
+                        </div>
+                    </div>
+
+                    <!-- Секция 3: Уведомления о новых статьях -->
+                    <div class="section-divider">
+                        <div class="section-title">📝 Уведомления о новых статьях</div>
+                        
+                        <div class="input-group">
+                            <div style="margin-bottom: 15px;">
+                                <select id="postSlug" style="padding: 8px; margin: 5px; width: 400px;">
+                                    <option value="">📚 Выберите статью...</option>
+                                    <option value="gpt-5-revolution-web-development">🤖 GPT-5 и революция в веб-разработке</option>
+                                    <option value="neural-interfaces-web">🧠 Нейроинтерфейсы в вебе</option>
+                                    <option value="ai-code-assistants-2026">👨‍💻 AI-ассистенты программиста</option>
+                                    <option value="webassembly-2026">⚡ WebAssembly 2.0</option>
+                                    <option value="ai-personalization-2026">🎯 Гиперперсонализация на основе AI</option>
+                                    <option value="quantum-web">⚛️ Квантовые вычисления и веб</option>
+                                    <option value="serverless-ai">☁️ Serverless AI</option>
+                                    <option value="edge-computing-2026">🌐 Edge computing</option>
+                                    <option value="ai-ux-design">🎨 AI в UX/UI дизайне</option>
+                                    <option value="web3-2026">🔗 Web3 и децентрализация</option>
+                                    <option value="pochemu-sait-litso-kompanii">🏢 Почему сайт — это лицо компании</option>
+                                    <option value="preimushestva-saita-v-sovremennom-mire">📈 7 преимуществ сайта</option>
+                                    <option value="sait-protiv-sotssetey">⚖️ Сайт против соцсетей</option>
+                                    <option value="pwa-dlya-rb-i-rf-preimushestva">📲 PWA для РФ и РБ</option>
+                                    <option value="kogda-vybrat-pwa-a-kogda-native">⚔️ PWA или нативное приложение</option>
+                                    <option value="seo-protiv-reklamy-chto-vybrat">📊 SEO против рекламы</option>
+                                    <option value="15-prichin-seo-luchshe-reklamy">📈 15 причин выбрать SEO</option>
+                                    <option value="seo-dlya-prodvizheniya-analiz">💰 Как SEO помогает продавать</option>
+                                    <option value="vazhnost-texpodderzhki-saita">🔧 Важность техподдержки</option>
+                                </select>
+                                <span class="badge">выберите статью</span>
+                            </div>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <input type="password" id="secretKey" placeholder="Секретный ключ (из .env.local)" value="" style="width: 300px;">
+                                <span class="badge">обязательно</span>
+                            </div>
+
+                            <button onclick="sendPostNotification()" id="postBtn" style="background: #10b981; margin-top: 10px;">
+                                📨 Отправить уведомление о новой статье
+                            </button>
+                            <p class="info" style="margin-top: 10px; font-size: 12px;">
+                                ⚠️ Секретный ключ должен совпадать с NOTIFICATION_SECRET в .env.local
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Секция 4: Проверка статуса VAPID -->
+                    <div class="section-divider">
+                        <div class="section-title">🔑 Статус VAPID ключей</div>
+                        <button onclick="checkVapidStatus()" id="vapidBtn" style="background: #6b7280;">🔍 Проверить статус VAPID</button>
+                    </div>
+
+                    <!-- Результаты -->
+                    <div class="status-box">
+                        <h3>📊 Результат:</h3>
+                        <div id="result">Нажмите на кнопку для теста...</div>
+                    </div>
+
+                    <!-- Список подписок -->
+                    <div class="status-box">
+                        <h3>📦 Текущие подписки:</h3>
+                        <div id="subscriptions">Загрузка...</div>
+                    </div>
+                </div>
+            `;
+            
+            // Загружаем список подписок
+            refreshSubscriptions();
+        }
+        
+        // ========== ВСЕ ФУНКЦИИ ДЛЯ РАБОТЫ С API ==========
+        
+        const API_URL = '/api/notifications/subscribe';
+        const SEND_API_URL = '/api/notifications/send';
+        const POST_API_URL = '/api/notifications/post';
+
+        function showResult(data, isError = false) {
+            const resultDiv = document.getElementById('result');
+            if (resultDiv) {
+                resultDiv.innerHTML = `<pre class="${isError ? 'error' : 'success'}">${JSON.stringify(data, null, 2)}</pre>`;
+            }
+        }
+
+        async function refreshSubscriptions() {
+            try {
+                const res = await fetch(API_URL);
+                const data = await res.json();
+                const subsDiv = document.getElementById('subscriptions');
+                
+                if (subsDiv) {
+                    if (data.subscriptions && data.subscriptions.length > 0) {
+                        let html = `<p class="success">✅ Всего подписок: ${data.total}</p>`;
+                        data.subscriptions.forEach((sub, index) => {
+                            html += `
+                                <div class="subscription-item">
+                                    <strong>📌 Подписка #${index + 1}</strong><br>
+                                    <span class="info">Endpoint: ${sub.endpoint.substring(0, 70)}...<br>
+                                    📅 Создано: ${new Date(sub.createdAt).toLocaleString()}<br>
+                                    🌐 User Agent: ${sub.userAgent || 'не указан'}</span>
+                                </div>
+                            `;
+                        });
+                        subsDiv.innerHTML = html;
+                    } else {
+                        subsDiv.innerHTML = '<p class="info">❌ Нет активных подписок</p>';
+                    }
+                }
+            } catch (err) {
+                console.error('Ошибка загрузки подписок:', err);
+            }
+        }
+
+        async function testSubscribe() {
+            const btn = document.getElementById('subscribeBtn');
+            if (btn) btn.disabled = true;
+            showResult('🔄 Отправка запроса на создание подписки...');
+
+            try {
+                const testData = {
+                    endpoint: 'https://example.com/test-endpoint-' + Math.random().toString(36).substring(7),
+                    keys: {
+                        p256dh: 'test-key-' + Math.random().toString(36).substring(7),
+                        auth: 'test-auth-' + Math.random().toString(36).substring(7)
+                    }
+                };
+
+                const res = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testData)
+                });
+
+                const data = await res.json();
+                showResult({ status: res.status, statusText: res.statusText, data });
+                
+                if (res.ok) {
+                    await refreshSubscriptions();
+                }
+            } catch (err) {
+                showResult({ error: err.message }, true);
+            } finally {
+                if (btn) btn.disabled = false;
+            }
+        }
+
+        async function testGetSubscriptions() {
+            const btn = document.getElementById('getBtn');
+            if (btn) btn.disabled = true;
+            showResult('🔄 Загрузка списка подписок...');
+
+            try {
+                const res = await fetch(API_URL);
+                const data = await res.json();
+                showResult({ status: res.status, statusText: res.statusText, data });
+                await refreshSubscriptions();
+            } catch (err) {
+                showResult({ error: err.message }, true);
+            } finally {
+                if (btn) btn.disabled = false;
+            }
+        }
+
+        async function testDeleteAll() {
+            const btn = document.getElementById('deleteBtn');
+            if (btn) btn.disabled = true;
+            showResult('🔄 Удаление всех подписок...');
+
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'DELETE'
+                });
+                const data = await res.json();
+                showResult({ status: res.status, statusText: res.statusText, data });
+                await refreshSubscriptions();
+            } catch (err) {
+                showResult({ error: err.message }, true);
+            } finally {
+                if (btn) btn.disabled = false;
+            }
+        }
+
+        async function testSendNotification() {
+            const btn = document.getElementById('sendBtn');
+            if (btn) btn.disabled = true;
+            
+            const title = document.getElementById('notifyTitle')?.value || 'Новое уведомление';
+            const body = document.getElementById('notifyBody')?.value || 'Тестовое уведомление';
+            const url = document.getElementById('notifyUrl')?.value || '/';
+
+            if (!title || !body) {
+                showResult({ error: 'Заголовок и текст обязательны' }, true);
+                if (btn) btn.disabled = false;
+                return;
+            }
+
+            showResult('🔄 Отправка уведомления...');
+
+            try {
+                const res = await fetch(SEND_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ title, body, url })
+                });
+
+                const data = await res.json();
+                showResult({ status: res.status, statusText: res.statusText, data });
+            } catch (err) {
+                showResult({ error: err.message }, true);
+            } finally {
+                if (btn) btn.disabled = false;
+            }
+        }
+
+        async function testSendAdvanced() {
+            const btn = document.getElementById('sendAdvancedBtn');
+            if (btn) btn.disabled = true;
+            
+            const title = document.getElementById('notifyTitle')?.value || 'Новое уведомление';
+            const body = document.getElementById('notifyBody')?.value || 'Тестовое уведомление';
+            const url = document.getElementById('notifyUrl')?.value || '/';
+            const icon = document.getElementById('notifyIcon')?.value || '/icons/icon-192x192.png';
+
+            if (!title || !body) {
+                showResult({ error: 'Заголовок и текст обязательны' }, true);
+                if (btn) btn.disabled = false;
+                return;
+            }
+
+            showResult('🔄 Отправка расширенного уведомления...');
+
+            try {
+                const res = await fetch(SEND_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title,
+                        body,
+                        url,
+                        icon,
+                        badge: '/icons/icon-72x72.png',
+                        data: {
+                            from: 'APSOD',
+                            timestamp: new Date().toISOString(),
+                            type: 'test_notification'
+                        },
+                        actions: [
+                            {
+                                action: 'open',
+                                title: '🔗 Открыть страницу'
+                            },
+                            {
+                                action: 'close',
+                                title: '❌ Закрыть'
+                            }
+                        ]
+                    })
+                });
+
+                const data = await res.json();
+                showResult({ status: res.status, statusText: res.statusText, data });
+            } catch (err) {
+                showResult({ error: err.message }, true);
+            } finally {
+                if (btn) btn.disabled = false;
+            }
+        }
+
+        async function testSendToAll() {
+            const btn = document.getElementById('sendAllBtn');
+            if (btn) btn.disabled = true;
+            
+            const title = document.getElementById('notifyTitle')?.value || 'Новое уведомление';
+            const body = document.getElementById('notifyBody')?.value || 'Тестовое уведомление';
+            const url = document.getElementById('notifyUrl')?.value || '/';
+
+            if (!title || !body) {
+                showResult({ error: 'Заголовок и текст обязательны' }, true);
+                if (btn) btn.disabled = false;
+                return;
+            }
+
+            showResult('🔄 Отправка уведомления всем подписчикам...');
+
+            try {
+                const res = await fetch(SEND_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: title + ' (всем)',
+                        body,
+                        url,
+                        icon: '/icons/icon-192x192.png'
+                    })
+                });
+
+                const data = await res.json();
+                showResult({ status: res.status, statusText: res.statusText, data });
+            } catch (err) {
+                showResult({ error: err.message }, true);
+            } finally {
+                if (btn) btn.disabled = false;
+            }
+        }
+
+        async function sendPostNotification() {
+            const slug = document.getElementById('postSlug')?.value;
+            const secret = document.getElementById('secretKey')?.value;
+
+            if (!slug) {
+                showResult({ error: 'Выберите статью' }, true);
+                return;
+            }
+
+            if (!secret) {
+                showResult({ error: 'Введите секретный ключ' }, true);
+                return;
+            }
+
+            const btn = document.getElementById('postBtn');
+            if (btn) btn.disabled = true;
+            showResult('🔄 Отправка уведомления о новой статье...');
+
+            try {
+                const res = await fetch(POST_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${secret}`
+                    },
+                    body: JSON.stringify({ slug })
+                });
+
+                const data = await res.json();
+                showResult({ status: res.status, statusText: res.statusText, data });
+            } catch (err) {
+                showResult({ error: err.message }, true);
+            } finally {
+                if (btn) btn.disabled = false;
+            }
+        }
+
+        async function checkVapidStatus() {
+            const btn = document.getElementById('vapidBtn');
+            if (btn) btn.disabled = true;
+            showResult('🔄 Проверка VAPID ключей...');
+
+            try {
+                const res = await fetch(SEND_API_URL);
+                const data = await res.json();
+                showResult({ status: res.status, statusText: res.statusText, data });
+            } catch (err) {
+                showResult({ error: err.message }, true);
+            } finally {
+                if (btn) btn.disabled = false;
+            }
+        }
+
+        // ========== ИНИЦИАЛИЗАЦИЯ ==========
+        if (checkAccess()) {
+            loadMainContent();
+        } else {
+            showLoginForm();
+        }
+    </script>
+</body>
+</html>

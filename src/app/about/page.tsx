@@ -100,7 +100,7 @@ export default function AboutPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       
       {/* Hero секция */}
       <section className="relative pt-32 pb-20 overflow-hidden">
@@ -114,7 +114,7 @@ export default function AboutPage() {
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6">
               О{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 компании
               </span>
             </h1>
@@ -152,7 +152,7 @@ export default function AboutPage() {
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
               Создавать технологии, которые реально работают и приносят пользу бизнесу. Мы объединяем 15-летнюю экспертизу в разработке с пониманием специфики разных отраслей, чтобы предлагать решения, которые действительно решают задачи клиентов.
             </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
+            <div className="w-24 h-1 bg-linear-to-r from-blue-600 to-purple-600 mx-auto"></div>
           </div>
         </div>
       </section>
@@ -175,7 +175,7 @@ export default function AboutPage() {
                 key={idx}
                 className="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+                <div className={`absolute inset-0 bg-linear-to-br ${item.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
                 <div className="p-6">
                   <div className="text-4xl mb-4 transform group-hover:scale-110 transition-transform">
                     {item.icon}
@@ -216,7 +216,7 @@ export default function AboutPage() {
                 key={idx}
                 className="group relative bg-gray-50 dark:bg-gray-700 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${industry.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+                <div className={`absolute inset-0 bg-linear-to-br ${industry.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
                 <div className="p-8">
                   <div className="flex items-start justify-between mb-4">
                     <span className="text-5xl">{industry.icon}</span>
@@ -265,7 +265,7 @@ export default function AboutPage() {
                 key={idx}
                 className="text-center group"
               >
-                <div className="w-20 h-20 mx-auto bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
+                <div className="w-20 h-20 mx-auto bg-linear-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
                   <span className="text-3xl">{value.icon}</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
@@ -281,7 +281,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+      <section className="py-20 bg-linear-to-r from-blue-600 to-purple-600">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Готовы к сотрудничеству?

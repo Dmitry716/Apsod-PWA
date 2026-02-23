@@ -1,205 +1,217 @@
 import { Metadata } from 'next'
-import { generateSEOMetadata } from '../lib/seo'
 import Link from 'next/link'
 
-// Метаданные для SEO
-export const metadata: Metadata = generateSEOMetadata({
-  title: 'Услуги',
-  description: 'Профессиональные услуги по веб-разработке, созданию мобильных приложений и SEO продвижению в Витебске и Минске.',
-  keywords: ['веб-разработка', 'мобильные приложения', 'SEO', 'UI/UX дизайн', 'разработка сайтов'],
-  path: '/services',
-})
+export const metadata: Metadata = {
+  title: 'Услуги | APSOD',
+  description: 'Веб-разработка, мобильные приложения, CRM и ERP системы. Современные технологии для вашего бизнеса.',
+}
 
-// Данные об услугах с ценами, умноженными на 3
-const servicesData = [
+const services = [
   {
     id: 1,
     title: 'Веб-разработка',
-    description: 'Создаем современные сайты, интернет-магазины и веб-приложения под ключ.',
+    description: 'Создаем современные сайты, интернет-магазины и веб-приложения на Next.js, React, Vue и Node.js',
     icon: '🌐',
+    fullDescription: 'Разрабатываем корпоративные сайты, интернет-магазины, лендинги и сложные веб-приложения. Используем современный стек технологий: Next.js, React, TypeScript, Node.js.',
     features: [
-      'Корпоративные сайты',
-      'Интернет-магазины',
-      'Лендинги',
-      'Веб-приложения',
-      'CRM системы'
+      'Корпоративные сайты и порталы',
+      'Интернет-магазины с каталогами',
+      'Веб-приложения и дашборды',
+      'Интеграция с CRM и ERP',
+      'Админ-панели для управления'
     ],
-    price: 'от 6000 BYN', // было 2000 BYN × 3 = 6000 BYN
-    color: 'from-blue-500 to-blue-600'
+    technologies: ['Next.js', 'React', 'TypeScript', 'Node.js', 'PostgreSQL', 'MongoDB'],
+    link: '/services/web-development',
+    color: 'from-blue-600 to-cyan-500'
   },
   {
     id: 2,
     title: 'Мобильные приложения',
-    description: 'Разрабатываем нативные и кроссплатформенные приложения для iOS и Android.',
+    description: 'Разрабатываем нативные и кроссплатформенные приложения для iOS и Android',
     icon: '📱',
+    fullDescription: 'Создаем мобильные приложения для бизнеса, стартапов и корпораций. Работаем как с нативной разработкой, так и с кроссплатформенными решениями.',
     features: [
-      'iOS приложения',
-      'Android приложения',
-      'React Native',
-      'Flutter',
-      'UI/UX дизайн'
+      'Нативные iOS приложения (Swift)',
+      'Нативные Android приложения (Kotlin)',
+      'Кроссплатформенные (React Native, Flutter)',
+      'Интеграция с бэкендом',
+      'Публикация в App Store и Google Play'
     ],
-    price: 'от 12000 BYN', // было 3000 BYN × 4 = 9000 BYN
-    color: 'from-purple-500 to-purple-600'
+    technologies: ['React Native', 'Flutter', 'Swift', 'Kotlin', 'Firebase'],
+    link: '/services/mobile-development',
+    color: 'from-purple-600 to-pink-500'
   },
   {
     id: 3,
-    title: 'SEO продвижение',
-    description: 'Выводим сайты в топ поисковых систем и увеличиваем органический трафик.',
-    icon: '📈',
+    title: 'PWA разработка',
+    description: 'Создаем прогрессивные веб-приложения, которые работают как нативные и устанавливаются на телефон',
+    icon: '📲',
+    fullDescription: 'Progressive Web Apps (PWA) — гибрид веб-сайта и мобильного приложения. Установка на устройство, работа офлайн, push-уведомления, высокая скорость загрузки.',
     features: [
-      'Аудит сайта',
-      'Оптимизация контента',
-      'Внешняя оптимизация',
-      'Аналитика',
-      'Работа с поведенческими'
+      'Установка на главный экран',
+      'Работа без интернета',
+      'Push-уведомления',
+      'Мгновенная загрузка',
+      'Автоматические обновления'
     ],
-    price: 'от 1500 BYN/мес', // было 500 BYN × 3 = 1500 BYN
-    color: 'from-green-500 to-green-600'
+    technologies: ['Next.js', 'Service Workers', 'Manifest', 'Workbox'],
+    link: '/services/pwa-development',
+    color: 'from-indigo-600 to-blue-500'
   },
   {
     id: 4,
-    title: 'UI/UX дизайн',
-    description: 'Создаем удобные и красивые интерфейсы, которые нравятся пользователям.',
-    icon: '🎨',
+    title: 'SEO продвижение',
+    description: 'Выводим сайты в топ поисковых систем и увеличиваем органический трафик',
+    icon: '📈',
+    fullDescription: 'Комплексное продвижение сайтов в поисковых системах. Работаем с контентом, технической оптимизацией и внешними факторами.',
     features: [
-      'Прототипирование',
-      'Веб-дизайн',
-      'Дизайн приложений',
-      'Анимация интерфейсов',
-      'Дизайн-системы'
+      'Аудит сайта и анализ конкурентов',
+      'Техническая оптимизация',
+      'Работа с контентом',
+      'Внешняя оптимизация',
+      'Аналитика и отчетность'
     ],
-    price: 'от 4500 BYN', // было 1500 BYN × 3 = 4500 BYN
-    color: 'from-orange-500 to-orange-600'
+    technologies: ['SEO Audit', 'Link Building', 'Content Marketing', 'Analytics'],
+    link: '/services/seo',
+    color: 'from-yellow-500 to-amber-500'
   },
   {
     id: 5,
-    title: 'Поддержка проектов',
-    description: 'Обеспечиваем техническую поддержку и развитие существующих проектов.',
-    icon: '⚙️',
+    title: 'CRM системы',
+    description: 'Внедряем и разрабатываем кастомные CRM системы для управления бизнесом и клиентами',
+    icon: '🤝',
+    fullDescription: 'Автоматизируем продажи и взаимодействие с клиентами. Внедряем готовые решения или разрабатываем CRM с нуля под ваши бизнес-процессы.',
     features: [
-      'Техническая поддержка',
-      'Обновление контента',
-      'Мониторинг 24/7',
-      'Резервное копирование',
-      'Безопасность'
+      'Внедрение Salesforce, Bitrix24, AmoCRM',
+      'Разработка кастомных CRM',
+      'Интеграция с телефонией и почтой',
+      'Отчеты и аналитика продаж',
+      'Мобильный доступ для менеджеров'
     ],
-    price: 'от 1700 BYN/мес', // было 300 BYN × 3 = 900 BYN
-    color: 'from-gray-500 to-gray-600'
+    technologies: ['Salesforce', 'Bitrix24', 'AmoCRM', 'Custom CRM'],
+    link: '/services/crm',
+    color: 'from-green-600 to-emerald-500'
   },
   {
     id: 6,
-    title: 'Аудит и оптимизация',
-    description: 'Проводим комплексный аудит и оптимизацию существующих проектов.',
-    icon: '🔍',
+    title: 'ERP системы',
+    description: 'Комплексные решения для управления производством, складом и финансами',
+    icon: '⚙️',
+    fullDescription: 'Оптимизируем управление ресурсами предприятия. Внедряем ERP-системы или разрабатываем индивидуальные решения под ваши задачи.',
     features: [
-      'Технический аудит',
-      'SEO аудит',
-      'Оптимизация скорости',
-      'Юзабилити аудит',
-      'Анализ конкурентов'
+      'Управление производством и запасами',
+      'Складской учет и логистика',
+      'Финансовое планирование',
+      'Интеграция с 1С и бухгалтерией',
+      'Отчетность и аналитика'
     ],
-    price: 'от 2400 BYN', // было 800 BYN × 3 = 2400 BYN
-    color: 'from-red-500 to-red-600'
+    technologies: ['1С', 'SAP', 'Oracle', 'Custom ERP'],
+    link: '/services/erp',
+    color: 'from-orange-600 to-red-500'
+  },
+  {
+    id: 7,
+    title: 'UI/UX дизайн',
+    description: 'Создаем удобные и красивые интерфейсы, которые нравятся пользователям',
+    icon: '🎨',
+    fullDescription: 'Разрабатываем дизайн сайтов и приложений, ориентированный на пользователя. Проводим исследования и тестирования для создания лучшего опыта.',
+    features: [
+      'Прототипирование и дизайн-концепции',
+      'Дизайн сайтов и мобильных приложений',
+      'UI-киты и дизайн-системы',
+      'Анимация интерфейсов',
+      'Юзабилити-тестирование'
+    ],
+    technologies: ['Figma', 'Adobe XD', 'Sketch', 'ProtoPie'],
+    link: '/services/ui-ux',
+    color: 'from-pink-500 to-rose-500'
   }
-]
+];
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      
       {/* Hero секция */}
-      <section className="relative pt-24 pb-16 overflow-hidden">
-        {/* Фоновые элементы */}
+      <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-72 h-72 bg-purple-200 dark:bg-purple-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+          <div className="absolute top-40 right-10 w-96 h-96 bg-purple-200 dark:bg-purple-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6">
               Наши{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-blue-600 dark:text-blue-400">
                 услуги
               </span>
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Мы предлагаем полный спектр услуг для развития вашего бизнеса в digital-среде
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+              Комплексные решения для вашего бизнеса: от разработки до продвижения
             </p>
-            
-            {/* Быстрые ссылки */}
-            <div className="flex flex-wrap gap-3 justify-center">
-              {servicesData.map(service => (
-                <a
-                  key={service.id}
-                  href={`#service-${service.id}`}
-                  className="px-4 py-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:shadow-lg transition-shadow text-gray-700 dark:text-gray-200 text-sm"
-                >
-                  {service.title}
-                </a>
-              ))}
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Список услуг */}
+      {/* Детальный список услуг */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="space-y-12">
-            {servicesData.map((service) => (
+          <div className="space-y-16">
+            {services.map((service) => (
               <div
                 key={service.id}
-                id={`service-${service.id}`}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden scroll-mt-24"
+                className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden"
               >
-                <div className={`bg-gradient-to-r ${service.color} p-6 text-white`}>
-                  <div className="flex items-center justify-between flex-wrap gap-4">
-                    <div className="flex items-center space-x-4">
-                      <span className="text-4xl">{service.icon}</span>
-                      <h2 className="text-2xl md:text-3xl font-bold">{service.title}</h2>
-                    </div>
-                    <div className="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-lg font-semibold">
-                      {service.price}
-                    </div>
+                <div className={`bg-linear-to-r ${service.color} p-8 text-white`}>
+                  <div className="flex items-center gap-4 mb-4">
+                    <span className="text-5xl">{service.icon}</span>
+                    <h2 className="text-3xl md:text-4xl font-bold">{service.title}</h2>
                   </div>
+                  <p className="text-lg text-white/90 max-w-3xl">
+                    {service.fullDescription}
+                  </p>
                 </div>
                 
                 <div className="p-8">
-                  <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-                    {service.description}
-                  </p>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                        Что входит:
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                        Что мы делаем:
                       </h3>
                       <ul className="space-y-3">
                         {service.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-center text-gray-600 dark:text-gray-300">
-                            <svg className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <li key={idx} className="flex items-start gap-3 text-gray-600 dark:text-gray-300">
+                            <svg className="w-5 h-5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                             </svg>
-                            {feature}
+                            <span>{feature}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                     
-                    <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                        Для кого подходит:
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                        Используемые технологии:
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-300 mb-4">
-                        Идеально подходит для малого и среднего бизнеса, стартапов и крупных компаний.
-                      </p>
+                      <div className="flex flex-wrap gap-2 mb-8">
+                        {service.technologies.map((tech, idx) => (
+                          <span
+                            key={idx}
+                            className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      
                       <Link
-                        href="/contact"
-                        className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:underline"
+                        href={service.link}
+                        className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:gap-3 transition-all group"
                       >
-                        Заказать услугу
-                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        Подробнее об услуге
+                        <svg className="w-4 h-4 ml-2 group-hover:ml-3 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>
                       </Link>
@@ -212,18 +224,49 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* CTA секция */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Готовы начать проект?
+      {/* Преимущества */}
+      <section className="py-20 bg-linear-to-r from-blue-600 to-purple-600">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+            Почему выбирают нас
           </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Свяжитесь с нами сегодня и получите бесплатную консультацию
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="text-center text-white">
+              <div className="text-5xl mb-4">⚡</div>
+              <h3 className="text-xl font-semibold mb-2">Современные технологии</h3>
+              <p className="text-white/80">Используем актуальный стек 2025-2026</p>
+            </div>
+            <div className="text-center text-white">
+              <div className="text-5xl mb-4">🚀</div>
+              <h3 className="text-xl font-semibold mb-2">Быстрый старт</h3>
+              <p className="text-white/80">MVP за 2-3 месяца</p>
+            </div>
+            <div className="text-center text-white">
+              <div className="text-5xl mb-4">🔒</div>
+              <h3 className="text-xl font-semibold mb-2">Безопасность</h3>
+              <p className="text-white/80">Защита данных и кода</p>
+            </div>
+            <div className="text-center text-white">
+              <div className="text-5xl mb-4">💬</div>
+              <h3 className="text-xl font-semibold mb-2">Поддержка 24/7</h3>
+              <p className="text-white/80">Всегда на связи</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            Нужна консультация?
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+            Расскажите нам о ваших задачах, и мы подберем оптимальное решение
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl"
+            className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold text-lg hover:bg-blue-700 transition-all transform hover:scale-105 shadow-xl"
           >
             Связаться с нами
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

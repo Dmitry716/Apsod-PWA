@@ -10,6 +10,8 @@
   --border-color: #e5e7eb;
   --primary-color: #2563eb;
   --primary-hover: #1d4ed8;
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --footer-bg: #1a1a2e;
 }
 
 .dark {
@@ -22,6 +24,8 @@
   --border-color: #374151;
   --primary-color: #3b82f6;
   --primary-hover: #60a5fa;
+  --header-bg: rgba(17, 24, 39, 0.95);
+  --footer-bg: #0f172a;
 }
 
 body {
@@ -29,106 +33,126 @@ body {
   color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   transition: background-color 0.3s, color 0.3s;
+  min-height: 100vh;
 }
 
-/* Карточки */
-.card {
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  transition: all 0.3s;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+/* Классы Tailwind в CSS переменных */
+.bg-white {
+  background-color: var(--bg-primary) !important;
 }
 
-.card:hover {
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+.bg-gray-50 {
+  background-color: var(--bg-secondary) !important;
 }
 
-/* Кнопки */
-.btn-primary {
-  background-color: var(--primary-color);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  transition: all 0.3s;
-  display: inline-block;
-  text-align: center;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+.bg-gray-100 {
+  background-color: var(--bg-secondary) !important;
 }
 
-.btn-primary:hover {
-  background-color: var(--primary-hover);
-  transform: scale(1.05);
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2);
+.text-gray-900 {
+  color: var(--text-primary) !important;
 }
 
-.btn-secondary {
-  background-color: transparent;
+.text-gray-800 {
+  color: var(--text-primary) !important;
+}
+
+.text-gray-700 {
+  color: var(--text-secondary) !important;
+}
+
+.text-gray-600 {
+  color: var(--text-secondary) !important;
+}
+
+.text-gray-500 {
+  color: var(--text-muted) !important;
+}
+
+.border-gray-200 {
+  border-color: var(--border-color) !important;
+}
+
+.border-gray-300 {
+  border-color: var(--border-color) !important;
+}
+
+/* Стили для header */
+header {
+  background-color: var(--header-bg);
   color: var(--text-primary);
-  border: 2px solid var(--border-color);
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  transition: all 0.3s;
-  display: inline-block;
-  text-align: center;
 }
 
-.btn-secondary:hover {
-  border-color: var(--primary-color);
+header a {
+  color: var(--text-secondary);
+  transition: color 0.3s;
+}
+
+header a:hover {
   color: var(--primary-color);
-  transform: scale(1.05);
 }
 
-/* Статистика */
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  max-width: 48rem;
-  margin: 2rem auto 0;
+/* Стили для footer */
+footer {
+  background-color: var(--footer-bg);
+  color: white;
 }
 
-@media (min-width: 768px) {
-  .stats-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+footer a {
+  color: #9ca3af;
+  transition: color 0.3s;
 }
 
-.stat-item {
-  text-align: center;
+footer a:hover {
+  color: white;
 }
 
-.stat-value {
-  font-size: 1.875rem;
-  font-weight: bold;
-  color: var(--primary-color);
-  line-height: 1.2;
+/* Стили для блога */
+.prose {
+  color: var(--text-primary);
 }
 
-.stat-label {
-  color: var(--text-muted);
-  font-size: 0.875rem;
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  color: var(--text-primary);
+}
+
+.prose p {
+  color: var(--text-secondary);
+}
+
+.prose li {
+  color: var(--text-secondary);
+}
+
+.prose strong {
+  color: var(--text-primary);
+}
+
+/* Стили для карточек */
+.card, article {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+article h2, article h3 {
+  color: var(--text-primary);
+}
+
+article p {
+  color: var(--text-secondary);
+}
+
+/* Стили для хлебных крошек */
+.breadcrumbs a {
+  color: var(--text-secondary);
+}
+
+.breadcrumbs span:last-child {
+  color: var(--text-primary);
 }
 
 /* Анимации */
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.animate-slide-up {
-  animation: slide-up 0.3s ease-out;
-}
-
 @keyframes blob {
   0% { transform: translate(0px, 0px) scale(1); }
   33% { transform: translate(30px, -50px) scale(1.1); }
@@ -148,261 +172,17 @@ body {
   animation-delay: 4s;
 }
 
-/* Стили для портфолио */
-
-/* Градиентные фоны для карточек проектов */
-.bg-gradient-project-1 {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.bg-gradient-project-2 {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
-
-.bg-gradient-project-3 {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-}
-
-.bg-gradient-project-4 {
-  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-}
-
-.bg-gradient-project-5 {
-  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-}
-
-/* Анимация для карточек портфолио */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-.animate-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Стили для фильтров портфолио */
-.filter-button {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-radius: 9999px;
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
-}
-
-.filter-button.active {
-  background-color: #2563eb;
-  color: white;
-}
-
-.filter-button:not(.active) {
-  background-color: white;
-  color: #374151;
-}
-
-.dark .filter-button:not(.active) {
-  background-color: #1f2937;
-  color: #e5e7eb;
-}
-
-.filter-button:not(.active):hover {
-  background-color: #f3f4f6;
-}
-
-.dark .filter-button:not(.active):hover {
-  background-color: #374151;
-}
-
-/* Стили для тегов проектов */
-.project-tag {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
-  background-color: #f3f4f6;
-  font-size: 0.75rem;
-  border-radius: 9999px;
-  color: #4b5563;
-}
-
-.dark .project-tag {
-  background-color: #374151;
-  color: #d1d5db;
-}
-
-/* Стили для статистики проектов */
-.project-stat {
-  text-align: center;
-}
-
-.project-stat-value {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: #6b7280;
-}
-
-.dark .project-stat-value {
-  color: #9ca3af;
-}
-
-/* Анимация появления карточек */
-@keyframes fadeInUp {
+@keyframes slide-up {
   from {
+    transform: translateY(100%);
     opacity: 0;
-    transform: translateY(20px);
   }
   to {
-    opacity: 1;
     transform: translateY(0);
+    opacity: 1;
   }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-}
-
-/* Задержки анимации для карточек */
-.delay-100 {
-  animation-delay: 0.1s;
-}
-
-.delay-200 {
-  animation-delay: 0.2s;
-}
-
-.delay-300 {
-  animation-delay: 0.3s;
-}
-
-.delay-400 {
-  animation-delay: 0.4s;
-}
-
-.delay-500 {
-  animation-delay: 0.5s;
-}
-
-/* Стили для страницы портфолио */
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 2rem;
-}
-
-.project-card {
-  position: relative;
-  background-color: var(--bg-card);
-  border-radius: 1rem;
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.project-card:hover {
-  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-  transform: translateY(-0.5rem);
-}
-
-.project-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom right, transparent, rgba(59, 130, 246, 0.1));
-  opacity: 0;
-  transition: opacity 0.5s;
-  pointer-events: none;
-}
-
-.project-card:hover::before {
-  opacity: 1;
-}
-
-/* Стили для иконок соцсетей в футере */
-.social-icon {
-  width: 2.5rem;
-  height: 2.5rem;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
-}
-
-.social-icon:hover {
-  transform: scale(1.1);
-}
-
-.social-icon:hover .social-icon-whatsapp {
-  color: #22c55e;
-}
-
-.social-icon:hover .social-icon-telegram {
-  color: #3b82f6;
-}
-
-.social-icon:hover .social-icon-facebook {
-  color: #2563eb;
-}
-
-/* Стили для ссылок в футере */
-.footer-link {
-  color: #d1d5db;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition-property: color;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
-}
-
-.footer-link:hover {
-  color: white;
-}
-
-.footer-link-icon {
-  width: 1rem;
-  height: 1rem;
-  color: #60a5fa;
-  transition-property: transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
-}
-
-.footer-link:hover .footer-link-icon {
-  transform: translateX(0.25rem);
-}
-
-/* Групповые стили для кнопок в футере */
-.social-icon-group {
-  display: flex;
-  gap: 1rem;
-}
-
-/* Стили для текста в футере */
-.footer-text {
-  color: #9ca3af;
-  font-size: 0.875rem;
-}
-
-.footer-text-light {
-  color: #d1d5db;
-  font-size: 0.875rem;
-}
-
-/* Стили для заголовков в футере */
-.footer-heading {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
 }

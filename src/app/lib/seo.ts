@@ -13,16 +13,16 @@ interface SEOProps {
 
 export const siteConfig = {
   name: 'APSOD',
-  url: 'https://apsod-pwa.vercel.app',
+  url: 'https://apsod.com', // ← изменено с vercel.app на apsod.com
   ogImage: '/og-image.jpg',
   logo: '/icons/icon-512x512.png',
-  email: 'info@apsod.com',
-  phone: '+375 (29) 123-45-67',
-  address: 'г. Витебск, ул. Ленина, 1',
+  email: 'karelin@apsod.com', // если email такой же
+  phone: '+375 (44) 577-77-24',
+  address: 'г. Минск, ул.Фрунзе 9',
   social: {
-    instagram: 'https://instagram.com/apsod',
-    linkedin: 'https://linkedin.com/company/apsod',
-    github: 'https://github.com/apsod',
+    whatsapp: 'https://wa.me/375445777724',
+    telegram: 'https://t.me/DMITRYJS',
+    facebook: 'https://www.facebook.com/share/1GuC7K2jZ1/?mibextid=wwXIfr',
   }
 }
 
@@ -106,7 +106,7 @@ export function generateOrganizationSchema() {
     address: {
       '@type': 'PostalAddress',
       streetAddress: siteConfig.address,
-      addressLocality: 'Витебск',
+      addressLocality: 'Минск',
       addressCountry: 'BY',
     },
     sameAs: Object.values(siteConfig.social),
