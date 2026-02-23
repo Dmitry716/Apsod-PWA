@@ -144,10 +144,10 @@ export function usePushNotifications() {
 
       const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
 
-      // Исправление здесь - явное приведение типа
+      // Исправление: используем as any для обхода проверки типов
       const newSubscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: applicationServerKey as Uint8Array
+        applicationServerKey: applicationServerKey as any
       });
 
       console.log('✅ Подписка создана:', newSubscription);
