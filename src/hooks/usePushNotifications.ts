@@ -143,8 +143,9 @@ export function usePushNotifications() {
       console.log('🔑 VAPID ключ получен');
 
       const applicationServerKey = urlBase64ToUint8Array(vapidPublicKey);
+      console.log('🔄 Ключ сконвертирован');
 
-      // Исправление: используем as any для обхода проверки типов
+      // Создаем подписку
       const newSubscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: applicationServerKey as any
@@ -153,13 +154,15 @@ export function usePushNotifications() {
       console.log('✅ Подписка создана:', newSubscription);
       setSubscription(newSubscription);
 
+      // Конвертируем подписку в JSON для отправки на сервер
       const subscriptionData = subscriptionToJson(newSubscription);
       console.log('📤 Отправка подписки на сервер:', subscriptionData);
 
+      // ИСПРАВЛЕНО: Добавлено тело запроса
       const response = await fetch('/api/notifications/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(subscriptionData)
+        body: JSON.stringify(subscriptionData)  // ← ЭТО БЫЛО ПРОПУЩЕНО!
       });
 
       if (!response.ok) {

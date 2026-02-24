@@ -369,38 +369,64 @@ function ContactForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Имя *</label>
-                  <input type="text" name="name" value={formData.name} onChange={handleChange} required
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white transition-all"
-                    placeholder="Иван Иванов" />
+                  <input 
+                    type="text" 
+                    name="name" 
+                    value={formData.name} 
+                    onChange={handleChange} 
+                    required
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                    placeholder="Иван Иванов" 
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Компания</label>
-                  <input type="text" name="company" value={formData.company} onChange={handleChange}
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white transition-all"
-                    placeholder="Название компании" />
+                  <input 
+                    type="text" 
+                    name="company" 
+                    value={formData.company} 
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                    placeholder="Название компании" 
+                  />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email *</label>
-                  <input type="email" name="email" value={formData.email} onChange={handleChange} required
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white transition-all"
-                    placeholder="ivan@example.com" />
+                  <input 
+                    type="email" 
+                    name="email" 
+                    value={formData.email} 
+                    onChange={handleChange} 
+                    required
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                    placeholder="ivan@example.com" 
+                  />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Телефон *</label>
                   <div className="flex gap-2">
-                    <select name="phoneCountry" value={formData.phoneCountry} onChange={handlePhoneCountryChange}
-                      className="w-28 px-2 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white transition-all">
+                    <select 
+                      name="phoneCountry" 
+                      value={formData.phoneCountry} 
+                      onChange={handlePhoneCountryChange}
+                      className="w-28 px-2 py-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                    >
                       {countries.map((c) => (
                         <option key={`${c.code}-${c.name}`} value={c.code}>{c.flag} {c.code}</option>
                       ))}
                     </select>
                     <div className="flex-1">
-                      <IMaskInput mask={getCurrentMask()} value={formData.phone} onAccept={(v: string) => handlePhoneChange(v)}
-                        className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white transition-all"
-                        placeholder={getCurrentMask()} required />
+                      <IMaskInput 
+                        mask={getCurrentMask()} 
+                        value={formData.phone} 
+                        onAccept={(v: string) => handlePhoneChange(v)}
+                        className="w-full px-4 py-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                        placeholder={getCurrentMask()} 
+                        required 
+                      />
                     </div>
                   </div>
                 </div>
@@ -409,24 +435,39 @@ function ContactForm() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Услуга *</label>
-                  <select name="service" value={formData.service} onChange={handleChange} required
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white transition-all">
+                  <select 
+                    name="service" 
+                    value={formData.service} 
+                    onChange={handleChange} 
+                    required
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  >
                     <option value="">Выберите</option>
                     {services.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Бюджет *</label>
-                  <select name="budget" value={formData.budget} onChange={handleChange} required
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white transition-all">
+                  <select 
+                    name="budget" 
+                    value={formData.budget} 
+                    onChange={handleChange} 
+                    required
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  >
                     <option value="">Выберите</option>
                     {budgets.map((b) => <option key={b.value} value={b.value}>{b.label}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Сроки *</label>
-                  <select name="timeline" value={formData.timeline} onChange={handleChange} required
-                    className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white transition-all">
+                  <select 
+                    name="timeline" 
+                    value={formData.timeline} 
+                    onChange={handleChange} 
+                    required
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                  >
                     <option value="">Выберите</option>
                     {timelines.map((t) => <option key={t.value} value={t.value}>{t.label}</option>)}
                   </select>
@@ -435,21 +476,36 @@ function ContactForm() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Описание проекта *</label>
-                <textarea name="description" value={formData.description} onChange={handleChange} required rows={4}
-                  className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-white transition-all resize-none"
-                  placeholder="Расскажите о вашем проекте: основные цели, функционал, целевая аудитория..."></textarea>
+                <textarea 
+                  name="description" 
+                  value={formData.description} 
+                  onChange={handleChange} 
+                  required 
+                  rows={4}
+                  className="w-full px-4 py-3 bg-white dark:bg-gray-700 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-none"
+                  placeholder="Расскажите о вашем проекте: основные цели, функционал, целевая аудитория..."
+                />
               </div>
 
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center gap-2">
-                  <input type="checkbox" name="newsletter" id="newsletter" checked={formData.newsletter} onChange={handleChange}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500" />
+                  <input 
+                    type="checkbox" 
+                    name="newsletter" 
+                    id="newsletter" 
+                    checked={formData.newsletter} 
+                    onChange={handleChange}
+                    className="w-4 h-4 text-blue-600 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 rounded focus:ring-blue-500" 
+                  />
                   <label htmlFor="newsletter" className="text-sm text-gray-600 dark:text-gray-300">
                     Хочу получать новости и полезные статьи
                   </label>
                 </div>
-                <button type="submit" disabled={isLoading}
-                  className="px-8 py-4 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                <button 
+                  type="submit" 
+                  disabled={isLoading}
+                  className="px-8 py-4 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                   {isLoading ? 'Отправка...' : 'Отправить заявку'}
                 </button>
               </div>
@@ -496,7 +552,7 @@ function ContactForm() {
   );
 }
 
-// Основной экспорт с провайдером reCAPTCHA
+// ОСНОВНОЙ ЭКСПОРТ - ТОЛЬКО ОДИН!
 export default function ContactPage() {
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
   
