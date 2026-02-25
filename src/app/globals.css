@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
+  /* Светлая тема */
   --bg-primary: #ffffff;
   --bg-secondary: #f3f4f6;
   --bg-card: #ffffff;
@@ -10,101 +13,97 @@
   --border-color: #e5e7eb;
   --primary-color: #2563eb;
   --primary-hover: #1d4ed8;
-  --header-bg: rgba(255, 255, 255, 0.95);
+  --header-bg: rgba(255, 255, 255, 0.8);
   --footer-bg: #1a1a2e;
+  --footer-text: #ffffff;
 }
 
 .dark {
-  --bg-primary: #111827;
+  /* Темная тема */
+  --bg-primary: #030712;
   --bg-secondary: #1f2937;
-  --bg-card: #1f2937;
+  --bg-card: #111827;
   --text-primary: #f9fafb;
   --text-secondary: #e5e7eb;
   --text-muted: #9ca3af;
   --border-color: #374151;
   --primary-color: #3b82f6;
   --primary-hover: #60a5fa;
-  --header-bg: rgba(17, 24, 39, 0.95);
-  --footer-bg: #0f172a;
+  --header-bg: rgba(3, 7, 18, 0.8);
+  --footer-bg: #030712;
+  --footer-text: #f9fafb;
 }
 
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  transition: background-color 0.3s, color 0.3s;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, sans-serif;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
   min-height: 100vh;
 }
 
-/* Классы Tailwind в CSS переменных */
-.bg-white {
-  background-color: var(--bg-primary) !important;
-}
-
-.bg-gray-50 {
-  background-color: var(--bg-secondary) !important;
-}
-
-.bg-gray-100 {
-  background-color: var(--bg-secondary) !important;
-}
-
-.text-gray-900 {
-  color: var(--text-primary) !important;
-}
-
-.text-gray-800 {
-  color: var(--text-primary) !important;
-}
-
-.text-gray-700 {
-  color: var(--text-secondary) !important;
-}
-
-.text-gray-600 {
-  color: var(--text-secondary) !important;
-}
-
-.text-gray-500 {
-  color: var(--text-muted) !important;
-}
-
-.border-gray-200 {
-  border-color: var(--border-color) !important;
-}
-
-.border-gray-300 {
-  border-color: var(--border-color) !important;
-}
-
-/* Стили для header */
+/* Стили для header с эффектом стекла */
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: var(--header-bg);
   color: var(--text-primary);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  z-index: 50;
+  transition: background-color 0.3s ease;
 }
 
 header a {
   color: var(--text-secondary);
-  transition: color 0.3s;
+  transition: color 0.2s;
 }
 
 header a:hover {
   color: var(--primary-color);
 }
 
+/* Стили для main - чтобы контент не заезжал под шапку */
+main {
+  min-height: calc(100vh - 80px);
+  padding-top: 80px; /* Важно! Высота шапки */
+}
+
 /* Стили для footer */
 footer {
   background-color: var(--footer-bg);
-  color: white;
+  color: var(--footer-text);
+  border-top: 1px solid var(--border-color);
 }
 
 footer a {
   color: #9ca3af;
-  transition: color 0.3s;
+  transition: color 0.2s;
 }
 
 footer a:hover {
   color: white;
+}
+
+/* Стили для карточек */
+.card,
+article,
+.blog-post {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 /* Стили для блога */
@@ -112,52 +111,55 @@ footer a:hover {
   color: var(--text-primary);
 }
 
-.prose h1, .prose h2, .prose h3, .prose h4 {
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
   color: var(--text-primary);
 }
 
-.prose p {
-  color: var(--text-secondary);
-}
-
+.prose p,
 .prose li {
   color: var(--text-secondary);
 }
 
-.prose strong {
-  color: var(--text-primary);
+/* Хлебные крошки */
+.breadcrumbs {
+  color: var(--text-muted);
 }
 
-/* Стили для карточек */
-.card, article {
-  background-color: var(--bg-card);
-  color: var(--text-primary);
-  border: 1px solid var(--border-color);
-}
-
-article h2, article h3 {
-  color: var(--text-primary);
-}
-
-article p {
-  color: var(--text-secondary);
-}
-
-/* Стили для хлебных крошек */
 .breadcrumbs a {
-  color: var(--text-secondary);
+  color: var(--text-muted);
+}
+
+.breadcrumbs a:hover {
+  color: var(--primary-color);
 }
 
 .breadcrumbs span:last-child {
   color: var(--text-primary);
 }
 
+/* Кнопки */
+button,
+.button {
+  transition: all 0.2s ease;
+}
+
 /* Анимации */
 @keyframes blob {
-  0% { transform: translate(0px, 0px) scale(1); }
-  33% { transform: translate(30px, -50px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.9); }
-  100% { transform: translate(0px, 0px) scale(1); }
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
 }
 
 .animate-blob {

@@ -11,22 +11,17 @@ export default function ThemeToggle() {
     setMounted(true);
   }, []);
 
+  // Просто отключаем ESLint для этой строки
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   if (!mounted) {
-    return <div className="w-10 h-10" />;
+    return <div className="w-10 h-10 animate-pulse bg-gray-200 rounded-xl" />;
   }
 
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      style={{
-        padding: '0.625rem',
-        borderRadius: '0.75rem',
-        background: 'linear-gradient(to right, #2563eb, #9333ea)',
-        color: 'white',
-        transition: 'all 0.3s',
-        boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'
-      }}
-      className="hover:opacity-90 hover:scale-105"
+      className="p-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:opacity-90 hover:scale-105 transition-all duration-300"
       aria-label="Переключить тему"
     >
       {theme === "dark" ? (
