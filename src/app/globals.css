@@ -46,7 +46,7 @@ body {
   min-height: 100vh;
 }
 
-/* Стили для header с эффектом стекла */
+/* Header */
 header {
   position: fixed;
   top: 0;
@@ -57,9 +57,7 @@ header {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   z-index: 50;
-  transition: background-color 0.3s ease;
 }
 
 header a {
@@ -71,13 +69,13 @@ header a:hover {
   color: var(--primary-color);
 }
 
-/* Стили для main - чтобы контент не заезжал под шапку */
+/* Main */
 main {
   min-height: calc(100vh - 80px);
-  padding-top: 80px; /* Важно! Высота шапки */
+  padding-top: 80px;
 }
 
-/* Стили для footer */
+/* Footer */
 footer {
   background-color: var(--footer-bg);
   color: var(--footer-text);
@@ -93,7 +91,7 @@ footer a:hover {
   color: white;
 }
 
-/* Стили для карточек */
+/* Карточки */
 .card,
 article,
 .blog-post {
@@ -106,7 +104,7 @@ article,
     border-color 0.3s ease;
 }
 
-/* Стили для блога */
+/* Блог */
 .prose {
   color: var(--text-primary);
 }
@@ -146,7 +144,7 @@ button,
   transition: all 0.2s ease;
 }
 
-/* Анимации */
+/* Базовые анимации */
 @keyframes blob {
   0% {
     transform: translate(0px, 0px) scale(1);
@@ -166,14 +164,6 @@ button,
   animation: blob 7s infinite;
 }
 
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
-}
-
 @keyframes slide-up {
   from {
     transform: translateY(100%);
@@ -187,4 +177,12 @@ button,
 
 .animate-slide-up {
   animation: slide-up 0.3s ease-out;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
 }
