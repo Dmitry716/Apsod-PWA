@@ -21,7 +21,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:opacity-90 hover:scale-105 transition-all duration-300"
+      className="p-2.5 rounded-xl bg-linear-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:opacity-90 hover:scale-105 transition-all duration-300"
       aria-label="Переключить тему"
     >
       {theme === "dark" ? (

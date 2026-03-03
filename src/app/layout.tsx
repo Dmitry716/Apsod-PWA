@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import { Providers } from "./providers";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
-import PWAInstall from "./components/PWAInstall";
 import CookieConsent from "./components/CookieConsent";
 import "./globals.css";
 import "./hero-animations.css";
@@ -60,7 +59,6 @@ export default function RootLayout({
         <Providers>
           <Header />
           <CookieConsent />
-          <PWAInstall />
           <main className="pt-16 md:pt-20 min-h-screen">{children}</main>
           <Footer />
         </Providers>

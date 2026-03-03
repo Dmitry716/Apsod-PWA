@@ -1,4 +1,3 @@
-// src/app/api/notifications/post/route.ts
 import { NextResponse } from 'next/server';
 import webPush from 'web-push';
 import fs from 'fs';
@@ -18,12 +17,23 @@ interface PushSubscription {
   userAgent?: string;
 }
 
+interface SendResult {
+  endpoint: string;
+  success: boolean;
+  statusCode?: number;
+  error?: string;
+}
+
 // Настройка VAPID ключей
-webPush.setVapidDetails(
-  process.env.VAPID_SUBJECT || 'mailto:karelinseo@gmail.com',
-  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || '',
-  process.env.VAPID_PRIVATE_KEY || ''
-);
+if (!process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || !process.env.VAPID_PRIVATE_KEY) {
+  console.warn('⚠️ VAPID keys not configured');
+} else {
+  webPush.setVapidDetails(
+    process.env.VAPID_SUBJECT || 'mailto:karelinseo@gmail.com',
+    process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY,
+    process.env.VAPID_PRIVATE_KEY
+  );
+}
 
 // Загрузка подписок из файла
 function loadSubscriptions(): PushSubscription[] {
@@ -38,11 +48,20 @@ function loadSubscriptions(): PushSubscription[] {
   return [];
 }
 
+// Сохранение подписок в файл
+function saveSubscriptions(subscriptions: PushSubscription[]): void {
+  try {
+    fs.writeFileSync(SUBSCRIPTIONS_FILE, JSON.stringify(subscriptions, null, 2), 'utf-8');
+  } catch (error) {
+    console.error('❌ Ошибка сохранения подписок:', error);
+  }
+}
+
 export async function POST(request: Request) {
   console.log('📨 Получен POST запрос на /api/notifications/post');
   
   try {
-    // Проверка авторизации
+    // Проверка авторизации (опционально)
     const authHeader = request.headers.get('authorization');
     const secret = authHeader?.replace('Bearer ', '');
     
@@ -51,6 +70,14 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: 'Не авторизован' },
         { status: 401 }
+      );
+    }
+
+    // Проверка наличия VAPID ключей
+    if (!process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || !process.env.VAPID_PRIVATE_KEY) {
+      return NextResponse.json(
+        { error: 'VAPID ключи не настроены' },
+        { status: 500 }
       );
     }
 
@@ -90,9 +117,9 @@ export async function POST(request: Request) {
     // Формируем payload уведомления
     const payload = JSON.stringify({
       title: `📝 Новая статья: ${post.title}`,
-      body: post.excerpt.length > 100 
+      body: post.excerpt && post.excerpt.length > 100 
         ? post.excerpt.substring(0, 100) + '...' 
-        : post.excerpt,
+        : (post.excerpt || 'Новая статья в блоге APSOD'),
       icon: '/icons/icon-192x192.png',
       badge: '/icons/icon-72x72.png',
       url: `/blog/${post.slug}`,
@@ -115,16 +142,46 @@ export async function POST(request: Request) {
     });
 
     // Отправляем уведомления всем подписчикам
-    const results = await Promise.allSettled(
-      subscriptions.map((subscription: PushSubscription) => 
-        webPush.sendNotification(subscription, payload).catch((err) => {
-          console.error('❌ Ошибка отправки подписчику:', err);
-          return null;
-        })
-      )
-    );
+    const results: SendResult[] = [];
+    const invalidSubscriptions: PushSubscription[] = [];
 
-    const successful = results.filter(r => r.status === 'fulfilled').length;
+    for (const subscription of subscriptions) {
+      try {
+        const result = await webPush.sendNotification(subscription, payload);
+        results.push({ 
+          endpoint: subscription.endpoint, 
+          success: true,
+          statusCode: result.statusCode 
+        });
+      } catch (error: unknown) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.error(`❌ Ошибка отправки: ${errorMessage}`);
+        
+        if (error && typeof error === 'object' && 'statusCode' in error) {
+          const statusCode = (error as { statusCode?: number }).statusCode;
+          if (statusCode === 410 || statusCode === 404) {
+            invalidSubscriptions.push(subscription);
+          }
+        }
+        
+        results.push({ 
+          endpoint: subscription.endpoint, 
+          success: false, 
+          error: errorMessage
+        });
+      }
+    }
+
+    // Удаляем невалидные подписки
+    if (invalidSubscriptions.length > 0) {
+      const validSubscriptions = subscriptions.filter(
+        s => !invalidSubscriptions.find(inv => inv.endpoint === s.endpoint)
+      );
+      saveSubscriptions(validSubscriptions);
+      console.log(`🗑️ Удалено ${invalidSubscriptions.length} невалидных подписок`);
+    }
+
+    const successful = results.filter(r => r.success).length;
 
     return NextResponse.json({
       success: true,
@@ -132,12 +189,14 @@ export async function POST(request: Request) {
       details: {
         total: subscriptions.length,
         sent: successful,
-        failed: subscriptions.length - successful
+        failed: subscriptions.length - successful,
+        invalid: invalidSubscriptions.length
       }
     });
 
-  } catch (error) {
-    console.error('❌ Ошибка:', error);
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('❌ Ошибка:', errorMessage);
     return NextResponse.json(
       { error: 'Ошибка сервера' },
       { status: 500 }

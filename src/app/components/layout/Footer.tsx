@@ -43,7 +43,7 @@ export default function Footer() {
               <h3 className="text-2xl font-bold bg-linear-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent group-hover:from-blue-300 group-hover:to-purple-300 transition-all duration-500 relative">
                 APSOD
                 <span
-                  className="absolute -inset-2 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  className="absolute -inset-2 bg-linear-to-r from-blue-400/20 to-purple-400/20 rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   aria-hidden="true"
                 ></span>
                 <span
@@ -83,7 +83,7 @@ export default function Footer() {
               </svg>
               <span>Наверх</span>
               <span
-                className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 blur-md"
+                className="absolute inset-0 bg-linear-to-r from-blue-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 blur-md"
                 aria-hidden="true"
               ></span>
             </button>
@@ -170,7 +170,7 @@ export default function Footer() {
                   karelinseo@gmail.com
                 </a>
               </p>
-              <p>г. Минск, ул. Фрунзе, 29</p>
+              <p>г. Минск, ул. Фрунзе, 9</p>
             </address>
           </div>
 

@@ -269,7 +269,7 @@ function ContactForm() {
   const contactInfo = [
     { icon: "📞", title: "Телефон", value: "+375 (44) 577-77-24", link: "tel:+375445777724", description: "Пн-Пт, 9:00 - 18:00" },
     { icon: "✉️", title: "Email", value: "karelinseo@gmail.com", link: "mailto:karelinseo@gmail.com", description: "Ответим в течение 24 часов" },
-    { icon: "📍", title: "Офис", value: "г. Минск, ул. Фрунзе, 29", link: "https://maps.google.com/?q=Минск+Фрунзе+29", description: "Бизнес-центр, офис 305" },
+    { icon: "📍", title: "Офис", value: "г. Минск, ул. Фрунзе, 9", link: "https://maps.google.com/?q=Минск+Фрунзе+29", description: "Бизнес-центр, офис 305" },
     { icon: "💬", title: "WhatsApp", value: "+375 (44) 577-77-24", link: "https://wa.me/375445777724", description: "Быстрая связь в мессенджере" }
   ];
 
