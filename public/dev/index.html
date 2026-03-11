@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тест API уведомлений (защищено)</title>
+    <title>Админ-панель APSOD</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
+            max-width: 960px;
             margin: 50px auto;
             padding: 20px;
             background: #f5f5f5;
+        }
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 8px;
         }
         .container {
             background: white;
@@ -168,6 +172,64 @@
             border-radius: 5px;
             margin-bottom: 20px;
         }
+        .admin-section {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .subscribers-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+        .subscribers-table th,
+        .subscribers-table td {
+            padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .subscribers-table th {
+            background: #f3f4f6;
+            color: #374151;
+            font-weight: 600;
+        }
+        .subscribers-table tr:hover td {
+            background: #f9fafb;
+        }
+        .subscribers-table .endpoint-cell {
+            font-family: monospace;
+            font-size: 11px;
+            word-break: break-all;
+            max-width: 280px;
+        }
+        .subscribers-table .date-cell {
+            color: #6b7280;
+            white-space: nowrap;
+        }
+        .stats-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+        .stats-badge {
+            background: #2563eb;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .btn-refresh {
+            background: #059669;
+        }
+        .btn-refresh:hover {
+            background: #047857;
+        }
     </style>
 </head>
 <body>
@@ -208,10 +270,7 @@
                     <button onclick="verifyPassword()">Войти</button>
                     <div class="error-message" id="passwordError"></div>
                     <p style="margin-top: 20px; font-size: 12px; color: #666;">
-                        * Только для разработчиков и тестировщиков
-                    </p>
-                    <p style="font-size: 11px; color: #999;">
-                        Пароль: ${DEV_PASSWORD}
+                        Только для администраторов
                     </p>
                 </div>
             `;
@@ -260,18 +319,31 @@
                         <button onclick="logout()" class="logout-btn">Выйти</button>
                     </div>
 
-                    <h1>🔔 Тест API уведомлений APSOD</h1>
+                    <h1>⚙️ Админ-панель APSOD</h1>
                     
-                    <!-- Секция 1: Управление подписками -->
-                    <div class="section-title">📋 Управление подписками</div>
-                    <div class="button-group">
-                        <button onclick="testSubscribe()" id="subscribeBtn" style="background: #2563eb;">📝 1. Создать тестовую подписку</button>
-                        <button onclick="testGetSubscriptions()" id="getBtn" style="background: #059669;">📋 2. Получить список подписок</button>
-                        <button onclick="testDeleteAll()" id="deleteBtn" style="background: #dc2626;">🗑️ 3. Удалить все подписки</button>
+                    <!-- Секция: Реальные подписчики -->
+                    <div class="admin-section">
+                        <div class="section-title">👥 Подписчики на пуш-уведомления и новые статьи блога</div>
+                        <p class="info" style="margin-bottom: 12px; font-size: 13px;">Список пользователей, подписавшихся на уведомления (в т.ч. о новых статьях в блоге).</p>
+                        <div class="stats-row">
+                            <span class="stats-badge" id="subsCount">—</span>
+                            <button onclick="refreshSubscriptions()" class="btn-refresh" id="refreshSubsBtn">🔄 Обновить список</button>
+                        </div>
+                        <div id="subscriptions">Загрузка...</div>
                     </div>
 
-                    <!-- Секция 2: Отправка уведомлений -->
-                    <div class="section-divider">
+                    <!-- Секция: Управление подписками -->
+                    <div class="admin-section">
+                        <div class="section-title">📋 Управление подписками</div>
+                        <div class="button-group">
+                            <button onclick="testGetSubscriptions()" id="getBtn" style="background: #059669;">📋 Получить список</button>
+                            <button onclick="testSubscribe()" id="subscribeBtn" style="background: #2563eb;">📝 Создать тестовую подписку</button>
+                            <button onclick="testDeleteAll()" id="deleteBtn" style="background: #dc2626;">🗑️ Удалить все подписки</button>
+                        </div>
+                    </div>
+
+                    <!-- Секция: Отправка уведомлений -->
+                    <div class="admin-section">
                         <div class="section-title">📤 Отправка уведомлений</div>
                         
                         <div class="input-group">
@@ -299,8 +371,8 @@
                         </div>
                     </div>
 
-                    <!-- Секция 3: Уведомления о новых статьях -->
-                    <div class="section-divider">
+                    <!-- Секция: Уведомления о новых статьях -->
+                    <div class="admin-section">
                         <div class="section-title">📝 Уведомления о новых статьях</div>
                         
                         <div class="input-group">
@@ -344,22 +416,16 @@
                         </div>
                     </div>
 
-                    <!-- Секция 4: Проверка статуса VAPID -->
-                    <div class="section-divider">
+                    <!-- Секция: VAPID -->
+                    <div class="admin-section">
                         <div class="section-title">🔑 Статус VAPID ключей</div>
                         <button onclick="checkVapidStatus()" id="vapidBtn" style="background: #6b7280;">🔍 Проверить статус VAPID</button>
                     </div>
 
-                    <!-- Результаты -->
+                    <!-- Результаты действий -->
                     <div class="status-box">
                         <h3>📊 Результат:</h3>
                         <div id="result">Нажмите на кнопку для теста...</div>
-                    </div>
-
-                    <!-- Список подписок -->
-                    <div class="status-box">
-                        <h3>📦 Текущие подписки:</h3>
-                        <div id="subscriptions">Загрузка...</div>
                     </div>
                 </div>
             `;
@@ -382,31 +448,35 @@
         }
 
         async function refreshSubscriptions() {
+            const subsDiv = document.getElementById('subscriptions');
+            const countEl = document.getElementById('subsCount');
+            const btn = document.getElementById('refreshSubsBtn');
+            if (btn) btn.disabled = true;
+            if (subsDiv) subsDiv.innerHTML = '<span class="info">Загрузка...</span>';
             try {
                 const res = await fetch(API_URL);
                 const data = await res.json();
-                const subsDiv = document.getElementById('subscriptions');
-                
+                if (countEl) countEl.textContent = 'Подписчиков: ' + (data.total || 0);
                 if (subsDiv) {
                     if (data.subscriptions && data.subscriptions.length > 0) {
-                        let html = `<p class="success">✅ Всего подписок: ${data.total}</p>`;
+                        let html = '<div class="table-wrap"><table class="subscribers-table"><thead><tr><th>№</th><th>Endpoint</th><th>Дата подписки</th><th>User Agent</th></tr></thead><tbody>';
                         data.subscriptions.forEach((sub, index) => {
-                            html += `
-                                <div class="subscription-item">
-                                    <strong>📌 Подписка #${index + 1}</strong><br>
-                                    <span class="info">Endpoint: ${sub.endpoint.substring(0, 70)}...<br>
-                                    📅 Создано: ${new Date(sub.createdAt).toLocaleString()}<br>
-                                    🌐 User Agent: ${sub.userAgent || 'не указан'}</span>
-                                </div>
-                            `;
+                            const dateStr = sub.createdAt ? new Date(sub.createdAt).toLocaleString('ru-RU') : '—';
+                            const ua = (sub.userAgent || '—').substring(0, 60) + (sub.userAgent && sub.userAgent.length > 60 ? '…' : '');
+                            html += '<tr><td>' + (index + 1) + '</td><td class="endpoint-cell">' + (sub.endpoint || '—') + '</td><td class="date-cell">' + dateStr + '</td><td title="' + (sub.userAgent || '').replace(/"/g, '&quot;') + '">' + ua + '</td></tr>';
                         });
+                        html += '</tbody></table></div>';
                         subsDiv.innerHTML = html;
                     } else {
-                        subsDiv.innerHTML = '<p class="info">❌ Нет активных подписок</p>';
+                        subsDiv.innerHTML = '<p class="info">Нет активных подписок. Подписчики появятся здесь после того, как пользователи разрешат уведомления на сайте.</p>';
                     }
                 }
             } catch (err) {
                 console.error('Ошибка загрузки подписок:', err);
+                if (subsDiv) subsDiv.innerHTML = '<p class="error">Ошибка загрузки: ' + (err.message || 'нет связи с сервером') + '</p>';
+                if (countEl) countEl.textContent = 'Ошибка';
+            } finally {
+                if (btn) btn.disabled = false;
             }
         }
 
@@ -464,10 +534,11 @@
             const btn = document.getElementById('deleteBtn');
             if (btn) btn.disabled = true;
             showResult('🔄 Удаление всех подписок...');
-
             try {
                 const res = await fetch(API_URL, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ deleteAll: true })
                 });
                 const data = await res.json();
                 showResult({ status: res.status, statusText: res.statusText, data });

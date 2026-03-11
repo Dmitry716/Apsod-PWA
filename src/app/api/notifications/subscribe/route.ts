@@ -97,21 +97,35 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
-    const { endpoint } = await request.json();
-    
+    const body = await request.json().catch(() => ({}));
+    const { endpoint, deleteAll } = body;
+
     const subscriptions = loadSubscriptions();
-    const filteredSubscriptions = subscriptions.filter(s => s.endpoint !== endpoint);
-    
+
+    if (deleteAll === true || (endpoint == null && Object.keys(body).length === 0)) {
+      saveSubscriptions([]);
+      console.log('✅ Все подписки удалены');
+      return NextResponse.json({ success: true, total: 0, deletedAll: true });
+    }
+
+    if (!endpoint) {
+      return NextResponse.json(
+        { error: 'Укажите endpoint или deleteAll: true' },
+        { status: 400 }
+      );
+    }
+
+    const filteredSubscriptions = subscriptions.filter((s: PushSubscription) => s.endpoint !== endpoint);
+
     if (filteredSubscriptions.length !== subscriptions.length) {
       saveSubscriptions(filteredSubscriptions);
       console.log(`✅ Подписка удалена. Осталось: ${filteredSubscriptions.length}`);
     }
-    
-    return NextResponse.json({ 
+
+    return NextResponse.json({
       success: true,
-      total: filteredSubscriptions.length
+      total: filteredSubscriptions.length,
     });
-    
   } catch (error) {
     console.error('❌ Ошибка:', error);
     return NextResponse.json(
