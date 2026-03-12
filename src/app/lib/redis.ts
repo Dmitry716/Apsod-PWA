@@ -1,22 +1,27 @@
 // src/lib/redis.ts
 import { Redis } from '@upstash/redis';
 
-// Проверяем наличие переменных окружения
+// Проверяем наличие переменных окружения (Vercel KV / Upstash — возможны разные имена)
 const getRedisConfig = () => {
-  // Для локальной разработки (если нет переменных Vercel)
-  if (process.env.NODE_ENV === 'development' && !process.env.KV_REST_API_URL) {
-    console.log('⚠️ Используется файловое хранилище для разработки');
+  const url =
+    process.env.KV_REST_API_URL ||
+    process.env.KV_REST_API_REST_URL ||
+    process.env.UPSTASH_REDIS_REST_URL;
+  const token =
+    process.env.KV_REST_API_TOKEN ||
+    process.env.KV_REST_API_REST_TOKEN ||
+    process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('⚠️ Redis не настроен — используется файл subscriptions.json');
+    } else {
+      console.warn(
+        '⚠️ Redis не настроен на продакшене. Добавьте KV_REST_API_URL и KV_REST_API_TOKEN в Vercel.'
+      );
+    }
     return null;
   }
-
-  if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
-    throw new Error('❌ Переменные KV_REST_API_URL и KV_REST_API_TOKEN должны быть заданы');
-  }
-
-  return {
-    url: process.env.KV_REST_API_URL,
-    token: process.env.KV_REST_API_TOKEN,
-  };
+  return { url, token };
 };
 
 const config = getRedisConfig();
@@ -31,38 +36,40 @@ export const REDIS_KEYS = {
 
 // Вспомогательные функции для работы с подписками
 export async function saveSubscription(subscription: any): Promise<void> {
+  const toStore = {
+    ...subscription,
+    createdAt: subscription.createdAt || new Date().toISOString(),
+  };
+
   if (!redis) {
     // Для разработки используем файл
     const fs = require('fs');
     const path = require('path');
     const subscriptionsFile = path.join(process.cwd(), 'subscriptions.json');
-    
-    let subscriptions = [];
+
+    let subscriptions: any[] = [];
     try {
       if (fs.existsSync(subscriptionsFile)) {
         subscriptions = JSON.parse(fs.readFileSync(subscriptionsFile, 'utf-8'));
       }
     } catch (e) {}
-    
-    // Проверяем, есть ли уже такая подписка
+
     const exists = subscriptions.some((s: any) => s.endpoint === subscription.endpoint);
     if (!exists) {
-      subscriptions.push({
-        ...subscription,
-        createdAt: new Date().toISOString(),
-      });
+      subscriptions.push(toStore);
       fs.writeFileSync(subscriptionsFile, JSON.stringify(subscriptions, null, 2));
       console.log('✅ Подписка сохранена в файл');
     }
     return;
   }
 
-  // Используем Redis для продакшена
-  const exists = await redis.sismember(REDIS_KEYS.SUBSCRIPTIONS, JSON.stringify(subscription));
-  if (!exists) {
-    await redis.sadd(REDIS_KEYS.SUBSCRIPTIONS, JSON.stringify(subscription));
-    console.log('✅ Подписка сохранена в Redis');
+  // Redis: проверяем по endpoint, т.к. один и тот же пользователь может иметь разный userAgent
+  const existing = await getSubscriptions();
+  if (existing.some((s: any) => s.endpoint === subscription.endpoint)) {
+    return;
   }
+  await redis.sadd(REDIS_KEYS.SUBSCRIPTIONS, JSON.stringify(toStore));
+  console.log('✅ Подписка сохранена в Redis');
 }
 
 export async function getSubscriptions(): Promise<any[]> {
