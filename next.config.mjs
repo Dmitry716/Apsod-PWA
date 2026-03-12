@@ -3,10 +3,7 @@ import withPWA from 'next-pwa';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  
-  // Оптимизация шрифтов (убирает предупреждения preload)
-  optimizeFonts: true,
-  
+
   // Настройки изображений
   images: {
     remotePatterns: [
