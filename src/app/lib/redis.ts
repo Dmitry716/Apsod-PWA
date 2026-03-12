@@ -1,13 +1,23 @@
 // src/lib/redis.ts
 import { Redis } from '@upstash/redis';
 
-// Проверяем наличие переменных окружения (Vercel KV или Upstash Redis)
+// Проверяем наличие переменных окружения (Vercel KV / Upstash — возможны разные имена)
 const getRedisConfig = () => {
-  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  const url =
+    process.env.KV_REST_API_URL ||
+    process.env.KV_REST_API_REST_URL ||
+    process.env.UPSTASH_REDIS_REST_URL;
+  const token =
+    process.env.KV_REST_API_TOKEN ||
+    process.env.KV_REST_API_REST_TOKEN ||
+    process.env.UPSTASH_REDIS_REST_TOKEN;
   if (!url || !token) {
     if (process.env.NODE_ENV === 'development') {
       console.log('⚠️ Redis не настроен — используется файл subscriptions.json');
+    } else {
+      console.warn(
+        '⚠️ Redis не настроен на продакшене. Добавьте KV_REST_API_URL и KV_REST_API_TOKEN в Vercel.'
+      );
     }
     return null;
   }

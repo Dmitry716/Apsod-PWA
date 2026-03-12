@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import {
+  redis,
   getSubscriptions,
   saveSubscription,
   deleteSubscription,
@@ -8,6 +9,17 @@ import {
 
 export async function POST(request: Request) {
   console.log('📨 POST /api/notifications/subscribe');
+
+  if (process.env.NODE_ENV === 'production' && !redis) {
+    console.error('❌ На продакшене не настроен Redis. Подписки не сохраняются.');
+    return NextResponse.json(
+      {
+        error: 'Сервис подписок временно недоступен. Попробуйте позже.',
+        code: 'STORAGE_NOT_CONFIGURED',
+      },
+      { status: 503 }
+    );
+  }
 
   try {
     const subscription = await request.json();
