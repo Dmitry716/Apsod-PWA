@@ -54,27 +54,32 @@ self.addEventListener('push', (event) => {
   );
 });
 
-// Обработка клика по уведомлению
+// Обработка клика по уведомлению — открываем конкретную страницу (например, статью)
 self.addEventListener('notificationclick', (event) => {
   console.log('🔔 Клик по уведомлению:', event.action);
-  
+
   event.notification.close();
 
   if (event.action === 'close') {
     return;
   }
 
-  const urlToOpen = event.notification.data?.url || '/';
+  let urlToOpen = event.notification.data?.url || '/';
+  if (urlToOpen && !urlToOpen.startsWith('http')) {
+    urlToOpen = self.location.origin + (urlToOpen.startsWith('/') ? urlToOpen : '/' + urlToOpen);
+  }
 
   event.waitUntil(
     clients.matchAll({
       type: 'window',
       includeUncontrolled: true
     }).then((windowClients) => {
-      for (let client of windowClients) {
-        if (client.url.includes(self.origin) && 'focus' in client) {
-          return client.focus();
+      const sameOrigin = windowClients.find(function (c) { return c.url.startsWith(self.location.origin); });
+      if (sameOrigin && 'focus' in sameOrigin) {
+        if (sameOrigin.navigate) {
+          return sameOrigin.navigate(urlToOpen).then(function () { return sameOrigin.focus(); });
         }
+        return sameOrigin.focus();
       }
       return clients.openWindow(urlToOpen);
     })

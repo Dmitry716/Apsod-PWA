@@ -1,93 +1,49 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-
-interface PushSubscription {
-  endpoint: string;
-  keys: {
-    p256dh: string;
-    auth: string;
-  };
-  createdAt?: string;
-  userAgent?: string;
-}
-
-const SUBSCRIPTIONS_FILE = path.join(process.cwd(), 'subscriptions.json');
-
-// Загрузка подписок из файла
-function loadSubscriptions(): PushSubscription[] {
-  try {
-    if (fs.existsSync(SUBSCRIPTIONS_FILE)) {
-      const data = fs.readFileSync(SUBSCRIPTIONS_FILE, 'utf-8');
-      return JSON.parse(data);
-    }
-  } catch (error) {
-    console.error('❌ Ошибка загрузки подписок:', error);
-  }
-  return [];
-}
-
-// Сохранение подписок в файл
-function saveSubscriptions(subscriptions: PushSubscription[]) {
-  try {
-    fs.writeFileSync(SUBSCRIPTIONS_FILE, JSON.stringify(subscriptions, null, 2), 'utf-8');
-    console.log('✅ Подписки сохранены в файл');
-  } catch (error) {
-    console.error('❌ Ошибка сохранения подписок:', error);
-  }
-}
+import {
+  getSubscriptions,
+  saveSubscription,
+  deleteSubscription,
+  deleteAllSubscriptions,
+} from '@/app/lib/redis';
 
 export async function POST(request: Request) {
-  console.log('📨 Получен POST запрос на /api/notifications/subscribe');
-  
+  console.log('📨 POST /api/notifications/subscribe');
+
   try {
     const subscription = await request.json();
-    
-    console.log('📦 Данные подписки:', {
-      endpoint: subscription.endpoint ? subscription.endpoint.substring(0, 50) + '...' : 'отсутствует',
-      hasKeys: !!(subscription.keys?.p256dh && subscription.keys?.auth)
-    });
 
-    if (!subscription || !subscription.endpoint) {
+    if (!subscription?.endpoint) {
       return NextResponse.json(
         { error: 'Неверные данные подписки' },
         { status: 400 }
       );
     }
 
-    const subscriptions = loadSubscriptions();
-    
-    // Проверяем, существует ли уже такая подписка
-    const existingIndex = subscriptions.findIndex((s: PushSubscription) => s.endpoint === subscription.endpoint);
-    
-    if (existingIndex === -1) {
-      // Добавляем новую подписку
-      subscriptions.push({
+    const subscriptions = await getSubscriptions();
+    const exists = subscriptions.some((s: any) => s.endpoint === subscription.endpoint);
+
+    if (!exists) {
+      await saveSubscription({
         ...subscription,
-        createdAt: new Date().toISOString(),
-        userAgent: request.headers.get('user-agent') || 'unknown'
+        userAgent: request.headers.get('user-agent') || 'unknown',
       });
-      
-      saveSubscriptions(subscriptions);
-      console.log(`✅ Новая подписка добавлена. Всего подписок: ${subscriptions.length}`);
-      
-      return NextResponse.json({ 
+      const total = (await getSubscriptions()).length;
+      console.log('✅ Подписка добавлена. Всего:', total);
+      return NextResponse.json({
         success: true,
         message: 'Подписка успешно сохранена',
-        total: subscriptions.length
-      });
-    } else {
-      console.log('ℹ️ Подписка уже существует');
-      
-      return NextResponse.json({ 
-        success: true,
-        message: 'Подписка уже существует',
-        total: subscriptions.length
+        total,
       });
     }
 
+    const total = subscriptions.length;
+    return NextResponse.json({
+      success: true,
+      message: 'Подписка уже существует',
+      total,
+    });
   } catch (error) {
-    console.error('❌ Ошибка:', error);
+    console.error('❌ Ошибка подписки:', error);
     return NextResponse.json(
       { error: 'Ошибка сервера' },
       { status: 500 }
@@ -100,11 +56,8 @@ export async function DELETE(request: Request) {
     const body = await request.json().catch(() => ({}));
     const { endpoint, deleteAll } = body;
 
-    const subscriptions = loadSubscriptions();
-
     if (deleteAll === true || (endpoint == null && Object.keys(body).length === 0)) {
-      saveSubscriptions([]);
-      console.log('✅ Все подписки удалены');
+      await deleteAllSubscriptions();
       return NextResponse.json({ success: true, total: 0, deletedAll: true });
     }
 
@@ -115,19 +68,14 @@ export async function DELETE(request: Request) {
       );
     }
 
-    const filteredSubscriptions = subscriptions.filter((s: PushSubscription) => s.endpoint !== endpoint);
-
-    if (filteredSubscriptions.length !== subscriptions.length) {
-      saveSubscriptions(filteredSubscriptions);
-      console.log(`✅ Подписка удалена. Осталось: ${filteredSubscriptions.length}`);
-    }
-
+    await deleteSubscription(endpoint);
+    const subscriptions = await getSubscriptions();
     return NextResponse.json({
       success: true,
-      total: filteredSubscriptions.length,
+      total: subscriptions.length,
     });
   } catch (error) {
-    console.error('❌ Ошибка:', error);
+    console.error('❌ Ошибка удаления:', error);
     return NextResponse.json(
       { error: 'Ошибка удаления подписки' },
       { status: 500 }
@@ -137,20 +85,20 @@ export async function DELETE(request: Request) {
 
 export async function GET() {
   try {
-    const subscriptions = loadSubscriptions();
-    
-    const safeSubscriptions = subscriptions.map((s: PushSubscription) => ({
-      endpoint: s.endpoint.substring(0, 50) + '...',
+    const subscriptions = await getSubscriptions();
+
+    const safeSubscriptions = subscriptions.map((s: any) => ({
+      endpoint: s.endpoint ? s.endpoint.substring(0, 60) + (s.endpoint.length > 60 ? '...' : '') : '',
       createdAt: s.createdAt,
       userAgent: s.userAgent,
     }));
-    
-    return NextResponse.json({ 
+
+    return NextResponse.json({
       total: subscriptions.length,
-      subscriptions: safeSubscriptions
+      subscriptions: safeSubscriptions,
     });
   } catch (error) {
-    console.error('❌ Ошибка:', error);
+    console.error('❌ Ошибка получения подписок:', error);
     return NextResponse.json(
       { error: 'Ошибка получения подписок' },
       { status: 500 }

@@ -328,6 +328,7 @@
                         <div class="stats-row">
                             <span class="stats-badge" id="subsCount">—</span>
                             <button onclick="refreshSubscriptions()" class="btn-refresh" id="refreshSubsBtn">🔄 Обновить список</button>
+                            <label style="font-size: 13px; color: #6b7280;"><input type="checkbox" id="selectAllSubs" onchange="toggleSelectAllSubs()"> Выбрать всех</label>
                         </div>
                         <div id="subscriptions">Загрузка...</div>
                     </div>
@@ -367,7 +368,8 @@
                         <div class="button-group">
                             <button onclick="testSendNotification()" id="sendBtn" style="background: #10b981;">📨 Отправить простое</button>
                             <button onclick="testSendAdvanced()" id="sendAdvancedBtn" style="background: #8b5cf6;">🚀 Отправить расширенное</button>
-                            <button onclick="testSendToAll()" id="sendAllBtn" style="background: #f59e0b;">📢 Отправить всем</button>
+                            <button onclick="testSendToAll(false)" id="sendAllBtn" style="background: #f59e0b;">📢 Всем</button>
+                            <button onclick="testSendToAll(true)" id="sendSelectedBtn" style="background: #0d9488;">📤 Выбранным</button>
                         </div>
                     </div>
 
@@ -407,9 +409,10 @@
                                 <span class="badge">обязательно</span>
                             </div>
 
-                            <button onclick="sendPostNotification()" id="postBtn" style="background: #10b981; margin-top: 10px;">
-                                📨 Отправить уведомление о новой статье
-                            </button>
+                            <div class="button-group" style="margin-top: 10px;">
+                                <button onclick="sendPostNotification(false)" id="postBtn" style="background: #10b981;">📨 Всем подписчикам</button>
+                                <button onclick="sendPostNotification(true)" id="postSelectedBtn" style="background: #0d9488;">📤 Выбранным</button>
+                            </div>
                             <p class="info" style="margin-top: 10px; font-size: 12px;">
                                 ⚠️ Секретный ключ должен совпадать с NOTIFICATION_SECRET в .env.local
                             </p>
@@ -447,6 +450,20 @@
             }
         }
 
+        function getSelectedSubIndices() {
+            const boxes = document.querySelectorAll('.sub-checkbox:checked');
+            return Array.from(boxes).map(el => parseInt(el.getAttribute('data-index'), 10));
+        }
+
+        window.toggleSelectAllSubs = function() {
+            const header = document.getElementById('selectAllSubsHeader');
+            const top = document.getElementById('selectAllSubs');
+            const checked = (header && header.checked) || (top && top.checked);
+            document.querySelectorAll('.sub-checkbox').forEach(cb => { cb.checked = checked; });
+            if (header) header.checked = checked;
+            if (top) top.checked = checked;
+        };
+
         async function refreshSubscriptions() {
             const subsDiv = document.getElementById('subscriptions');
             const countEl = document.getElementById('subsCount');
@@ -459,14 +476,18 @@
                 if (countEl) countEl.textContent = 'Подписчиков: ' + (data.total || 0);
                 if (subsDiv) {
                     if (data.subscriptions && data.subscriptions.length > 0) {
-                        let html = '<div class="table-wrap"><table class="subscribers-table"><thead><tr><th>№</th><th>Endpoint</th><th>Дата подписки</th><th>User Agent</th></tr></thead><tbody>';
+                        let html = '<div class="table-wrap"><table class="subscribers-table"><thead><tr><th style="width:36px"><input type="checkbox" id="selectAllSubsHeader" onchange="toggleSelectAllSubs()" title="Выбрать всех"></th><th>№</th><th>Endpoint</th><th>Дата подписки</th><th>User Agent</th></tr></thead><tbody>';
                         data.subscriptions.forEach((sub, index) => {
                             const dateStr = sub.createdAt ? new Date(sub.createdAt).toLocaleString('ru-RU') : '—';
                             const ua = (sub.userAgent || '—').substring(0, 60) + (sub.userAgent && sub.userAgent.length > 60 ? '…' : '');
-                            html += '<tr><td>' + (index + 1) + '</td><td class="endpoint-cell">' + (sub.endpoint || '—') + '</td><td class="date-cell">' + dateStr + '</td><td title="' + (sub.userAgent || '').replace(/"/g, '&quot;') + '">' + ua + '</td></tr>';
+                            html += '<tr><td><input type="checkbox" class="sub-checkbox" data-index="' + index + '"></td><td>' + (index + 1) + '</td><td class="endpoint-cell">' + (sub.endpoint || '—') + '</td><td class="date-cell">' + dateStr + '</td><td title="' + (sub.userAgent || '').replace(/"/g, '&quot;') + '">' + ua + '</td></tr>';
                         });
                         html += '</tbody></table></div>';
                         subsDiv.innerHTML = html;
+                        var h = document.getElementById('selectAllSubsHeader');
+                        if (h) h.checked = false;
+                        var t = document.getElementById('selectAllSubs');
+                        if (t) t.checked = false;
                     } else {
                         subsDiv.innerHTML = '<p class="info">Нет активных подписок. Подписчики появятся здесь после того, как пользователи разрешат уведомления на сайте.</p>';
                     }
@@ -636,10 +657,10 @@
             }
         }
 
-        async function testSendToAll() {
-            const btn = document.getElementById('sendAllBtn');
+        async function testSendToAll(onlySelected) {
+            const btn = onlySelected ? document.getElementById('sendSelectedBtn') : document.getElementById('sendAllBtn');
             if (btn) btn.disabled = true;
-            
+
             const title = document.getElementById('notifyTitle')?.value || 'Новое уведомление';
             const body = document.getElementById('notifyBody')?.value || 'Тестовое уведомление';
             const url = document.getElementById('notifyUrl')?.value || '/';
@@ -650,22 +671,33 @@
                 return;
             }
 
-            showResult('🔄 Отправка уведомления всем подписчикам...');
+            const indices = onlySelected ? getSelectedSubIndices() : null;
+            if (onlySelected && (!indices || indices.length === 0)) {
+                showResult({ error: 'Выберите хотя бы одного подписчика' }, true);
+                if (btn) btn.disabled = false;
+                return;
+            }
+
+            showResult(onlySelected ? '🔄 Отправка выбранным...' : '🔄 Отправка всем подписчикам...');
 
             try {
+                const payload = {
+                    title: title + (onlySelected ? ' (выбранным)' : ' (всем)'),
+                    body,
+                    url,
+                    icon: '/icons/icon-192x192.png'
+                };
+                if (indices && indices.length) payload.indices = indices;
+
                 const res = await fetch(SEND_API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        title: title + ' (всем)',
-                        body,
-                        url,
-                        icon: '/icons/icon-192x192.png'
-                    })
+                    body: JSON.stringify(payload)
                 });
 
                 const data = await res.json();
                 showResult({ status: res.status, statusText: res.statusText, data });
+                if (res.ok) await refreshSubscriptions();
             } catch (err) {
                 showResult({ error: err.message }, true);
             } finally {
@@ -673,7 +705,7 @@
             }
         }
 
-        async function sendPostNotification() {
+        async function sendPostNotification(onlySelected) {
             const slug = document.getElementById('postSlug')?.value;
             const secret = document.getElementById('secretKey')?.value;
 
@@ -687,22 +719,32 @@
                 return;
             }
 
-            const btn = document.getElementById('postBtn');
+            const indices = onlySelected ? getSelectedSubIndices() : null;
+            if (onlySelected && (!indices || indices.length === 0)) {
+                showResult({ error: 'Выберите хотя бы одного подписчика' }, true);
+                return;
+            }
+
+            const btn = onlySelected ? document.getElementById('postSelectedBtn') : document.getElementById('postBtn');
             if (btn) btn.disabled = true;
-            showResult('🔄 Отправка уведомления о новой статье...');
+            showResult(onlySelected ? '🔄 Отправка выбранным...' : '🔄 Отправка уведомления о новой статье всем...');
 
             try {
+                const body = { slug };
+                if (indices && indices.length) body.indices = indices;
+
                 const res = await fetch(POST_API_URL, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${secret}`
                     },
-                    body: JSON.stringify({ slug })
+                    body: JSON.stringify(body)
                 });
 
                 const data = await res.json();
                 showResult({ status: res.status, statusText: res.statusText, data });
+                if (res.ok) await refreshSubscriptions();
             } catch (err) {
                 showResult({ error: err.message }, true);
             } finally {
