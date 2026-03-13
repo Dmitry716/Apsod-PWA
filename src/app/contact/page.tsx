@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IMaskInput } from 'react-imask';
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
@@ -8,6 +8,14 @@ import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recapt
 function PushNotificationSubscribe() {
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<string | null>(null);
+  const [serviceAvailable, setServiceAvailable] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    fetch('/api/notifications/status')
+      .then((r) => r.json())
+      .then((data) => setServiceAvailable(data?.ok === true))
+      .catch(() => setServiceAvailable(false));
+  }, []);
 
   const handleSubscribe = async () => {
     setIsSubscribing(true);
@@ -83,11 +91,17 @@ function PushNotificationSubscribe() {
           </p>
           <button
             onClick={handleSubscribe}
-            disabled={isSubscribing}
+            disabled={isSubscribing || serviceAvailable === false}
             className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-all disabled:opacity-50"
           >
             {isSubscribing ? 'Подписка...' : '🔔 Подписаться'}
           </button>
+          {serviceAvailable === false && (
+            <p className="mt-2 text-sm text-red-600 flex items-center gap-1">
+              <span aria-hidden>✕</span>
+              Сервис подписок временно недоступен. Попробуйте позже.
+            </p>
+          )}
           {subscriptionStatus && (
             <p className={`mt-2 text-sm ${subscriptionStatus.includes('✅') ? 'text-green-600' : 'text-red-600'}`}>
               {subscriptionStatus}

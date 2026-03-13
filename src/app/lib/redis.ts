@@ -11,13 +11,14 @@ function getRedisConfig(): { type: 'upstash'; url: string; token: string } | { t
     process.env.KV_REST_API_REDIS_URL ||
     process.env.KV_REST_API_REST_URL ||
     process.env.STORAGE_URL ||
-    process.env.UPSTASH_REDIS_REST_URL;
+    process.env.UPSTASH_REDIS_REST_URL ||
+    process.env.REDIS_URL;
 
   if (!url) {
     if (process.env.NODE_ENV === 'development') {
       console.log('⚠️ Redis не настроен — используется файл subscriptions.json');
     } else {
-      console.warn('⚠️ Redis не настроен на продакшене. Добавьте KV_REST_API_REDIS_URL в Vercel.');
+      console.warn('⚠️ Redis не настроен на продакшене. Добавьте KV_REST_API_REDIS_URL или REDIS_URL в Vercel (Environment: Production).');
     }
     return null;
   }
@@ -32,7 +33,8 @@ function getRedisConfig(): { type: 'upstash'; url: string; token: string } | { t
     process.env.KV_REST_API_REDIS_TOKEN ||
     process.env.KV_REST_API_REST_TOKEN ||
     process.env.STORAGE_TOKEN ||
-    process.env.UPSTASH_REDIS_REST_TOKEN;
+    process.env.UPSTASH_REDIS_REST_TOKEN ||
+    process.env.REDIS_TOKEN;
 
   if (!token) {
     if (process.env.NODE_ENV === 'development') {

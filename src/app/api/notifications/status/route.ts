@@ -31,7 +31,7 @@ export async function GET() {
       subscriptionsCount,
       redisConnected: hasRedis() && !error,
       envHint: !hasRedis()
-        ? 'В Vercel задайте KV_REST_API_REDIS_URL (строка redis://... или Upstash URL + токен).'
+        ? 'В Vercel задайте KV_REST_API_REDIS_URL или REDIS_URL (redis://... или Upstash URL + токен). Для Production выберите Environment: Production.'
         : null,
       error: error || undefined,
     });
