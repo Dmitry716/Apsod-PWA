@@ -48,13 +48,10 @@ function getRedisConfig(): { type: 'upstash'; url: string; token: string } | { t
   return { type: 'upstash', url, token };
 }
 
-const config = getRedisConfig();
+// Клиенты кэшируем в процессе; конфиг читаем при каждом вызове (на Vercel env доступны в runtime).
+let upstashRedis: Redis | null = null;
+let nodeRedisClient: NodeRedisClientLike | null = null;
 
-// Upstash REST API (https://...)
-const upstashRedis =
-  config?.type === 'upstash' ? new Redis({ url: config.url, token: config.token }) : null;
-
-// Обычный Redis (redis://) — клиент создаём лениво и кэшируем
 interface NodeRedisClientLike {
   sAdd(key: string, value: string): Promise<number>;
   sMembers(key: string): Promise<string[]>;
@@ -62,9 +59,19 @@ interface NodeRedisClientLike {
   del(key: string): Promise<number>;
   isOpen: boolean;
 }
-let nodeRedisClient: NodeRedisClientLike | null = null;
+
+// Upstash REST API (https://...) — создаём при первом обращении в этом процессе
+function getUpstashRedis(): Redis | null {
+  const config = getRedisConfig();
+  if (config?.type !== 'upstash') return null;
+  if (!upstashRedis) {
+    upstashRedis = new Redis({ url: config.url, token: config.token });
+  }
+  return upstashRedis;
+}
 
 async function getNodeRedisClient(): Promise<NodeRedisClientLike | null> {
+  const config = getRedisConfig();
   if (config?.type !== 'node') return null;
   if (nodeRedisClient?.isOpen) return nodeRedisClient;
   try {
@@ -79,8 +86,7 @@ async function getNodeRedisClient(): Promise<NodeRedisClientLike | null> {
   }
 }
 
-// Единый «клиент»: либо Upstash, либо node-redis (по redis://)
-export const redis = upstashRedis;
+export const redis = null as unknown as Redis | null; // для обратной совместимости; используйте getUpstashRedis()
 
 export const REDIS_KEYS = {
   SUBSCRIPTIONS: REDIS_KEY_SUBSCRIPTIONS,
@@ -89,8 +95,9 @@ export const REDIS_KEYS = {
 };
 
 async function redisSAdd(key: string, value: string): Promise<void> {
-  if (upstashRedis) {
-    await upstashRedis.sadd(key, value);
+  const upstash = getUpstashRedis();
+  if (upstash) {
+    await upstash.sadd(key, value);
     return;
   }
   const client = await getNodeRedisClient();
@@ -98,8 +105,9 @@ async function redisSAdd(key: string, value: string): Promise<void> {
 }
 
 async function redisSMembers(key: string): Promise<string[]> {
-  if (upstashRedis) {
-    return (await upstashRedis.smembers(key)) as string[];
+  const upstash = getUpstashRedis();
+  if (upstash) {
+    return (await upstash.smembers(key)) as string[];
   }
   const client = await getNodeRedisClient();
   if (!client) return [];
@@ -107,8 +115,9 @@ async function redisSMembers(key: string): Promise<string[]> {
 }
 
 async function redisSRem(key: string, value: string): Promise<void> {
-  if (upstashRedis) {
-    await upstashRedis.srem(key, value);
+  const upstash = getUpstashRedis();
+  if (upstash) {
+    await upstash.srem(key, value);
     return;
   }
   const client = await getNodeRedisClient();
@@ -116,8 +125,9 @@ async function redisSRem(key: string, value: string): Promise<void> {
 }
 
 async function redisDel(key: string): Promise<void> {
-  if (upstashRedis) {
-    await upstashRedis.del(key);
+  const upstash = getUpstashRedis();
+  if (upstash) {
+    await upstash.del(key);
     return;
   }
   const client = await getNodeRedisClient();
@@ -125,7 +135,7 @@ async function redisDel(key: string): Promise<void> {
 }
 
 export function hasRedis(): boolean {
-  return !!config;
+  return !!getRedisConfig();
 }
 
 export async function saveSubscription(subscription: any): Promise<void> {
