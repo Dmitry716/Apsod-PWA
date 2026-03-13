@@ -1,6 +1,6 @@
 // src/app/lib/redis.ts
 import { Redis } from '@upstash/redis';
-import { createClient, type RedisClientType } from 'redis';
+import { createClient } from 'redis';
 
 const REDIS_KEY_SUBSCRIPTIONS = 'subscriptions';
 
@@ -53,17 +53,24 @@ const upstashRedis =
   config?.type === 'upstash' ? new Redis({ url: config.url, token: config.token }) : null;
 
 // Обычный Redis (redis://) — клиент создаём лениво и кэшируем
-let nodeRedisClient: RedisClientType | null = null;
+interface NodeRedisClientLike {
+  sAdd(key: string, value: string): Promise<number>;
+  sMembers(key: string): Promise<string[]>;
+  sRem(key: string, value: string): Promise<number>;
+  del(key: string): Promise<number>;
+  isOpen: boolean;
+}
+let nodeRedisClient: NodeRedisClientLike | null = null;
 
-async function getNodeRedisClient(): Promise<RedisClientType | null> {
+async function getNodeRedisClient(): Promise<NodeRedisClientLike | null> {
   if (config?.type !== 'node') return null;
   if (nodeRedisClient?.isOpen) return nodeRedisClient;
   try {
     const client = createClient({ url: config.url });
     client.on('error', (err) => console.error('Redis client error:', err));
     await client.connect();
-    nodeRedisClient = client;
-    return client;
+    nodeRedisClient = client as unknown as NodeRedisClientLike;
+    return nodeRedisClient;
   } catch (e) {
     console.error('Redis connect error:', e);
     return null;
