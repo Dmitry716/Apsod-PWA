@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import {
-  redis,
+  hasRedis,
   getSubscriptions,
   saveSubscription,
   deleteSubscription,
@@ -10,7 +10,7 @@ import {
 export async function POST(request: Request) {
   console.log('📨 POST /api/notifications/subscribe');
 
-  if (process.env.NODE_ENV === 'production' && !redis) {
+  if (process.env.NODE_ENV === 'production' && !hasRedis()) {
     console.error('❌ На продакшене не настроен Redis. Подписки не сохраняются.');
     return NextResponse.json(
       {
