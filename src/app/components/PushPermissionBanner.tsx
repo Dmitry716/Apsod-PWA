@@ -27,15 +27,19 @@ export default function PushPermissionBanner() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    if (!getLocationModalDismissed()) {
-      setActiveModal("location");
-      return;
-    }
-    if (shouldShowPush()) {
-      setActiveModal("push");
-    } else {
-      setActiveModal(null);
-    }
+    // Откладываем на следующий тик, чтобы в React Strict Mode не показывать модалку дважды
+    const t = setTimeout(() => {
+      if (!getLocationModalDismissed()) {
+        setActiveModal("location");
+        return;
+      }
+      if (shouldShowPush()) {
+        setActiveModal("push");
+      } else {
+        setActiveModal(null);
+      }
+    }, 0);
+    return () => clearTimeout(t);
   }, [isSupported, permission]);
 
   const handleLocationChoice = (_choice?: LocationChoice) => {
@@ -47,8 +51,18 @@ export default function PushPermissionBanner() {
   };
 
   const handlePushAllow = async () => {
-    const result = await subscribe();
-    if (result) {
+    try {
+      const result = await subscribe();
+      if (result) {
+        // Успешная подписка — закрываем и больше не показываем
+        localStorage.setItem(PUSH_STORAGE_KEY, "true");
+        setActiveModal(null);
+      } else {
+        // Ошибка (например 503) — всё равно закрываем модалку, чтобы не зависала
+        localStorage.setItem(PUSH_STORAGE_KEY, "true");
+        setActiveModal(null);
+      }
+    } catch {
       localStorage.setItem(PUSH_STORAGE_KEY, "true");
       setActiveModal(null);
     }
