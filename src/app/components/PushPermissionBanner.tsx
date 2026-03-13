@@ -10,6 +10,19 @@ import LocationPermissionModal, {
 
 const PUSH_STORAGE_KEY = "pushBannerDismissed";
 
+// Push в браузере на iPhone недоступен; в установленной PWA (standalone) — поддерживается с iOS 16.4+
+function isPushUnsupported(): boolean {
+  if (typeof navigator === "undefined") return false;
+  const ua = navigator.userAgent || "";
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (!isIOS) return false;
+  const isStandalone =
+    typeof window !== "undefined" &&
+    (window.matchMedia("(display-mode: standalone)").matches ||
+      (navigator as Navigator & { standalone?: boolean }).standalone === true);
+  return !isStandalone;
+}
+
 type ActiveModal = "location" | "push" | null;
 
 export default function PushPermissionBanner() {
@@ -21,6 +34,7 @@ export default function PushPermissionBanner() {
 
   const shouldShowPush = () =>
     pushNotDismissed() &&
+    !isPushUnsupported() &&
     isSupported &&
     permission === "default";
 
@@ -43,7 +57,7 @@ export default function PushPermissionBanner() {
   }, [isSupported, permission]);
 
   const handleLocationChoice = (_choice?: LocationChoice) => {
-    if (pushNotDismissed()) {
+    if (pushNotDismissed() && !isPushUnsupported()) {
       setActiveModal("push");
     } else {
       setActiveModal(null);
