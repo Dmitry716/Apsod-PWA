@@ -25,13 +25,10 @@ export default function AdminLoginPage() {
       if (res.ok) {
         if (typeof navigator !== 'undefined' && 'credentials' in navigator && 'store' in navigator.credentials) {
           try {
-            await navigator.credentials.store(
-              new PasswordCredential({
-                id: login.trim(),
-                password,
-                name: 'Админ-панель APSOD',
-              })
-            );
+            const w = globalThis as unknown as { PasswordCredential?: new (data: { id: string; password: string; name?: string }) => Credential };
+            if (typeof w.PasswordCredential === 'function') {
+              await navigator.credentials.store(new w.PasswordCredential({ id: login.trim(), password, name: 'Админ-панель APSOD' }));
+            }
           } catch {
             // Браузер отклонил сохранение или API недоступен
           }
