@@ -1,20 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IMaskInput } from 'react-imask';
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+
+// Push в браузере на iPhone недоступен; в установленной PWA (standalone) — поддерживается с iOS 16.4+
+function isPushUnsupported(): boolean {
+  if (typeof navigator === 'undefined') return false;
+  const hasPushAPI = 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+  if (!hasPushAPI) return true;
+  const ua = navigator.userAgent || '';
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (!isIOS) return false;
+  const isStandalone =
+    typeof window !== 'undefined' &&
+    (window.matchMedia('(display-mode: standalone)').matches ||
+      (navigator as Navigator & { standalone?: boolean }).standalone === true);
+  return !isStandalone;
+}
 
 // Компонент для подписки на уведомления
 function PushNotificationSubscribe() {
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<string | null>(null);
+  const [serviceAvailable, setServiceAvailable] = useState<boolean | null>(null);
+  const [pushUnsupported, setPushUnsupported] = useState(false);
+
+  useEffect(() => {
+    setPushUnsupported(isPushUnsupported());
+  }, []);
+
+  useEffect(() => {
+    fetch('/api/notifications/status')
+      .then((r) => r.json())
+      .then((data) => setServiceAvailable(data?.ok === true))
+      .catch(() => setServiceAvailable(false));
+  }, []);
 
   const handleSubscribe = async () => {
     setIsSubscribing(true);
     setSubscriptionStatus(null);
 
     try {
-      if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+      if (isPushUnsupported() || !('serviceWorker' in navigator) || !('PushManager' in window)) {
         throw new Error('Ваш браузер не поддерживает push-уведомления');
       }
 
@@ -81,13 +109,27 @@ function PushNotificationSubscribe() {
           <p className="text-gray-600 dark:text-gray-300 mb-3">
             Подпишитесь на уведомления о статусе заявок и новых статьях
           </p>
-          <button
-            onClick={handleSubscribe}
-            disabled={isSubscribing}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-all disabled:opacity-50"
-          >
-            {isSubscribing ? 'Подписка...' : '🔔 Подписаться'}
-          </button>
+          {pushUnsupported ? (
+            <p className="text-sm text-amber-700 dark:text-amber-400 bg-amber-50 dark:bg-amber-900/20 rounded-lg px-4 py-3 border border-amber-200 dark:border-amber-800">
+              В браузере на iPhone push-уведомления недоступны. Добавьте сайт на экран («На экран «Домой»») и откройте приложение — тогда подписка будет доступна (iOS 16.4+). Или подпишитесь с компьютера или Android.
+            </p>
+          ) : (
+            <>
+              <button
+                onClick={handleSubscribe}
+                disabled={isSubscribing || serviceAvailable === false}
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-all disabled:opacity-50"
+              >
+                {isSubscribing ? 'Подписка...' : '🔔 Подписаться'}
+              </button>
+              {serviceAvailable === false && (
+                <p className="mt-2 text-sm text-red-600 flex items-center gap-1">
+                  <span aria-hidden>✕</span>
+                  Сервис подписок временно недоступен. Попробуйте позже.
+                </p>
+              )}
+            </>
+          )}
           {subscriptionStatus && (
             <p className={`mt-2 text-sm ${subscriptionStatus.includes('✅') ? 'text-green-600' : 'text-red-600'}`}>
               {subscriptionStatus}

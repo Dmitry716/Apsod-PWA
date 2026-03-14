@@ -12,9 +12,23 @@ export default function PushNotificationSubscribe({ compact = false }: PushNotif
   const [permission, setPermission] = useState<NotificationPermission>('default');
   const [isSupported, setIsSupported] = useState(true);
 
+  const isPushUnsupported = (): boolean => {
+    if (typeof navigator === 'undefined') return false;
+    const hasAPI = 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window;
+    if (!hasAPI) return true;
+    const ua = navigator.userAgent || '';
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (!isIOS) return false;
+    const isStandalone =
+      typeof window !== 'undefined' &&
+      (window.matchMedia('(display-mode: standalone)').matches ||
+        (navigator as Navigator & { standalone?: boolean }).standalone === true);
+    return !isStandalone;
+  };
+
   useEffect(() => {
-    // Проверяем поддержку браузера
-    if (!('serviceWorker' in navigator) || !('PushManager' in window) || !('Notification' in window)) {
+    // Проверяем поддержку браузера (в т.ч. iOS — push там недоступен)
+    if (isPushUnsupported()) {
       setIsSupported(false);
       return;
     }
@@ -165,8 +179,18 @@ export default function PushNotificationSubscribe({ compact = false }: PushNotif
 
   if (!isSupported) {
     return (
-      <div className="text-sm text-gray-400">
-        Ваш браузер не поддерживает push-уведомления
+      <div className="bg-linear-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-xl p-6 border border-yellow-200 dark:border-yellow-800">
+        <div className="flex items-start gap-4">
+          <div className="text-4xl">🔔</div>
+          <div className="flex-1">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+              Получайте уведомления
+            </h3>
+            <p className="text-sm text-amber-700 dark:text-amber-400">
+              В браузере на iPhone push недоступны. Добавьте сайт на экран («На экран «Домой»») и откройте как приложение — подписка будет доступна (iOS 16.4+). Или подпишитесь с компьютера или Android.
+            </p>
+          </div>
+        </div>
       </div>
     );
   }
