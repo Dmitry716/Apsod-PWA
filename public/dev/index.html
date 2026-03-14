@@ -238,9 +238,10 @@
     </div>
 
     <script>
-        // ========== ЗАЩИТА ПАРОЛЕМ ==========
-        // Установите свой пароль здесь
-        const DEV_PASSWORD = 'apsod2026'; // ← ИЗМЕНИТЕ НА СВОЙ ПАРОЛЬ!
+        // Админ-панель перенесена на /dashboard
+        window.location.replace('/admin');
+        // Ниже — старый код (не выполнится из-за редиректа)
+        const DEV_PASSWORD = 'apsod2026';
         
         // Проверка наличия доступа
         function checkAccess() {
