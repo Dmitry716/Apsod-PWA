@@ -29,6 +29,13 @@ function verifySessionCookie(cookieValue: string, secret: string): boolean {
   }
 }
 
+export async function GET() {
+  return NextResponse.json(
+    { message: 'Используйте POST с полями login и password. Страница входа: /admin' },
+    { status: 200, headers: { Allow: 'POST' } }
+  );
+}
+
 export async function POST(request: Request) {
   const rawLogin = process.env.DASHBOARD_LOGIN ?? '';
   const rawPassword = process.env.DASHBOARD_PASSWORD ?? '';
