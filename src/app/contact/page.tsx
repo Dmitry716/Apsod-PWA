@@ -597,9 +597,8 @@ function ContactForm() {
 // ОСНОВНОЙ ЭКСПОРТ - ТОЛЬКО ОДИН!
 export default function ContactPage() {
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-  
-  if (!siteKey) {
-    console.warn('⚠️ reCAPTCHA site key is missing. Add NEXT_PUBLIC_RECAPTCHA_SITE_KEY to .env.local');
+  if (!siteKey && process.env.NODE_ENV === 'development') {
+    console.warn('⚠️ reCAPTCHA: задайте NEXT_PUBLIC_RECAPTCHA_SITE_KEY в .env.local для проверки на форме контактов.');
   }
 
   return (

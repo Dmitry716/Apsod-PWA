@@ -15,23 +15,26 @@ export default function AdminLoginPage() {
     setError('');
     setLoading(true);
     try {
-      const res = await fetch('/api/dashboard/login', {
+      const apiUrl = typeof window !== 'undefined' ? `${window.location.origin}/api/dashboard/login` : '/api/dashboard/login';
+      const res = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ login: login.trim(), password }),
         credentials: 'same-origin',
       });
+      if (res.status === 404) {
+        setError('API входа не найден (404). Убедитесь, что задеплоена последняя версия с маршрутами /api/dashboard/* и переразверните проект на Vercel.');
+        setLoading(false);
+        return;
+      }
       const data = await res.json().catch(() => ({}));
       if (res.ok) {
         if (typeof navigator !== 'undefined' && 'credentials' in navigator && 'store' in navigator.credentials) {
           try {
-            await navigator.credentials.store(
-              new PasswordCredential({
-                id: login.trim(),
-                password,
-                name: 'Админ-панель APSOD',
-              })
-            );
+            const w = globalThis as unknown as { PasswordCredential?: new (data: { id: string; password: string; name?: string }) => Credential };
+            if (typeof w.PasswordCredential === 'function') {
+              await navigator.credentials.store(new w.PasswordCredential({ id: login.trim(), password, name: 'Админ-панель APSOD' }));
+            }
           } catch {
             // Браузер отклонил сохранение или API недоступен
           }
@@ -42,11 +45,11 @@ export default function AdminLoginPage() {
       const message =
         data?.error ||
         (res.status === 503
-          ? 'Задайте DASHBOARD_LOGIN и DASHBOARD_PASSWORD в .env.local и перезапустите dev-сервер.'
+          ? 'Задайте DASHBOARD_LOGIN и DASHBOARD_PASSWORD в .env (локально — .env.local) и перезапустите сервер или переразверните на Vercel.'
           : 'Неверный логин или пароль.');
       setError(message);
-    } catch {
-      setError('Ошибка соединения. Запущен ли сервер (npm run dev)?');
+    } catch (err) {
+      setError('Ошибка соединения. На продакшене проверьте, что проект задеплоен с маршрутами /api/dashboard/login. Локально запустите npm run dev.');
     } finally {
       setLoading(false);
     }
