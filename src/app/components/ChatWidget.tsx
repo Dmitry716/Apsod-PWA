@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { EMOJI_LIBRARY, EMOJI_CATEGORIES } from '@/app/data/emoji-library';
 import { GIF_LIBRARY } from '@/app/data/gif-library';
 
@@ -387,40 +388,57 @@ export default function ChatWidget() {
         </svg>
       </button>
 
-      {open && (
-        <div
-          className="fixed z-50 flex flex-col bg-[#1a1d21] border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden overscroll-contain touch-manipulation w-full max-w-[100vw]"
-          style={
-            isNarrow
-              ? {
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  width: '100%',
-                  height: '100svh',
-                  maxWidth: '100vw',
-                  paddingTop: 'env(safe-area-inset-top, 0px)',
-                  paddingLeft: 'env(safe-area-inset-left, 0px)',
-                  paddingRight: 'env(safe-area-inset-right, 0px)',
-                  paddingBottom: 'env(safe-area-inset-bottom, 0px)',
-                  boxSizing: 'border-box',
-                }
-              : {
-                  top: 'max(0.5rem, env(safe-area-inset-top, 0.5rem))',
-                  left: 'max(0.5rem, env(safe-area-inset-left, 0.5rem))',
-                  right: 'max(0.5rem, env(safe-area-inset-right, 0.5rem))',
-                  bottom: 'max(0.5rem, env(safe-area-inset-bottom, 0.5rem))',
-                  width: 'calc(100vw - max(1rem, env(safe-area-inset-left)) - max(1rem, env(safe-area-inset-right)))',
-                  maxWidth: '420px',
-                  height: 'calc(100dvh - max(1rem, env(safe-area-inset-top)) - max(1rem, env(safe-area-inset-bottom)))',
-                  maxHeight: 'min(1000px, calc(100dvh - 1rem))',
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
-                  paddingTop: 'max(0.75rem, env(safe-area-inset-top, 0.75rem))',
-                }
-          }
-        >
+      {open &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 2147483647,
+              overflow: 'hidden',
+              transform: 'translateZ(0)',
+              WebkitTransform: 'translateZ(0)',
+              isolation: 'isolate',
+            }}
+          >
+            <div
+              className="fixed z-50 flex flex-col bg-[#1a1d21] border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden overscroll-contain touch-manipulation w-full max-w-[100vw]"
+              style={
+                isNarrow
+                  ? {
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      width: '100%',
+                      height: '100svh',
+                      maxWidth: '100vw',
+                      paddingTop: 'env(safe-area-inset-top, 0px)',
+                      paddingLeft: 'env(safe-area-inset-left, 0px)',
+                      paddingRight: 'env(safe-area-inset-right, 0px)',
+                      paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+                      boxSizing: 'border-box',
+                      transform: 'translateZ(0)',
+                    }
+                  : {
+                      top: 'max(0.5rem, env(safe-area-inset-top, 0.5rem))',
+                      left: 'max(0.5rem, env(safe-area-inset-left, 0.5rem))',
+                      right: 'max(0.5rem, env(safe-area-inset-right, 0.5rem))',
+                      bottom: 'max(0.5rem, env(safe-area-inset-bottom, 0.5rem))',
+                      width: 'calc(100vw - max(1rem, env(safe-area-inset-left)) - max(1rem, env(safe-area-inset-right)))',
+                      maxWidth: '420px',
+                      height: 'calc(100dvh - max(1rem, env(safe-area-inset-top)) - max(1rem, env(safe-area-inset-bottom)))',
+                      maxHeight: 'min(1000px, calc(100dvh - 1rem))',
+                      marginLeft: 'auto',
+                      marginRight: 'auto',
+                      paddingTop: 'max(0.75rem, env(safe-area-inset-top, 0.75rem))',
+                    }
+              }
+            >
           {/* Header: аватар (фото или буква), имя, статус, закрыть — не сжимается, имя не обрезается */}
           <div className="flex items-center gap-3 px-4 py-3 pb-3 bg-[#1a1d21] border-b border-gray-700/50 flex-shrink-0 min-h-[3.5rem]">
             <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center flex-shrink-0 overflow-hidden">
@@ -532,13 +550,14 @@ export default function ChatWidget() {
                 }}
                 placeholder="Сообщение..."
                 rows={1}
-                className="flex-1 min-w-0 w-0 py-2 bg-transparent text-sm focus:outline-none resize-none leading-6 placeholder:text-gray-400 overflow-y-auto overflow-x-hidden break-words max-h-[4.5rem] sm:max-h-[160px]"
+                className="flex-1 min-w-0 w-0 py-2 bg-transparent focus:outline-none resize-none leading-6 placeholder:text-gray-400 overflow-y-auto overflow-x-hidden break-words max-h-[4.5rem] sm:max-h-[160px]"
                 style={{
                   minHeight: '2.25rem',
                   color: '#ffffff',
                   WebkitTextFillColor: '#ffffff',
                   wordBreak: 'break-word',
                   overflowWrap: 'break-word',
+                  fontSize: isNarrow ? 16 : 14,
                 }}
               />
               <button
@@ -691,6 +710,9 @@ export default function ChatWidget() {
             )}
           </div>
         </div>
+          </div>
+        ,
+        document.body
       )}
     </>
   );
