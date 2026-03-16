@@ -57,6 +57,12 @@ interface NodeRedisClientLike {
   sMembers(key: string): Promise<string[]>;
   sRem(key: string, value: string): Promise<number>;
   del(key: string): Promise<number>;
+  get(key: string): Promise<string | null>;
+  set(key: string, value: string): Promise<unknown>;
+  rPush(key: string, value: string): Promise<number>;
+  lRange(key: string, start: number, stop: number): Promise<string[]>;
+  lRem(key: string, count: number | string, value: string): Promise<number>;
+  lPush(key: string, value: string): Promise<number>;
   isOpen: boolean;
 }
 
@@ -133,6 +139,68 @@ async function redisDel(key: string): Promise<void> {
   const client = await getNodeRedisClient();
   if (client) await client.del(key);
 }
+
+async function redisRPush(key: string, value: string): Promise<number> {
+  const upstash = getUpstashRedis();
+  if (upstash) return (await upstash.rpush(key, value)) as number;
+  const client = await getNodeRedisClient();
+  if (!client) return 0;
+  return await (client as NodeRedisClientLike & { rPush(key: string, value: string): Promise<number> }).rPush(key, value);
+}
+
+async function redisLRange(key: string, start: number, stop: number): Promise<string[]> {
+  const upstash = getUpstashRedis();
+  if (upstash) return (await upstash.lrange(key, start, stop)) as string[];
+  const client = await getNodeRedisClient();
+  if (!client) return [];
+  return await (client as NodeRedisClientLike & { lRange(key: string, start: number, stop: number): Promise<string[]> }).lRange(key, start, stop);
+}
+
+async function redisLRem(key: string, count: number, value: string): Promise<number> {
+  const upstash = getUpstashRedis();
+  if (upstash) return (await upstash.lrem(key, count, value)) as number;
+  const client = await getNodeRedisClient();
+  if (!client) return 0;
+  // node-redis v5: LREM key count value; command args must be string | Buffer (count as string)
+  const c = client as Record<string, (k: string, cnt: string, v: string) => Promise<number>>;
+  const fn = c.lRem ?? c.lrem;
+  return typeof fn === 'function' ? await fn.call(client, key, String(count), value) : 0;
+}
+
+async function redisLPush(key: string, value: string): Promise<number> {
+  const upstash = getUpstashRedis();
+  if (upstash) return (await upstash.lpush(key, value)) as number;
+  const client = await getNodeRedisClient();
+  if (!client) return 0;
+  return await (client as NodeRedisClientLike & { lPush(key: string, value: string): Promise<number> }).lPush(key, value);
+}
+
+async function redisGet(key: string): Promise<string | null> {
+  const upstash = getUpstashRedis();
+  if (upstash) return await upstash.get(key) as string | null;
+  const client = await getNodeRedisClient();
+  if (!client) return null;
+  return await client.get(key);
+}
+
+async function redisSet(key: string, value: string): Promise<void> {
+  const upstash = getUpstashRedis();
+  if (upstash) {
+    await upstash.set(key, value);
+    return;
+  }
+  const client = await getNodeRedisClient();
+  if (client) await client.set(key, value);
+}
+
+export const redisChat = {
+  rpush: redisRPush,
+  lrange: redisLRange,
+  lrem: redisLRem,
+  lpush: redisLPush,
+  get: redisGet,
+  set: redisSet,
+};
 
 export function hasRedis(): boolean {
   return !!getRedisConfig();

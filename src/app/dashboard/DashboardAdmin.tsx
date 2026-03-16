@@ -1,7 +1,9 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import Link from 'next/link';
+import { EMOJI_LIBRARY, EMOJI_CATEGORIES } from '@/app/data/emoji-library';
+import { GIF_LIBRARY } from '@/app/data/gif-library';
 
 const API_SUB = '/api/notifications/subscribe';
 const API_SEND = '/api/notifications/send';
@@ -9,6 +11,21 @@ const API_POST = '/api/notifications/post';
 const API_STATUS = '/api/notifications/status';
 
 type SubRow = { endpoint?: string; createdAt?: string; userAgent?: string };
+
+function filterEmojis(search: string, category: string) {
+  const q = search.trim().toLowerCase();
+  return EMOJI_LIBRARY.filter((item) => {
+    const matchCategory = !category || item.category === category;
+    const matchSearch = !q || item.keywords.some((k) => k.toLowerCase().includes(q));
+    return matchCategory && matchSearch;
+  });
+}
+
+function filterGifs(search: string) {
+  const q = search.trim().toLowerCase();
+  if (!q) return GIF_LIBRARY;
+  return GIF_LIBRARY.filter((item) => item.tags.some((t) => t.toLowerCase().includes(q)) || (item.title?.toLowerCase().includes(q)));
+}
 
 export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
   const [subs, setSubs] = useState<SubRow[]>([]);
@@ -23,6 +40,33 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
   const [postSlug, setPostSlug] = useState('');
   const [secretKey, setSecretKey] = useState('');
   const [selectedIndices, setSelectedIndices] = useState<Set<number>>(new Set());
+  const [chatConvs, setChatConvs] = useState<{ id: string; lastMessageAt: number; lastMessagePreview?: string; lastVisitorName?: string }[]>([]);
+  const [chatSelectedId, setChatSelectedId] = useState<string | null>(null);
+  const [chatMessages, setChatMessages] = useState<{ id: string; author: string; text: string; createdAt: string; visitorName?: string; attachments?: { name: string; mimeType: string; data: string }[] }[]>([]);
+  const [chatReply, setChatReply] = useState('');
+  const [chatLoading, setChatLoading] = useState(false);
+  const [chatReplyFiles, setChatReplyFiles] = useState<File[]>([]);
+  const [showReplyEmoji, setShowReplyEmoji] = useState(false);
+  const [showReplyGif, setShowReplyGif] = useState(false);
+  const [replyEmojiSearch, setReplyEmojiSearch] = useState('');
+  const [replyEmojiCategory, setReplyEmojiCategory] = useState('');
+  const [replyGifSearch, setReplyGifSearch] = useState('');
+  const replyTextareaRef = useRef<HTMLTextAreaElement | null>(null);
+  const replyFileInputRef = useRef<HTMLInputElement | null>(null);
+  const [profileName, setProfileName] = useState('');
+  const [profilePhotoUrl, setProfilePhotoUrl] = useState('');
+  const [profileSaving, setProfileSaving] = useState(false);
+  const [profileSaved, setProfileSaved] = useState(false);
+  const chatSoundRef = useRef<HTMLAudioElement | null>(null);
+
+  const filteredReplyEmojis = useMemo(
+    () => filterEmojis(replyEmojiSearch, replyEmojiCategory),
+    [replyEmojiSearch, replyEmojiCategory]
+  );
+  const filteredReplyGifs = useMemo(
+    () => filterGifs(replyGifSearch),
+    [replyGifSearch]
+  );
 
   const showResult = useCallback((data: unknown, isError = false) => {
     setResult(JSON.stringify(data, null, 2));
@@ -43,13 +87,108 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
     }
   }, []);
 
+  const loadChatConvs = useCallback(async () => {
+    try {
+      const res = await fetch('/api/chat/conversations', { credentials: 'same-origin' });
+      const data = await res.json();
+      if (data.conversations) setChatConvs(data.conversations);
+    } catch {
+      setChatConvs([]);
+    }
+  }, []);
+
+  const loadChatMessages = useCallback(
+    async (convId: string, options?: { fromPoll?: boolean }) => {
+      try {
+        const res = await fetch(`/api/chat/messages?conversationId=${encodeURIComponent(convId)}`);
+        const data = await res.json();
+        if (data.messages) {
+          setChatMessages((prev) => {
+            if (options?.fromPoll) {
+              const prevLastVisitor = [...prev].reverse().find((m) => m.author !== 'admin');
+              const curr = data.messages as typeof prev;
+              const currLastVisitor = [...curr].reverse().find((m) => m.author !== 'admin');
+              if (
+                currLastVisitor &&
+                (!prevLastVisitor || prevLastVisitor.id !== currLastVisitor.id)
+              ) {
+                // Новый входящий от пользователя: звук + уведомление
+                try {
+                  if (chatSoundRef.current) {
+                    chatSoundRef.current.play().catch(() => {});
+                  }
+                } catch {
+                  // ignore
+                }
+                if (typeof window !== 'undefined' && 'Notification' in window) {
+                  if (Notification.permission === 'granted') {
+                    try {
+                      const body =
+                        currLastVisitor.text.slice(0, 80) +
+                        (currLastVisitor.text.length > 80 ? '…' : '');
+                      new Notification('Новое сообщение в чате APSOD', {
+                        body,
+                        icon: profilePhotoUrl || '/icons/icon-192x192.png',
+                      });
+                    } catch {
+                      // ignore
+                    }
+                  }
+                }
+              }
+            }
+            return data.messages;
+          });
+        }
+      } catch {
+        setChatMessages([]);
+      }
+    },
+    [profilePhotoUrl]
+  );
+
   useEffect(() => {
     refreshSubs();
+    loadChatConvs();
     fetch('/api/blog/posts')
       .then((r) => r.json())
       .then(setPosts)
       .catch(() => setPosts([]));
-  }, [refreshSubs]);
+    fetch('/api/chat/profile')
+      .then((r) => r.json())
+      .then((p) => {
+        setProfileName(p.name ?? '');
+        setProfilePhotoUrl(p.photoUrl ?? '');
+      })
+      .catch(() => {});
+  }, [refreshSubs, loadChatConvs]);
+
+  useEffect(() => {
+    // Звук для новых сообщений в чате админа
+    if (typeof window !== 'undefined') {
+      try {
+        chatSoundRef.current = new Audio('/sounds/chat-message.mp3');
+      } catch {
+        chatSoundRef.current = null;
+      }
+    }
+    const ping = () => {
+      fetch('/api/chat/ping', { method: 'POST', credentials: 'same-origin' }).catch(() => {});
+    };
+    ping();
+    const t = setInterval(ping, 2 * 60 * 1000);
+    return () => clearInterval(t);
+  }, []);
+
+  useEffect(() => {
+    if (chatSelectedId) {
+      loadChatMessages(chatSelectedId);
+      const t = setInterval(() => loadChatMessages(chatSelectedId, { fromPoll: true }), 3000);
+      return () => clearInterval(t);
+    } else {
+      setChatMessages([]);
+    }
+  }, [chatSelectedId, loadChatMessages]);
 
   const toggleSelectAll = () => {
     if (selectedIndices.size === subs.length) {
@@ -67,6 +206,60 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
   };
 
   const getSelectedIndices = () => (selectedIndices.size > 0 ? Array.from(selectedIndices) : null);
+
+  const fileToBase64 = (file: File): Promise<{ name: string; mimeType: string; data: string } | null> =>
+    new Promise((resolve) => {
+      const MAX_FILE_SIZE = 2 * 1024 * 1024;
+      if (file.size > MAX_FILE_SIZE) {
+        resolve(null);
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string;
+        const base64 = result.includes(',') ? result.split(',')[1] : result;
+        resolve({ name: file.name, mimeType: file.type || 'application/octet-stream', data: base64 });
+      };
+      reader.onerror = () => resolve(null);
+      reader.readAsDataURL(file);
+    });
+
+  const insertReplyAtCursor = (text: string) => {
+    const el = replyTextareaRef.current;
+    if (!el) {
+      setChatReply((prev) => prev + text);
+      return;
+    }
+    const start = el.selectionStart ?? chatReply.length;
+    const end = el.selectionEnd ?? chatReply.length;
+    const value = chatReply;
+    const next = value.slice(0, start) + text + value.slice(end);
+    setChatReply(next);
+    setTimeout(() => {
+      el.focus();
+      el.setSelectionRange(start + text.length, start + text.length);
+    }, 0);
+  };
+
+  const handleReplyEmojiSelect = (emoji: string) => {
+    insertReplyAtCursor(emoji);
+    setShowReplyEmoji(false);
+  };
+
+  const handleReplyGifSelect = (url: string) => {
+    insertReplyAtCursor(url + ' ');
+    setShowReplyGif(false);
+    setReplyGifSearch('');
+  };
+
+  const handleReplyFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    const MAX_FILE_SIZE = 2 * 1024 * 1024;
+    const valid = files.filter((f) => f.size <= MAX_FILE_SIZE);
+    setChatReplyFiles((prev) => [...prev, ...valid].slice(0, 3));
+    e.target.value = '';
+  };
 
   const run = async (
     label: string,
@@ -488,6 +681,366 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
             >
               Выбранным
             </button>
+          </div>
+        </section>
+
+        {/* Профиль поддержки */}
+        <section className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow mb-6">
+          <h2 className="text-lg font-semibold text-blue-600 mb-3">Профиль поддержки</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            Имя и фото отображаются в виджете чата у посетителей. Пока вы на этой странице, статус «В сети» обновляется каждые 2 минуты.
+          </p>
+          <div className="flex flex-wrap gap-4 items-end">
+            <div className="flex-1 min-w-[200px] space-y-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Имя</label>
+              <input
+                type="text"
+                value={profileName}
+                onChange={(e) => setProfileName(e.target.value)}
+                placeholder="Например: Поддержка APSOD"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700"
+              />
+            </div>
+            <div className="flex-1 min-w-[200px] space-y-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Фото профиля</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  const MAX_BYTES = 512 * 1024; // ~0.5MB, достаточно для аватара как в WhatsApp
+                  if (file.size > MAX_BYTES) {
+                    showResult({ error: 'Максимальный размер фото 512 КБ' }, true);
+                    return;
+                  }
+                  const reader = new FileReader();
+                  reader.onload = () => {
+                    if (typeof reader.result === 'string') {
+                      setProfilePhotoUrl(reader.result);
+                    }
+                  };
+                  reader.readAsDataURL(file);
+                }}
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700"
+              />
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                Загрузите квадратное фото, аватар будет отображаться кругом примерно как в WhatsApp.
+              </p>
+            </div>
+            <button
+              type="button"
+              disabled={profileSaving}
+              onClick={async () => {
+                setProfileSaving(true);
+                setProfileSaved(false);
+                try {
+                  const res = await fetch('/api/chat/profile', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: profileName.trim(), photoUrl: profilePhotoUrl.trim() }),
+                  });
+                  const data = await res.json();
+                  if (res.ok) {
+                    setProfileSaved(true);
+                    setTimeout(() => setProfileSaved(false), 3000);
+                  } else {
+                    showResult({ error: data.error || 'Не удалось сохранить' }, true);
+                  }
+                } catch (e) {
+                  showResult({ error: (e as Error).message }, true);
+                } finally {
+                  setProfileSaving(false);
+                }
+              }}
+              className="px-4 py-2 bg-sky-600 text-white rounded-lg text-sm font-medium hover:bg-sky-700 disabled:opacity-50"
+            >
+              {profileSaving ? 'Сохранение...' : 'Сохранить'}
+            </button>
+            {profileSaved && <span className="text-sm text-green-600 dark:text-green-400">Сохранено</span>}
+          </div>
+          {profilePhotoUrl && (
+            <div className="mt-3">
+              <span className="text-sm text-gray-500 dark:text-gray-400">Превью: </span>
+              <img src={profilePhotoUrl} alt="Фото" className="inline-block w-10 h-10 rounded-full object-cover border border-gray-300 dark:border-gray-600" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+            </div>
+          )}
+        </section>
+
+        {/* Чат */}
+        <section className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow mb-6">
+          <h2 className="text-lg font-semibold text-blue-600 mb-3">Чат с посетителями</h2>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+            Диалоги с сайта (виджет в правом нижнем углу). Обновление каждые 3 сек.
+          </p>
+          <div className="flex gap-4 flex-wrap">
+            <div className="w-full md:w-72 border border-gray-200 dark:border-gray-600 rounded-lg overflow-hidden">
+              <div className="p-2 bg-gray-100 dark:bg-gray-700 font-medium text-sm">Диалоги</div>
+              <div className="max-h-64 overflow-y-auto">
+                {chatConvs.length === 0 && <p className="p-3 text-sm text-gray-500">Нет диалогов</p>}
+                {chatConvs.map((c) => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => setChatSelectedId(c.id)}
+                    className={`w-full text-left p-3 border-b border-gray-200 dark:border-gray-600 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${chatSelectedId === c.id ? 'bg-sky-50 dark:bg-sky-900/30' : ''}`}
+                  >
+                    {c.lastMessagePreview && (
+                      <p className="truncate text-xs text-gray-700 dark:text-gray-200 font-medium">{c.lastMessagePreview}</p>
+                    )}
+                    <span className="text-gray-400 dark:text-gray-500 font-mono text-[10px] block mt-0.5 opacity-80">{c.id}</span>
+                  </button>
+                ))}
+              </div>
+              <button
+                type="button"
+                onClick={loadChatConvs}
+                className="w-full p-2 text-sm text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+              >
+                Обновить список
+              </button>
+            </div>
+            <div className="flex-1 min-w-0 border border-gray-200 dark:border-gray-600 rounded-lg flex flex-col overflow-hidden">
+              {chatSelectedId ? (
+                <>
+                  <div className="p-2 bg-gray-100 dark:bg-gray-700 flex items-center gap-2">
+                    <span className="font-semibold text-gray-900 dark:text-gray-100 truncate">
+                      Чат
+                    </span>
+                    <span className="text-gray-500 dark:text-gray-400 font-mono text-xs truncate flex-shrink-0" title={chatSelectedId}>{chatSelectedId}</span>
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        if (!chatSelectedId) return;
+                        if (!confirm('Удалить этот чат полностью?')) return;
+                        try {
+                          const res = await fetch('/api/chat/delete', {
+                            method: 'POST',
+                            credentials: 'same-origin',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ conversationId: chatSelectedId }),
+                          });
+                          const data = await res.json();
+                          if (res.ok && data.ok) {
+                            setChatSelectedId(null);
+                            setChatMessages([]);
+                            await loadChatConvs();
+                          } else {
+                            showResult({ error: data.error || 'Не удалось удалить чат' }, true);
+                          }
+                        } catch (e) {
+                          showResult({ error: (e as Error).message }, true);
+                        }
+                      }}
+                      className="ml-auto px-2 py-1 text-xs rounded-md bg-red-600 text-white hover:bg-red-700"
+                    >
+                      Удалить
+                    </button>
+                  </div>
+                  <div className="flex-1 min-h-[200px] max-h-64 overflow-y-auto p-3 space-y-2">
+                    {chatMessages.map((m, idx) => (
+                      <div key={`${m.id}-${idx}`} className={`flex ${m.author === 'admin' ? 'justify-end' : 'justify-start'}`}>
+                        <div className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${m.author === 'admin' ? 'bg-sky-600 text-white' : 'bg-gray-200 dark:bg-gray-600'}`}>
+                          <p className="whitespace-pre-wrap break-words">{m.text}</p>
+                          {m.attachments && m.attachments.length > 0 && (
+                            <div className="mt-2 space-y-1">
+                              {m.attachments.map((att, i) => (
+                                <div key={i}>
+                                  {att.mimeType.startsWith('image/') ? (
+                                    <img src={`data:${att.mimeType};base64,${att.data}`} alt={att.name} className="max-w-full rounded max-h-32 object-contain" />
+                                  ) : (
+                                    <a href={`data:${att.mimeType};base64,${att.data}`} download={att.name} className="text-xs underline break-all">📎 {att.name}</a>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                          <p className="text-xs opacity-80 mt-1">{new Date(m.createdAt).toLocaleString('ru-RU')}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <form
+                    className="p-2 border-t border-gray-200 dark:border-gray-600 space-y-2"
+                    onSubmit={async (e) => {
+                      e.preventDefault();
+                      const text = chatReply.trim();
+                      if (!text || chatLoading || !chatSelectedId) return;
+                      setChatLoading(true);
+                      try {
+                        let attachments: { name: string; mimeType: string; data: string }[] | undefined;
+                        if (chatReplyFiles.length) {
+                          const list: { name: string; mimeType: string; data: string }[] = [];
+                          for (let i = 0; i < Math.min(chatReplyFiles.length, 3); i++) {
+                            const base = await fileToBase64(chatReplyFiles[i]);
+                            if (base) list.push(base);
+                          }
+                          attachments = list.length ? list : undefined;
+                        }
+                        const res = await fetch('/api/chat/reply', {
+                          method: 'POST',
+                          credentials: 'same-origin',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ conversationId: chatSelectedId, text, attachments }),
+                        });
+                        const data = await res.json();
+                        if (res.ok && data.message) {
+                          setChatMessages((prev) => [...prev, data.message]);
+                          setChatReply('');
+                          setChatReplyFiles([]);
+                          if (replyFileInputRef.current) replyFileInputRef.current.value = '';
+                          loadChatConvs();
+                        }
+                      } finally {
+                        setChatLoading(false);
+                      }
+                    }}
+                  >
+                    <div className="flex items-end gap-2">
+                      <textarea
+                        ref={replyTextareaRef}
+                        value={chatReply}
+                        onChange={(e) => setChatReply(e.target.value)}
+                        placeholder="Ответ..."
+                        rows={1}
+                        className="flex-1 min-w-0 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-sm resize-none"
+                      />
+                      <button type="submit" disabled={chatLoading || !chatReply.trim()} className="px-4 py-2 bg-sky-600 text-white rounded-lg text-sm font-medium hover:bg-sky-700 disabled:opacity-50">
+                        Отправить
+                      </button>
+                    </div>
+                    <div className="flex items-center gap-1 mt-1">
+                      <input
+                        ref={replyFileInputRef}
+                        type="file"
+                        multiple
+                        onChange={handleReplyFileChange}
+                        className="hidden"
+                        id="admin-chat-file"
+                      />
+                      <label
+                        htmlFor="admin-chat-file"
+                        className="p-1.5 rounded-lg text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
+                        title="Прикрепить файл"
+                      >
+                        📎
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => { setShowReplyEmoji((v) => !v); setShowReplyGif(false); }}
+                        className="px-1.5 py-1 rounded-lg text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm"
+                        title="Смайлики"
+                      >
+                        🙂
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => { setShowReplyGif((v) => !v); setShowReplyEmoji(false); setReplyGifSearch(''); }}
+                        className="px-2 py-1 rounded-lg text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 text-xs font-medium border border-gray-400/60"
+                        title="GIF"
+                      >
+                        GIF
+                      </button>
+                      {chatReplyFiles.length > 0 && (
+                        <span className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                          {chatReplyFiles.map((f) => f.name).join(', ')}
+                        </span>
+                      )}
+                    </div>
+                    {showReplyEmoji && (
+                      <div className="mt-1 rounded-lg bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 p-2 max-h-52 flex flex-col gap-2">
+                        <input
+                          type="text"
+                          value={replyEmojiSearch}
+                          onChange={(e) => setReplyEmojiSearch(e.target.value)}
+                          placeholder="Поиск эмодзи..."
+                          className="w-full px-3 py-1.5 rounded-md bg-gray-200 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-xs"
+                        />
+                        <div className="flex flex-wrap gap-1">
+                          <button
+                            type="button"
+                            onClick={() => setReplyEmojiCategory('')}
+                            className={`px-2 py-1 rounded-md text-[11px] font-medium ${!replyEmojiCategory ? 'bg-sky-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`}
+                          >
+                            Все
+                          </button>
+                          {EMOJI_CATEGORIES.map((cat) => (
+                            <button
+                              key={cat}
+                              type="button"
+                              onClick={() => setReplyEmojiCategory(cat)}
+                              className={`px-2 py-1 rounded-md text-[11px] font-medium ${replyEmojiCategory === cat ? 'bg-sky-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`}
+                            >
+                              {cat}
+                            </button>
+                          ))}
+                        </div>
+                        <div className="overflow-y-auto min-h-0 flex-1">
+                          <div className="grid grid-cols-10 gap-1">
+                            {filteredReplyEmojis.map((item, i) => (
+                              <button
+                                key={`${item.emoji}-${i}`}
+                                type="button"
+                                onClick={() => handleReplyEmojiSelect(item.emoji)}
+                                className="p-1 text-lg rounded-md hover:bg-gray-200 dark:hover:bg-gray-700"
+                                title={item.keywords.slice(0, 3).join(', ')}
+                              >
+                                {item.emoji}
+                              </button>
+                            ))}
+                          </div>
+                          {filteredReplyEmojis.length === 0 && (
+                            <p className="text-xs text-gray-500 dark:text-gray-400 text-center py-1.5">Ничего не найдено</p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                    {showReplyGif && (
+                      <div className="mt-1 rounded-lg bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 p-2 max-h-56 flex flex-col gap-2">
+                        <input
+                          type="text"
+                          value={replyGifSearch}
+                          onChange={(e) => setReplyGifSearch(e.target.value)}
+                          placeholder="Поиск GIF..."
+                          className="w-full px-3 py-1.5 rounded-md bg-gray-200 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-xs"
+                        />
+                        <div className="overflow-y-auto min-h-0 flex-1">
+                          <div className="grid grid-cols-3 gap-2">
+                            {filteredReplyGifs.map((gif) => (
+                              <button
+                                key={gif.id}
+                                type="button"
+                                onClick={() => handleReplyGifSelect(gif.url)}
+                                className="relative aspect-video rounded-md overflow-hidden bg-gray-700 hover:ring-2 hover:ring-sky-600"
+                              >
+                                <img
+                                  src={gif.url}
+                                  alt={gif.title ?? gif.tags[0]}
+                                  className="w-full h-full object-cover"
+                                />
+                                {gif.title && (
+                                  <span className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-[10px] py-0.5 px-1 truncate">
+                                    {gif.title}
+                                  </span>
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                          {filteredReplyGifs.length === 0 && (
+                            <p className="text-xs text-gray-500 dark:text-gray-400 text-center py-1.5">Ничего не найдено</p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </form>
+                </>
+              ) : (
+                <div className="flex-1 min-h-[200px] flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm">
+                  Выберите диалог
+                </div>
+              )}
+            </div>
           </div>
         </section>
 
