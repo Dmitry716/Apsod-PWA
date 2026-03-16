@@ -208,6 +208,16 @@ export default function ChatWidget() {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [messages]);
 
+  // Блокируем прокрутку страницы при открытом чате — контейнер не смещается при скролле
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   useEffect(() => {
     adjustTextareaHeight();
   }, [input]);
@@ -312,10 +322,15 @@ export default function ChatWidget() {
 
   return (
     <>
+      {/* Кнопка открытия чата: отступ от safe-area на мобильных */}
       <button
         type="button"
         onClick={handleOpen}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#1e3a5f] text-white shadow-lg hover:bg-[#2a4a7a] flex items-center justify-center transition-colors"
+        className="fixed z-50 w-14 h-14 rounded-full bg-[#1e3a5f] text-white shadow-lg hover:bg-[#2a4a7a] flex items-center justify-center transition-colors touch-none"
+        style={{
+          right: 'max(1rem, env(safe-area-inset-right, 1rem))',
+          bottom: 'max(1.5rem, env(safe-area-inset-bottom, 1.5rem))',
+        }}
         aria-label="Открыть чат"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -325,11 +340,22 @@ export default function ChatWidget() {
 
       {open && (
         <div
-          className="fixed right-2 bottom-20 left-2 z-50 sm:left-auto sm:right-6 sm:bottom-24 w-full max-w-[420px] rounded-2xl shadow-2xl overflow-hidden flex flex-col bg-[#1a1d21] border border-gray-700/50"
-          style={{ height: 'min(1000px, calc(100vh - 6rem))' }}
+          className="fixed z-50 flex flex-col bg-[#1a1d21] border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden overscroll-contain touch-manipulation"
+          style={{
+            top: 'max(0.5rem, env(safe-area-inset-top, 0.5rem))',
+            left: 'max(0.5rem, env(safe-area-inset-left, 0.5rem))',
+            right: 'max(0.5rem, env(safe-area-inset-right, 0.5rem))',
+            bottom: 'max(0.5rem, env(safe-area-inset-bottom, 0.5rem))',
+            width: 'calc(100vw - max(1rem, env(safe-area-inset-left)) - max(1rem, env(safe-area-inset-right)))',
+            maxWidth: '420px',
+            height: 'calc(100dvh - max(1rem, env(safe-area-inset-top)) - max(1rem, env(safe-area-inset-bottom)))',
+            maxHeight: 'min(1000px, calc(100dvh - 1rem))',
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}
         >
-          {/* Header: аватар (фото или буква), имя, статус, закрыть */}
-          <div className="flex items-center gap-3 px-4 py-3 bg-[#1a1d21] border-b border-gray-700/50">
+          {/* Header: аватар (фото или буква), имя, статус, закрыть — не сжимается */}
+          <div className="flex items-center gap-3 px-4 py-3 bg-[#1a1d21] border-b border-gray-700/50 flex-shrink-0">
             <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center flex-shrink-0 overflow-hidden">
               {supportPhotoUrl ? (
                 <img src={supportPhotoUrl} alt="" className="w-full h-full object-cover" />
