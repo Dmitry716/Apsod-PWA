@@ -219,7 +219,7 @@ export default function ChatWidget() {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [messages]);
 
-  // Жёсткая блокировка прокрутки и смещения макета на iOS: при открытом чате фиксируем body
+  // Жёсткая блокировка прокрутки и смещения макета: при открытом чате фиксируем body, убираем горизонтальный скролл
   useEffect(() => {
     if (!open) return;
     const scrollY = window.scrollY ?? window.pageYOffset;
@@ -231,27 +231,33 @@ export default function ChatWidget() {
     const prevBodyOverflow = body.style.overflow;
     const prevBodyOverflowX = body.style.overflowX;
     const prevBodyPosition = body.style.position;
+    const prevBodyMaxWidth = body.style.maxWidth;
     const prevHtmlOverflow = html.style.overflow;
     const prevHtmlOverflowX = html.style.overflowX;
+    const prevHtmlWidth = html.style.width;
 
     html.style.overflow = 'hidden';
     html.style.overflowX = 'hidden';
+    html.style.width = '100%';
     body.style.overflow = 'hidden';
     body.style.overflowX = 'hidden';
     body.style.position = 'fixed';
     body.style.top = `-${scrollY}px`;
     body.style.left = '0';
     body.style.width = '100%';
+    body.style.maxWidth = '100vw';
 
     return () => {
       html.style.overflow = prevHtmlOverflow;
       html.style.overflowX = prevHtmlOverflowX;
+      html.style.width = prevHtmlWidth;
       body.style.overflow = prevBodyOverflow;
       body.style.overflowX = prevBodyOverflowX;
       body.style.position = prevBodyPosition;
       body.style.top = prevBodyTop;
       body.style.left = prevBodyLeft;
       body.style.width = prevBodyWidth;
+      body.style.maxWidth = prevBodyMaxWidth;
       window.scrollTo(0, scrollY);
     };
   }, [open]);
@@ -400,13 +406,16 @@ export default function ChatWidget() {
               bottom: 0,
               zIndex: 2147483647,
               overflow: 'hidden',
+              overflowX: 'hidden',
+              width: '100vw',
+              maxWidth: '100%',
               transform: 'translateZ(0)',
               WebkitTransform: 'translateZ(0)',
               isolation: 'isolate',
             }}
           >
             <div
-              className="fixed z-50 flex flex-col bg-[#1a1d21] border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden overscroll-contain touch-manipulation w-full max-w-[100vw]"
+              className="fixed z-50 flex flex-col bg-[#1a1d21] border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden overflow-x-hidden overscroll-contain touch-manipulation"
               style={
                 isNarrow
                   ? {
@@ -415,8 +424,9 @@ export default function ChatWidget() {
                       right: 0,
                       bottom: 0,
                       width: '100%',
-                      height: '100svh',
+                      minWidth: 0,
                       maxWidth: '100vw',
+                      height: '100svh',
                       paddingTop: 'env(safe-area-inset-top, 0px)',
                       paddingLeft: 'env(safe-area-inset-left, 0px)',
                       paddingRight: 'env(safe-area-inset-right, 0px)',
@@ -526,9 +536,9 @@ export default function ChatWidget() {
             {error && <p className="text-sm text-red-400 text-center py-1">{error}</p>}
           </div>
 
-          {/* Футер: без горизонтальной прокрутки, текст переносится — макет не смещается */}
-          <div className="px-4 py-3 pt-2 border-t border-gray-700/50 bg-[#1a1d21] flex-shrink-0 space-y-2 max-h-[11rem] min-h-0 overflow-hidden overflow-x-hidden min-w-0">
-            <div className="flex items-end gap-2 rounded-2xl bg-gray-800 border border-gray-600 pl-3 pr-2 py-2 focus-within:ring-2 focus-within:ring-[#1e3a5f] focus-within:border-transparent w-full min-w-0 min-h-[2.75rem] overflow-hidden">
+          {/* Футер: ширина жёстко ограничена, без горизонтальной прокрутки */}
+          <div className="py-3 pt-2 border-t border-gray-700/50 bg-[#1a1d21] flex-shrink-0 space-y-2 max-h-[11rem] min-h-0 overflow-hidden overflow-x-hidden min-w-0 w-full max-w-full box-border px-3">
+            <div className="grid grid-cols-[1fr_auto] items-end gap-2 rounded-2xl bg-gray-800 border border-gray-600 pl-3 pr-2 py-2 focus-within:ring-2 focus-within:ring-[#1e3a5f] focus-within:border-transparent min-h-[2.75rem] overflow-hidden w-full max-w-full box-border min-w-0">
               <textarea
                 ref={textareaRef}
                 value={input}
@@ -537,7 +547,6 @@ export default function ChatWidget() {
                   adjustTextareaHeight();
                 }}
                 onFocus={() => {
-                  // На iOS предотвращаем сдвиг макета при фокусе: прокручиваем только область чата
                   requestAnimationFrame(() => {
                     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'auto' });
                   });
@@ -550,7 +559,7 @@ export default function ChatWidget() {
                 }}
                 placeholder="Сообщение..."
                 rows={1}
-                className="flex-1 min-w-0 w-0 py-2 bg-transparent focus:outline-none resize-none leading-6 placeholder:text-gray-400 overflow-y-auto overflow-x-hidden break-words max-h-[4.5rem] sm:max-h-[160px]"
+                className="min-w-0 w-full max-w-full py-2 bg-transparent focus:outline-none resize-none leading-6 placeholder:text-gray-400 overflow-y-auto overflow-x-hidden break-words max-h-[4.5rem] sm:max-h-[160px] col-start-1"
                 style={{
                   minHeight: '2.25rem',
                   color: '#ffffff',
@@ -564,7 +573,7 @@ export default function ChatWidget() {
                 type="button"
                 onClick={sendMessage}
                 disabled={loading || !input.trim()}
-                className="w-10 h-10 rounded-full bg-[#1e3a5f] text-white flex items-center justify-center hover:bg-[#2a4a7a] disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
+                className="w-10 h-10 min-w-[2.5rem] rounded-full bg-[#1e3a5f] text-white flex items-center justify-center hover:bg-[#2a4a7a] disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0 col-start-2"
                 aria-label="Отправить"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
