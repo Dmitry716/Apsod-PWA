@@ -98,13 +98,13 @@ export default function ChatWidget() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const soundRef = useRef<HTMLAudioElement | null>(null);
 
-  // Размеры видимой области (выше клавиатуры на iPhone) — контейнер не смещается при вводе
   const [viewportRect, setViewportRect] = useState<{
     top: number;
     left: number;
     width: number;
     height: number;
   } | null>(null);
+  const [isNarrow, setIsNarrow] = useState(false);
 
   const adjustTextareaHeight = () => {
     const el = textareaRef.current;
@@ -255,33 +255,16 @@ export default function ChatWidget() {
     };
   }, [open]);
 
-  // На мобильных (узкий экран) подстраиваем чат под видимую область (Visual Viewport), чтобы при появлении клавиатуры контейнер не смещался
   useEffect(() => {
-    if (!open || typeof window === 'undefined') return;
-    const vv = window.visualViewport;
-    const isNarrow = window.innerWidth < 640;
-    if (!vv || !isNarrow) {
-      setViewportRect(null);
-      return;
-    }
+    const check = () => setIsNarrow(typeof window !== 'undefined' && window.innerWidth < 640);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
-    const update = () => {
-      setViewportRect({
-        top: vv.offsetTop,
-        left: vv.offsetLeft,
-        width: vv.width,
-        height: vv.height,
-      });
-    };
-
-    update();
-    vv.addEventListener('resize', update);
-    vv.addEventListener('scroll', update);
-    return () => {
-      vv.removeEventListener('resize', update);
-      vv.removeEventListener('scroll', update);
-      setViewportRect(null);
-    };
+  // На мобильных не меняем размер чата при появлении клавиатуры — иначе на iOS макет смещается
+  useEffect(() => {
+    if (!open) setViewportRect(null);
   }, [open]);
 
   useEffect(() => {
@@ -408,14 +391,19 @@ export default function ChatWidget() {
         <div
           className="fixed z-50 flex flex-col bg-[#1a1d21] border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden overscroll-contain touch-manipulation w-full max-w-[100vw]"
           style={
-            viewportRect
+            isNarrow
               ? {
-                  top: viewportRect.top,
-                  left: viewportRect.left,
-                  width: viewportRect.width,
-                  height: viewportRect.height,
-                  maxWidth: 'none',
-                  paddingTop: 'max(0.75rem, env(safe-area-inset-top, 0.75rem))',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  width: '100%',
+                  height: '100svh',
+                  maxWidth: '100vw',
+                  paddingTop: 'env(safe-area-inset-top, 0px)',
+                  paddingLeft: 'env(safe-area-inset-left, 0px)',
+                  paddingRight: 'env(safe-area-inset-right, 0px)',
+                  paddingBottom: 'env(safe-area-inset-bottom, 0px)',
                   boxSizing: 'border-box',
                 }
               : {
@@ -463,8 +451,12 @@ export default function ChatWidget() {
             </button>
           </div>
 
-          {/* Область сообщений — тёмный фон, растёт по высоте чата */}
-          <div ref={listRef} className="flex-1 min-h-0 min-w-0 overflow-y-auto overflow-x-hidden p-4 space-y-3 bg-[#1a1d21]">
+          {/* Область сообщений; на мобильных отступ снизу — поле ввода можно прокрутить выше клавиатуры */}
+          <div
+            ref={listRef}
+            className="flex-1 min-h-0 min-w-0 overflow-y-auto overflow-x-hidden p-4 space-y-3 bg-[#1a1d21]"
+            style={isNarrow ? { paddingBottom: '38vh' } : undefined}
+          >
             {messages.length === 0 && !error && (
               <p className="text-sm text-gray-400 text-center py-2">
                 Добро пожаловать на APSOD! Чем мы можем помочь?
