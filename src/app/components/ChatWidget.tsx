@@ -98,6 +98,14 @@ export default function ChatWidget() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const soundRef = useRef<HTMLAudioElement | null>(null);
 
+  // Размеры видимой области (выше клавиатуры на iPhone) — контейнер не смещается при вводе
+  const [viewportRect, setViewportRect] = useState<{
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  } | null>(null);
+
   const adjustTextareaHeight = () => {
     const el = textareaRef.current;
     if (!el) return;
@@ -215,6 +223,35 @@ export default function ChatWidget() {
     document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = prev;
+    };
+  }, [open]);
+
+  // На мобильных (узкий экран) подстраиваем чат под видимую область (Visual Viewport), чтобы при появлении клавиатуры контейнер не смещался
+  useEffect(() => {
+    if (!open || typeof window === 'undefined') return;
+    const vv = window.visualViewport;
+    const isNarrow = window.innerWidth < 640;
+    if (!vv || !isNarrow) {
+      setViewportRect(null);
+      return;
+    }
+
+    const update = () => {
+      setViewportRect({
+        top: vv.offsetTop,
+        left: vv.offsetLeft,
+        width: vv.width,
+        height: vv.height,
+      });
+    };
+
+    update();
+    vv.addEventListener('resize', update);
+    vv.addEventListener('scroll', update);
+    return () => {
+      vv.removeEventListener('resize', update);
+      vv.removeEventListener('scroll', update);
+      setViewportRect(null);
     };
   }, [open]);
 
@@ -341,19 +378,31 @@ export default function ChatWidget() {
       {open && (
         <div
           className="fixed z-50 flex flex-col bg-[#1a1d21] border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden overscroll-contain touch-manipulation"
-          style={{
-            top: 'max(0.5rem, env(safe-area-inset-top, 0.5rem))',
-            left: 'max(0.5rem, env(safe-area-inset-left, 0.5rem))',
-            right: 'max(0.5rem, env(safe-area-inset-right, 0.5rem))',
-            bottom: 'max(0.5rem, env(safe-area-inset-bottom, 0.5rem))',
-            width: 'calc(100vw - max(1rem, env(safe-area-inset-left)) - max(1rem, env(safe-area-inset-right)))',
-            maxWidth: '420px',
-            height: 'calc(100dvh - max(1rem, env(safe-area-inset-top)) - max(1rem, env(safe-area-inset-bottom)))',
-            maxHeight: 'min(1000px, calc(100dvh - 1rem))',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            paddingTop: 'max(0.75rem, env(safe-area-inset-top, 0.75rem))',
-          }}
+          style={
+            viewportRect
+              ? {
+                  top: viewportRect.top,
+                  left: viewportRect.left,
+                  width: viewportRect.width,
+                  height: viewportRect.height,
+                  maxWidth: 'none',
+                  paddingTop: 'max(0.75rem, env(safe-area-inset-top, 0.75rem))',
+                  boxSizing: 'border-box',
+                }
+              : {
+                  top: 'max(0.5rem, env(safe-area-inset-top, 0.5rem))',
+                  left: 'max(0.5rem, env(safe-area-inset-left, 0.5rem))',
+                  right: 'max(0.5rem, env(safe-area-inset-right, 0.5rem))',
+                  bottom: 'max(0.5rem, env(safe-area-inset-bottom, 0.5rem))',
+                  width: 'calc(100vw - max(1rem, env(safe-area-inset-left)) - max(1rem, env(safe-area-inset-right)))',
+                  maxWidth: '420px',
+                  height: 'calc(100dvh - max(1rem, env(safe-area-inset-top)) - max(1rem, env(safe-area-inset-bottom)))',
+                  maxHeight: 'min(1000px, calc(100dvh - 1rem))',
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  paddingTop: 'max(0.75rem, env(safe-area-inset-top, 0.75rem))',
+                }
+          }
         >
           {/* Header: аватар (фото или буква), имя, статус, закрыть — не сжимается, имя не обрезается */}
           <div className="flex items-center gap-3 px-4 py-3 pb-3 bg-[#1a1d21] border-b border-gray-700/50 flex-shrink-0 min-h-[3.5rem]">
