@@ -109,8 +109,10 @@ export default function ChatWidget() {
   const adjustTextareaHeight = () => {
     const el = textareaRef.current;
     if (!el) return;
+    const isNarrow = typeof window !== 'undefined' && window.innerWidth < 640;
+    const maxPx = isNarrow ? 72 : 160; // на мобильных не больше ~3 строк — макет не смещается
     el.style.height = 'auto';
-    el.style.height = `${Math.min(el.scrollHeight, 160)}px`;
+    el.style.height = `${Math.min(el.scrollHeight, maxPx)}px`;
   };
 
   useEffect(() => {
@@ -487,9 +489,9 @@ export default function ChatWidget() {
             {error && <p className="text-sm text-red-400 text-center py-1">{error}</p>}
           </div>
 
-          {/* Футер: поле сообщения + кнопка отправки; под ним блок иконок (файл, эмодзи, GIF) */}
-          <div className="px-4 py-3 pt-2 border-t border-gray-700/50 bg-[#1a1d21] flex-shrink-0 space-y-2">
-            <div className="flex items-end gap-2 rounded-2xl bg-gray-800 border border-gray-600 pl-3 pr-2 py-2 focus-within:ring-2 focus-within:ring-[#1e3a5f] focus-within:border-transparent max-w-full">
+          {/* Футер: фиксированная высота на мобильных — поле не расширяется и макет не смещается */}
+          <div className="px-4 py-3 pt-2 border-t border-gray-700/50 bg-[#1a1d21] flex-shrink-0 space-y-2 max-h-[11rem] min-h-0 overflow-hidden">
+            <div className="flex items-end gap-2 rounded-2xl bg-gray-800 border border-gray-600 pl-3 pr-2 py-2 focus-within:ring-2 focus-within:ring-[#1e3a5f] focus-within:border-transparent max-w-full min-h-[2.75rem]">
               <textarea
                 ref={textareaRef}
                 value={input}
@@ -505,10 +507,9 @@ export default function ChatWidget() {
                 }}
                 placeholder="Сообщение..."
                 rows={1}
-                className="flex-1 min-w-0 py-2 bg-transparent text-sm focus:outline-none resize-none overflow-hidden leading-6 placeholder:text-gray-400"
+                className="flex-1 min-w-0 py-2 bg-transparent text-sm focus:outline-none resize-none leading-6 placeholder:text-gray-400 overflow-y-auto max-h-[4.5rem] sm:max-h-[160px]"
                 style={{
                   minHeight: '2.25rem',
-                  maxHeight: '160px',
                   color: '#ffffff',
                   WebkitTextFillColor: '#ffffff',
                 }}
