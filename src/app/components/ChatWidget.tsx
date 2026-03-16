@@ -218,16 +218,40 @@ export default function ChatWidget() {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [messages]);
 
-  // Блокируем прокрутку страницы при открытом чате (в т.ч. горизонтальную) — макет не смещается
+  // Жёсткая блокировка прокрутки и смещения макета на iOS: при открытом чате фиксируем body
   useEffect(() => {
     if (!open) return;
-    const prevOverflow = document.body.style.overflow;
-    const prevOverflowX = document.body.style.overflowX;
-    document.body.style.overflow = 'hidden';
-    document.body.style.overflowX = 'hidden';
+    const scrollY = window.scrollY ?? window.pageYOffset;
+    const html = document.documentElement;
+    const body = document.body;
+    const prevBodyTop = body.style.top;
+    const prevBodyLeft = body.style.left;
+    const prevBodyWidth = body.style.width;
+    const prevBodyOverflow = body.style.overflow;
+    const prevBodyOverflowX = body.style.overflowX;
+    const prevBodyPosition = body.style.position;
+    const prevHtmlOverflow = html.style.overflow;
+    const prevHtmlOverflowX = html.style.overflowX;
+
+    html.style.overflow = 'hidden';
+    html.style.overflowX = 'hidden';
+    body.style.overflow = 'hidden';
+    body.style.overflowX = 'hidden';
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.left = '0';
+    body.style.width = '100%';
+
     return () => {
-      document.body.style.overflow = prevOverflow;
-      document.body.style.overflowX = prevOverflowX;
+      html.style.overflow = prevHtmlOverflow;
+      html.style.overflowX = prevHtmlOverflowX;
+      body.style.overflow = prevBodyOverflow;
+      body.style.overflowX = prevBodyOverflowX;
+      body.style.position = prevBodyPosition;
+      body.style.top = prevBodyTop;
+      body.style.left = prevBodyLeft;
+      body.style.width = prevBodyWidth;
+      window.scrollTo(0, scrollY);
     };
   }, [open]);
 
@@ -501,6 +525,12 @@ export default function ChatWidget() {
                 onChange={(e) => {
                   setInput(e.target.value);
                   adjustTextareaHeight();
+                }}
+                onFocus={() => {
+                  // На iOS предотвращаем сдвиг макета при фокусе: прокручиваем только область чата
+                  requestAnimationFrame(() => {
+                    listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'auto' });
+                  });
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
