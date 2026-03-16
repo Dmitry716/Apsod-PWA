@@ -352,10 +352,11 @@ export default function ChatWidget() {
             maxHeight: 'min(1000px, calc(100dvh - 1rem))',
             marginLeft: 'auto',
             marginRight: 'auto',
+            paddingTop: 'max(0.75rem, env(safe-area-inset-top, 0.75rem))',
           }}
         >
-          {/* Header: аватар (фото или буква), имя, статус, закрыть — не сжимается */}
-          <div className="flex items-center gap-3 px-4 py-3 bg-[#1a1d21] border-b border-gray-700/50 flex-shrink-0">
+          {/* Header: аватар (фото или буква), имя, статус, закрыть — не сжимается, имя не обрезается */}
+          <div className="flex items-center gap-3 px-4 py-3 pb-3 bg-[#1a1d21] border-b border-gray-700/50 flex-shrink-0 min-h-[3.5rem]">
             <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center flex-shrink-0 overflow-hidden">
               {supportPhotoUrl ? (
                 <img src={supportPhotoUrl} alt="" className="w-full h-full object-cover" />
@@ -438,8 +439,8 @@ export default function ChatWidget() {
           </div>
 
           {/* Футер: поле сообщения + кнопка отправки; под ним блок иконок (файл, эмодзи, GIF) */}
-          <div className="p-3 pt-2 border-t border-gray-700/50 bg-[#1a1d21] flex-shrink-0 space-y-2">
-            <div className="flex items-end gap-2 rounded-2xl bg-gray-800 border border-gray-600 pl-3 pr-2 py-2 focus-within:ring-2 focus-within:ring-[#1e3a5f] focus-within:border-transparent">
+          <div className="px-4 py-3 pt-2 border-t border-gray-700/50 bg-[#1a1d21] flex-shrink-0 space-y-2">
+            <div className="flex items-end gap-2 rounded-2xl bg-gray-800 border border-gray-600 pl-3 pr-2 py-2 focus-within:ring-2 focus-within:ring-[#1e3a5f] focus-within:border-transparent max-w-full">
               <textarea
                 ref={textareaRef}
                 value={input}
@@ -455,8 +456,13 @@ export default function ChatWidget() {
                 }}
                 placeholder="Сообщение..."
                 rows={1}
-                className="flex-1 min-w-0 py-2 bg-transparent text-white placeholder-gray-500 text-sm focus:outline-none resize-none overflow-hidden leading-6"
-                style={{ minHeight: '2.25rem', maxHeight: '160px' }}
+                className="flex-1 min-w-0 py-2 bg-transparent text-sm focus:outline-none resize-none overflow-hidden leading-6 placeholder:text-gray-400"
+                style={{
+                  minHeight: '2.25rem',
+                  maxHeight: '160px',
+                  color: '#ffffff',
+                  WebkitTextFillColor: '#ffffff',
+                }}
               />
               <button
                 type="button"
