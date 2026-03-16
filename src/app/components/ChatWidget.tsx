@@ -219,26 +219,49 @@ export default function ChatWidget() {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [messages]);
 
-  // Жёсткая блокировка прокрутки и смещения макета: при открытом чате фиксируем body, убираем горизонтальный скролл
+  // Полная блокировка сдвига на iOS: фиксируем html и body на 100svh, класс для CSS
   useEffect(() => {
     if (!open) return;
     const scrollY = window.scrollY ?? window.pageYOffset;
     const html = document.documentElement;
     const body = document.body;
-    const prevBodyTop = body.style.top;
-    const prevBodyLeft = body.style.left;
-    const prevBodyWidth = body.style.width;
-    const prevBodyOverflow = body.style.overflow;
-    const prevBodyOverflowX = body.style.overflowX;
-    const prevBodyPosition = body.style.position;
-    const prevBodyMaxWidth = body.style.maxWidth;
-    const prevHtmlOverflow = html.style.overflow;
-    const prevHtmlOverflowX = html.style.overflowX;
-    const prevHtmlWidth = html.style.width;
+
+    html.classList.add('apsod-chat-open');
+    const prevHtml = {
+      overflow: html.style.overflow,
+      overflowX: html.style.overflowX,
+      width: html.style.width,
+      height: html.style.height,
+      maxHeight: html.style.maxHeight,
+      position: html.style.position,
+      top: html.style.top,
+      left: html.style.left,
+      right: html.style.right,
+      bottom: html.style.bottom,
+    };
+    const prevBody = {
+      overflow: body.style.overflow,
+      overflowX: body.style.overflowX,
+      width: body.style.width,
+      maxWidth: body.style.maxWidth,
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      height: body.style.height,
+      maxHeight: body.style.maxHeight,
+    };
 
     html.style.overflow = 'hidden';
     html.style.overflowX = 'hidden';
     html.style.width = '100%';
+    html.style.height = '100svh';
+    html.style.maxHeight = '100svh';
+    html.style.position = 'fixed';
+    html.style.top = '0';
+    html.style.left = '0';
+    html.style.right = '0';
+    html.style.bottom = '0';
+
     body.style.overflow = 'hidden';
     body.style.overflowX = 'hidden';
     body.style.position = 'fixed';
@@ -246,18 +269,13 @@ export default function ChatWidget() {
     body.style.left = '0';
     body.style.width = '100%';
     body.style.maxWidth = '100vw';
+    body.style.height = '100svh';
+    body.style.maxHeight = '100svh';
 
     return () => {
-      html.style.overflow = prevHtmlOverflow;
-      html.style.overflowX = prevHtmlOverflowX;
-      html.style.width = prevHtmlWidth;
-      body.style.overflow = prevBodyOverflow;
-      body.style.overflowX = prevBodyOverflowX;
-      body.style.position = prevBodyPosition;
-      body.style.top = prevBodyTop;
-      body.style.left = prevBodyLeft;
-      body.style.width = prevBodyWidth;
-      body.style.maxWidth = prevBodyMaxWidth;
+      html.classList.remove('apsod-chat-open');
+      Object.assign(html.style, prevHtml);
+      Object.assign(body.style, prevBody);
       window.scrollTo(0, scrollY);
     };
   }, [open]);
