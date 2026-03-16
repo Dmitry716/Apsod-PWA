@@ -5,6 +5,7 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import CookieConsent from "./components/CookieConsent";
 import PushPermissionBanner from "./components/PushPermissionBanner";
+import ChatWidget from "./components/ChatWidget";
 import "./globals.css";
 import "./hero-animations.css";
 
@@ -63,6 +64,7 @@ export default function RootLayout({
           <CookieConsent />
           <main className="pt-16 md:pt-20 min-h-screen">{children}</main>
           <Footer />
+          <ChatWidget />
         </Providers>
       </body>
     </html>
