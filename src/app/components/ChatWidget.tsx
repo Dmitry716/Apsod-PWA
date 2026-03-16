@@ -218,13 +218,16 @@ export default function ChatWidget() {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
   }, [messages]);
 
-  // Блокируем прокрутку страницы при открытом чате — контейнер не смещается при скролле
+  // Блокируем прокрутку страницы при открытом чате (в т.ч. горизонтальную) — макет не смещается
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
+    const prevOverflow = document.body.style.overflow;
+    const prevOverflowX = document.body.style.overflowX;
     document.body.style.overflow = 'hidden';
+    document.body.style.overflowX = 'hidden';
     return () => {
-      document.body.style.overflow = prev;
+      document.body.style.overflow = prevOverflow;
+      document.body.style.overflowX = prevOverflowX;
     };
   }, [open]);
 
@@ -379,7 +382,7 @@ export default function ChatWidget() {
 
       {open && (
         <div
-          className="fixed z-50 flex flex-col bg-[#1a1d21] border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden overscroll-contain touch-manipulation"
+          className="fixed z-50 flex flex-col bg-[#1a1d21] border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden overscroll-contain touch-manipulation w-full max-w-[100vw]"
           style={
             viewportRect
               ? {
@@ -437,7 +440,7 @@ export default function ChatWidget() {
           </div>
 
           {/* Область сообщений — тёмный фон, растёт по высоте чата */}
-          <div ref={listRef} className="flex-1 min-h-0 overflow-y-auto p-4 space-y-3 bg-[#1a1d21]">
+          <div ref={listRef} className="flex-1 min-h-0 min-w-0 overflow-y-auto overflow-x-hidden p-4 space-y-3 bg-[#1a1d21]">
             {messages.length === 0 && !error && (
               <p className="text-sm text-gray-400 text-center py-2">
                 Добро пожаловать на APSOD! Чем мы можем помочь?
@@ -489,9 +492,9 @@ export default function ChatWidget() {
             {error && <p className="text-sm text-red-400 text-center py-1">{error}</p>}
           </div>
 
-          {/* Футер: фиксированная высота на мобильных — поле не расширяется и макет не смещается */}
-          <div className="px-4 py-3 pt-2 border-t border-gray-700/50 bg-[#1a1d21] flex-shrink-0 space-y-2 max-h-[11rem] min-h-0 overflow-hidden">
-            <div className="flex items-end gap-2 rounded-2xl bg-gray-800 border border-gray-600 pl-3 pr-2 py-2 focus-within:ring-2 focus-within:ring-[#1e3a5f] focus-within:border-transparent max-w-full min-h-[2.75rem]">
+          {/* Футер: без горизонтальной прокрутки, текст переносится — макет не смещается */}
+          <div className="px-4 py-3 pt-2 border-t border-gray-700/50 bg-[#1a1d21] flex-shrink-0 space-y-2 max-h-[11rem] min-h-0 overflow-hidden overflow-x-hidden min-w-0">
+            <div className="flex items-end gap-2 rounded-2xl bg-gray-800 border border-gray-600 pl-3 pr-2 py-2 focus-within:ring-2 focus-within:ring-[#1e3a5f] focus-within:border-transparent w-full min-w-0 min-h-[2.75rem] overflow-hidden">
               <textarea
                 ref={textareaRef}
                 value={input}
@@ -507,11 +510,13 @@ export default function ChatWidget() {
                 }}
                 placeholder="Сообщение..."
                 rows={1}
-                className="flex-1 min-w-0 py-2 bg-transparent text-sm focus:outline-none resize-none leading-6 placeholder:text-gray-400 overflow-y-auto max-h-[4.5rem] sm:max-h-[160px]"
+                className="flex-1 min-w-0 w-0 py-2 bg-transparent text-sm focus:outline-none resize-none leading-6 placeholder:text-gray-400 overflow-y-auto overflow-x-hidden break-words max-h-[4.5rem] sm:max-h-[160px]"
                 style={{
                   minHeight: '2.25rem',
                   color: '#ffffff',
                   WebkitTextFillColor: '#ffffff',
+                  wordBreak: 'break-word',
+                  overflowWrap: 'break-word',
                 }}
               />
               <button
