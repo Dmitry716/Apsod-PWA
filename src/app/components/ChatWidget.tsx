@@ -48,6 +48,7 @@ type Message = {
   createdAt: string;
   visitorName?: string;
   attachments?: { name: string; mimeType: string; data: string }[];
+  status?: 'sent' | 'delivered' | 'read';
 };
 
 function getStoredConvId(): string | null {
@@ -94,6 +95,7 @@ export default function ChatWidget() {
   const [supportPhotoUrl, setSupportPhotoUrl] = useState('');
   const [statusOnline, setStatusOnline] = useState(false);
   const [statusLastSeen, setStatusLastSeen] = useState<number | null>(null);
+  const [adminTyping, setAdminTyping] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -155,7 +157,7 @@ export default function ChatWidget() {
 
   const loadMessages = async (convId: string, options?: { fromPoll?: boolean }) => {
     try {
-      const url = `${typeof window !== 'undefined' ? window.location.origin : ''}/api/chat/messages?conversationId=${encodeURIComponent(convId)}`;
+      const url = `${typeof window !== 'undefined' ? window.location.origin : ''}/api/chat/messages?conversationId=${encodeURIComponent(convId)}&viewer=visitor`;
       const res = await fetch(url);
       const data = await res.json();
       if (data.messages) {
@@ -185,6 +187,42 @@ export default function ChatWidget() {
     const t = setInterval(() => loadMessages(conversationId, { fromPoll: true }), POLL_INTERVAL);
     return () => clearInterval(t);
   }, [open, conversationId]);
+
+  // Опрос: печатает ли поддержка
+  useEffect(() => {
+    if (!open || !conversationId) {
+      setAdminTyping(false);
+      return;
+    }
+    const check = () => {
+      fetch(`${typeof window !== 'undefined' ? window.location.origin : ''}/api/chat/typing?conversationId=${encodeURIComponent(conversationId)}`)
+        .then((r) => r.json())
+        .then((d) => setAdminTyping(d.typing === 'admin'))
+        .catch(() => setAdminTyping(false));
+    };
+    check();
+    const t = setInterval(check, 2000);
+    return () => clearInterval(t);
+  }, [open, conversationId]);
+
+  // Отправка «посетитель печатает» при вводе (с задержкой)
+  const typingSendRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (!conversationId || !open) return;
+    if (typingSendRef.current) clearTimeout(typingSendRef.current);
+    if (!input.trim()) return;
+    typingSendRef.current = setTimeout(() => {
+      fetch(`${typeof window !== 'undefined' ? window.location.origin : ''}/api/chat/typing`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ conversationId, who: 'visitor' }),
+      }).catch(() => {});
+      typingSendRef.current = null;
+    }, 400);
+    return () => {
+      if (typingSendRef.current) clearTimeout(typingSendRef.current);
+    };
+  }, [conversationId, open, input]);
 
   useEffect(() => {
     if (!open) return;
@@ -537,13 +575,34 @@ export default function ChatWidget() {
                       ))}
                     </div>
                   )}
-                  <p className={`text-xs mt-1.5 ${m.author === 'admin' ? 'text-gray-400' : 'text-white/70'}`}>
+                  <p className={`text-xs mt-1.5 flex items-center gap-1.5 ${m.author === 'admin' ? 'text-gray-400' : 'text-white/70'}`}>
                     {m.author === 'admin' ? `${supportName || 'Поддержка'} • ` : ''}
                     {new Date(m.createdAt).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
+                    {m.author === 'visitor' && (
+                      <span className="ml-0.5 inline-flex items-center" aria-label={m.status === 'read' ? 'Прочитано' : 'Отправлено'}>
+                        {m.status === 'read' ? (
+                          <span className="text-[#7dd3fc]" title="Прочитано">
+                            <svg className="w-4 h-3.5 inline" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 6l4 4 10-10"/></svg>
+                            <svg className="w-4 h-3.5 inline -ml-2.5" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 6l4 4 10-10"/></svg>
+                          </span>
+                        ) : (
+                          <span className="text-white/70" title="Отправлено">
+                            <svg className="w-4 h-3.5 inline" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 6l4 4 10-10"/></svg>
+                          </span>
+                        )}
+                      </span>
+                    )}
                   </p>
                 </div>
               </div>
             ))}
+            {adminTyping && (
+              <div className="flex justify-start">
+                <p className="text-xs text-gray-500 italic py-1 px-2">
+                  {supportName || 'Поддержка'} печатает...
+                </p>
+              </div>
+            )}
             {error && <p className="text-sm text-red-400 text-center py-1">{error}</p>}
           </div>
 

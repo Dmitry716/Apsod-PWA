@@ -42,7 +42,8 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
   const [selectedIndices, setSelectedIndices] = useState<Set<number>>(new Set());
   const [chatConvs, setChatConvs] = useState<{ id: string; lastMessageAt: number; lastMessagePreview?: string; lastVisitorName?: string }[]>([]);
   const [chatSelectedId, setChatSelectedId] = useState<string | null>(null);
-  const [chatMessages, setChatMessages] = useState<{ id: string; author: string; text: string; createdAt: string; visitorName?: string; attachments?: { name: string; mimeType: string; data: string }[] }[]>([]);
+  const [chatMessages, setChatMessages] = useState<{ id: string; author: string; text: string; createdAt: string; visitorName?: string; attachments?: { name: string; mimeType: string; data: string }[]; status?: 'sent' | 'delivered' | 'read' }[]>([]);
+  const [visitorTyping, setVisitorTyping] = useState(false);
   const [chatReply, setChatReply] = useState('');
   const [chatLoading, setChatLoading] = useState(false);
   const [chatReplyFiles, setChatReplyFiles] = useState<File[]>([]);
@@ -100,7 +101,7 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
   const loadChatMessages = useCallback(
     async (convId: string, options?: { fromPoll?: boolean }) => {
       try {
-        const res = await fetch(`/api/chat/messages?conversationId=${encodeURIComponent(convId)}`);
+        const res = await fetch(`/api/chat/messages?conversationId=${encodeURIComponent(convId)}&viewer=admin`, { credentials: 'same-origin' });
         const data = await res.json();
         if (data.messages) {
           setChatMessages((prev) => {
@@ -187,8 +188,45 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
       return () => clearInterval(t);
     } else {
       setChatMessages([]);
+      setVisitorTyping(false);
     }
   }, [chatSelectedId, loadChatMessages]);
+
+  // Опрос: печатает ли посетитель
+  useEffect(() => {
+    if (!chatSelectedId) {
+      setVisitorTyping(false);
+      return;
+    }
+    const check = () => {
+      fetch(`/api/chat/typing?conversationId=${encodeURIComponent(chatSelectedId)}`, { credentials: 'same-origin' })
+        .then((r) => r.json())
+        .then((d) => setVisitorTyping(d.typing === 'visitor'))
+        .catch(() => setVisitorTyping(false));
+    };
+    check();
+    const typingInterval = setInterval(check, 2000);
+    return () => clearInterval(typingInterval);
+  }, [chatSelectedId]);
+
+  // Отправка «админ печатает» при вводе ответа
+  const adminTypingRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (!chatSelectedId || !chatReply.trim()) return;
+    if (adminTypingRef.current) clearTimeout(adminTypingRef.current);
+    adminTypingRef.current = setTimeout(() => {
+      fetch('/api/chat/typing', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ conversationId: chatSelectedId, who: 'admin' }),
+      }).catch(() => {});
+      adminTypingRef.current = null;
+    }, 400);
+    return () => {
+      if (adminTypingRef.current) clearTimeout(adminTypingRef.current);
+    };
+  }, [chatSelectedId, chatReply]);
 
   const toggleSelectAll = () => {
     if (selectedIndices.size === subs.length) {
@@ -856,10 +894,31 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
                               ))}
                             </div>
                           )}
-                          <p className="text-xs opacity-80 mt-1">{new Date(m.createdAt).toLocaleString('ru-RU')}</p>
+                          <p className="text-xs opacity-80 mt-1 flex items-center gap-1.5">
+                            {new Date(m.createdAt).toLocaleString('ru-RU')}
+                            {m.author === 'admin' && (
+                              <span className="inline-flex items-center" title={m.status === 'read' ? 'Прочитано' : 'Отправлено'}>
+                                {m.status === 'read' ? (
+                                  <span className="text-sky-200">
+                                    <svg className="w-3.5 h-3 inline" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 6l4 4 10-10"/></svg>
+                                    <svg className="w-3.5 h-3 inline -ml-2.5" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 6l4 4 10-10"/></svg>
+                                  </span>
+                                ) : (
+                                  <span className="opacity-80">
+                                    <svg className="w-3.5 h-3 inline" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 6l4 4 10-10"/></svg>
+                                  </span>
+                                )}
+                              </span>
+                            )}
+                          </p>
                         </div>
                       </div>
                     ))}
+                    {visitorTyping && (
+                      <div className="flex justify-start">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 italic py-1 px-2">Посетитель печатает...</p>
+                      </div>
+                    )}
                   </div>
                   <form
                     className="p-2 border-t border-gray-200 dark:border-gray-600 space-y-2"

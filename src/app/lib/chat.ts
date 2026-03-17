@@ -10,6 +10,14 @@ const CHAT_MSG_SUFFIX = ':messages';
 const CHAT_FILE = path.join(process.cwd(), 'chat-data.json');
 const ADMIN_LAST_SEEN_KEY = 'chat:admin:lastSeen';
 const ADMIN_PROFILE_KEY = 'chat:admin:profile';
+const TYPING_TTL_MS = 8000;
+
+function convReadAtKey(conversationId: string, role: 'admin' | 'visitor'): string {
+  return `chat:conv:${conversationId}:${role}ReadAt`;
+}
+function typingKey(conversationId: string): string {
+  return `chat:typing:${conversationId}`;
+}
 
 const DEFAULT_PROFILE = { name: 'Поддержка APSOD', photoUrl: '' };
 
@@ -18,6 +26,8 @@ type FileChatData = {
   messages: Record<string, string[]>;
   adminLastSeen?: number;
   adminProfile?: { name: string; photoUrl: string };
+  conversationReadAt?: Record<string, { adminReadAt?: number; visitorReadAt?: number }>;
+  typing?: Record<string, { who: 'visitor' | 'admin'; at: number }>;
 };
 
 // --- Шифрование сообщений чата ---
@@ -101,6 +111,9 @@ export interface ChatAttachment {
   data: string;
 }
 
+/** Статус своего сообщения: как в WhatsApp — одна галочка отправлено, две доставлено, две синие прочитано */
+export type ChatMessageStatus = 'sent' | 'delivered' | 'read';
+
 export interface ChatMessage {
   id: string;
   author: ChatAuthor;
@@ -108,6 +121,8 @@ export interface ChatMessage {
   createdAt: string;
   visitorName?: string;
   attachments?: ChatAttachment[];
+  /** Статус для сообщений отправителя (отправлено / доставлено / прочитано) */
+  status?: ChatMessageStatus;
 }
 
 export interface ChatConversationMeta {
@@ -170,11 +185,92 @@ export async function addChatMessage(
   return msg;
 }
 
-export async function getChatMessages(conversationId: string): Promise<ChatMessage[]> {
+export async function getConversationRead(conversationId: string): Promise<{ adminReadAt: number | null; visitorReadAt: number | null }> {
+  if (hasRedis()) {
+    const [a, v] = await Promise.all([
+      redisChat.get(convReadAtKey(conversationId, 'admin')),
+      redisChat.get(convReadAtKey(conversationId, 'visitor')),
+    ]);
+    return {
+      adminReadAt: a ? parseInt(a, 10) : null,
+      visitorReadAt: v ? parseInt(v, 10) : null,
+    };
+  }
+  const data = readFileChat();
+  const r = data.conversationReadAt?.[conversationId];
+  return {
+    adminReadAt: r?.adminReadAt ?? null,
+    visitorReadAt: r?.visitorReadAt ?? null,
+  };
+}
+
+export async function setConversationRead(conversationId: string, role: 'admin' | 'visitor'): Promise<void> {
+  const now = Date.now();
+  if (hasRedis()) {
+    await redisChat.set(convReadAtKey(conversationId, role), String(now));
+    return;
+  }
+  const data = readFileChat();
+  if (!data.conversationReadAt) data.conversationReadAt = {};
+  if (!data.conversationReadAt[conversationId]) data.conversationReadAt[conversationId] = {};
+  if (role === 'admin') data.conversationReadAt[conversationId].adminReadAt = now;
+  else data.conversationReadAt[conversationId].visitorReadAt = now;
+  writeFileChat(data);
+}
+
+export async function setTyping(conversationId: string, who: 'visitor' | 'admin'): Promise<void> {
+  const payload = JSON.stringify({ who, at: Date.now() });
+  if (hasRedis()) {
+    await redisChat.set(typingKey(conversationId), payload);
+    return;
+  }
+  const data = readFileChat();
+  if (!data.typing) data.typing = {};
+  data.typing[conversationId] = { who, at: Date.now() };
+  writeFileChat(data);
+}
+
+export async function getTyping(conversationId: string): Promise<'visitor' | 'admin' | null> {
+  const now = Date.now();
+  if (hasRedis()) {
+    const raw = await redisChat.get(typingKey(conversationId));
+    if (!raw) return null;
+    try {
+      const { who, at } = JSON.parse(raw) as { who: string; at: number };
+      if (now - at > TYPING_TTL_MS) return null;
+      return who === 'admin' ? 'admin' : who === 'visitor' ? 'visitor' : null;
+    } catch {
+      return null;
+    }
+  }
+  const data = readFileChat();
+  const t = data.typing?.[conversationId];
+  if (!t || now - t.at > TYPING_TTL_MS) return null;
+  return t.who;
+}
+
+export async function getChatMessages(
+  conversationId: string,
+  options?: { viewerRole?: 'admin' | 'visitor' }
+): Promise<ChatMessage[]> {
+  let list: ChatMessage[];
   if (hasRedis()) {
     const key = messagesKey(conversationId);
     const raw = await redisChat.lrange(key, 0, -1);
-    return raw
+    list = raw
+      .map((s) => {
+        try {
+          const plain = decryptChatPayload(s);
+          return JSON.parse(plain) as ChatMessage;
+        } catch {
+          return null;
+        }
+      })
+      .filter(Boolean) as ChatMessage[];
+  } else {
+    const data = readFileChat();
+    const raw = data.messages[conversationId] ?? [];
+    list = raw
       .map((s) => {
         try {
           const plain = decryptChatPayload(s);
@@ -185,18 +281,27 @@ export async function getChatMessages(conversationId: string): Promise<ChatMessa
       })
       .filter(Boolean) as ChatMessage[];
   }
-  const data = readFileChat();
-  const raw = data.messages[conversationId] ?? [];
-  return raw
-    .map((s) => {
-      try {
-        const plain = decryptChatPayload(s);
-        return JSON.parse(plain) as ChatMessage;
-      } catch {
-        return null;
-      }
-    })
-    .filter(Boolean) as ChatMessage[];
+
+  const viewer = options?.viewerRole;
+  if (viewer) {
+    await setConversationRead(conversationId, viewer);
+  }
+  const read = await getConversationRead(conversationId);
+  const adminReadAt = read.adminReadAt ?? 0;
+  const visitorReadAt = read.visitorReadAt ?? 0;
+
+  return list.map((m) => {
+    const msg = { ...m };
+    const t = new Date(m.createdAt).getTime();
+    if (m.author === 'visitor') {
+      if (adminReadAt >= t) msg.status = 'read';
+      else msg.status = 'sent';
+    } else {
+      if (visitorReadAt >= t) msg.status = 'read';
+      else msg.status = 'sent';
+    }
+    return msg;
+  });
 }
 
 export async function getChatConversations(limit = 50): Promise<ChatConversationMeta[]> {
