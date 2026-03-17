@@ -108,12 +108,7 @@ export default function ChatWidget() {
   const [isNarrow, setIsNarrow] = useState(false);
 
   const adjustTextareaHeight = () => {
-    const el = textareaRef.current;
-    if (!el) return;
-    const isNarrow = typeof window !== 'undefined' && window.innerWidth < 640;
-    const maxPx = isNarrow ? 72 : 160; // на мобильных не больше ~3 строк — макет не смещается
-    el.style.height = 'auto';
-    el.style.height = `${Math.min(el.scrollHeight, maxPx)}px`;
+    // Высота поля фиксирована — футер (скрепка, смайл, GIF, отправить) не смещается
   };
 
   useEffect(() => {
@@ -335,7 +330,7 @@ export default function ChatWidget() {
       }
       if (data.message) setMessages((prev) => [...prev, data.message]);
       setInput('');
-      if (textareaRef.current) {
+      if (textareaRef.current && !isNarrow) {
         textareaRef.current.style.height = 'auto';
       }
     } catch {
@@ -454,15 +449,13 @@ export default function ChatWidget() {
                     }
                   : {
                       top: 'max(0.5rem, env(safe-area-inset-top, 0.5rem))',
-                      left: 'max(0.5rem, env(safe-area-inset-left, 0.5rem))',
                       right: 'max(0.5rem, env(safe-area-inset-right, 0.5rem))',
                       bottom: 'max(0.5rem, env(safe-area-inset-bottom, 0.5rem))',
-                      width: 'calc(100vw - max(1rem, env(safe-area-inset-left)) - max(1rem, env(safe-area-inset-right)))',
-                      maxWidth: '420px',
+                      left: 'auto',
+                      width: '420px',
+                      maxWidth: 'calc(100vw - 1rem)',
                       height: 'calc(100dvh - max(1rem, env(safe-area-inset-top)) - max(1rem, env(safe-area-inset-bottom)))',
                       maxHeight: 'min(1000px, calc(100dvh - 1rem))',
-                      marginLeft: 'auto',
-                      marginRight: 'auto',
                       paddingTop: 'max(0.75rem, env(safe-area-inset-top, 0.75rem))',
                     }
               }
@@ -554,92 +547,99 @@ export default function ChatWidget() {
             {error && <p className="text-sm text-red-400 text-center py-1">{error}</p>}
           </div>
 
-          {/* Футер: ширина жёстко ограничена, без горизонтальной прокрутки */}
-          <div className="py-3 pt-2 border-t border-gray-700/50 bg-[#1a1d21] flex-shrink-0 space-y-2 max-h-[11rem] min-h-0 overflow-hidden overflow-x-hidden min-w-0 w-full max-w-full box-border px-3">
-            <div className="grid grid-cols-[1fr_auto] items-end gap-2 rounded-2xl bg-gray-800 border border-gray-600 pl-3 pr-2 py-2 focus-within:ring-2 focus-within:ring-[#1e3a5f] focus-within:border-transparent min-h-[2.75rem] overflow-hidden w-full max-w-full box-border min-w-0">
-              <textarea
-                ref={textareaRef}
-                value={input}
-                onChange={(e) => {
-                  setInput(e.target.value);
-                  adjustTextareaHeight();
-                }}
-                onFocus={() => {
-                  requestAnimationFrame(() => {
-                    listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'auto' });
-                  });
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    sendMessage();
-                  }
-                }}
-                placeholder="Сообщение..."
-                rows={1}
-                className="min-w-0 w-full max-w-full py-2 bg-transparent focus:outline-none resize-none leading-6 placeholder:text-gray-400 overflow-y-auto overflow-x-hidden break-words max-h-[4.5rem] sm:max-h-[160px] col-start-1"
-                style={{
-                  minHeight: '2.25rem',
-                  color: '#ffffff',
-                  WebkitTextFillColor: '#ffffff',
-                  wordBreak: 'break-word',
-                  overflowWrap: 'break-word',
-                  fontSize: isNarrow ? 16 : 14,
-                }}
-              />
-              <button
-                type="button"
-                onClick={sendMessage}
-                disabled={loading || !input.trim()}
-                className="w-10 h-10 min-w-[2.5rem] rounded-full bg-[#1e3a5f] text-white flex items-center justify-center hover:bg-[#2a4a7a] disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0 col-start-2"
-                aria-label="Отправить"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-              </button>
-            </div>
-
-            {/* Блок иконок под полем: прикрепить файл, эмодзи, GIF */}
-            <div className="flex items-center gap-1 rounded-2xl bg-gray-800 border border-gray-600 px-2 py-2">
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept={ACCEPT_TYPES}
-                onChange={handleFileChange}
-                className="hidden"
-                id="chat-file"
-                multiple
-              />
-              <label
-                htmlFor="chat-file"
-                className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 cursor-pointer transition-colors"
-                title="Прикрепить файл (до 2 МБ, макс. 3)"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-                </svg>
-              </label>
-              <button
-                type="button"
-                onClick={() => { setShowEmojiPicker((v) => !v); setShowGifPicker(false); setEmojiSearch(''); setEmojiCategory(''); }}
-                className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors"
-                title="Эмодзи"
-                aria-label="Эмодзи"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </button>
-              <button
-                type="button"
-                onClick={() => { setShowGifPicker((v) => !v); setShowEmojiPicker(false); setGifSearch(''); }}
-                className="px-2.5 py-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors text-xs font-medium border border-gray-500"
-                title="GIF"
-                aria-label="GIF"
-              >
-                GIF
-              </button>
+          {/* Футер как в Cursor: поле ввода с фиксированной высотой + одна строка иконок и кнопка отправки */}
+          <div className="py-3 pt-2 border-t border-gray-700/50 bg-[#1a1d21] flex-shrink-0 min-h-0 overflow-hidden overflow-x-hidden min-w-0 w-full max-w-full box-border px-3">
+            <div className="rounded-2xl bg-gray-800 border border-gray-600 overflow-hidden focus-within:ring-2 focus-within:ring-[#1e3a5f] focus-within:border-transparent w-full max-w-full box-border min-w-0 flex flex-col">
+              {/* Поле ввода: фиксированная высота, скролл внутри — футер не смещается */}
+              <div className="flex-shrink-0 px-3 pt-2 min-h-0">
+                <textarea
+                  ref={textareaRef}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onFocus={() => {
+                    requestAnimationFrame(() => {
+                      listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: 'auto' });
+                    });
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      e.preventDefault();
+                      sendMessage();
+                    }
+                  }}
+                  placeholder="Сообщение..."
+                  rows={1}
+                  className="min-w-0 w-full max-w-full py-0 bg-transparent focus:outline-none resize-none leading-6 placeholder:text-gray-400 overflow-y-auto overflow-x-hidden break-words block"
+                  style={{
+                    color: '#ffffff',
+                    WebkitTextFillColor: '#ffffff',
+                    wordBreak: 'break-word',
+                    overflowWrap: 'break-word',
+                    fontSize: isNarrow ? 16 : 14,
+                    height: isNarrow ? '4.5rem' : '5rem',
+                    maxHeight: isNarrow ? '4.5rem' : '5rem',
+                    minHeight: '2.25rem',
+                  }}
+                />
+              </div>
+              {files.length > 0 && (
+                <p className="text-xs text-gray-500 truncate px-3 pt-0.5 flex-shrink-0">
+                  📎 {files.map((f) => f.name).join(', ')}
+                </p>
+              )}
+              {/* Жёстко закреплённая строка: скрепка, смайл, GIF, кнопка Отправить — как в Cursor */}
+              <div className="flex items-center gap-0.5 px-2 pb-2 pt-2 border-t border-gray-700/50 flex-shrink-0 min-h-[2.75rem]">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept={ACCEPT_TYPES}
+                  onChange={handleFileChange}
+                  className="hidden"
+                  id="chat-file"
+                  multiple
+                />
+                <label
+                  htmlFor="chat-file"
+                  className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 cursor-pointer transition-colors flex-shrink-0"
+                  title="Прикрепить файл (до 2 МБ, макс. 3)"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                  </svg>
+                </label>
+                <button
+                  type="button"
+                  onClick={() => { setShowEmojiPicker((v) => !v); setShowGifPicker(false); setEmojiSearch(''); setEmojiCategory(''); }}
+                  className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors flex-shrink-0"
+                  title="Эмодзи"
+                  aria-label="Эмодзи"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setShowGifPicker((v) => !v); setShowEmojiPicker(false); setGifSearch(''); }}
+                  className="px-2.5 py-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors text-xs font-medium border border-gray-500 flex-shrink-0"
+                  title="GIF"
+                  aria-label="GIF"
+                >
+                  GIF
+                </button>
+                <div className="flex-1 min-w-2" aria-hidden />
+                <button
+                  type="button"
+                  onClick={sendMessage}
+                  disabled={loading || !input.trim()}
+                  className="w-10 h-10 min-w-[2.5rem] rounded-full bg-[#1e3a5f] text-white flex items-center justify-center hover:bg-[#2a4a7a] disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
+                  aria-label="Отправить"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  </svg>
+                </button>
+              </div>
             </div>
 
             {showEmojiPicker && (
@@ -728,12 +728,6 @@ export default function ChatWidget() {
                   )}
                 </div>
               </div>
-            )}
-
-            {files.length > 0 && (
-              <p className="text-xs text-gray-500 truncate">
-                {files.map((f) => f.name).join(', ')}
-              </p>
             )}
           </div>
         </div>
