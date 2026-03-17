@@ -1,10 +1,19 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import SeoJsonLd from '../../components/SeoJsonLd'
+import { SITE_URL } from '../../lib/seo'
 
 export const metadata: Metadata = {
-  title: 'PWA разработка | Прогрессивные веб-приложения | APSOD',
-  description: 'Разработка Progressive Web Apps (PWA) — гибрид веб-сайта и мобильного приложения. Установка на устройство, работа офлайн, push-уведомления, высокая скорость загрузки и SEO-оптимизация.',
-  keywords: 'pwa разработка, progressive web app, прогрессивные веб-приложения, установка на телефон, работа офлайн, push уведомления, seo pwa',
+  title: 'PWA разработка — прогрессивные веб-приложения',
+  description: 'Разработка PWA: установка на устройство как приложение, работа офлайн, push-уведомления, быстрая загрузка. Гибрид сайта и мобильного приложения.',
+  keywords: 'pwa разработка, progressive web app, прогрессивные веб-приложения, установка на телефон, работа офлайн, push уведомления',
+  openGraph: {
+    title: 'PWA разработка | APSOD',
+    description: 'Прогрессивные веб-приложения: установка на устройство, офлайн, push-уведомления.',
+    url: `${SITE_URL}/services/pwa-development`,
+    siteName: 'APSOD',
+    type: 'website',
+  },
 }
 
 export default function PWADevelopmentPage() {
@@ -164,9 +173,28 @@ export default function PWADevelopmentPage() {
     }
   ];
 
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'PWA разработка',
+    description: 'Разработка прогрессивных веб-приложений: установка на устройство, работа офлайн, push-уведомления.',
+    provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
+    areaServed: { '@type': 'Country', name: 'Belarus' },
+    url: `${SITE_URL}/services/pwa-development`,
+  }
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Услуги', item: `${SITE_URL}/services` },
+      { '@type': 'ListItem', position: 3, name: 'PWA разработка', item: `${SITE_URL}/services/pwa-development` },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      
+      <SeoJsonLd data={[serviceSchema, breadcrumbSchema]} />
       {/* Hero секция */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">

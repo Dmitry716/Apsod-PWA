@@ -2,8 +2,17 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Услуги | APSOD',
-  description: 'Веб-разработка, мобильные приложения, CRM и ERP системы. Современные технологии для вашего бизнеса.',
+  title: 'Услуги',
+  description: 'Разработка сайтов, интернет-магазинов, мобильных приложений. SEO продвижение, CRM, ERP, техническая поддержка сайтов. Комплексные IT-решения для бизнеса.',
+  keywords: ['разработка сайтов', 'интернет-магазины', 'мобильные приложения', 'seo продвижение', 'техническая поддержка сайтов', 'веб-разработка', 'crm', 'erp'].join(', '),
+  openGraph: {
+    title: 'Услуги — разработка сайтов, интернет-магазинов, мобильных приложений | APSOD',
+    description: 'Разработка сайтов, интернет-магазинов, мобильных приложений. SEO продвижение и техническая поддержка сайтов.',
+    url: 'https://apsod.com/services',
+    siteName: 'APSOD',
+    type: 'website',
+  },
+  alternates: { canonical: 'https://apsod.com/services' },
 }
 
 const services = [
@@ -125,6 +134,23 @@ const services = [
     technologies: ['Figma', 'Adobe XD', 'Sketch', 'ProtoPie'],
     link: '/services/ui-ux',
     color: 'from-pink-500 to-rose-500'
+  },
+  {
+    id: 8,
+    title: 'Техническая поддержка сайтов',
+    description: 'Обновление контента, мониторинг, резервное копирование и доработки вашего сайта',
+    icon: '🛠️',
+    fullDescription: 'Постоянная техническая поддержка сайтов: обновления, исправление ошибок, резервные копии, мониторинг доступности и доработки по вашим запросам.',
+    features: [
+      'Обновление контента и правки на сайте',
+      'Мониторинг доступности и устранение сбоев',
+      'Резервное копирование и восстановление',
+      'Обновление CMS и плагинов',
+      'Консультации и доработки по запросу'
+    ],
+    technologies: ['Next.js', 'WordPress', 'Мониторинг', 'Backup'],
+    link: '/services/technical-support',
+    color: 'from-slate-600 to-slate-800'
   }
 ];
 

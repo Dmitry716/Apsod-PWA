@@ -1,10 +1,19 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import SeoJsonLd from '../../components/SeoJsonLd'
+import { SITE_URL } from '../../lib/seo'
 
 export const metadata: Metadata = {
-  title: 'CRM системы | Разработка и внедрение | APSOD',
-  description: 'Разработка и внедрение CRM систем для автоматизации продаж, управления клиентами и бизнес-процессами. Интеграция с телефонией, почтой и 1С.',
+  title: 'CRM системы — разработка и внедрение',
+  description: 'Разработка и внедрение CRM для автоматизации продаж и управления клиентами. Битрикс24, AmoCRM, Salesforce. Интеграция с телефонией и 1С.',
   keywords: 'crm системы, разработка crm, внедрение crm, битрикс24, amocrm, salesforce, автоматизация продаж',
+  openGraph: {
+    title: 'CRM системы | APSOD',
+    description: 'Разработка и внедрение CRM. Автоматизация продаж, управление клиентами.',
+    url: `${SITE_URL}/services/crm`,
+    siteName: 'APSOD',
+    type: 'website',
+  },
 }
 
 export default function CRMPage() {
@@ -72,9 +81,28 @@ export default function CRMPage() {
     }
   ];
 
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'CRM системы — разработка и внедрение',
+    description: 'Разработка и внедрение CRM для автоматизации продаж и управления клиентами. Битрикс24, AmoCRM, Salesforce.',
+    provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
+    areaServed: { '@type': 'Country', name: 'Belarus' },
+    url: `${SITE_URL}/services/crm`,
+  }
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Услуги', item: `${SITE_URL}/services` },
+      { '@type': 'ListItem', position: 3, name: 'CRM системы', item: `${SITE_URL}/services/crm` },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      
+      <SeoJsonLd data={[serviceSchema, breadcrumbSchema]} />
       {/* Hero секция */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">

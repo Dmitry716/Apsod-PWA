@@ -2,6 +2,8 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { blogPosts } from '../data/posts'
+import SeoJsonLd from '../../components/SeoJsonLd'
+import { SITE_URL } from '../../lib/seo'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -13,18 +15,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   if (!post) {
     return {
-      title: 'Статья не найдена | APSOD',
+      title: 'Статья не найдена',
     }
   }
 
+  const url = `${SITE_URL}/blog/${post.slug}`
   return {
-    title: post.title + ' | APSOD Блог',
+    title: post.title,
     description: post.excerpt,
     keywords: post.tags.join(', '),
     authors: [{ name: post.author }],
     openGraph: {
       title: post.title,
       description: post.excerpt,
+      url,
+      siteName: 'APSOD',
       type: 'article',
       publishedTime: post.date,
       authors: [post.author],
@@ -46,9 +51,29 @@ export default async function BlogPostPage({ params }: Props) {
     .filter(p => p.categorySlug === post.categorySlug && p.slug !== post.slug)
     .slice(0, 3);
 
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.excerpt,
+    author: { '@type': 'Person', name: post.author },
+    datePublished: post.date,
+    publisher: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/blog/${post.slug}` },
+  }
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Блог', item: `${SITE_URL}/blog` },
+      { '@type': 'ListItem', position: 3, name: post.title, item: `${SITE_URL}/blog/${post.slug}` },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      
+      <SeoJsonLd data={[articleSchema, breadcrumbSchema]} />
       {/* Хлебные крошки с правильными отступами */}
       <div className="container mx-auto px-4 pt-24 md:pt-32">
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 overflow-x-auto pb-2">

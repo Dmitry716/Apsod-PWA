@@ -1,6 +1,9 @@
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getProjectBySlug, getSlugFromLink, PORTFOLIO_PROJECTS } from '../data'
+import SeoJsonLd from '../../components/SeoJsonLd'
+import { SITE_URL } from '../../lib/seo'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -8,13 +11,42 @@ export async function generateStaticParams() {
   return PORTFOLIO_PROJECTS.map((p) => getSlugFromLink(p.link)).filter(Boolean).map((slug) => ({ slug: slug! }))
 }
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const project = getProjectBySlug(slug)
+  if (!project) return { title: 'Проект не найден' }
+  const url = `${SITE_URL}/portfolio/${slug}`
+  return {
+    title: project.title,
+    description: project.description,
+    openGraph: {
+      title: `${project.title} | Портфолио APSOD`,
+      description: project.description,
+      url,
+      siteName: 'APSOD',
+      type: 'website',
+    },
+  }
+}
+
 export default async function PortfolioSlugPage({ params }: Props) {
   const { slug } = await params
   const project = getProjectBySlug(slug)
   if (!project) notFound()
 
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Портфолио', item: `${SITE_URL}/portfolio` },
+      { '@type': 'ListItem', position: 3, name: project.title, item: `${SITE_URL}/portfolio/${slug}` },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <SeoJsonLd data={breadcrumbSchema} />
       <section className="pt-28 pb-16">
         <div className="container mx-auto px-4">
           <Link
