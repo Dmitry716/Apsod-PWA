@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { createPortal } from 'react-dom';
+import Image from 'next/image';
 import { EMOJI_LIBRARY, EMOJI_CATEGORIES } from '@/app/data/emoji-library';
 import { GIF_LIBRARY } from '@/app/data/gif-library';
 
@@ -101,25 +102,11 @@ export default function ChatWidget() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const soundRef = useRef<HTMLAudioElement | null>(null);
 
-  const [viewportRect, setViewportRect] = useState<{
-    top: number;
-    left: number;
-    width: number;
-    height: number;
-  } | null>(null);
   const [isNarrow, setIsNarrow] = useState(false);
 
   const adjustTextareaHeight = () => {
     // Высота поля фиксирована — футер (скрепка, смайл, GIF, отправить) не смещается
   };
-
-  useEffect(() => {
-    const id = getStoredConvId();
-    if (id) {
-      setConversationId(id);
-      loadMessages(id);
-    }
-  }, []);
 
   useEffect(() => {
     // Предзагрузка звука для уведомления о новом сообщении
@@ -132,14 +119,12 @@ export default function ChatWidget() {
     }
   }, []);
 
-  const playIncomingSoundAndNotification = (msg: Message) => {
-    // Звук
+  const playIncomingSoundAndNotification = useCallback((msg: Message) => {
     try {
       soundRef.current?.play().catch(() => {});
     } catch {
       // ignore
     }
-    // Браузерное уведомление (если пользователь разрешил)
     if (typeof window !== 'undefined' && 'Notification' in window) {
       if (Notification.permission === 'granted') {
         try {
@@ -153,9 +138,9 @@ export default function ChatWidget() {
         }
       }
     }
-  };
+  }, [supportPhotoUrl]);
 
-  const loadMessages = async (convId: string, options?: { fromPoll?: boolean }) => {
+  const loadMessages = useCallback(async (convId: string, options?: { fromPoll?: boolean }) => {
     try {
       const url = `${typeof window !== 'undefined' ? window.location.origin : ''}/api/chat/messages?conversationId=${encodeURIComponent(convId)}&viewer=visitor`;
       const res = await fetch(url);
@@ -180,13 +165,21 @@ export default function ChatWidget() {
     } catch {
       setMessages([]);
     }
-  };
+  }, [playIncomingSoundAndNotification]);
+
+  useEffect(() => {
+    const id = getStoredConvId();
+    if (id) {
+      setConversationId(id);
+      loadMessages(id);
+    }
+  }, [loadMessages]);
 
   useEffect(() => {
     if (!open || !conversationId) return;
     const t = setInterval(() => loadMessages(conversationId, { fromPoll: true }), POLL_INTERVAL);
     return () => clearInterval(t);
-  }, [open, conversationId]);
+  }, [open, conversationId, loadMessages]);
 
   // Опрос: печатает ли поддержка
   useEffect(() => {
@@ -319,11 +312,6 @@ export default function ChatWidget() {
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
-
-  // На мобильных не меняем размер чата при появлении клавиатуры — иначе на iOS макет смещается
-  useEffect(() => {
-    if (!open) setViewportRect(null);
-  }, [open]);
 
   useEffect(() => {
     adjustTextareaHeight();
@@ -499,10 +487,10 @@ export default function ChatWidget() {
               }
             >
           {/* Header: аватар (фото или буква), имя, статус, закрыть — не сжимается, имя не обрезается */}
-          <div className="flex items-center gap-3 px-4 py-3 pb-3 bg-[#1a1d21] border-b border-gray-700/50 flex-shrink-0 min-h-[3.5rem]">
-            <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center flex-shrink-0 overflow-hidden">
+          <div className="flex items-center gap-3 px-4 py-3 pb-3 bg-[#1a1d21] border-b border-gray-700/50 shrink-0 min-h-14">
+            <div className="w-10 h-10 rounded-full bg-gray-600 flex items-center justify-center shrink-0 overflow-hidden relative">
               {supportPhotoUrl ? (
-                <img src={supportPhotoUrl} alt="" className="w-full h-full object-cover" />
+                <Image src={supportPhotoUrl} alt="" fill className="object-cover" sizes="40px" unoptimized />
               ) : (
                 <span className="text-gray-300 font-semibold text-sm">
                   {supportName.trim() ? supportName.trim().charAt(0).toUpperCase() : 'П'}
@@ -536,27 +524,28 @@ export default function ChatWidget() {
           >
             {messages.length === 0 && !error && (
               <p className="text-sm text-gray-400 text-center py-2">
-                Добро пожаловать на APSOD! Чем мы можем помочь?
+                Добро пожаловать в APSOD! Чем мы можем помочь?
               </p>
             )}
             {messages.map((m) => (
               <div
                 key={m.id}
-                className={`flex ${m.author === 'admin' ? 'justify-start' : 'justify-end'}`}
+                className={`flex ${m.author === 'admin' ? 'justify-start' : 'justify-end'} group`}
               >
                 <div
-                  className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${
+                  className={`relative max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${
                     m.author === 'admin'
                       ? 'bg-gray-700 text-gray-100'
                       : 'bg-[#1e3a5f] text-white'
                   }`}
                 >
-                  <p className="whitespace-pre-wrap break-words">{m.text}</p>
+                  <p className="whitespace-pre-wrap wrap-break-word">{m.text}</p>
                   {m.attachments && m.attachments.length > 0 && (
                     <div className="mt-2 space-y-1">
                       {m.attachments.map((att, i) => (
                         <div key={i}>
                           {att.mimeType.startsWith('image/') ? (
+                            // eslint-disable-next-line @next/next/no-img-element -- вложения пользователя (base64), размер неизвестен
                             <img
                               src={`data:${att.mimeType};base64,${att.data}`}
                               alt={att.name}
@@ -593,6 +582,30 @@ export default function ChatWidget() {
                       </span>
                     )}
                   </p>
+                  {m.author === 'visitor' && conversationId && (
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        try {
+                          const res = await fetch(`${typeof window !== 'undefined' ? window.location.origin : ''}/api/chat/message/delete`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ conversationId, messageId: m.id, scope: 'for_me' }),
+                          });
+                          if (res.ok) {
+                            setMessages((prev) => prev.filter((msg) => msg.id !== m.id));
+                          }
+                        } catch {
+                          // ignore
+                        }
+                      }}
+                      className="absolute top-1 right-1 p-1 rounded opacity-60 hover:opacity-100 text-white/80 hover:text-white hover:bg-white/20 transition-colors"
+                      title="Удалить у себя"
+                      aria-label="Удалить у себя"
+                    >
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
@@ -607,10 +620,10 @@ export default function ChatWidget() {
           </div>
 
           {/* Футер как в Cursor: поле ввода с фиксированной высотой + одна строка иконок и кнопка отправки */}
-          <div className="py-3 pt-2 border-t border-gray-700/50 bg-[#1a1d21] flex-shrink-0 min-h-0 overflow-hidden overflow-x-hidden min-w-0 w-full max-w-full box-border px-3">
+          <div className="py-3 pt-2 border-t border-gray-700/50 bg-[#1a1d21] shrink-0 min-h-0 overflow-hidden overflow-x-hidden min-w-0 w-full max-w-full box-border px-3">
             <div className="rounded-2xl bg-gray-800 border border-gray-600 overflow-hidden focus-within:ring-2 focus-within:ring-[#1e3a5f] focus-within:border-transparent w-full max-w-full box-border min-w-0 flex flex-col">
               {/* Поле ввода: фиксированная высота, скролл внутри — футер не смещается */}
-              <div className="flex-shrink-0 px-3 pt-2 min-h-0">
+              <div className="shrink-0 px-3 pt-2 min-h-0">
                 <textarea
                   ref={textareaRef}
                   value={input}
@@ -628,7 +641,7 @@ export default function ChatWidget() {
                   }}
                   placeholder="Сообщение..."
                   rows={1}
-                  className="min-w-0 w-full max-w-full py-0 bg-transparent focus:outline-none resize-none leading-6 placeholder:text-gray-400 overflow-y-auto overflow-x-hidden break-words block"
+                  className="min-w-0 w-full max-w-full py-0 bg-transparent focus:outline-none resize-none leading-6 placeholder:text-gray-400 overflow-y-auto overflow-x-hidden wrap-break-word block"
                   style={{
                     color: '#ffffff',
                     WebkitTextFillColor: '#ffffff',
@@ -642,12 +655,12 @@ export default function ChatWidget() {
                 />
               </div>
               {files.length > 0 && (
-                <p className="text-xs text-gray-500 truncate px-3 pt-0.5 flex-shrink-0">
+                <p className="text-xs text-gray-500 truncate px-3 pt-0.5 shrink-0">
                   📎 {files.map((f) => f.name).join(', ')}
                 </p>
               )}
               {/* Жёстко закреплённая строка: скрепка, смайл, GIF, кнопка Отправить — как в Cursor */}
-              <div className="flex items-center gap-0.5 px-2 pb-2 pt-2 border-t border-gray-700/50 flex-shrink-0 min-h-[2.75rem]">
+              <div className="flex items-center gap-0.5 px-2 pb-2 pt-2 border-t border-gray-700/50 shrink-0 min-h-11">
                 <input
                   ref={fileInputRef}
                   type="file"
@@ -659,7 +672,7 @@ export default function ChatWidget() {
                 />
                 <label
                   htmlFor="chat-file"
-                  className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 cursor-pointer transition-colors flex-shrink-0"
+                  className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 cursor-pointer transition-colors shrink-0"
                   title="Прикрепить файл (до 2 МБ, макс. 3)"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -669,7 +682,7 @@ export default function ChatWidget() {
                 <button
                   type="button"
                   onClick={() => { setShowEmojiPicker((v) => !v); setShowGifPicker(false); setEmojiSearch(''); setEmojiCategory(''); }}
-                  className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors flex-shrink-0"
+                  className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors shrink-0"
                   title="Эмодзи"
                   aria-label="Эмодзи"
                 >
@@ -680,7 +693,7 @@ export default function ChatWidget() {
                 <button
                   type="button"
                   onClick={() => { setShowGifPicker((v) => !v); setShowEmojiPicker(false); setGifSearch(''); }}
-                  className="px-2.5 py-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors text-xs font-medium border border-gray-500 flex-shrink-0"
+                  className="px-2.5 py-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors text-xs font-medium border border-gray-500 shrink-0"
                   title="GIF"
                   aria-label="GIF"
                 >
@@ -691,7 +704,7 @@ export default function ChatWidget() {
                   type="button"
                   onClick={sendMessage}
                   disabled={loading || !input.trim()}
-                  className="w-10 h-10 min-w-[2.5rem] rounded-full bg-[#1e3a5f] text-white flex items-center justify-center hover:bg-[#2a4a7a] disabled:opacity-40 disabled:cursor-not-allowed transition-colors flex-shrink-0"
+                  className="w-10 h-10 min-w-10 rounded-full bg-[#1e3a5f] text-white flex items-center justify-center hover:bg-[#2a4a7a] disabled:opacity-40 disabled:cursor-not-allowed transition-colors shrink-0"
                   aria-label="Отправить"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -768,6 +781,7 @@ export default function ChatWidget() {
                         onClick={() => handleGifSelect(gif.url)}
                         className="relative aspect-video rounded-lg overflow-hidden bg-gray-700 hover:ring-2 hover:ring-[#1e3a5f] focus:outline-none focus:ring-2 focus:ring-[#1e3a5f]"
                       >
+                        {/* eslint-disable-next-line @next/next/no-img-element -- GIF превью с внешнего CDN */}
                         <img
                           src={gif.url}
                           alt={gif.title ?? gif.tags[0]}

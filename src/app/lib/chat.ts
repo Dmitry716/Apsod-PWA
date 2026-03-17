@@ -18,6 +18,9 @@ function convReadAtKey(conversationId: string, role: 'admin' | 'visitor'): strin
 function typingKey(conversationId: string): string {
   return `chat:typing:${conversationId}`;
 }
+function hiddenKey(conversationId: string, role: 'admin' | 'visitor'): string {
+  return `chat:conv:${conversationId}:hidden:${role}`;
+}
 
 const DEFAULT_PROFILE = { name: 'Поддержка APSOD', photoUrl: '' };
 
@@ -28,6 +31,8 @@ type FileChatData = {
   adminProfile?: { name: string; photoUrl: string };
   conversationReadAt?: Record<string, { adminReadAt?: number; visitorReadAt?: number }>;
   typing?: Record<string, { who: 'visitor' | 'admin'; at: number }>;
+  /** Сообщения, скрытые «удалить у себя»: по convId и роли */
+  conversationHidden?: Record<string, { visitor?: string[]; admin?: string[] }>;
 };
 
 // --- Шифрование сообщений чата ---
@@ -149,6 +154,84 @@ export async function deleteChatConversation(conversationId: string): Promise<vo
   delete data.messages[conversationId];
   data.conversations = data.conversations.filter((id) => id !== conversationId);
   writeFileChat(data);
+}
+
+/** Список ID сообщений, скрытых «удалить у себя» для данной роли в диалоге. */
+export async function getConversationHidden(conversationId: string, role: 'admin' | 'visitor'): Promise<string[]> {
+  if (hasRedis()) {
+    const raw = await redisChat.get(hiddenKey(conversationId, role));
+    if (!raw) return [];
+    try {
+      const arr = JSON.parse(raw) as unknown;
+      return Array.isArray(arr) ? arr.filter((id): id is string => typeof id === 'string') : [];
+    } catch {
+      return [];
+    }
+  }
+  const data = readFileChat();
+  const r = data.conversationHidden?.[conversationId];
+  const list = role === 'admin' ? r?.admin : r?.visitor;
+  return Array.isArray(list) ? list : [];
+}
+
+/** Скрыть сообщение «удалить у себя» для данной роли (не удаляет из хранилища). */
+export async function addMessageHiddenFor(conversationId: string, messageId: string, role: 'admin' | 'visitor'): Promise<void> {
+  const current = await getConversationHidden(conversationId, role);
+  if (current.includes(messageId)) return;
+  const next = [...current, messageId];
+  if (hasRedis()) {
+    await redisChat.set(hiddenKey(conversationId, role), JSON.stringify(next));
+    return;
+  }
+  const data = readFileChat();
+  if (!data.conversationHidden) data.conversationHidden = {};
+  if (!data.conversationHidden[conversationId]) data.conversationHidden[conversationId] = {};
+  if (role === 'admin') data.conversationHidden[conversationId].admin = next;
+  else data.conversationHidden[conversationId].visitor = next;
+  writeFileChat(data);
+}
+
+/** Удалить одно сообщение из диалога для всех (без следа). Только админ. */
+export async function deleteChatMessage(conversationId: string, messageId: string): Promise<boolean> {
+  if (hasRedis()) {
+    const key = messagesKey(conversationId);
+    const raw = await redisChat.lrange(key, 0, -1);
+    for (const stored of raw) {
+      try {
+        const plain = decryptChatPayload(stored);
+        const msg = JSON.parse(plain) as ChatMessage;
+        if (msg.id === messageId) {
+          await redisChat.lrem(key, 1, stored);
+          return true;
+        }
+      } catch {
+        // skip invalid
+      }
+    }
+    return false;
+  }
+  const data = readFileChat();
+  const list = data.messages[conversationId] ?? [];
+  let found = false;
+  const next = list.filter((stored) => {
+    try {
+      const plain = decryptChatPayload(stored);
+      const msg = JSON.parse(plain) as ChatMessage;
+      if (msg.id === messageId) {
+        found = true;
+        return false;
+      }
+    } catch {
+      // keep
+    }
+    return true;
+  });
+  if (found) {
+    data.messages[conversationId] = next;
+    writeFileChat(data);
+    return true;
+  }
+  return false;
 }
 
 export async function addChatMessage(
@@ -286,11 +369,14 @@ export async function getChatMessages(
   if (viewer) {
     await setConversationRead(conversationId, viewer);
   }
+  const hiddenIds = viewer ? await getConversationHidden(conversationId, viewer) : [];
+  const filtered = hiddenIds.length > 0 ? list.filter((m) => !hiddenIds.includes(m.id)) : list;
+
   const read = await getConversationRead(conversationId);
   const adminReadAt = read.adminReadAt ?? 0;
   const visitorReadAt = read.visitorReadAt ?? 0;
 
-  return list.map((m) => {
+  return filtered.map((m) => {
     const msg = { ...m };
     const t = new Date(m.createdAt).getTime();
     if (m.author === 'visitor') {
