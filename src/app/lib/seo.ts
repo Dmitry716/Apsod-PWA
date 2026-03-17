@@ -29,3 +29,28 @@ export function buildCanonical(path: string): string {
 export function buildOgImageUrl(path?: string): string {
   return path ? `${SITE_URL}${path}` : DEFAULT_OG_IMAGE_URL
 }
+
+/** Schema.org Organization для JSON-LD (используется в SchemaOrg.tsx) */
+export function generateOrganizationSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
+    logo: `${SITE_URL}/icons/icon-192x192.png`,
+  }
+}
+
+/** Schema.org WebSite для JSON-LD (используется в SchemaOrg.tsx) */
+export function generateWebSiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
+    publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+    inLanguage: 'ru',
+  }
+}
