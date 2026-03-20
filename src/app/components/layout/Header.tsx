@@ -2,13 +2,15 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import ThemeToggle from "../ui/ThemeToggle";
+import { t } from "@/app/lib/i18n";
+import { useLocale } from "@/app/lib/useLocale";
+import LanguageSwitcher from "../ui/LanguageSwitcher";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const pathname = usePathname();
+  const { locale } = useLocale();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,11 +21,11 @@ export default function Header() {
   }, []);
 
   const navLinks = [
-    { href: "/services", label: "Услуги" },
-    { href: "/about", label: "О нас" },
-    { href: "/portfolio", label: "Портфолио" },
-    { href: "/blog", label: "Блог" },
-    { href: "/contact", label: "Контакты" },
+    { href: "/services", label: t(locale, 'nav.services') },
+    { href: "/about", label: t(locale, 'nav.about') },
+    { href: "/portfolio", label: t(locale, 'nav.portfolio') },
+    { href: "/blog", label: t(locale, 'nav.blog') },
+    { href: "/contact", label: t(locale, 'nav.contact') },
   ];
 
   return (
@@ -62,43 +64,34 @@ export default function Header() {
           {/* Десктопное меню */}
           <nav className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   style={{
-                    color: isActive ? "#2563eb" : "inherit",
-                    fontWeight: isActive ? "600" : "400",
+                    color: "inherit",
+                    fontWeight: "400",
                     position: "relative",
                   }}
                 >
                   {link.label}
-                  {isActive && (
-                    <span
-                      style={{
-                        position: "absolute",
-                        bottom: "-4px",
-                        left: 0,
-                        width: "100%",
-                        height: "2px",
-                        background: "linear-gradient(to right, #2563eb, #9333ea)",
-                      }}
-                    />
-                  )}
                 </Link>
               );
             })}
           </nav>
 
           <div className="flex items-center space-x-4">
+            <div className="hidden sm:block">
+              <LanguageSwitcher />
+            </div>
             <ThemeToggle />
 
             {/* Кнопка мобильного меню */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden p-2 rounded-lg"
-              aria-label="Меню"
+              aria-label={t(locale, 'header.menu')}
+              title={t(locale, 'header.menu')}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMenuOpen ? (
@@ -115,6 +108,10 @@ export default function Header() {
         {isMenuOpen && (
           <div className="md:hidden py-4">
             <nav className="bg-gray-100 dark:bg-gray-800 rounded-lg p-2">
+              <div className="px-3 py-2 text-xs text-gray-600 dark:text-gray-300 flex justify-between items-center">
+                <span className="font-semibold">{t(locale, 'header.menu')}</span>
+                <LanguageSwitcher compact onChange={() => setIsMenuOpen(false)} />
+              </div>
               {navLinks.map((link) => (
                 <Link
                   key={link.href}

@@ -5,6 +5,8 @@ import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { EMOJI_LIBRARY, EMOJI_CATEGORIES } from '@/app/data/emoji-library';
 import { GIF_LIBRARY } from '@/app/data/gif-library';
+import { t } from '@/app/lib/i18n';
+import { useLocale } from '@/app/lib/useLocale';
 
 const STORAGE_KEY = 'apsod_chat_conv';
 const POLL_INTERVAL = 2500;
@@ -12,17 +14,21 @@ const STATUS_POLL_INTERVAL = 30000;
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
 const ACCEPT_TYPES = 'image/*,.pdf,.doc,.docx,.xls,.xlsx';
 
-function formatLastSeen(online: boolean, lastSeen: number | null): string {
-  if (online) return 'В сети';
-  if (lastSeen === null) return 'Не в сети';
+function formatLastSeen(
+  online: boolean,
+  lastSeen: number | null,
+  locale: 'ru' | 'en'
+): string {
+  if (online) return t(locale, 'chat.status.online');
+  if (lastSeen === null) return t(locale, 'chat.status.offline');
   const diff = Date.now() - lastSeen;
   const min = Math.floor(diff / 60000);
   const h = Math.floor(diff / 3600000);
   const d = Math.floor(diff / 86400000);
-  if (min < 1) return 'Только что был(а)';
-  if (min < 60) return `Был(а) в сети ${min} мин назад`;
-  if (h < 24) return `Был(а) в сети ${h} ч назад`;
-  return `Был(а) в сети ${d} дн назад`;
+  if (min < 1) return t(locale, 'chat.status.justNow');
+  if (min < 60) return t(locale, 'chat.status.minutesAgo').replace('{count}', String(min));
+  if (h < 24) return t(locale, 'chat.status.hoursAgo').replace('{count}', String(h));
+  return t(locale, 'chat.status.daysAgo').replace('{count}', String(d));
 }
 
 function filterEmojis(search: string, category: string) {
@@ -80,6 +86,7 @@ function fileToBase64(file: File): Promise<{ name: string; mimeType: string; dat
 }
 
 export default function ChatWidget() {
+  const { locale } = useLocale();
   const [open, setOpen] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -92,7 +99,7 @@ export default function ChatWidget() {
   const [emojiSearch, setEmojiSearch] = useState('');
   const [emojiCategory, setEmojiCategory] = useState('');
   const [gifSearch, setGifSearch] = useState('');
-  const [supportName, setSupportName] = useState('Поддержка APSOD');
+  const [supportName, setSupportName] = useState(t(locale, 'chat.supportFallback'));
   const [supportPhotoUrl, setSupportPhotoUrl] = useState('');
   const [statusOnline, setStatusOnline] = useState(false);
   const [statusLastSeen, setStatusLastSeen] = useState<number | null>(null);
@@ -112,7 +119,7 @@ export default function ChatWidget() {
     // Предзагрузка звука для уведомления о новом сообщении
     if (typeof window === 'undefined') return;
     try {
-      const audio = new Audio('/sounds/chat-message.mp3');
+      const audio = new Audio('/sounds/chat-message.wav');
       soundRef.current = audio;
     } catch {
       soundRef.current = null;
@@ -129,7 +136,7 @@ export default function ChatWidget() {
       if (Notification.permission === 'granted') {
         try {
           const body = msg.text.slice(0, 80) + (msg.text.length > 80 ? '…' : '');
-          new Notification('Новое сообщение от поддержки APSOD', {
+          new Notification(t(locale, 'chat.notificationTitle'), {
             body,
             icon: supportPhotoUrl || '/icons/icon-192x192.png',
           });
@@ -138,7 +145,7 @@ export default function ChatWidget() {
         }
       }
     }
-  }, [supportPhotoUrl]);
+  }, [locale, supportPhotoUrl]);
 
   const loadMessages = useCallback(async (convId: string, options?: { fromPoll?: boolean }) => {
     try {
@@ -223,7 +230,7 @@ export default function ChatWidget() {
     fetch(`${origin}/api/chat/profile`)
       .then((r) => r.json())
       .then((p) => {
-        setSupportName(p.name || 'Поддержка APSOD');
+        setSupportName(p.name || t(locale, 'chat.supportFallback'));
         setSupportPhotoUrl(p.photoUrl || '');
       })
       .catch(() => {});
@@ -239,7 +246,7 @@ export default function ChatWidget() {
     fetchStatus();
     const st = setInterval(fetchStatus, STATUS_POLL_INTERVAL);
     return () => clearInterval(st);
-  }, [open]);
+  }, [locale, open]);
 
   useEffect(() => {
     if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
@@ -346,7 +353,7 @@ export default function ChatWidget() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || 'Ошибка отправки');
+        setError(data.error || t(locale, 'chat.error.send'));
         setLoading(false);
         return;
       }
@@ -360,7 +367,7 @@ export default function ChatWidget() {
         textareaRef.current.style.height = 'auto';
       }
     } catch {
-      setError('Ошибка соединения');
+      setError(t(locale, 'chat.error.connection'));
     } finally {
       setLoading(false);
     }
@@ -426,7 +433,7 @@ export default function ChatWidget() {
           right: 'max(1rem, env(safe-area-inset-right, 1rem))',
           bottom: 'max(1.5rem, env(safe-area-inset-bottom, 1.5rem))',
         }}
-        aria-label="Открыть чат"
+        aria-label={t(locale, 'chat.open')}
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -493,22 +500,22 @@ export default function ChatWidget() {
                 <Image src={supportPhotoUrl} alt="" fill className="object-cover" sizes="40px" unoptimized />
               ) : (
                 <span className="text-gray-300 font-semibold text-sm">
-                  {supportName.trim() ? supportName.trim().charAt(0).toUpperCase() : 'П'}
+                  {supportName.trim() ? supportName.trim().charAt(0).toUpperCase() : 'A'}
                 </span>
               )}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-semibold text-white truncate">{supportName || 'Поддержка APSOD'}</p>
+              <p className="font-semibold text-white truncate">{supportName || t(locale, 'chat.supportFallback')}</p>
               <p className="flex items-center gap-1.5 text-xs text-gray-400">
                 <span className={`w-2 h-2 rounded-full ${statusOnline ? 'bg-green-500' : 'bg-gray-500'}`} aria-hidden />
-                {formatLastSeen(statusOnline, statusLastSeen)}
+                {formatLastSeen(statusOnline, statusLastSeen, locale)}
               </p>
             </div>
             <button
               type="button"
               onClick={() => setOpen(false)}
               className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors"
-              aria-label="Закрыть"
+              aria-label={t(locale, 'chat.close')}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -524,7 +531,7 @@ export default function ChatWidget() {
           >
             {messages.length === 0 && !error && (
               <p className="text-sm text-gray-400 text-center py-2">
-                Добро пожаловать в APSOD! Чем мы можем помочь?
+                {t(locale, 'chat.welcome')}
               </p>
             )}
             {messages.map((m) => (
@@ -565,17 +572,17 @@ export default function ChatWidget() {
                     </div>
                   )}
                   <p className={`text-xs mt-1.5 flex items-center gap-1.5 ${m.author === 'admin' ? 'text-gray-400' : 'text-white/70'}`}>
-                    {m.author === 'admin' ? `${supportName || 'Поддержка'} • ` : ''}
-                    {new Date(m.createdAt).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
+                    {m.author === 'admin' ? `${supportName || t(locale, 'chat.supportFallback')} • ` : ''}
+                    {new Date(m.createdAt).toLocaleTimeString(locale === 'en' ? 'en-US' : 'ru-RU', { hour: '2-digit', minute: '2-digit' })}
                     {m.author === 'visitor' && (
-                      <span className="ml-0.5 inline-flex items-center" aria-label={m.status === 'read' ? 'Прочитано' : 'Отправлено'}>
+                      <span className="ml-0.5 inline-flex items-center" aria-label={m.status === 'read' ? t(locale, 'chat.status.read') : t(locale, 'chat.status.sent')}>
                         {m.status === 'read' ? (
-                          <span className="text-[#7dd3fc]" title="Прочитано">
+                          <span className="text-[#7dd3fc]" title={t(locale, 'chat.status.read')}>
                             <svg className="w-4 h-3.5 inline" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 6l4 4 10-10"/></svg>
                             <svg className="w-4 h-3.5 inline -ml-2.5" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 6l4 4 10-10"/></svg>
                           </span>
                         ) : (
-                          <span className="text-white/70" title="Отправлено">
+                          <span className="text-white/70" title={t(locale, 'chat.status.sent')}>
                             <svg className="w-4 h-3.5 inline" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 6l4 4 10-10"/></svg>
                           </span>
                         )}
@@ -600,8 +607,8 @@ export default function ChatWidget() {
                         }
                       }}
                       className="absolute top-1 right-1 p-1 rounded opacity-60 hover:opacity-100 text-white/80 hover:text-white hover:bg-white/20 transition-colors"
-                      title="Удалить у себя"
-                      aria-label="Удалить у себя"
+                      title={t(locale, 'chat.deleteMine')}
+                      aria-label={t(locale, 'chat.deleteMine')}
                     >
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
                     </button>
@@ -612,7 +619,7 @@ export default function ChatWidget() {
             {adminTyping && (
               <div className="flex justify-start">
                 <p className="text-xs text-gray-500 italic py-1 px-2">
-                  {supportName || 'Поддержка'} печатает...
+                  {supportName || t(locale, 'chat.supportFallback')} {t(locale, 'chat.typing')}
                 </p>
               </div>
             )}
@@ -639,7 +646,7 @@ export default function ChatWidget() {
                       sendMessage();
                     }
                   }}
-                  placeholder="Сообщение..."
+                  placeholder={t(locale, 'chat.messagePlaceholder')}
                   rows={1}
                   className="min-w-0 w-full max-w-full py-0 bg-transparent focus:outline-none resize-none leading-6 placeholder:text-gray-400 overflow-y-auto overflow-x-hidden wrap-break-word block"
                   style={{
@@ -673,7 +680,7 @@ export default function ChatWidget() {
                 <label
                   htmlFor="chat-file"
                   className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 cursor-pointer transition-colors shrink-0"
-                  title="Прикрепить файл (до 2 МБ, макс. 3)"
+                  title={t(locale, 'chat.attachFile')}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
@@ -683,8 +690,8 @@ export default function ChatWidget() {
                   type="button"
                   onClick={() => { setShowEmojiPicker((v) => !v); setShowGifPicker(false); setEmojiSearch(''); setEmojiCategory(''); }}
                   className="p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700/50 transition-colors shrink-0"
-                  title="Эмодзи"
-                  aria-label="Эмодзи"
+                  title={t(locale, 'chat.emoji')}
+                  aria-label={t(locale, 'chat.emoji')}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -705,7 +712,7 @@ export default function ChatWidget() {
                   onClick={sendMessage}
                   disabled={loading || !input.trim()}
                   className="w-10 h-10 min-w-10 rounded-full bg-[#1e3a5f] text-white flex items-center justify-center hover:bg-[#2a4a7a] disabled:opacity-40 disabled:cursor-not-allowed transition-colors shrink-0"
-                  aria-label="Отправить"
+                  aria-label={t(locale, 'chat.send')}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -720,7 +727,7 @@ export default function ChatWidget() {
                   type="text"
                   value={emojiSearch}
                   onChange={(e) => setEmojiSearch(e.target.value)}
-                  placeholder="Поиск эмодзи..."
+                  placeholder={t(locale, 'chat.searchEmoji')}
                   className="w-full px-3 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] mb-2"
                 />
                 <div className="flex flex-wrap gap-1 mb-2">
@@ -729,7 +736,7 @@ export default function ChatWidget() {
                     onClick={() => setEmojiCategory('')}
                     className={`px-2 py-1 rounded-lg text-xs font-medium transition-colors ${!emojiCategory ? 'bg-[#1e3a5f] text-white' : 'bg-gray-700 text-gray-300 hover:bg-gray-600'}`}
                   >
-                    Все
+                    {t(locale, 'chat.all')}
                   </button>
                   {EMOJI_CATEGORIES.map((cat) => (
                     <button
@@ -757,7 +764,7 @@ export default function ChatWidget() {
                     ))}
                   </div>
                   {filteredEmojis.length === 0 && (
-                    <p className="text-sm text-gray-500 py-2 text-center">Ничего не найдено</p>
+                    <p className="text-sm text-gray-500 py-2 text-center">{t(locale, 'chat.nothingFound')}</p>
                   )}
                 </div>
               </div>
@@ -769,7 +776,7 @@ export default function ChatWidget() {
                   type="text"
                   value={gifSearch}
                   onChange={(e) => setGifSearch(e.target.value)}
-                  placeholder="Поиск GIF..."
+                  placeholder={t(locale, 'chat.searchGif')}
                   className="w-full px-3 py-2 rounded-lg bg-gray-700 border border-gray-600 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-[#1e3a5f] mb-2"
                 />
                 <div className="overflow-y-auto min-h-0 flex-1">
@@ -797,7 +804,7 @@ export default function ChatWidget() {
                     ))}
                   </div>
                   {filteredGifs.length === 0 && (
-                    <p className="text-sm text-gray-500 py-4 text-center">Ничего не найдено</p>
+                    <p className="text-sm text-gray-500 py-4 text-center">{t(locale, 'chat.nothingFound')}</p>
                   )}
                 </div>
               </div>

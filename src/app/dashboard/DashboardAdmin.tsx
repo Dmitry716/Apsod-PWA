@@ -169,7 +169,7 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
     // Звук для новых сообщений в чате админа
     if (typeof window !== 'undefined') {
       try {
-        chatSoundRef.current = new Audio('/sounds/chat-message.mp3');
+        chatSoundRef.current = new Audio('/sounds/chat-message.wav');
       } catch {
         chatSoundRef.current = null;
       }

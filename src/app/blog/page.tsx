@@ -3,16 +3,19 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { blogPosts } from './data/posts';
+import { t } from '../lib/i18n';
+import { useLocale } from '../lib/useLocale';
 
 export default function BlogPage() {
   const [activeCategory, setActiveCategory] = useState('all');
+  const { locale } = useLocale();
 
   const categories = [
-    { slug: 'all', name: 'Все статьи', count: blogPosts.length },
-    { slug: 'business', name: 'Бизнес и маркетинг', count: blogPosts.filter(p => p.categorySlug === 'business').length },
-    { slug: 'pwa', name: 'PWA и технологии', count: blogPosts.filter(p => p.categorySlug === 'pwa').length },
-    { slug: 'seo', name: 'SEO и маркетинг', count: blogPosts.filter(p => p.categorySlug === 'seo').length },
-    { slug: 'support', name: 'Поддержка и развитие', count: blogPosts.filter(p => p.categorySlug === 'support').length },
+    { slug: 'all', name: t(locale, 'blog.categories.all'), count: blogPosts.length },
+    { slug: 'business', name: t(locale, 'blog.categories.business'), count: blogPosts.filter(p => p.categorySlug === 'business').length },
+    { slug: 'pwa', name: t(locale, 'blog.categories.pwa'), count: blogPosts.filter(p => p.categorySlug === 'pwa').length },
+    { slug: 'seo', name: t(locale, 'blog.categories.seo'), count: blogPosts.filter(p => p.categorySlug === 'seo').length },
+    { slug: 'support', name: t(locale, 'blog.categories.support'), count: blogPosts.filter(p => p.categorySlug === 'support').length },
   ];
 
   const filteredPosts = activeCategory === 'all' 
@@ -32,13 +35,13 @@ export default function BlogPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              Блог{' '}
+              {t(locale, 'blog.title')}{' '}
               <span className="text-blue-600 dark:text-blue-400">
                 APSOD
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Статьи о разработке, технологиях и digital-маркетинге
+              {t(locale, 'blog.subtitle')}
             </p>
           </div>
         </div>
@@ -75,8 +78,19 @@ export default function BlogPage() {
                 className="group bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
               >
                 <Link href={`/blog/${post.slug}`}>
-                  <div className="h-48 bg-linear-to-br from-blue-400 to-purple-500 relative flex items-center justify-center">
-                    <span className="text-7xl opacity-30">{post.icon}</span>
+                  <div className="h-48 bg-linear-to-br from-blue-400 to-purple-500 relative overflow-hidden">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-black/10" />
+                    <div className="absolute top-3 left-3">
+                      <span className="px-3 py-1 bg-white/90 text-gray-900 rounded-full text-xs font-semibold">
+                        {post.category}
+                      </span>
+                    </div>
                   </div>
                   <div className="p-6">
                     <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
@@ -97,7 +111,7 @@ export default function BlogPage() {
                         {post.readTime} мин чтения
                       </span>
                       <span className="text-blue-600 dark:text-blue-400 font-medium group-hover:gap-3 transition-all inline-flex items-center">
-                        Читать
+                        {t(locale, 'blog.read')}
                         <svg className="w-4 h-4 ml-2 group-hover:ml-3 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                         </svg>

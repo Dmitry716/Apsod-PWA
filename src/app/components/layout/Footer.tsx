@@ -2,9 +2,13 @@
 
 import Link from "next/link";
 import PushNotificationSubscribe from "../PushNotificationSubscribe";
+import { t } from "@/app/lib/i18n";
+import { useLocale } from "@/app/lib/useLocale";
+import LanguageSwitcher from "../ui/LanguageSwitcher";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const { locale } = useLocale();
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -60,12 +64,17 @@ export default function Footer() {
               для роста вашего бизнеса.
             </p>
 
+            {/* Переключение языка */}
+            <div className="mt-2">
+              <LanguageSwitcher />
+            </div>
+
             {/* Кнопка "Наверх" */}
             <button
               onClick={scrollToTop}
               className="inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 text-white/90 rounded-lg transition-all duration-300 hover:bg-white/20 hover:text-white focus:bg-white/20 focus:text-white focus:outline-none group relative overflow-hidden"
-              aria-label="Прокрутить страницу вверх"
-              title="Вернуться к началу страницы"
+              aria-label={t(locale, 'footer.toTop')}
+              title={t(locale, 'footer.toTop')}
             >
               <svg
                 className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-1 group-focus:-translate-y-1"
@@ -81,7 +90,7 @@ export default function Footer() {
                   d="M5 10l7-7m0 0l7 7m-7-7v18"
                 />
               </svg>
-              <span>Наверх</span>
+              <span>{t(locale, 'footer.toTop')}</span>
               <span
                 className="absolute inset-0 bg-linear-to-r from-blue-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 blur-md"
                 aria-hidden="true"
@@ -95,7 +104,7 @@ export default function Footer() {
               className="text-lg font-semibold mb-4 text-white/90"
               id="footer-nav"
             >
-              Навигация
+              {t(locale, 'footer.navigation')}
             </h4>
             <ul className="space-y-2" aria-labelledby="footer-nav">
               <li>
@@ -103,7 +112,7 @@ export default function Footer() {
                   href="/services"
                   className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
                 >
-                  Услуги
+                  {t(locale, 'nav.services')}
                 </Link>
               </li>
               <li>
@@ -111,7 +120,7 @@ export default function Footer() {
                   href="/about"
                   className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
                 >
-                  О нас
+                  {t(locale, 'nav.about')}
                 </Link>
               </li>
               <li>
@@ -119,7 +128,7 @@ export default function Footer() {
                   href="/portfolio"
                   className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
                 >
-                  Портфолио
+                  {t(locale, 'nav.portfolio')}
                 </Link>
               </li>
               <li>
@@ -127,7 +136,7 @@ export default function Footer() {
                   href="/blog"
                   className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
                 >
-                  Блог
+                  {t(locale, 'nav.blog')}
                 </Link>
               </li>
               <li>
@@ -135,7 +144,7 @@ export default function Footer() {
                   href="/contact"
                   className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
                 >
-                  Контакты
+                  {t(locale, 'nav.contact')}
                 </Link>
               </li>
             </ul>
@@ -146,7 +155,7 @@ export default function Footer() {
               className="text-lg font-semibold mb-4 text-white/90"
               id="footer-contacts"
             >
-              Реквизиты
+              {t(locale, 'footer.assets')}
             </h4>
             <address
               className="space-y-3 text-sm text-gray-300 not-italic"
@@ -179,7 +188,7 @@ export default function Footer() {
               className="text-lg font-semibold mb-4 text-white/90"
               id="footer-subscribe"
             >
-              Подписка на новости
+              {t(locale, 'footer.subscribe')}
             </h4>
             <PushNotificationSubscribe compact={true} />
           </div>
@@ -193,7 +202,7 @@ export default function Footer() {
                   href="/legal/privacy-policy"
                   className="hover:text-white focus:text-white focus:outline-none transition-colors"
                 >
-                  Политика конфиденциальности
+                  {t(locale, 'footer.privacy')}
                 </Link>
               </li>
               <li aria-hidden="true">•</li>
@@ -202,7 +211,7 @@ export default function Footer() {
                   href="/legal/cookie-policy"
                   className="hover:text-white focus:text-white focus:outline-none transition-colors"
                 >
-                  Обработка cookie
+                  {t(locale, 'footer.cookie')}
                 </Link>
               </li>
               <li aria-hidden="true">•</li>
@@ -211,7 +220,7 @@ export default function Footer() {
                   href="/legal/terms-of-use"
                   className="hover:text-white focus:text-white focus:outline-none transition-colors"
                 >
-                  Пользовательское соглашение
+                  {t(locale, 'footer.terms')}
                 </Link>
               </li>
             </ul>
@@ -219,7 +228,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-4 text-center text-sm text-gray-400">
-          <span>© {currentYear} ИП Карелин Д.В. Все права защищены.</span>
+          <span>© {currentYear} APSOD. {t(locale, 'footer.copy')}</span>
         </div>
       </div>
     </footer>

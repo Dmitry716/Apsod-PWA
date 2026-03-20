@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import { cookies } from "next/headers";
 import { Providers } from "./providers";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
@@ -14,6 +15,7 @@ import {
   MAIN_KEYWORDS,
   DEFAULT_OG_IMAGE_URL,
 } from "./lib/seo";
+import { normalizeLocale } from "./lib/i18n";
 import "./globals.css";
 import "./hero-animations.css";
 
@@ -58,11 +60,15 @@ export const metadata: Metadata = {
   alternates: { canonical: SITE_URL },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = await cookies()
+  const cookieLang = cookieStore.get('lang')?.value
+  const lang = normalizeLocale(cookieLang)
+
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -83,7 +89,7 @@ export default function RootLayout({
   }
 
   return (
-    <html lang="ru" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <SeoJsonLd data={[organizationSchema, websiteSchema]} />

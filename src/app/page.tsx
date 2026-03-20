@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { blogPosts } from "./blog/data/posts";
+import { PORTFOLIO_PROJECTS } from "./portfolio/data";
 
 // Известные мировые компании
 const trustedCompanies = [
@@ -307,46 +308,59 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-md:gap-4">
-            {caseStudies.map((study, index) => (
+            {PORTFOLIO_PROJECTS.filter((project) => project.type === "web")
+              .slice(0, 2)
+              .map((project) => (
               <div
-                key={index}
+                key={project.id}
                 className="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
               >
-                <div className={`h-2 bg-linear-to-r ${study.color}`}></div>
+                <div className="h-48 relative overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/65 via-black/20 to-transparent" />
+                  <div className="absolute top-3 left-3">
+                    <span className="px-3 py-1 bg-white/90 text-gray-900 rounded-full text-xs font-semibold">
+                      {project.category}
+                    </span>
+                  </div>
+                  <div className={`absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r ${project.color}`} />
+                </div>
                 <div className="p-8 max-md:p-4">
                   <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
                     <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full">
-                      {study.category}
+                      {project.type === "web" ? "Веб-сайт" : "Мобильное приложение"}
                     </span>
                     <span>•</span>
-                    <span>{study.client}</span>
+                    <span>{project.location}</span>
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 transition-colors max-md:text-xl">
-                    {study.title}
+                    {project.title}
                   </h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-4 max-md:text-sm">
-                    {study.description}
+                    {project.description}
                   </p>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4 max-md:gap-2">
-                      {study.stats.map((stat, idx) => (
-                        <div key={idx} className="text-sm max-md:text-xs">
-                          <span className="font-bold text-gray-900 dark:text-white">
-                            {stat.value}
-                          </span>
-                          <span className="text-gray-500 dark:text-gray-400 ml-1">
-                            {stat.label}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                    <Link
-                      href={study.link}
+                  {project.link.startsWith("http") ? (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
                     >
-                      Подробнее →
+                      Посетить сайт →
+                    </a>
+                  ) : (
+                    <Link
+                      href={project.link}
+                      className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                    >
+                      Смотреть кейс →
                     </Link>
-                  </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -479,10 +493,19 @@ export default function Home() {
                 className="group bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
               >
                 <Link href={`/blog/${post.slug}`}>
-                  <div className="h-48 bg-linear-to-br from-blue-400 to-purple-500 relative flex items-center justify-center max-md:h-32">
-                    <span className="text-7xl opacity-30 max-md:text-4xl">
-                      {post.icon}
-                    </span>
+                  <div className="h-48 bg-linear-to-br from-blue-400 to-purple-500 relative overflow-hidden max-md:h-32">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-black/10" />
+                    <div className="absolute top-3 left-3">
+                      <span className="px-3 py-1 bg-white/90 text-gray-900 rounded-full text-xs font-semibold">
+                        {post.category}
+                      </span>
+                    </div>
                   </div>
                   <div className="p-6 max-md:p-3">
                     <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3 max-md:text-xs">
@@ -620,44 +643,15 @@ const services = [
   },
 ];
 
-// Данные для кейсов
-const caseStudies = [
-  {
-    color: "from-blue-500 to-purple-500",
-    category: "Финтех",
-    client: "TradeStops",
-    title: "Платформа управления инвестиционным портфелем",
-    description:
-      "Веб-платформа для управления инвестиционными портфелями обслуживает 30 000+ инвесторов.",
-    stats: [
-      { value: "$20 млрд", label: "под управлением" },
-      { value: "30k+", label: "инвесторов" },
-    ],
-    link: "/portfolio/tradestops",
-  },
-  {
-    color: "from-purple-500 to-pink-500",
-    category: "Ритейл",
-    client: "Глобальный ритейлер",
-    title: "AI-решения для персонализации покупок",
-    description:
-      "AI-решения включают систему рекомендаций и распознавание товаров.",
-    stats: [
-      { value: "8%", label: "выше конверсия" },
-      { value: "50%", label: "снижение затрат" },
-    ],
-    link: "/portfolio/ai-retail",
-  },
-];
-
 // Данные для отраслей
 const industries = [
-  { icon: "🏭", name: "Производство", projects: 45 },
-  { icon: "🏦", name: "Финансы", projects: 38 },
-  { icon: "🏥", name: "Медицина", projects: 27 },
-  { icon: "🛍️", name: "Ритейл", projects: 52 },
-  { icon: "🚚", name: "Логистика", projects: 23 },
-  { icon: "📚", name: "Образование", projects: 19 },
-  { icon: "⚡", name: "Энергетика", projects: 16 },
-  { icon: "🎮", name: "Развлечения", projects: 14 },
+  { icon: "🏭", name: "Производство", projects: 10 },
+  { icon: "🏦", name: "Финансы", projects: 9 },
+  { icon: "🏥", name: "Медицина", projects: 8 },
+  { icon: "🛍️", name: "Ритейл", projects: 10 },
+  { icon: "🚚", name: "Логистика", projects: 7 },
+  { icon: "📚", name: "Образование", projects: 10 },
+  { icon: "⚡", name: "Энергетика", projects: 7 },
+  { icon: "🎮", name: "Развлечения", projects: 6 },
+  { icon: "📊", name: "Консалтинг", projects: 8 },
 ];

@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import { blogPosts } from '../data/posts'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { SITE_URL } from '../../lib/seo'
+import { cookies } from 'next/headers'
+import { normalizeLocale, t } from '../../lib/i18n'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -41,6 +43,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = blogPosts.find(p => p.slug === slug);
+  const cookieStore = await cookies()
+  const cookieLang = cookieStore.get('lang')?.value ?? null
+  const locale = normalizeLocale(cookieLang)
 
   if (!post) {
     notFound();
@@ -77,9 +82,9 @@ export default async function BlogPostPage({ params }: Props) {
       {/* Хлебные крошки с правильными отступами */}
       <div className="container mx-auto px-4 pt-24 md:pt-32">
         <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 overflow-x-auto pb-2">
-          <Link href="/" className="hover:text-blue-600 whitespace-nowrap">Главная</Link>
+          <Link href="/" className="hover:text-blue-600 whitespace-nowrap">{t(locale, 'blog.breadcrumb.home')}</Link>
           <span className="whitespace-nowrap">/</span>
-          <Link href="/blog" className="hover:text-blue-600 whitespace-nowrap">Блог</Link>
+          <Link href="/blog" className="hover:text-blue-600 whitespace-nowrap">{t(locale, 'blog.breadcrumb.blog')}</Link>
           <span className="whitespace-nowrap">/</span>
           <span className="text-gray-700 dark:text-gray-300 truncate">{post.title}</span>
         </div>
@@ -124,9 +129,20 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Изображение (заглушка) с отступами */}
-          <div className="h-48 md:h-64 lg:h-96 bg-linear-to-br from-blue-400 to-purple-500 rounded-xl md:rounded-2xl mb-6 md:mb-8 flex items-center justify-center">
-            <span className="text-5xl md:text-7xl lg:text-9xl opacity-30">{post.icon}</span>
+          {/* Изображение статьи */}
+          <div className="h-48 md:h-64 lg:h-96 rounded-xl md:rounded-2xl mb-6 md:mb-8 overflow-hidden bg-gray-100 dark:bg-gray-800 relative">
+            <img
+              src={post.image}
+              alt={post.title}
+              className="w-full h-full object-cover"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-black/55 via-black/15 to-transparent" />
+            <div className="absolute top-4 left-4">
+              <span className="px-3 py-1 bg-white/90 text-gray-900 rounded-full text-xs md:text-sm font-semibold">
+                {post.category}
+              </span>
+            </div>
           </div>
 
           {/* Контент статьи с адаптивными размерами текста */}
@@ -148,7 +164,7 @@ export default async function BlogPostPage({ params }: Props) {
               <svg className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
-              Назад к блогу
+              {t(locale, 'blog.backToBlog')}
             </Link>
           </div>
 
@@ -156,7 +172,7 @@ export default async function BlogPostPage({ params }: Props) {
           {relatedPosts.length > 0 && (
             <div className="mt-12 md:mt-16">
               <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">
-                Похожие статьи
+                {t(locale, 'blog.relatedTitle')}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {relatedPosts.map(related => (
@@ -165,8 +181,14 @@ export default async function BlogPostPage({ params }: Props) {
                     href={`/blog/${related.slug}`}
                     className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1"
                   >
-                    <div className="h-24 sm:h-28 md:h-32 bg-linear-to-br from-blue-400 to-purple-500 flex items-center justify-center">
-                      <span className="text-3xl sm:text-4xl opacity-30">{related.icon}</span>
+                    <div className="h-24 sm:h-28 md:h-32 bg-gray-100 dark:bg-gray-700 overflow-hidden relative">
+                      <img
+                        src={related.image}
+                        alt={related.title}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/45 to-transparent pointer-events-none" />
                     </div>
                     <div className="p-3 md:p-4">
                       <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors text-sm md:text-base line-clamp-2">
