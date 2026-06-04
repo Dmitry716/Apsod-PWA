@@ -7,7 +7,23 @@ const CHAT_CONVERSATIONS = 'chat:conversations';
 const CHAT_CONV_PREFIX = 'chat:conv:';
 const CHAT_MSG_SUFFIX = ':messages';
 
-const CHAT_FILE = path.join(process.cwd(), 'chat-data.json');
+function getChatFilePath(): string {
+  if (process.env.CHAT_DATA_PATH) return process.env.CHAT_DATA_PATH;
+  // На Vercel/serverless cwd только для чтения — пишем в /tmp
+  if (process.env.VERCEL === '1' || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    return path.join('/tmp', 'chat-data.json');
+  }
+  return path.join(process.cwd(), 'chat-data.json');
+}
+
+function canUseFileChatStorage(): boolean {
+  if (process.env.NODE_ENV !== 'production') return true;
+  if (process.env.CHAT_ALLOW_FILE_STORAGE === 'true') return true;
+  if (process.env.VERCEL === '1') return true;
+  // Self-hosted production (не serverless) — можно писать в chat-data.json
+  if (!process.env.AWS_LAMBDA_FUNCTION_NAME) return true;
+  return false;
+}
 const ADMIN_LAST_SEEN_KEY = 'chat:admin:lastSeen';
 const ADMIN_PROFILE_KEY = 'chat:admin:profile';
 const TYPING_TTL_MS = 8000;
@@ -93,9 +109,13 @@ function decryptChatPayload(stored: string): string {
 }
 
 function readFileChat(): FileChatData {
+  if (!canUseFileChatStorage()) {
+    return { conversations: [], messages: {} };
+  }
+  const chatFile = getChatFilePath();
   try {
-    if (fs.existsSync(CHAT_FILE)) {
-      const raw = fs.readFileSync(CHAT_FILE, 'utf-8');
+    if (fs.existsSync(chatFile)) {
+      const raw = fs.readFileSync(chatFile, 'utf-8');
       return JSON.parse(raw) as FileChatData;
     }
   } catch {
@@ -104,8 +124,40 @@ function readFileChat(): FileChatData {
   return { conversations: [], messages: {} };
 }
 
-function writeFileChat(data: FileChatData): void {
-  fs.writeFileSync(CHAT_FILE, JSON.stringify(data, null, 2), 'utf-8');
+function writeFileChat(data: FileChatData): boolean {
+  if (!canUseFileChatStorage()) return false;
+  const chatFile = getChatFilePath();
+  try {
+    const dir = path.dirname(chatFile);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(chatFile, JSON.stringify(data, null, 2), 'utf-8');
+    return true;
+  } catch (e) {
+    console.error('Chat file write failed:', e);
+    return false;
+  }
+}
+
+/** Можно ли принимать сообщения (Redis или файловый fallback). */
+export function isChatStorageAvailable(): boolean {
+  if (hasRedis()) return true;
+  return canUseFileChatStorage();
+}
+
+async function persistMessageToRedis(conversationId: string, msg: ChatMessage): Promise<boolean> {
+  if (!hasRedis()) return false;
+  try {
+    const key = messagesKey(conversationId);
+    const payload = encryptChatPayload(JSON.stringify(msg));
+    const pushed = await redisChat.rpush(key, payload);
+    if (!pushed) return false;
+    await redisChat.lrem(CHAT_CONVERSATIONS, 0, conversationId);
+    await redisChat.lpush(CHAT_CONVERSATIONS, conversationId);
+    return true;
+  } catch (e) {
+    console.error('Redis chat persist failed:', e);
+    return false;
+  }
 }
 
 export type ChatAuthor = 'visitor' | 'admin';
@@ -250,11 +302,7 @@ export async function addChatMessage(
   if (author === 'visitor' && visitorName) msg.visitorName = visitorName.trim().slice(0, 200);
   if (attachments && attachments.length > 0) msg.attachments = attachments.slice(0, 5);
 
-  if (hasRedis()) {
-    const key = messagesKey(conversationId);
-    await redisChat.rpush(key, encryptChatPayload(JSON.stringify(msg)));
-    await redisChat.lrem(CHAT_CONVERSATIONS, 0, conversationId);
-    await redisChat.lpush(CHAT_CONVERSATIONS, conversationId);
+  if (await persistMessageToRedis(conversationId, msg)) {
     return msg;
   }
 
@@ -264,7 +312,9 @@ export async function addChatMessage(
   data.messages[conversationId] = list;
   data.conversations = data.conversations.filter((id) => id !== conversationId);
   data.conversations.unshift(conversationId);
-  writeFileChat(data);
+  if (!writeFileChat(data)) {
+    return null;
+  }
   return msg;
 }
 
