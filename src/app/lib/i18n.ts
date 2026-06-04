@@ -86,6 +86,7 @@ const dictionary = {
     'chat.status.sent': 'Отправлено',
     'chat.error.send': 'Ошибка отправки',
     'chat.error.connection': 'Ошибка соединения',
+    'chat.error.unavailable': 'Чат временно недоступен. Попробуйте позже или напишите на почту.',
   },
   en: {
     'nav.services': 'Services',
@@ -172,6 +173,7 @@ const dictionary = {
     'chat.status.sent': 'Sent',
     'chat.error.send': 'Send error',
     'chat.error.connection': 'Connection error',
+    'chat.error.unavailable': 'Chat is temporarily unavailable. Please try again later or email us.',
   },
 } as const
 

@@ -351,9 +351,18 @@ export default function ChatWidget() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       });
-      const data = await res.json();
+      let data: { error?: string; conversationId?: string; message?: Message } = {};
+      try {
+        data = await res.json();
+      } catch {
+        data = {};
+      }
       if (!res.ok) {
-        setError(data.error || t(locale, 'chat.error.send'));
+        const fallback =
+          res.status === 503
+            ? t(locale, 'chat.error.unavailable')
+            : t(locale, 'chat.error.send');
+        setError(data.error || fallback);
         setLoading(false);
         return;
       }
@@ -361,7 +370,8 @@ export default function ChatWidget() {
         setConversationId(data.conversationId);
         setStoredConvId(data.conversationId);
       }
-      if (data.message) setMessages((prev) => [...prev, data.message]);
+      const newMessage = data.message;
+      if (newMessage) setMessages((prev) => [...prev, newMessage]);
       setInput('');
       if (textareaRef.current && !isNarrow) {
         textareaRef.current.style.height = 'auto';
