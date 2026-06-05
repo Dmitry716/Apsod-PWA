@@ -268,95 +268,144 @@ export function hasRedis(): boolean {
   return !!getRedisConfig();
 }
 
+function getSubscriptionsFilePath(): string {
+  const path = require('path') as typeof import('path');
+  if (process.env.SUBSCRIPTIONS_DATA_PATH) return process.env.SUBSCRIPTIONS_DATA_PATH;
+  if (isServerlessRuntime()) return path.join('/tmp', 'subscriptions.json');
+  return path.join(process.cwd(), 'subscriptions.json');
+}
+
+function canUseFileSubscriptionStorage(): boolean {
+  if (process.env.NODE_ENV !== 'production') return true;
+  if (isServerlessRuntime()) return true;
+  if (process.env.SUBSCRIPTIONS_ALLOW_FILE_STORAGE === 'true') return true;
+  if (!process.env.AWS_LAMBDA_FUNCTION_NAME) return true;
+  return false;
+}
+
+export function isSubscriptionStorageAvailable(): boolean {
+  return hasRedis() || canUseFileSubscriptionStorage();
+}
+
+function readSubscriptionsFile(): any[] {
+  if (!canUseFileSubscriptionStorage()) return [];
+  const fs = require('fs') as typeof import('fs');
+  const file = getSubscriptionsFilePath();
+  try {
+    if (fs.existsSync(file)) {
+      return JSON.parse(fs.readFileSync(file, 'utf-8'));
+    }
+  } catch (e) {
+    console.error('Read subscriptions file failed:', e);
+  }
+  return [];
+}
+
+function writeSubscriptionsFile(subscriptions: any[]): boolean {
+  if (!canUseFileSubscriptionStorage()) return false;
+  const fs = require('fs') as typeof import('fs');
+  const path = require('path') as typeof import('path');
+  const file = getSubscriptionsFilePath();
+  try {
+    const dir = path.dirname(file);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(file, JSON.stringify(subscriptions, null, 2), 'utf-8');
+    return true;
+  } catch (e) {
+    console.error('Write subscriptions file failed:', e);
+    return false;
+  }
+}
+
+async function saveSubscriptionToRedis(toStore: Record<string, unknown>): Promise<boolean> {
+  if (!hasRedis()) return false;
+  try {
+    await redisSAdd(REDIS_KEY_SUBSCRIPTIONS, JSON.stringify(toStore));
+    return true;
+  } catch (e) {
+    console.error('Redis save subscription failed:', e);
+    return false;
+  }
+}
+
 export async function saveSubscription(subscription: any): Promise<void> {
   const toStore = {
     ...subscription,
     createdAt: subscription.createdAt || new Date().toISOString(),
   };
 
-  if (!hasRedis()) {
-    const fs = require('fs');
-    const path = require('path');
-    const subscriptionsFile = path.join(process.cwd(), 'subscriptions.json');
-    let subscriptions: any[] = [];
-    try {
-      if (fs.existsSync(subscriptionsFile)) {
-        subscriptions = JSON.parse(fs.readFileSync(subscriptionsFile, 'utf-8'));
-      }
-    } catch (e) {}
-    const exists = subscriptions.some((s: any) => s.endpoint === subscription.endpoint);
-    if (!exists) {
-      subscriptions.push(toStore);
-      fs.writeFileSync(subscriptionsFile, JSON.stringify(subscriptions, null, 2));
-      console.log('✅ Подписка сохранена в файл');
-    }
-    return;
-  }
-
   const existing = await getSubscriptions();
   if (existing.some((s: any) => s.endpoint === subscription.endpoint)) return;
 
-  await redisSAdd(REDIS_KEY_SUBSCRIPTIONS, JSON.stringify(toStore));
-  console.log('✅ Подписка сохранена в Redis');
+  if (await saveSubscriptionToRedis(toStore)) {
+    console.log('✅ Подписка сохранена в Redis');
+    return;
+  }
+
+  const fileSubs = readSubscriptionsFile();
+  if (fileSubs.some((s: any) => s.endpoint === subscription.endpoint)) return;
+  fileSubs.push(toStore);
+  if (writeSubscriptionsFile(fileSubs)) {
+    console.log('✅ Подписка сохранена в файл');
+    return;
+  }
+
+  throw new Error('Не удалось сохранить подписку');
 }
 
 export async function getSubscriptions(): Promise<any[]> {
-  if (!hasRedis()) {
-    const fs = require('fs');
-    const path = require('path');
-    const subscriptionsFile = path.join(process.cwd(), 'subscriptions.json');
+  if (hasRedis()) {
     try {
-      if (fs.existsSync(subscriptionsFile)) {
-        return JSON.parse(fs.readFileSync(subscriptionsFile, 'utf-8'));
-      }
-    } catch (e) {}
-    return [];
+      const raw = await redisSMembers(REDIS_KEY_SUBSCRIPTIONS);
+      return raw
+        .map((s) => {
+          try {
+            return JSON.parse(s);
+          } catch {
+            return null;
+          }
+        })
+        .filter(Boolean);
+    } catch (e) {
+      console.error('Redis get subscriptions failed, fallback to file:', e);
+    }
   }
 
-  const raw = await redisSMembers(REDIS_KEY_SUBSCRIPTIONS);
-  return raw.map((s) => {
-    try {
-      return JSON.parse(s);
-    } catch {
-      return null;
-    }
-  }).filter(Boolean);
+  return readSubscriptionsFile();
 }
 
 export async function deleteSubscription(endpoint: string): Promise<void> {
-  if (!hasRedis()) {
-    const fs = require('fs');
-    const path = require('path');
-    const subscriptionsFile = path.join(process.cwd(), 'subscriptions.json');
+  if (hasRedis()) {
     try {
-      if (fs.existsSync(subscriptionsFile)) {
-        let subscriptions = JSON.parse(fs.readFileSync(subscriptionsFile, 'utf-8'));
-        subscriptions = subscriptions.filter((s: any) => s.endpoint !== endpoint);
-        fs.writeFileSync(subscriptionsFile, JSON.stringify(subscriptions, null, 2));
+      const subscriptions = await getSubscriptions();
+      const toRemove = subscriptions.find((s: any) => s.endpoint === endpoint);
+      if (toRemove) {
+        await redisSRem(REDIS_KEY_SUBSCRIPTIONS, JSON.stringify(toRemove));
+        console.log('✅ Подписка удалена из Redis');
+        return;
       }
-    } catch (e) {}
-    return;
+    } catch (e) {
+      console.error('Redis delete subscription failed, fallback to file:', e);
+    }
   }
 
-  const subscriptions = await getSubscriptions();
-  const toRemove = subscriptions.find((s: any) => s.endpoint === endpoint);
-  if (toRemove) {
-    await redisSRem(REDIS_KEY_SUBSCRIPTIONS, JSON.stringify(toRemove));
-    console.log('✅ Подписка удалена из Redis');
-  }
+  const fileSubs = readSubscriptionsFile().filter((s: any) => s.endpoint !== endpoint);
+  writeSubscriptionsFile(fileSubs);
 }
 
 export async function deleteAllSubscriptions(): Promise<void> {
-  if (!hasRedis()) {
-    const fs = require('fs');
-    const path = require('path');
-    const subscriptionsFile = path.join(process.cwd(), 'subscriptions.json');
-    fs.writeFileSync(subscriptionsFile, '[]');
-    console.log('✅ Все подписки удалены из файла');
-    return;
+  if (hasRedis()) {
+    try {
+      await redisDel(REDIS_KEY_SUBSCRIPTIONS);
+      console.log('✅ Все подписки удалены из Redis');
+      return;
+    } catch (e) {
+      console.error('Redis delete all subscriptions failed, fallback to file:', e);
+    }
   }
-  await redisDel(REDIS_KEY_SUBSCRIPTIONS);
-  console.log('✅ Все подписки удалены из Redis');
+
+  writeSubscriptionsFile([]);
+  console.log('✅ Все подписки удалены из файла');
 }
 
 export async function migrateFileToRedis(): Promise<void> {
