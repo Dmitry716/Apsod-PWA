@@ -14,8 +14,18 @@ export async function POST(request: Request) {
     );
   }
   try {
-    const body = await request.json();
-    let { conversationId, name, text, attachments: rawAttachments } = body;
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json({ error: 'Некорректный JSON в теле запроса' }, { status: 400 });
+    }
+    let { conversationId, name, text, attachments: rawAttachments } = body as {
+      conversationId?: string;
+      name?: string;
+      text?: string;
+      attachments?: unknown;
+    };
     const visitorNameRaw = typeof name === 'string' ? name.trim() : '';
     const visitorName = visitorNameRaw || 'Гость';
     const textStr = typeof text === 'string' ? text.trim() : '';
