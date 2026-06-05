@@ -1,13 +1,17 @@
 import { NextResponse } from 'next/server';
-import { addChatMessage, createConversationId } from '@/app/lib/chat';
-import { hasRedis } from '@/app/lib/redis';
+import { addChatMessage, createConversationId, isChatStorageAvailable } from '@/app/lib/chat';
+
+export const runtime = 'nodejs';
 
 const MAX_ATTACHMENTS = 3;
 const MAX_ATTACHMENT_BYTES = 2 * 1024 * 1024;
 
 export async function POST(request: Request) {
-  if (process.env.NODE_ENV === 'production' && !hasRedis()) {
-    return NextResponse.json({ error: 'Чат временно недоступен' }, { status: 503 });
+  if (!isChatStorageAvailable()) {
+    return NextResponse.json(
+      { error: 'Чат временно недоступен. Настройте Redis (KV_REST_API_URL) на сервере.' },
+      { status: 503 }
+    );
   }
   try {
     const body = await request.json();

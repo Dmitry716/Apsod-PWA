@@ -1,10 +1,19 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import SeoJsonLd from '../../components/SeoJsonLd'
+import { SITE_URL } from '../../lib/seo'
 
 export const metadata: Metadata = {
-  title: 'ERP системы | Управление предприятием | APSOD',
-  description: 'Разработка и внедрение ERP систем для управления производством, складом, финансами и логистикой. Интеграция с 1С, SAP, Oracle.',
+  title: 'ERP системы — управление предприятием',
+  description: 'Разработка и внедрение ERP для управления производством, складом, финансами и логистикой. Интеграция с 1С, SAP, Oracle.',
   keywords: 'erp системы, управление предприятием, 1с, sap, oracle, производство, складской учет, логистика',
+  openGraph: {
+    title: 'ERP системы | APSOD',
+    description: 'Разработка и внедрение ERP. Производство, склад, финансы, логистика.',
+    url: `${SITE_URL}/services/erp`,
+    siteName: 'APSOD',
+    type: 'website',
+  },
 }
 
 export default function ERPPage() {
@@ -72,9 +81,28 @@ export default function ERPPage() {
     }
   ];
 
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'ERP системы — управление предприятием',
+    description: 'Разработка и внедрение ERP для управления производством, складом, финансами и логистикой.',
+    provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
+    areaServed: { '@type': 'Country', name: 'Belarus' },
+    url: `${SITE_URL}/services/erp`,
+  }
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Услуги', item: `${SITE_URL}/services` },
+      { '@type': 'ListItem', position: 3, name: 'ERP системы', item: `${SITE_URL}/services/erp` },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      
+      <SeoJsonLd data={[serviceSchema, breadcrumbSchema]} />
       {/* Hero секция */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">

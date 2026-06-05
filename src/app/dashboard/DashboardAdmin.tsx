@@ -42,7 +42,8 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
   const [selectedIndices, setSelectedIndices] = useState<Set<number>>(new Set());
   const [chatConvs, setChatConvs] = useState<{ id: string; lastMessageAt: number; lastMessagePreview?: string; lastVisitorName?: string }[]>([]);
   const [chatSelectedId, setChatSelectedId] = useState<string | null>(null);
-  const [chatMessages, setChatMessages] = useState<{ id: string; author: string; text: string; createdAt: string; visitorName?: string; attachments?: { name: string; mimeType: string; data: string }[] }[]>([]);
+  const [chatMessages, setChatMessages] = useState<{ id: string; author: string; text: string; createdAt: string; visitorName?: string; attachments?: { name: string; mimeType: string; data: string }[]; status?: 'sent' | 'delivered' | 'read' }[]>([]);
+  const [visitorTyping, setVisitorTyping] = useState(false);
   const [chatReply, setChatReply] = useState('');
   const [chatLoading, setChatLoading] = useState(false);
   const [chatReplyFiles, setChatReplyFiles] = useState<File[]>([]);
@@ -57,6 +58,7 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
   const [profilePhotoUrl, setProfilePhotoUrl] = useState('');
   const [profileSaving, setProfileSaving] = useState(false);
   const [profileSaved, setProfileSaved] = useState(false);
+  const [deleteMenuMessageId, setDeleteMenuMessageId] = useState<string | null>(null);
   const chatSoundRef = useRef<HTMLAudioElement | null>(null);
 
   const filteredReplyEmojis = useMemo(
@@ -100,7 +102,7 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
   const loadChatMessages = useCallback(
     async (convId: string, options?: { fromPoll?: boolean }) => {
       try {
-        const res = await fetch(`/api/chat/messages?conversationId=${encodeURIComponent(convId)}`);
+        const res = await fetch(`/api/chat/messages?conversationId=${encodeURIComponent(convId)}&viewer=admin`, { credentials: 'same-origin' });
         const data = await res.json();
         if (data.messages) {
           setChatMessages((prev) => {
@@ -167,7 +169,7 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
     // Звук для новых сообщений в чате админа
     if (typeof window !== 'undefined') {
       try {
-        chatSoundRef.current = new Audio('/sounds/chat-message.mp3');
+        chatSoundRef.current = new Audio('/sounds/chat-message.wav');
       } catch {
         chatSoundRef.current = null;
       }
@@ -187,8 +189,52 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
       return () => clearInterval(t);
     } else {
       setChatMessages([]);
+      setVisitorTyping(false);
     }
   }, [chatSelectedId, loadChatMessages]);
+
+  useEffect(() => {
+    if (!deleteMenuMessageId) return;
+    const close = () => setDeleteMenuMessageId(null);
+    document.addEventListener('click', close);
+    return () => document.removeEventListener('click', close);
+  }, [deleteMenuMessageId]);
+
+  // Опрос: печатает ли посетитель
+  useEffect(() => {
+    if (!chatSelectedId) {
+      setVisitorTyping(false);
+      return;
+    }
+    const check = () => {
+      fetch(`/api/chat/typing?conversationId=${encodeURIComponent(chatSelectedId)}`, { credentials: 'same-origin' })
+        .then((r) => r.json())
+        .then((d) => setVisitorTyping(d.typing === 'visitor'))
+        .catch(() => setVisitorTyping(false));
+    };
+    check();
+    const typingInterval = setInterval(check, 2000);
+    return () => clearInterval(typingInterval);
+  }, [chatSelectedId]);
+
+  // Отправка «админ печатает» при вводе ответа
+  const adminTypingRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  useEffect(() => {
+    if (!chatSelectedId || !chatReply.trim()) return;
+    if (adminTypingRef.current) clearTimeout(adminTypingRef.current);
+    adminTypingRef.current = setTimeout(() => {
+      fetch('/api/chat/typing', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ conversationId: chatSelectedId, who: 'admin' }),
+      }).catch(() => {});
+      adminTypingRef.current = null;
+    }, 400);
+    return () => {
+      if (adminTypingRef.current) clearTimeout(adminTypingRef.current);
+    };
+  }, [chatSelectedId, chatReply]);
 
   const toggleSelectAll = () => {
     if (selectedIndices.size === subs.length) {
@@ -763,6 +809,7 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
           {profilePhotoUrl && (
             <div className="mt-3">
               <span className="text-sm text-gray-500 dark:text-gray-400">Превью: </span>
+              {/* eslint-disable-next-line @next/next/no-img-element -- превью загрузки (data URL), нужен onError */}
               <img src={profilePhotoUrl} alt="Фото" className="inline-block w-10 h-10 rounded-full object-cover border border-gray-300 dark:border-gray-600" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
             </div>
           )}
@@ -808,7 +855,7 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
                     <span className="font-semibold text-gray-900 dark:text-gray-100 truncate">
                       Чат
                     </span>
-                    <span className="text-gray-500 dark:text-gray-400 font-mono text-xs truncate flex-shrink-0" title={chatSelectedId}>{chatSelectedId}</span>
+                    <span className="text-gray-500 dark:text-gray-400 font-mono text-xs truncate shrink-0" title={chatSelectedId}>{chatSelectedId}</span>
                     <button
                       type="button"
                       onClick={async () => {
@@ -840,14 +887,15 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
                   </div>
                   <div className="flex-1 min-h-[200px] max-h-64 overflow-y-auto p-3 space-y-2">
                     {chatMessages.map((m, idx) => (
-                      <div key={`${m.id}-${idx}`} className={`flex ${m.author === 'admin' ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${m.author === 'admin' ? 'bg-sky-600 text-white' : 'bg-gray-200 dark:bg-gray-600'}`}>
-                          <p className="whitespace-pre-wrap break-words">{m.text}</p>
+                      <div key={`${m.id}-${idx}`} className={`flex ${m.author === 'admin' ? 'justify-end' : 'justify-start'} group`}>
+                        <div className={`relative max-w-[85%] rounded-lg px-3 py-2 text-sm ${m.author === 'admin' ? 'bg-sky-600 text-white' : 'bg-gray-200 dark:bg-gray-600'}`}>
+                          <p className="whitespace-pre-wrap wrap-break-word">{m.text}</p>
                           {m.attachments && m.attachments.length > 0 && (
                             <div className="mt-2 space-y-1">
                               {m.attachments.map((att, i) => (
                                 <div key={i}>
                                   {att.mimeType.startsWith('image/') ? (
+                                    // eslint-disable-next-line @next/next/no-img-element -- вложение в чате (base64)
                                     <img src={`data:${att.mimeType};base64,${att.data}`} alt={att.name} className="max-w-full rounded max-h-32 object-contain" />
                                   ) : (
                                     <a href={`data:${att.mimeType};base64,${att.data}`} download={att.name} className="text-xs underline break-all">📎 {att.name}</a>
@@ -856,13 +904,110 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
                               ))}
                             </div>
                           )}
-                          <p className="text-xs opacity-80 mt-1">{new Date(m.createdAt).toLocaleString('ru-RU')}</p>
+                          <p className="text-xs opacity-80 mt-1 flex items-center gap-1.5 flex-wrap">
+                            {new Date(m.createdAt).toLocaleString('ru-RU')}
+                            {m.author === 'admin' && (
+                              <span className="inline-flex items-center" title={m.status === 'read' ? 'Прочитано' : 'Отправлено'}>
+                                {m.status === 'read' ? (
+                                  <span className="text-sky-200">
+                                    <svg className="w-3.5 h-3 inline" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 6l4 4 10-10"/></svg>
+                                    <svg className="w-3.5 h-3 inline -ml-2.5" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 6l4 4 10-10"/></svg>
+                                  </span>
+                                ) : (
+                                  <span className="opacity-80">
+                                    <svg className="w-3.5 h-3 inline" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 6l4 4 10-10"/></svg>
+                                  </span>
+                                )}
+                              </span>
+                            )}
+                            {m.author !== 'admin' && (
+                              <span className="inline-flex items-center" title={m.status === 'read' ? 'Прочитано вами' : 'Новое'}>
+                                {m.status === 'read' ? (
+                                  <span className="text-gray-500 dark:text-gray-400">
+                                    <svg className="w-3.5 h-3 inline" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 6l4 4 10-10"/></svg>
+                                    <svg className="w-3.5 h-3 inline -ml-2.5" viewBox="0 0 16 11" fill="none" stroke="currentColor" strokeWidth="2"><path d="M1 6l4 4 10-10"/></svg>
+                                  </span>
+                                ) : null}
+                              </span>
+                            )}
+                          </p>
+                          <div className="absolute top-1 right-1">
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setDeleteMenuMessageId((prev) => (prev === m.id ? null : m.id));
+                              }}
+                              className={`p-1 rounded opacity-70 hover:opacity-100 focus:opacity-100 transition-colors ${m.author === 'admin' ? 'text-sky-200 hover:text-white hover:bg-red-500/40' : 'text-gray-500 hover:text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30'}`}
+                              title="Удалить сообщение"
+                              aria-label="Удалить сообщение"
+                            >
+                              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                            </button>
+                            {deleteMenuMessageId === m.id && (
+                              <div className="absolute right-0 top-full mt-0.5 z-10 min-w-[140px] rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 shadow-lg py-1" onClick={(e) => e.stopPropagation()}>
+                                <button
+                                  type="button"
+                                  className="w-full text-left px-3 py-1.5 text-xs hover:bg-gray-100 dark:hover:bg-gray-700"
+                                  onClick={async () => {
+                                    if (!chatSelectedId) return;
+                                    try {
+                                      const res = await fetch('/api/chat/message/delete', {
+                                        method: 'POST',
+                                        credentials: 'same-origin',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ conversationId: chatSelectedId, messageId: m.id, scope: 'for_me', as: 'admin' }),
+                                      });
+                                      if (res.ok) {
+                                        setChatMessages((prev) => prev.filter((msg) => msg.id !== m.id));
+                                        setDeleteMenuMessageId(null);
+                                      }
+                                    } catch {
+                                      // ignore
+                                    }
+                                  }}
+                                >
+                                  Удалить у себя
+                                </button>
+                                <button
+                                  type="button"
+                                  className="w-full text-left px-3 py-1.5 text-xs text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                  onClick={async () => {
+                                    setDeleteMenuMessageId(null);
+                                    if (!chatSelectedId || !confirm('Удалить сообщение для всех безвозвратно?')) return;
+                                    try {
+                                      const res = await fetch('/api/chat/message/delete', {
+                                        method: 'POST',
+                                        credentials: 'same-origin',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({ conversationId: chatSelectedId, messageId: m.id, scope: 'for_everyone' }),
+                                      });
+                                      const data = await res.json();
+                                      if (res.ok && data.deleted) {
+                                        setChatMessages((prev) => prev.filter((msg) => msg.id !== m.id));
+                                        loadChatConvs();
+                                      }
+                                    } catch {
+                                      // ignore
+                                    }
+                                  }}
+                                >
+                                  Удалить для всех
+                                </button>
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
                     ))}
+                    {visitorTyping && (
+                      <div className="flex justify-start">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 italic py-1 px-2">Посетитель печатает...</p>
+                      </div>
+                    )}
                   </div>
                   <form
-                    className="p-2 border-t border-gray-200 dark:border-gray-600 space-y-2"
+                    className="p-2 border-t border-gray-200 dark:border-gray-600"
                     onSubmit={async (e) => {
                       e.preventDefault();
                       const text = chatReply.trim();
@@ -897,56 +1042,59 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
                       }
                     }}
                   >
-                    <div className="flex items-end gap-2">
-                      <textarea
-                        ref={replyTextareaRef}
-                        value={chatReply}
-                        onChange={(e) => setChatReply(e.target.value)}
-                        placeholder="Ответ..."
-                        rows={1}
-                        className="flex-1 min-w-0 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-sm resize-none"
-                      />
-                      <button type="submit" disabled={chatLoading || !chatReply.trim()} className="px-4 py-2 bg-sky-600 text-white rounded-lg text-sm font-medium hover:bg-sky-700 disabled:opacity-50">
-                        Отправить
-                      </button>
-                    </div>
-                    <div className="flex items-center gap-1 mt-1">
-                      <input
-                        ref={replyFileInputRef}
-                        type="file"
-                        multiple
-                        onChange={handleReplyFileChange}
-                        className="hidden"
-                        id="admin-chat-file"
-                      />
-                      <label
-                        htmlFor="admin-chat-file"
-                        className="p-1.5 rounded-lg text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer"
-                        title="Прикрепить файл"
-                      >
-                        📎
-                      </label>
-                      <button
-                        type="button"
-                        onClick={() => { setShowReplyEmoji((v) => !v); setShowReplyGif(false); }}
-                        className="px-1.5 py-1 rounded-lg text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 text-sm"
-                        title="Смайлики"
-                      >
-                        🙂
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => { setShowReplyGif((v) => !v); setShowReplyEmoji(false); setReplyGifSearch(''); }}
-                        className="px-2 py-1 rounded-lg text-gray-500 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 text-xs font-medium border border-gray-400/60"
-                        title="GIF"
-                      >
-                        GIF
-                      </button>
+                    <div className="rounded-2xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 overflow-hidden focus-within:ring-2 focus-within:ring-sky-500 focus-within:border-sky-500">
+                      <div className="px-3 pt-2">
+                        <textarea
+                          ref={replyTextareaRef}
+                          value={chatReply}
+                          onChange={(e) => setChatReply(e.target.value)}
+                          placeholder="Ответ..."
+                          rows={2}
+                          className="w-full min-w-0 bg-transparent border-0 resize-none py-0 text-sm focus:ring-0 focus:outline-none placeholder-gray-500 dark:placeholder-gray-400"
+                        />
+                      </div>
                       {chatReplyFiles.length > 0 && (
-                        <span className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                          {chatReplyFiles.map((f) => f.name).join(', ')}
-                        </span>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate px-3 pb-0.5">
+                          📎 {chatReplyFiles.map((f) => f.name).join(', ')}
+                        </p>
                       )}
+                      <div className="flex items-center gap-0.5 px-2 pb-2 pt-1.5 border-t border-gray-200 dark:border-gray-600">
+                        <input
+                          ref={replyFileInputRef}
+                          type="file"
+                          multiple
+                          onChange={handleReplyFileChange}
+                          className="hidden"
+                          id="admin-chat-file"
+                        />
+                        <label
+                          htmlFor="admin-chat-file"
+                          className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                          title="Прикрепить файл"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" /></svg>
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => { setShowReplyEmoji((v) => !v); setShowReplyGif(false); }}
+                          className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                          title="Смайлики"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => { setShowReplyGif((v) => !v); setShowReplyEmoji(false); setReplyGifSearch(''); }}
+                          className="px-2.5 py-1.5 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 text-xs font-medium border border-gray-400/60"
+                          title="GIF"
+                        >
+                          GIF
+                        </button>
+                        <div className="flex-1 min-w-2" aria-hidden />
+                        <button type="submit" disabled={chatLoading || !chatReply.trim()} className="p-2 rounded-full bg-sky-600 text-white hover:bg-sky-700 disabled:opacity-50 transition-colors" title="Отправить">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+                        </button>
+                      </div>
                     </div>
                     {showReplyEmoji && (
                       <div className="mt-1 rounded-lg bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 p-2 max-h-52 flex flex-col gap-2">
@@ -1014,6 +1162,7 @@ export default function DashboardAdmin({ onLogout }: { onLogout: () => void }) {
                                 onClick={() => handleReplyGifSelect(gif.url)}
                                 className="relative aspect-video rounded-md overflow-hidden bg-gray-700 hover:ring-2 hover:ring-sky-600"
                               >
+                                {/* eslint-disable-next-line @next/next/no-img-element -- GIF превью с CDN */}
                                 <img
                                   src={gif.url}
                                   alt={gif.title ?? gif.tags[0]}

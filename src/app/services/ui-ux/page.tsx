@@ -1,10 +1,19 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import SeoJsonLd from '../../components/SeoJsonLd'
+import { SITE_URL } from '../../lib/seo'
 
 export const metadata: Metadata = {
-  title: 'UI/UX дизайн | Разработка интерфейсов | APSOD',
-  description: 'Профессиональный UI/UX дизайн сайтов и мобильных приложений. Создаем удобные и красивые интерфейсы, которые повышают конверсию.',
+  title: 'UI/UX дизайн — разработка интерфейсов',
+  description: 'UI/UX дизайн сайтов и мобильных приложений. Удобные интерфейсы, прототипирование, дизайн-системы. Повышение конверсии.',
   keywords: 'ui ux дизайн, проектирование интерфейсов, дизайн сайтов, дизайн приложений, figma, прототипирование',
+  openGraph: {
+    title: 'UI/UX дизайн | APSOD',
+    description: 'Дизайн сайтов и приложений. Прототипы, UI-киты, юзабилити.',
+    url: `${SITE_URL}/services/ui-ux`,
+    siteName: 'APSOD',
+    type: 'website',
+  },
 }
 
 export default function UIUXPage() {
@@ -64,9 +73,28 @@ export default function UIUXPage() {
     }
   ];
 
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'UI/UX дизайн',
+    description: 'Профессиональный UI/UX дизайн сайтов и мобильных приложений. Прототипирование, дизайн-системы, юзабилити.',
+    provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
+    areaServed: { '@type': 'Country', name: 'Belarus' },
+    url: `${SITE_URL}/services/ui-ux`,
+  }
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Услуги', item: `${SITE_URL}/services` },
+      { '@type': 'ListItem', position: 3, name: 'UI/UX дизайн', item: `${SITE_URL}/services/ui-ux` },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      
+      <SeoJsonLd data={[serviceSchema, breadcrumbSchema]} />
       {/* Hero секция */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">

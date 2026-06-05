@@ -1,131 +1,56 @@
-import { Metadata } from 'next'
+/** Базовые данные сайта для SEO, Schema.org и Open Graph */
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://apsod.com'
+export const SITE_NAME = 'APSOD'
+export const SITE_DESCRIPTION =
+  'Разработка сайтов, интернет-магазинов и мобильных приложений. SEO продвижение и техническая поддержка сайтов. IT-компания с 15-летним опытом.'
+export const SITE_OG_IMAGE = '/og-image.jpg'
+export const DEFAULT_OG_IMAGE_URL = `${SITE_URL}${SITE_OG_IMAGE}`
 
-interface SEOProps {
-  title: string
-  description: string
-  keywords?: string[]
-  image?: string
-  path?: string
-  type?: 'website' | 'article'
-  publishedTime?: string
-  author?: string
+/** Основные ключевые запросы для продвижения */
+export const MAIN_KEYWORDS = [
+  'разработка сайтов',
+  'интернет-магазины',
+  'мобильные приложения',
+  'seo продвижение',
+  'техническая поддержка сайтов',
+  'создание сайтов',
+  'разработка интернет-магазина',
+  'разработка мобильных приложений',
+  'продвижение сайтов',
+  'поддержка сайта',
+]
+
+export function buildCanonical(path: string): string {
+  const base = SITE_URL.replace(/\/$/, '')
+  const p = path.startsWith('/') ? path : `/${path}`
+  return `${base}${p}`
 }
 
-export const siteConfig = {
-  name: 'APSOD',
-  url: 'https://apsod.com', // ← изменено с vercel.app на apsod.com
-  ogImage: '/og-image.jpg',
-  logo: '/icons/icon-512x512.png',
-  email: 'karelin@apsod.com', // если email такой же
-  phone: '+375 (44) 577-77-24',
-  address: 'г. Минск, ул.Фрунзе 9',
-  social: {
-    whatsapp: 'https://wa.me/375445777724',
-    telegram: 'https://t.me/DMITRYJS',
-    facebook: 'https://www.facebook.com/share/1GuC7K2jZ1/?mibextid=wwXIfr',
-  }
+export function buildOgImageUrl(path?: string): string {
+  return path ? `${SITE_URL}${path}` : DEFAULT_OG_IMAGE_URL
 }
 
-export function generateSEOMetadata({
-  title,
-  description,
-  keywords = [],
-  image = siteConfig.ogImage,
-  path = '',
-  type = 'website',
-  publishedTime,
-  author = 'APSOD',
-}: SEOProps): Metadata {
-  const fullTitle = `${title} | ${siteConfig.name}`
-  const url = `${siteConfig.url}${path}`
-
-  const baseMetadata: Metadata = {
-    title: fullTitle,
-    description,
-    keywords: ['IT компания', 'веб разработка', 'мобильные приложения', ...keywords].join(', '),
-    authors: [{ name: author }],
-    creator: siteConfig.name,
-    publisher: siteConfig.name,
-    
-    openGraph: {
-      title: fullTitle,
-      description,
-      url,
-      siteName: siteConfig.name,
-      images: [
-        {
-          url: image,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-      locale: 'ru_RU',
-      type,
-      ...(publishedTime && { publishedTime }),
-    },
-
-    twitter: {
-      card: 'summary_large_image',
-      title: fullTitle,
-      description,
-      images: [image],
-      creator: '@apsod',
-    },
-
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
-
-    alternates: {
-      canonical: url,
-    },
-  }
-
-  return baseMetadata
-}
-
-// Schema.org разметка
+/** Schema.org Organization для JSON-LD (используется в SchemaOrg.tsx) */
 export function generateOrganizationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: siteConfig.name,
-    url: siteConfig.url,
-    logo: siteConfig.logo,
-    email: siteConfig.email,
-    telephone: siteConfig.phone,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: siteConfig.address,
-      addressLocality: 'Минск',
-      addressCountry: 'BY',
-    },
-    sameAs: Object.values(siteConfig.social),
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
+    logo: `${SITE_URL}/icons/icon-192x192.png`,
   }
 }
 
+/** Schema.org WebSite для JSON-LD (используется в SchemaOrg.tsx) */
 export function generateWebSiteSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: siteConfig.name,
-    url: siteConfig.url,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${siteConfig.url}/search?q={search_term_string}`,
-      },
-      'query-input': 'required name=search_term_string',
-    },
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
+    publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+    inLanguage: 'ru',
   }
 }

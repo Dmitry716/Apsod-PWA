@@ -162,7 +162,7 @@ async function redisLRem(key: string, count: number, value: string): Promise<num
   const client = await getNodeRedisClient();
   if (!client) return 0;
   // node-redis v5: LREM key count value; command args must be string | Buffer (count as string)
-  const c = client as Record<string, (k: string, cnt: string, v: string) => Promise<number>>;
+  const c = client as unknown as Record<string, (k: string, cnt: string, v: string) => Promise<number>>;
   const fn = c.lRem ?? c.lrem;
   return typeof fn === 'function' ? await fn.call(client, key, String(count), value) : 0;
 }

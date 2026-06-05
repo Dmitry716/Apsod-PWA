@@ -1,10 +1,19 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
+import SeoJsonLd from '../../components/SeoJsonLd'
+import { SITE_URL } from '../../lib/seo'
 
 export const metadata: Metadata = {
-  title: 'Веб-разработка | Современные технологии и стек',
-  description: 'Профессиональная веб-разработка на Next.js, React, Vue, Node.js. Создаем корпоративные сайты, интернет-магазины, веб-приложения и CRM системы.',
-  keywords: 'веб-разработка, next.js, react, vue, node.js, typescript, tailwind css, разработка сайтов',
+  title: 'Разработка сайтов и интернет-магазинов',
+  description: 'Разработка сайтов и интернет-магазинов на Next.js, React, Node.js. Корпоративные сайты, интернет-магазины, веб-приложения. Современный стек и SEO.',
+  keywords: 'разработка сайтов, интернет-магазины, веб-разработка, next.js, react, создание сайта, разработка интернет-магазина',
+  openGraph: {
+    title: 'Разработка сайтов и интернет-магазинов | APSOD',
+    description: 'Профессиональная разработка сайтов и интернет-магазинов. Next.js, React, Node.js. Корпоративные сайты и веб-приложения.',
+    url: `${SITE_URL}/services/web-development`,
+    siteName: 'APSOD',
+    type: 'website',
+  },
 }
 
 export default function WebDevelopmentPage() {
@@ -158,9 +167,28 @@ export default function WebDevelopmentPage() {
     }
   ]
 
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Разработка сайтов и интернет-магазинов',
+    description: 'Профессиональная разработка сайтов, интернет-магазинов и веб-приложений на Next.js, React, Node.js. Корпоративные сайты, лендинги, каталоги.',
+    provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
+    areaServed: { '@type': 'Country', name: 'Belarus' },
+    url: `${SITE_URL}/services/web-development`,
+  }
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Услуги', item: `${SITE_URL}/services` },
+      { '@type': 'ListItem', position: 3, name: 'Разработка сайтов и интернет-магазинов', item: `${SITE_URL}/services/web-development` },
+    ],
+  }
+
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      
+      <SeoJsonLd data={[serviceSchema, breadcrumbSchema]} />
       {/* Hero секция */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
