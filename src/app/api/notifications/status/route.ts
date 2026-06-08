@@ -1,54 +1,56 @@
 import { NextResponse } from 'next/server';
-import { hasRedis, getSubscriptions } from '@/app/lib/redis';
+import {
+  hasRedis,
+  getSubscriptions,
+  isSubscriptionStorageAvailable,
+} from '@/app/lib/redis';
 
-const REDIS_ENV_KEYS = [
+export const runtime = 'nodejs';
+
+const REST_ENV_KEYS = [
   'KV_REST_API_URL',
   'KV_REST_API_REDIS_URL',
   'KV_REST_API_REST_URL',
   'STORAGE_URL',
   'UPSTASH_REDIS_REST_URL',
-  'REDIS_URL',
 ] as const;
 
 /**
  * GET /api/notifications/status
- * Диагностика: подключён ли Redis и сколько подписок сохранено.
- * Откройте https://apsod.com/api/notifications/status на боевом домене.
+ * Диагностика: доступно ли хранилище подписок и сколько записей сохранено.
  */
 export async function GET() {
   try {
-    const envVarsFound = REDIS_ENV_KEYS.filter((k) => process.env[k]);
+    const envVarsFound = REST_ENV_KEYS.filter((k) => process.env[k]);
+    const storageAvailable = isSubscriptionStorageAvailable();
     let subscriptionsCount = 0;
     let storage = 'none';
     let error: string | null = null;
 
-    if (hasRedis()) {
+    if (storageAvailable) {
       try {
         const subs = await getSubscriptions();
         subscriptionsCount = subs.length;
-        storage = 'redis';
+        storage = hasRedis() ? 'redis' : 'file';
       } catch (e) {
         error = e instanceof Error ? e.message : 'Unknown error';
-        storage = 'redis_error';
+        storage = 'error';
       }
-    } else {
-      storage = 'file_or_missing';
     }
 
-    const ok = hasRedis() && !error;
-    const envHint = !ok
+    const ok = storageAvailable && !error;
+    const envHint = !hasRedis()
       ? envVarsFound.length > 0
-        ? 'Переменные найдены (' +
-          envVarsFound.join(', ') +
-          '), но подключение не удалось. Проверьте значение URL (redis:// или rediss://) и переразверните проект.'
-        : 'В Vercel задайте KV_REST_API_REDIS_URL или REDIS_URL (redis://...). Убедитесь, что переменная привязана к Production и сделайте Redeploy.'
+        ? `Найдены ${envVarsFound.join(', ')}, но REST Redis не подключён. Проверьте KV_REST_API_TOKEN и сделайте Redeploy.`
+        : 'Для стабильных подписок на Vercel задайте KV_REST_API_URL и KV_REST_API_TOKEN (Upstash / Vercel KV).'
       : null;
 
     return NextResponse.json({
       ok,
       storage,
       subscriptionsCount,
-      redisConnected: ok,
+      redisConnected: hasRedis(),
+      storageAvailable,
       envHint: envHint || undefined,
       envVarsFound,
       error: error || undefined,

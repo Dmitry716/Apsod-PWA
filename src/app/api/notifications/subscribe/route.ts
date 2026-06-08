@@ -1,17 +1,20 @@
 import { NextResponse } from 'next/server';
 import {
-  hasRedis,
   getSubscriptions,
   saveSubscription,
   deleteSubscription,
   deleteAllSubscriptions,
+  isSubscriptionStorageAvailable,
+  hasRedis,
 } from '@/app/lib/redis';
+
+export const runtime = 'nodejs';
 
 export async function POST(request: Request) {
   console.log('📨 POST /api/notifications/subscribe');
 
-  if (process.env.NODE_ENV === 'production' && !hasRedis()) {
-    console.error('❌ На продакшене не настроен Redis. Подписки не сохраняются.');
+  if (!isSubscriptionStorageAvailable()) {
+    console.error('❌ Хранилище подписок недоступно.');
     return NextResponse.json(
       {
         error: 'Сервис подписок временно недоступен. Попробуйте позже.',
