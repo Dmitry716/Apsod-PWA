@@ -287,6 +287,37 @@ export function isSubscriptionStorageAvailable(): boolean {
   return hasRedis() || canUseFileSubscriptionStorage();
 }
 
+function normalizeSubscriptionMember(value: unknown): Record<string, unknown> | null {
+  if (value == null) return null;
+  if (typeof value === 'object' && !Array.isArray(value)) {
+    return value as Record<string, unknown>;
+  }
+  if (typeof value === 'string') {
+    try {
+      const parsed = JSON.parse(value);
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        return parsed as Record<string, unknown>;
+      }
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
+async function redisSRemMember(key: string, member: unknown): Promise<void> {
+  const upstash = getUpstashRedis();
+  if (upstash) {
+    await upstash.srem(key, member as string);
+    return;
+  }
+  const client = await getNodeRedisClient();
+  if (client) {
+    const value = typeof member === 'string' ? member : JSON.stringify(member);
+    await client.sRem(key, value);
+  }
+}
+
 function readSubscriptionsFile(): any[] {
   if (!canUseFileSubscriptionStorage()) return [];
   const fs = require('fs') as typeof import('fs');
@@ -320,7 +351,12 @@ function writeSubscriptionsFile(subscriptions: any[]): boolean {
 async function saveSubscriptionToRedis(toStore: Record<string, unknown>): Promise<boolean> {
   if (!hasRedis()) return false;
   try {
-    await redisSAdd(REDIS_KEY_SUBSCRIPTIONS, JSON.stringify(toStore));
+    const upstash = getUpstashRedis();
+    if (upstash) {
+      await upstash.sadd(REDIS_KEY_SUBSCRIPTIONS, toStore);
+    } else {
+      await redisSAdd(REDIS_KEY_SUBSCRIPTIONS, JSON.stringify(toStore));
+    }
     return true;
   } catch (e) {
     console.error('Redis save subscription failed:', e);
@@ -358,13 +394,7 @@ export async function getSubscriptions(): Promise<any[]> {
     try {
       const raw = await redisSMembers(REDIS_KEY_SUBSCRIPTIONS);
       return raw
-        .map((s) => {
-          try {
-            return JSON.parse(s);
-          } catch {
-            return null;
-          }
-        })
+        .map((member) => normalizeSubscriptionMember(member))
         .filter(Boolean);
     } catch (e) {
       console.error('Redis get subscriptions failed, fallback to file:', e);
@@ -377,10 +407,12 @@ export async function getSubscriptions(): Promise<any[]> {
 export async function deleteSubscription(endpoint: string): Promise<void> {
   if (hasRedis()) {
     try {
-      const subscriptions = await getSubscriptions();
-      const toRemove = subscriptions.find((s: any) => s.endpoint === endpoint);
-      if (toRemove) {
-        await redisSRem(REDIS_KEY_SUBSCRIPTIONS, JSON.stringify(toRemove));
+      const raw = await redisSMembers(REDIS_KEY_SUBSCRIPTIONS);
+      const member = raw.find(
+        (item) => normalizeSubscriptionMember(item)?.endpoint === endpoint
+      );
+      if (member !== undefined) {
+        await redisSRemMember(REDIS_KEY_SUBSCRIPTIONS, member);
         console.log('✅ Подписка удалена из Redis');
         return;
       }
