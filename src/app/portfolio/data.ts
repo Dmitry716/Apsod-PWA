@@ -13,10 +13,12 @@ export type PortfolioProject = {
   location: string
 }
 
-/** Проекты, которые показываются первыми на главной и в портфолио */
-export const FEATURED_PORTFOLIO_LINKS = [
+/** Порядок проектов на главной и в портфолио */
+export const PORTFOLIO_PRIORITY_LINKS = [
   'https://ambadetail.by',
   'https://nexton.vip',
+  'https://maxximum.by',
+  'https://dynamovitebsk.by',
 ] as const
 
 function normalizePortfolioLink(link: string): string {
@@ -34,7 +36,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     tags: ['Next.js', 'Tailwind CSS', 'Node.js'],
     link: 'https://ambadetail.by',
     color: 'from-orange-600 to-red-500',
-    year: '2024',
+    year: '2026',
     icon: '🚘',
     location: 'Витебск',
   },
@@ -43,28 +45,14 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     title: 'nexton.vip',
     category: 'Корпоративный сайт',
     type: 'web',
-    description: 'Официальный сайт nexton.vip с презентацией услуг, преимуществ компании и удобной связью для потенциальных клиентов.',
+    description: 'Сайт автосервиса NEXTON: заправка и ремонт кондиционеров, ремонт Webasto и систем охлаждения в Полоцке и Новополоцке.',
     image: '/portfolio/nexton.png',
     tags: ['Next.js', 'TypeScript', 'UI/UX'],
     link: 'https://nexton.vip',
     color: 'from-violet-600 to-fuchsia-600',
     year: '2026',
     icon: '💼',
-    location: 'Онлайн',
-  },
-  {
-    id: 1,
-    title: 'Динамо-Витебск (СДЮШОР)',
-    category: 'Спортивный сайт',
-    type: 'web',
-    description: 'Официальный сайт СДЮШОР "Динамо-Витебск". Информация о школе, отделения, спортивные секции, блог спортивной школы, достижения воспитанников и тренерский состав.',
-    image: '/portfolio/dynamo.png',
-    tags: ['Next.js', 'Tailwind CSS', 'Node.js'],
-    link: 'https://dynamovitebsk.by',
-    color: 'from-blue-600 to-cyan-500',
-    year: '2019',
-    icon: '🏒',
-    location: 'Витебск',
+    location: 'Полоцк',
   },
   {
     id: 2,
@@ -78,6 +66,20 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     color: 'from-green-600 to-emerald-500',
     year: '2024',
     icon: '🏋️',
+    location: 'Витебск',
+  },
+  {
+    id: 1,
+    title: 'Динамо-Витебск (СДЮШОР)',
+    category: 'Спортивный сайт',
+    type: 'web',
+    description: 'Официальный сайт СДЮШОР "Динамо-Витебск". Информация о школе, отделения, спортивные секции, блог спортивной школы, достижения воспитанников и тренерский состав.',
+    image: '/portfolio/dynamo.png',
+    tags: ['Next.js', 'Tailwind CSS', 'Node.js'],
+    link: 'https://dynamovitebsk.by',
+    color: 'from-blue-600 to-cyan-500',
+    year: '2019',
+    icon: '🏒',
     location: 'Витебск',
   },
   {
@@ -1424,14 +1426,14 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
 
 export function getFeaturedRank(project: PortfolioProject): number {
   const normalized = normalizePortfolioLink(project.link)
-  const idx = FEATURED_PORTFOLIO_LINKS.findIndex(
+  const idx = PORTFOLIO_PRIORITY_LINKS.findIndex(
     (link) => normalizePortfolioLink(link) === normalized
   )
   return idx === -1 ? Number.MAX_SAFE_INTEGER : idx
 }
 
 export function getFeaturedPortfolioProjects(): PortfolioProject[] {
-  return FEATURED_PORTFOLIO_LINKS.map((link) =>
+  return PORTFOLIO_PRIORITY_LINKS.map((link) =>
     PORTFOLIO_PROJECTS.find(
       (p) => normalizePortfolioLink(p.link) === normalizePortfolioLink(link)
     )
