@@ -1,20 +1,8 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
-import { SITE_URL } from '../../lib/seo'
+import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Разработка мобильных приложений',
-  description: 'Разработка мобильных приложений для iOS и Android: React Native, Flutter, Swift, Kotlin. Приложения для бизнеса, стартапов и корпораций.',
-  keywords: 'мобильные приложения, разработка мобильных приложений, react native, flutter, ios, android, swift, kotlin',
-  openGraph: {
-    title: 'Разработка мобильных приложений | APSOD',
-    description: 'Нативные и кроссплатформенные мобильные приложения. iOS, Android. React Native, Flutter, Swift, Kotlin.',
-    url: `${SITE_URL}/services/mobile-development`,
-    siteName: 'APSOD',
-    type: 'website',
-  },
-}
+export const metadata = buildServiceMetadata('mobile-development')
 
 export default function MobileDevelopmentPage() {
   const technologies = [

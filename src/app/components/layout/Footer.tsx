@@ -147,6 +147,14 @@ export default function Footer() {
                   {t(locale, 'nav.contact')}
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/belarus"
+                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
+                >
+                  {locale === 'en' ? 'Belarus' : 'Города РБ'}
+                </Link>
+              </li>
             </ul>
           </nav>
 

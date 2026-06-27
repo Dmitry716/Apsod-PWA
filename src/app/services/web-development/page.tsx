@@ -1,20 +1,8 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
-import { SITE_URL } from '../../lib/seo'
+import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Разработка сайтов и интернет-магазинов',
-  description: 'Разработка сайтов и интернет-магазинов на Next.js, React, Node.js. Корпоративные сайты, интернет-магазины, веб-приложения. Современный стек и SEO.',
-  keywords: 'разработка сайтов, интернет-магазины, веб-разработка, next.js, react, создание сайта, разработка интернет-магазина',
-  openGraph: {
-    title: 'Разработка сайтов и интернет-магазинов | APSOD',
-    description: 'Профессиональная разработка сайтов и интернет-магазинов. Next.js, React, Node.js. Корпоративные сайты и веб-приложения.',
-    url: `${SITE_URL}/services/web-development`,
-    siteName: 'APSOD',
-    type: 'website',
-  },
-}
+export const metadata = buildServiceMetadata('web-development')
 
 export default function WebDevelopmentPage() {
   const technologies = [

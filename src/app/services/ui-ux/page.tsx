@@ -1,20 +1,8 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
-import { SITE_URL } from '../../lib/seo'
+import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'UI/UX дизайн — разработка интерфейсов',
-  description: 'UI/UX дизайн сайтов и мобильных приложений. Удобные интерфейсы, прототипирование, дизайн-системы. Повышение конверсии.',
-  keywords: 'ui ux дизайн, проектирование интерфейсов, дизайн сайтов, дизайн приложений, figma, прототипирование',
-  openGraph: {
-    title: 'UI/UX дизайн | APSOD',
-    description: 'Дизайн сайтов и приложений. Прототипы, UI-киты, юзабилити.',
-    url: `${SITE_URL}/services/ui-ux`,
-    siteName: 'APSOD',
-    type: 'website',
-  },
-}
+export const metadata = buildServiceMetadata('ui-ux')
 
 export default function UIUXPage() {
   const services = [

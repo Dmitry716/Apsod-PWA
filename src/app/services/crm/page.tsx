@@ -1,20 +1,8 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
-import { SITE_URL } from '../../lib/seo'
+import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'CRM системы — разработка и внедрение',
-  description: 'Разработка и внедрение CRM для автоматизации продаж и управления клиентами. Битрикс24, AmoCRM, Salesforce. Интеграция с телефонией и 1С.',
-  keywords: 'crm системы, разработка crm, внедрение crm, битрикс24, amocrm, salesforce, автоматизация продаж',
-  openGraph: {
-    title: 'CRM системы | APSOD',
-    description: 'Разработка и внедрение CRM. Автоматизация продаж, управление клиентами.',
-    url: `${SITE_URL}/services/crm`,
-    siteName: 'APSOD',
-    type: 'website',
-  },
-}
+export const metadata = buildServiceMetadata('crm')
 
 export default function CRMPage() {
   const features = [

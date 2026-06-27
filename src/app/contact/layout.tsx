@@ -1,19 +1,18 @@
 import { Metadata } from 'next'
-import { SITE_URL } from '../lib/seo'
+import { buildPageMetadata } from '../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Контакты',
-  description: 'Свяжитесь с APSOD: разработка сайтов, интернет-магазинов, мобильных приложений, SEO продвижение и техническая поддержка. Обсудим ваш проект.',
-  keywords: 'контакты APSOD, заказать сайт, разработка сайта, связь',
-  openGraph: {
-    title: 'Контакты | APSOD',
-    description: 'Свяжитесь с нами для обсуждения проекта: разработка сайтов, приложений, SEO и поддержка.',
-    url: `${SITE_URL}/contact`,
-    siteName: 'APSOD',
-    type: 'website',
-  },
-  alternates: { canonical: `${SITE_URL}/contact` },
-}
+export const metadata: Metadata = buildPageMetadata({
+  title: 'Контакты APSOD — заказать разработку сайта в Беларуси',
+  description:
+    'Свяжитесь с APSOD в Минске: разработка сайтов, интернет-магазинов, мобильных приложений и SEO по всей Беларуси. Офис: ул. Фрунзе, 9.',
+  path: '/contact',
+  keywords: [
+    'контакты APSOD',
+    'заказать сайт Минск',
+    'разработка сайтов Беларусь',
+    'IT компания Минск',
+  ],
+})
 
 export default function ContactLayout({
   children,

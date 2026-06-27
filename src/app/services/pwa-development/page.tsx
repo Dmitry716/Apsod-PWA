@@ -1,20 +1,8 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
-import { SITE_URL } from '../../lib/seo'
+import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'PWA разработка — прогрессивные веб-приложения',
-  description: 'Разработка PWA: установка на устройство как приложение, работа офлайн, push-уведомления, быстрая загрузка. Гибрид сайта и мобильного приложения.',
-  keywords: 'pwa разработка, progressive web app, прогрессивные веб-приложения, установка на телефон, работа офлайн, push уведомления',
-  openGraph: {
-    title: 'PWA разработка | APSOD',
-    description: 'Прогрессивные веб-приложения: установка на устройство, офлайн, push-уведомления.',
-    url: `${SITE_URL}/services/pwa-development`,
-    siteName: 'APSOD',
-    type: 'website',
-  },
-}
+export const metadata = buildServiceMetadata('pwa-development')
 
 export default function PWADevelopmentPage() {
   const benefits = [

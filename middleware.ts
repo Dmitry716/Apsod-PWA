@@ -30,6 +30,7 @@ export function middleware(req: NextRequest) {
     url.pathname = stripLocalePrefix(pathname, 'en')
     const res = NextResponse.rewrite(url)
     res.cookies.set('lang', 'en', { path: '/' })
+    res.headers.set('X-Robots-Tag', 'noindex, nofollow')
     return res
   }
 
@@ -37,6 +38,7 @@ export function middleware(req: NextRequest) {
     url.pathname = stripLocalePrefix(pathname, 'ru')
     const res = NextResponse.rewrite(url)
     res.cookies.set('lang', 'ru', { path: '/' })
+    res.headers.set('X-Robots-Tag', 'noindex, follow')
     return res
   }
 

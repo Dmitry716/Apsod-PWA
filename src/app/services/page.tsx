@@ -1,19 +1,19 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
+import { buildPageMetadata } from '../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Услуги',
-  description: 'Разработка сайтов, интернет-магазинов, мобильных приложений. SEO продвижение, CRM, ERP, техническая поддержка сайтов. Комплексные IT-решения для бизнеса.',
-  keywords: ['разработка сайтов', 'интернет-магазины', 'мобильные приложения', 'seo продвижение', 'техническая поддержка сайтов', 'веб-разработка', 'crm', 'erp'].join(', '),
-  openGraph: {
-    title: 'Услуги — разработка сайтов, интернет-магазинов, мобильных приложений | APSOD',
-    description: 'Разработка сайтов, интернет-магазинов, мобильных приложений. SEO продвижение и техническая поддержка сайтов.',
-    url: 'https://apsod.com/services',
-    siteName: 'APSOD',
-    type: 'website',
-  },
-  alternates: { canonical: 'https://apsod.com/services' },
-}
+export const metadata = buildPageMetadata({
+  title: 'Услуги — разработка сайтов и digital в Беларуси',
+  description:
+    'Полный спектр IT-услуг APSOD в Беларуси: сайты, интернет-магазины, мобильные приложения, SEO, CRM, ERP и техподдержка.',
+  path: '/services',
+  keywords: [
+    'услуги IT Беларусь',
+    'разработка сайтов',
+    'SEO продвижение',
+    'мобильные приложения',
+    'техподдержка сайтов',
+  ],
+})
 
 const services = [
   {

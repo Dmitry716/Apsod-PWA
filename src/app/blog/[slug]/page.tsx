@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { blogPosts } from '../data/posts'
 import SeoJsonLd from '../../components/SeoJsonLd'
-import { SITE_URL } from '../../lib/seo'
+import { buildPageMetadata, SITE_URL } from '../../lib/seo'
 import { cookies } from 'next/headers'
 import { normalizeLocale, t } from '../../lib/i18n'
 
@@ -22,22 +22,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const url = `${SITE_URL}/blog/${post.slug}`
-  return {
+  return buildPageMetadata({
     title: post.title,
     description: post.excerpt,
-    keywords: post.tags.join(', '),
-    authors: [{ name: post.author }],
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      url,
-      siteName: 'APSOD',
-      type: 'article',
-      publishedTime: post.date,
-      authors: [post.author],
-      tags: post.tags,
-    },
-  }
+    path: `/blog/${post.slug}`,
+    keywords: [...post.tags, 'блог APSOD', 'IT Беларусь'],
+    ogType: 'article',
+    publishedTime: post.date,
+    images: [post.image],
+  })
 }
 
 export default async function BlogPostPage({ params }: Props) {

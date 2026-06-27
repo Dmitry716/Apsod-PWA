@@ -1,19 +1,13 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
+import { buildPageMetadata } from '../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'О компании',
-  description: 'APSOD — IT-компания с 15-летним опытом: разработка сайтов, интернет-магазинов, мобильных приложений, SEO продвижение и техническая поддержка. Экономика, медицина, производство.',
-  keywords: 'о компании APSOD, разработка сайтов, мобильные приложения, IT компания Беларусь',
-  openGraph: {
-    title: 'О компании APSOD — разработка сайтов и приложений',
-    description: 'IT-компания с 15-летним опытом. Разработка сайтов, интернет-магазинов, мобильных приложений, SEO и поддержка.',
-    url: 'https://apsod.com/about',
-    siteName: 'APSOD',
-    type: 'website',
-  },
-  alternates: { canonical: 'https://apsod.com/about' },
-}
+export const metadata = buildPageMetadata({
+  title: 'О компании APSOD — IT-компания в Беларуси',
+  description:
+    'APSOD — IT-компания с 15-летним опытом в Беларуси: разработка сайтов, интернет-магазинов, мобильных приложений, SEO и техподдержка.',
+  path: '/about',
+  keywords: ['APSOD', 'IT компания Беларусь', 'разработка сайтов Минск', 'о компании'],
+})
 
 export default function AboutPage() {
   const stats = [
