@@ -62,6 +62,7 @@ export default async function BelarusCityPage({ params }: Props) {
       cityName: city.name,
       citySlug: city.slug,
       description,
+      countryPath: 'belarus',
     }),
   ]
 

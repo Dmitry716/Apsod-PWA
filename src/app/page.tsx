@@ -4,9 +4,9 @@ import { PORTFOLIO_PROJECTS } from "./portfolio/data";
 import { buildPageMetadata } from "./lib/seo";
 
 export const metadata = buildPageMetadata({
-  title: 'APSOD — разработка сайтов и SEO в Беларуси',
+  title: 'APSOD — разработка сайтов и SEO в Беларуси и России',
   description:
-    'IT-компания APSOD: сайты, интернет-магазины, мобильные приложения и SEO-продвижение по всей РБ. Минск, Брест, Гомель, Витебск, Гродно, Могилёв.',
+    'IT-компания APSOD: сайты, интернет-магазины, SEO и мобильные приложения. Москва, МО, Минск и регионы РФ/РБ. Яндекс и Google.',
   path: '/',
 });
 
@@ -188,8 +188,8 @@ export default function Home() {
               </h1>
 
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-lg animate-fade-in-up animation-delay-900 max-md:text-base">
-                Веб-разработка, мобильные приложения, SEO и CRM/ERP для бизнеса
-                в Беларуси — Минск и все регионы РБ.
+                Веб-разработка, SEO в Яндексе и Google, мобильные приложения для
+                бизнеса в Москве, регионах РФ и Беларуси.
               </p>
 
               <div className="flex flex-wrap gap-4 animate-fade-in-up animation-delay-1000">

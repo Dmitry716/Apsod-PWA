@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next'
 import { blogPosts } from './blog/data/posts'
 import { PORTFOLIO_PROJECTS, getSlugFromLink } from './portfolio/data'
 import { BELARUS_CITIES } from './lib/belarus-cities'
+import { RUSSIA_CITIES, getRussiaCitySitemapPriority } from './lib/russia-cities'
 import {
   SITE_URL,
   SERVICE_PATHS,
@@ -46,6 +47,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/blog`, lastModified: now, changeFrequency: 'daily', priority: 0.85 },
     { url: `${base}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/belarus`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/russia`, lastModified: now, changeFrequency: 'monthly', priority: 0.95 },
   ]
 
   const servicePages: MetadataRoute.Sitemap = SERVICE_PATHS.map((slug) => ({
@@ -77,11 +79,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.3,
   }))
 
-  const cityPages: MetadataRoute.Sitemap = BELARUS_CITIES.map((city) => ({
+  const belarusCityPages: MetadataRoute.Sitemap = BELARUS_CITIES.map((city) => ({
     url: `${base}/belarus/${city.slug}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: city.slug === 'minsk' ? 0.92 : 0.82,
+  }))
+
+  const russiaCityPages: MetadataRoute.Sitemap = RUSSIA_CITIES.map((city) => ({
+    url: `${base}/russia/${city.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: getRussiaCitySitemapPriority(city.slug),
   }))
 
   return [
@@ -90,6 +99,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...blogPages,
     ...portfolioPages,
     ...legalPages,
-    ...cityPages,
+    ...belarusCityPages,
+    ...russiaCityPages,
   ]
 }
