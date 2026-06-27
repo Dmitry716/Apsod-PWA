@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { blogPosts } from "./blog/data/posts";
-import { PORTFOLIO_PROJECTS } from "./portfolio/data";
+import { getFeaturedPortfolioProjects } from "./portfolio/data";
 import { buildPageMetadata } from "./lib/seo";
 
 export const metadata = buildPageMetadata({
@@ -316,9 +316,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-md:gap-4">
-            {PORTFOLIO_PROJECTS.filter((project) => project.type === "web")
-              .slice(0, 2)
-              .map((project) => (
+            {getFeaturedPortfolioProjects().map((project) => (
               <div
                 key={project.id}
                 className="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
