@@ -13,35 +13,17 @@ export type PortfolioProject = {
   location: string
 }
 
+/** Проекты, которые показываются первыми на главной и в портфолио */
+export const FEATURED_PORTFOLIO_LINKS = [
+  'https://ambadetail.by',
+  'https://nexton.vip',
+] as const
+
+function normalizePortfolioLink(link: string): string {
+  return link.replace(/\/+$/, '').toLowerCase()
+}
+
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
-  {
-    id: 1,
-    title: 'Динамо-Витебск (СДЮШОР)',
-    category: 'Спортивный сайт',
-    type: 'web',
-    description: 'Официальный сайт СДЮШОР "Динамо-Витебск". Информация о школе, отделения, спортивные секции, блог спортивной школы, достижения воспитанников и тренерский состав.',
-    image: '/portfolio/dynamo.png',
-    tags: ['Next.js', 'Tailwind CSS', 'Node.js'],
-    link: 'https://dynamovitebsk.by',
-    color: 'from-blue-600 to-cyan-500',
-    year: '2019',
-    icon: '🏒',
-    location: 'Витебск',
-  },
-  {
-    id: 2,
-    title: 'Maxximum',
-    category: 'Образование',
-    type: 'web',
-    description: 'Сайт спортивно-образовательного центра "Maxximum" в Витебске. Информация о направлениях подготовки, расписание занятий, тренерский состав и запись на пробные тренировки.',
-    image: '/portfolio/maxximum.jpg',
-    tags: ['React', 'TypeScript', 'Express'],
-    link: 'https://maxximum.by',
-    color: 'from-green-600 to-emerald-500',
-    year: '2024',
-    icon: '🏋️',
-    location: 'Витебск',
-  },
   {
     id: 3,
     title: 'Amba Detail',
@@ -69,6 +51,34 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     year: '2026',
     icon: '💼',
     location: 'Онлайн',
+  },
+  {
+    id: 1,
+    title: 'Динамо-Витебск (СДЮШОР)',
+    category: 'Спортивный сайт',
+    type: 'web',
+    description: 'Официальный сайт СДЮШОР "Динамо-Витебск". Информация о школе, отделения, спортивные секции, блог спортивной школы, достижения воспитанников и тренерский состав.',
+    image: '/portfolio/dynamo.png',
+    tags: ['Next.js', 'Tailwind CSS', 'Node.js'],
+    link: 'https://dynamovitebsk.by',
+    color: 'from-blue-600 to-cyan-500',
+    year: '2019',
+    icon: '🏒',
+    location: 'Витебск',
+  },
+  {
+    id: 2,
+    title: 'Maxximum',
+    category: 'Образование',
+    type: 'web',
+    description: 'Сайт спортивно-образовательного центра "Maxximum" в Витебске. Информация о направлениях подготовки, расписание занятий, тренерский состав и запись на пробные тренировки.',
+    image: '/portfolio/maxximum.jpg',
+    tags: ['React', 'TypeScript', 'Express'],
+    link: 'https://maxximum.by',
+    color: 'from-green-600 to-emerald-500',
+    year: '2024',
+    icon: '🏋️',
+    location: 'Витебск',
   },
   {
     id: 24,
@@ -1411,6 +1421,22 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     location: 'Нидерланды',
   }
 ]
+
+export function getFeaturedRank(project: PortfolioProject): number {
+  const normalized = normalizePortfolioLink(project.link)
+  const idx = FEATURED_PORTFOLIO_LINKS.findIndex(
+    (link) => normalizePortfolioLink(link) === normalized
+  )
+  return idx === -1 ? Number.MAX_SAFE_INTEGER : idx
+}
+
+export function getFeaturedPortfolioProjects(): PortfolioProject[] {
+  return FEATURED_PORTFOLIO_LINKS.map((link) =>
+    PORTFOLIO_PROJECTS.find(
+      (p) => normalizePortfolioLink(p.link) === normalizePortfolioLink(link)
+    )
+  ).filter((p): p is PortfolioProject => p != null)
+}
 
 /** Получить slug из внутренней ссылки /portfolio/xxx */
 export function getSlugFromLink(link: string): string | null {

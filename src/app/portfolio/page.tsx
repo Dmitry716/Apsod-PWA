@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { PORTFOLIO_PROJECTS } from './data'
+import { PORTFOLIO_PROJECTS, getFeaturedRank } from './data'
 import { t } from '../lib/i18n'
 import { useLocale } from '../lib/useLocale'
 
@@ -81,6 +81,9 @@ export default function PortfolioPage() {
     }
 
     return [...PORTFOLIO_PROJECTS].sort((a, b) => {
+      const featuredDiff = getFeaturedRank(a) - getFeaturedRank(b)
+      if (featuredDiff !== 0) return featuredDiff
+
       const ai = getIndustryIndex(a.category)
       const bi = getIndustryIndex(b.category)
       if (ai !== bi) return ai - bi
