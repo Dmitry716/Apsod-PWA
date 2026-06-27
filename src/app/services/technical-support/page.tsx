@@ -22,8 +22,8 @@ export default function TechnicalSupportPage() {
       icon: '💾',
     },
     {
-      title: 'Обновление CMS и плагинов',
-      description: 'Обновление движка, плагинов и зависимостей для безопасности и стабильной работы.',
+      title: 'Обновление зависимостей и безопасности',
+      description: 'Актуализация npm-пакетов, Node.js, React/Next.js и серверных библиотек. Закрытие уязвимостей и стабильные релизы.',
       icon: '🔄',
     },
     {
@@ -33,11 +33,30 @@ export default function TechnicalSupportPage() {
     },
   ]
 
+  const supportedStacks = [
+    {
+      category: 'Frontend',
+      items: ['React', 'Next.js', 'Vue', 'TypeScript', 'Tailwind CSS'],
+    },
+    {
+      category: 'Backend',
+      items: ['Node.js', 'Express', 'NestJS', 'REST API', 'GraphQL'],
+    },
+    {
+      category: 'Базы данных',
+      items: ['PostgreSQL', 'MongoDB', 'Redis', 'Prisma'],
+    },
+    {
+      category: 'Инфраструктура',
+      items: ['Vercel', 'Docker', 'CI/CD', 'Мониторинг'],
+    },
+  ]
+
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: 'Техническая поддержка сайтов',
-    description: 'Обновление контента, мониторинг, резервное копирование и доработки сайтов. Поддержка и сопровождение сайтов на постоянной основе.',
+    description: 'Техподдержка сайтов на современном JavaScript-стеке: React, Next.js, Node.js, MongoDB, PostgreSQL. Обновление контента, мониторинг, резервное копирование и доработки.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
     areaServed: { '@type': 'Country', name: 'Belarus' },
     url: `${SITE_URL}/services/technical-support`,
@@ -73,7 +92,7 @@ export default function TechnicalSupportPage() {
               <span className="text-slate-600 dark:text-slate-400">поддержка сайтов</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Обновление контента, мониторинг, резервное копирование и доработки — ваш сайт всегда под контролем
+              Сопровождение сайтов на React, Next.js, Node.js, MongoDB и PostgreSQL — без WordPress, конструкторов и устаревших CMS
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
@@ -111,6 +130,39 @@ export default function TechnicalSupportPage() {
                   <div className="text-5xl mb-4">{feature.icon}</div>
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{feature.title}</h3>
                   <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 text-center">
+              Поддерживаемые технологии
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 mb-10 text-center max-w-2xl mx-auto">
+              Работаем только с современными JavaScript-стеками. Не берём на сопровождение WordPress, Tilda, Wix, Joomla и другие конструкторы сайтов.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {supportedStacks.map((stack) => (
+                <div
+                  key={stack.category}
+                  className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6"
+                >
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{stack.category}</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {stack.items.map((item) => (
+                      <span
+                        key={item}
+                        className="px-3 py-1.5 bg-slate-100 dark:bg-slate-700/50 text-slate-700 dark:text-slate-200 rounded-full text-sm font-medium"
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
