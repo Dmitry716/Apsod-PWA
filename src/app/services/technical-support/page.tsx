@@ -92,7 +92,7 @@ export default function TechnicalSupportPage() {
               <span className="text-slate-600 dark:text-slate-400">поддержка сайтов</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Сопровождение сайтов на React, Next.js, Node.js, MongoDB и PostgreSQL — без WordPress, конструкторов и устаревших CMS
+              Сопровождение сайтов на React, Next.js, Node.js, MongoDB и PostgreSQL
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
@@ -144,7 +144,7 @@ export default function TechnicalSupportPage() {
               Поддерживаемые технологии
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-10 text-center max-w-2xl mx-auto">
-              Работаем только с современными JavaScript-стеками. Не берём на сопровождение WordPress, Tilda, Wix, Joomla и другие конструкторы сайтов.
+              Работаем с современными JavaScript-стеками для веб-приложений и корпоративных сайтов.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {supportedStacks.map((stack) => (
