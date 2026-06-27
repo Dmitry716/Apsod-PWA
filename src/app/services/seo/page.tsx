@@ -1,20 +1,8 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
-import { SITE_URL } from '../../lib/seo'
+import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'SEO продвижение сайтов',
-  description: 'SEO продвижение сайтов: вывод в топ поисковых систем, рост органического трафика. Аудит, техническая оптимизация, контент и ссылки.',
-  keywords: 'seo продвижение, продвижение сайтов, поисковая оптимизация, seo аудит, вывод в топ, продвижение в яндексе, продвижение в google',
-  openGraph: {
-    title: 'SEO продвижение сайтов | APSOD',
-    description: 'Профессиональное SEO продвижение. Вывод в топ, рост трафика. Аудит, оптимизация, контент.',
-    url: `${SITE_URL}/services/seo`,
-    siteName: 'APSOD',
-    type: 'website',
-  },
-}
+export const metadata = buildServiceMetadata('seo')
 
 export default function SEOPage() {
   const benefits = [

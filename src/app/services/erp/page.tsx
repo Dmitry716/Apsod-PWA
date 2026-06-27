@@ -1,20 +1,8 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
-import { SITE_URL } from '../../lib/seo'
+import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'ERP системы — управление предприятием',
-  description: 'Разработка и внедрение ERP для управления производством, складом, финансами и логистикой. Интеграция с 1С, SAP, Oracle.',
-  keywords: 'erp системы, управление предприятием, 1с, sap, oracle, производство, складской учет, логистика',
-  openGraph: {
-    title: 'ERP системы | APSOD',
-    description: 'Разработка и внедрение ERP. Производство, склад, финансы, логистика.',
-    url: `${SITE_URL}/services/erp`,
-    siteName: 'APSOD',
-    type: 'website',
-  },
-}
+export const metadata = buildServiceMetadata('erp')
 
 export default function ERPPage() {
   const features = [

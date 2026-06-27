@@ -8,12 +8,17 @@ import CookieConsent from "./components/CookieConsent";
 import PushPermissionBanner from "./components/PushPermissionBanner";
 import ChatWidget from "./components/ChatWidget";
 import SeoJsonLd from "./components/SeoJsonLd";
+import YandexMetrika from "./components/YandexMetrika";
 import {
   SITE_URL,
   SITE_NAME,
   SITE_DESCRIPTION,
   MAIN_KEYWORDS,
   DEFAULT_OG_IMAGE_URL,
+  SITE_LOCALE,
+  generateOrganizationSchema,
+  generateWebSiteSchema,
+  generateLocalBusinessSchema,
 } from "./lib/seo";
 import { normalizeLocale } from "./lib/i18n";
 import "./globals.css";
@@ -32,7 +37,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE_NAME} — разработка сайтов, интернет-магазинов, мобильных приложений, SEO`,
+    default: `${SITE_NAME} — разработка сайтов и SEO в Беларуси`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -41,23 +46,29 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: { icon: "/favicon.ico" },
   openGraph: {
-    title: `${SITE_NAME} — разработка сайтов, интернет-магазинов, мобильных приложений`,
+    title: `${SITE_NAME} — IT-компания в Беларуси`,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
     images: [
       { url: DEFAULT_OG_IMAGE_URL, width: 1200, height: 630, alt: SITE_NAME },
     ],
-    locale: "ru_RU",
+    locale: SITE_LOCALE,
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — разработка сайтов, интернет-магазинов, мобильных приложений`,
+    title: `${SITE_NAME} — разработка сайтов в Беларуси`,
     description: SITE_DESCRIPTION,
     images: [DEFAULT_OG_IMAGE_URL],
   },
   alternates: { canonical: SITE_URL },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+    : {}),
+  ...(process.env.NEXT_PUBLIC_YANDEX_VERIFICATION
+    ? { other: { 'yandex-verification': process.env.NEXT_PUBLIC_YANDEX_VERIFICATION } }
+    : {}),
 };
 
 export default async function RootLayout({
@@ -69,32 +80,23 @@ export default async function RootLayout({
   const cookieLang = cookieStore.get('lang')?.value
   const lang = normalizeLocale(cookieLang)
 
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: SITE_NAME,
-    url: SITE_URL,
-    description: SITE_DESCRIPTION,
-    logo: `${SITE_URL}/icons/icon-192x192.png`,
-  }
-
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: SITE_NAME,
-    url: SITE_URL,
-    description: SITE_DESCRIPTION,
-    publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
-    inLanguage: "ru",
-  }
+  const jsonLd = [
+    generateOrganizationSchema(),
+    generateWebSiteSchema(),
+    generateLocalBusinessSchema(),
+  ]
 
   return (
-    <html lang={lang} suppressHydrationWarning>
+    <html lang={lang === 'en' ? 'en' : 'ru'} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <SeoJsonLd data={[organizationSchema, websiteSchema]} />
+        <meta name="geo.region" content="BY" />
+        <meta name="geo.placename" content="Minsk" />
+        <meta name="ICBM" content="53.9045, 27.5615" />
+        <SeoJsonLd data={jsonLd} />
       </head>
       <body className={inter.className}>
+        <YandexMetrika />
         <Providers>
           <Header />
           <PushPermissionBanner />

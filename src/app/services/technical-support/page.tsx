@@ -1,20 +1,8 @@
-import { Metadata } from 'next'
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
-import { SITE_URL } from '../../lib/seo'
+import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Техническая поддержка сайтов',
-  description: 'Техническая поддержка сайтов: обновление контента, мониторинг, резервное копирование, исправление ошибок. Поддержка и доработки сайтов на постоянной основе.',
-  keywords: 'техническая поддержка сайтов, поддержка сайта, обновление сайта, доработка сайта, мониторинг сайта, сопровождение сайта',
-  openGraph: {
-    title: 'Техническая поддержка сайтов | APSOD',
-    description: 'Обновление контента, мониторинг, резервное копирование и доработки вашего сайта. Поддержка 24/7.',
-    url: `${SITE_URL}/services/technical-support`,
-    siteName: 'APSOD',
-    type: 'website',
-  },
-}
+export const metadata = buildServiceMetadata('technical-support')
 
 export default function TechnicalSupportPage() {
   const features = [

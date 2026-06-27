@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { blogPosts } from "./blog/data/posts";
 import { PORTFOLIO_PROJECTS } from "./portfolio/data";
+import { buildPageMetadata } from "./lib/seo";
+
+export const metadata = buildPageMetadata({
+  title: 'APSOD — разработка сайтов и SEO в Беларуси',
+  description:
+    'IT-компания APSOD: сайты, интернет-магазины, мобильные приложения и SEO-продвижение по всей РБ. Минск, Брест, Гомель, Витебск, Гродно, Могилёв.',
+  path: '/',
+});
 
 // Известные мировые компании
 const trustedCompanies = [
@@ -180,8 +188,8 @@ export default function Home() {
               </h1>
 
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-lg animate-fade-in-up animation-delay-900 max-md:text-base">
-                Веб-разработка, мобильные приложения, CRM и ERP системы для
-                разных отраслей бизнеса.
+                Веб-разработка, мобильные приложения, SEO и CRM/ERP для бизнеса
+                в Беларуси — Минск и все регионы РБ.
               </p>
 
               <div className="flex flex-wrap gap-4 animate-fade-in-up animation-delay-1000">
