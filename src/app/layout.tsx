@@ -37,7 +37,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE_NAME} — разработка сайтов и SEO в Беларуси`,
+    default: `${SITE_NAME} — разработка сайтов и SEO в РФ и Беларуси`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: { icon: "/favicon.ico" },
   openGraph: {
-    title: `${SITE_NAME} — IT-компания в Беларуси`,
+    title: `${SITE_NAME} — IT-компания в России и Беларуси`,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — разработка сайтов в Беларуси`,
+    title: `${SITE_NAME} — разработка сайтов в России и Беларуси`,
     description: SITE_DESCRIPTION,
     images: [DEFAULT_OG_IMAGE_URL],
   },

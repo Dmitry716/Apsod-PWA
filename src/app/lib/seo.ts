@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 /** Базовые данные сайта для SEO, Schema.org и Open Graph */
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://apsod.com'
 export const SITE_NAME = 'APSOD'
-export const SITE_LOCALE = 'ru_BY' as const
+export const SITE_LOCALE = 'ru_RU' as const
 
 export const COMPANY = {
   legalName: 'APSOD',
@@ -22,31 +22,32 @@ export const COMPANY = {
 }
 
 export const SITE_DESCRIPTION =
-  'IT-компания APSOD: разработка сайтов, интернет-магазинов и мобильных приложений в Беларуси. SEO-продвижение в Google и Яндексе, PWA, CRM/ERP и техподдержка. Работаем по всей РБ — Минск, Брест, Гомель, Витебск, Гродно, Могилёв.'
+  'IT-компания APSOD: разработка сайтов, интернет-магазинов и мобильных приложений в Беларуси и России. SEO в Яндексе и Google. Основной фокус РФ — Москва и МО. Работаем по всей РБ и регионам России.'
 
 export const SITE_OG_IMAGE = '/og-image.jpg'
 export const DEFAULT_OG_IMAGE_URL = `${SITE_URL}${SITE_OG_IMAGE}`
 
-/** Ключевые запросы: Беларусь + услуги */
+/** Ключевые запросы: Беларусь + Россия (Москва) + услуги */
 export const MAIN_KEYWORDS = [
+  'разработка сайтов Москва',
+  'создание сайта Москва',
+  'SEO продвижение Москва',
+  'SEO Яндекс Москва',
+  'разработка сайтов Россия',
+  'IT компания Москва',
+  'интернет-магазин Москва',
+  'веб-разработка Московская область',
   'разработка сайтов Беларусь',
   'создание сайтов Минск',
   'разработка сайтов Минск',
   'IT компания Беларусь',
   'интернет-магазин Беларусь',
-  'мобильные приложения Беларусь',
-  'SEO продвижение Беларусь',
-  'SEO продвижение Минск',
-  'разработка сайтов Брест',
-  'разработка сайтов Гомель',
-  'разработка сайтов Витебск',
-  'разработка сайтов Гродно',
-  'разработка сайтов Могилёв',
-  'техническая поддержка сайтов',
+  'мобильные приложения',
+  'SEO продвижение Яндекс',
+  'SEO продвижение Google',
+  'разработка сайтов Санкт-Петербург',
   'PWA разработка',
-  'веб-разработка Беларусь',
-  'продвижение сайтов Яндекс',
-  'создание интернет-магазина BYN',
+  'техническая поддержка сайтов',
 ]
 
 export const SERVICE_PATHS = [
@@ -162,7 +163,10 @@ export function generateOrganizationSchema() {
       postalCode: COMPANY.address.postalCode,
       addressCountry: COMPANY.address.country,
     },
-    areaServed: { '@type': 'Country', name: 'Belarus' },
+    areaServed: [
+      { '@type': 'Country', name: 'Belarus' },
+      { '@type': 'Country', name: 'Russia' },
+    ],
     sameAs: [] as string[],
   }
 }
@@ -175,7 +179,7 @@ export function generateWebSiteSchema() {
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
-    inLanguage: 'ru-BY',
+    inLanguage: 'ru-RU',
   }
 }
 
@@ -205,7 +209,10 @@ export function generateLocalBusinessSchema() {
     },
     areaServed: [
       { '@type': 'Country', name: 'Belarus' },
+      { '@type': 'Country', name: 'Russia' },
+      { '@type': 'City', name: 'Moscow' },
       { '@type': 'City', name: 'Minsk' },
+      { '@type': 'City', name: 'Saint Petersburg' },
       { '@type': 'City', name: 'Brest' },
       { '@type': 'City', name: 'Gomel' },
       { '@type': 'City', name: 'Vitebsk' },
@@ -251,7 +258,10 @@ export function generateServiceSchema(options: {
     name: options.name,
     description: options.description,
     provider: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
-    areaServed: { '@type': 'Country', name: 'Belarus' },
+    areaServed: [
+      { '@type': 'Country', name: 'Belarus' },
+      { '@type': 'Country', name: 'Russia' },
+    ],
     url: buildCanonical(options.path),
   }
 }
@@ -260,18 +270,23 @@ export function generateCityLandingSchema(options: {
   cityName: string
   citySlug: string
   description: string
+  countryPath: 'belarus' | 'russia'
+  countryName?: string
 }) {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: `Разработка сайтов ${options.cityName} — ${SITE_NAME}`,
     description: options.description,
-    url: buildCanonical(`/belarus/${options.citySlug}`),
-    inLanguage: 'ru-BY',
+    url: buildCanonical(`/${options.countryPath}/${options.citySlug}`),
+    inLanguage: 'ru-RU',
     about: {
       '@type': 'Service',
       name: `Разработка сайтов ${options.cityName}`,
-      areaServed: { '@type': 'City', name: options.cityName },
+      areaServed: [
+        { '@type': 'City', name: options.cityName },
+        { '@type': 'Country', name: options.countryName ?? (options.countryPath === 'russia' ? 'Russia' : 'Belarus') },
+      ],
       provider: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
     },
   }
@@ -283,68 +298,69 @@ export const SERVICE_SEO: Record<
   { title: string; description: string; keywords: string[] }
 > = {
   'web-development': {
-    title: 'Разработка сайтов и интернет-магазинов в Беларуси',
+    title: 'Разработка сайтов и интернет-магазинов — Беларусь и Россия',
     description:
-      'Разработка сайтов и интернет-магазинов в Беларуси на Next.js и React. Корпоративные сайты, каталоги, e-commerce под ключ. Минск и вся РБ.',
+      'Разработка сайтов и интернет-магазинов на Next.js и React. Москва, МО, Минск и регионы РФ/РБ. Корпоративные сайты и e-commerce под ключ.',
     keywords: [
+      'разработка сайтов Москва',
       'разработка сайтов Беларусь',
-      'создание сайта Минск',
-      'интернет-магазин Беларусь',
-      'веб-разработка',
+      'создание сайта Москва',
+      'интернет-магазин',
       'next.js',
     ],
   },
   'mobile-development': {
-    title: 'Разработка мобильных приложений в Беларуси',
+    title: 'Разработка мобильных приложений — РФ и РБ',
     description:
-      'Разработка мобильных приложений iOS и Android для бизнеса в Беларуси. React Native, нативные приложения, интеграции с CRM.',
+      'Мобильные приложения iOS и Android для бизнеса в России и Беларуси. Москва, React Native, нативные приложения, CRM-интеграции.',
     keywords: [
-      'мобильные приложения Беларусь',
-      'разработка приложений Минск',
+      'мобильные приложения Москва',
+      'разработка приложений Россия',
       'react native',
       'ios android',
     ],
   },
   'pwa-development': {
-    title: 'PWA-разработка для бизнеса в Беларуси',
+    title: 'PWA-разработка для бизнеса в РФ и Беларуси',
     description:
-      'Progressive Web Apps для компаний в РБ: работа офлайн, push-уведомления, установка на экран. Альтернатива нативным приложениям.',
-    keywords: ['PWA Беларусь', 'progressive web app', 'веб-приложение', 'push уведомления'],
+      'Progressive Web Apps: офлайн, push-уведомления, установка на экран. Для компаний в Москве, регионах РФ и РБ.',
+    keywords: ['PWA Москва', 'PWA Россия', 'progressive web app', 'push уведомления'],
   },
   seo: {
-    title: 'SEO-продвижение сайтов в Google и Яндексе — Беларусь',
+    title: 'SEO-продвижение в Яндексе и Google — Москва, Россия',
     description:
-      'SEO-продвижение сайтов в Беларуси: Google, Яндекс, локальная выдача по городам РБ. Аудит, контент, техническое SEO.',
+      'SEO-продвижение сайтов: Яндекс и Google. Москва — приоритетный рынок, также Беларусь и регионы РФ. Аудит, контент, техническое SEO.',
     keywords: [
-      'SEO Беларусь',
-      'продвижение сайтов Минск',
+      'SEO Москва',
+      'SEO продвижение Россия',
       'SEO Яндекс',
       'продвижение Google',
+      'SEO Беларусь',
     ],
   },
   'technical-support': {
-    title: 'Техническая поддержка сайтов в Беларуси',
+    title: 'Техническая поддержка сайтов — Россия и Беларусь',
     description:
-      'Техподдержка и сопровождение сайтов для бизнеса в РБ: обновления, безопасность, мониторинг, резервное копирование.',
-    keywords: ['техподдержка сайта', 'сопровождение сайта Беларусь', 'поддержка сайта'],
+      'Техподдержка сайтов для бизнеса в РФ и РБ: обновления, безопасность, мониторинг, резервное копирование.',
+    keywords: ['техподдержка сайта', 'сопровождение сайта Москва', 'поддержка сайта'],
   },
   'ui-ux': {
-    title: 'UI/UX дизайн сайтов и приложений — Беларусь',
+    title: 'UI/UX дизайн сайтов и приложений',
     description:
-      'UI/UX дизайн интерфейсов для сайтов и мобильных приложений. Прототипы, дизайн-системы, usability для рынка РБ.',
-    keywords: ['UI UX дизайн', 'дизайн сайта Беларусь', 'прототипирование'],
+      'UI/UX дизайн для сайтов и мобильных приложений. Прототипы и дизайн-системы для рынков РФ и Беларуси.',
+    keywords: ['UI UX дизайн', 'дизайн сайта Москва', 'прототипирование'],
   },
   crm: {
-    title: 'Разработка и внедрение CRM в Беларуси',
+    title: 'Разработка и внедрение CRM — Россия и Беларусь',
     description:
-      'CRM-системы под задачи бизнеса в Беларуси: автоматизация продаж, интеграции, отчёты, мобильный доступ.',
-    keywords: ['CRM Беларусь', 'внедрение CRM', 'автоматизация продаж'],
+      'CRM-системы для бизнеса в Москве, регионах РФ и Беларуси: автоматизация продаж, интеграции, отчёты.',
+    keywords: ['CRM Москва', 'CRM Россия', 'внедрение CRM', 'автоматизация продаж'],
   },
   erp: {
-    title: 'ERP-системы для бизнеса в Беларуси',
+    title: 'ERP-системы для бизнеса — РФ и РБ',
     description:
-      'Разработка и внедрение ERP: учёт, склад, производство, финансы. Решения для компаний в РБ.',
-    keywords: ['ERP Беларусь', 'автоматизация бизнеса', 'учётная система'],
+      'Разработка и внедрение ERP: учёт, склад, производство, финансы. Решения для компаний в России и Беларуси.',
+    keywords: ['ERP Россия', 'ERP Москва', 'автоматизация бизнеса', 'учётная система'],
   },
 }
 

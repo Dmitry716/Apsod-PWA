@@ -1,0 +1,248 @@
+/** Города РФ для локального SEO. Основной фокус — Москва и Московская область. */
+export type RussiaCity = {
+  slug: string
+  name: string
+  nameIn: string
+  nameGenitive: string
+  region: string
+  population: string
+  lat: number
+  lng: number
+  priority: 'primary' | 'major' | 'regional'
+}
+
+export const RUSSIA_CITIES: RussiaCity[] = [
+  {
+    slug: 'moscow',
+    name: 'Москва',
+    nameIn: 'в Москве',
+    nameGenitive: 'Москвы',
+    region: 'Москва',
+    population: '13 млн',
+    lat: 55.7558,
+    lng: 37.6173,
+    priority: 'primary',
+  },
+  {
+    slug: 'khimki',
+    name: 'Химки',
+    nameIn: 'в Химках',
+    nameGenitive: 'Химок',
+    region: 'Московская область',
+    population: '260 тыс.',
+    lat: 55.897,
+    lng: 37.4297,
+    priority: 'primary',
+  },
+  {
+    slug: 'podolsk',
+    name: 'Подольск',
+    nameIn: 'в Подольске',
+    nameGenitive: 'Подольска',
+    region: 'Московская область',
+    population: '310 тыс.',
+    lat: 55.4311,
+    lng: 37.5447,
+    priority: 'primary',
+  },
+  {
+    slug: 'balashikha',
+    name: 'Балашиха',
+    nameIn: 'в Балашихе',
+    nameGenitive: 'Балашихи',
+    region: 'Московская область',
+    population: '520 тыс.',
+    lat: 55.7963,
+    lng: 37.9382,
+    priority: 'primary',
+  },
+  {
+    slug: 'mytishchi',
+    name: 'Мытищи',
+    nameIn: 'в Мытищах',
+    nameGenitive: 'Мытищ',
+    region: 'Московская область',
+    population: '260 тыс.',
+    lat: 55.9116,
+    lng: 37.7308,
+    priority: 'primary',
+  },
+  {
+    slug: 'odintsovo',
+    name: 'Одинцово',
+    nameIn: 'в Одинцово',
+    nameGenitive: 'Одинцово',
+    region: 'Московская область',
+    population: '140 тыс.',
+    lat: 55.678,
+    lng: 37.2637,
+    priority: 'primary',
+  },
+  {
+    slug: 'korolev',
+    name: 'Королёв',
+    nameIn: 'в Королёве',
+    nameGenitive: 'Королёва',
+    region: 'Московская область',
+    population: '225 тыс.',
+    lat: 55.9222,
+    lng: 37.8547,
+    priority: 'primary',
+  },
+  {
+    slug: 'domodedovo',
+    name: 'Домодедово',
+    nameIn: 'в Домодедово',
+    nameGenitive: 'Домодедово',
+    region: 'Московская область',
+    population: '135 тыс.',
+    lat: 55.4411,
+    lng: 37.7537,
+    priority: 'primary',
+  },
+  {
+    slug: 'lyubertsy',
+    name: 'Люберцы',
+    nameIn: 'в Люберцах',
+    nameGenitive: 'Люберец',
+    region: 'Московская область',
+    population: '225 тыс.',
+    lat: 55.6777,
+    lng: 37.8932,
+    priority: 'primary',
+  },
+  {
+    slug: 'saint-petersburg',
+    name: 'Санкт-Петербург',
+    nameIn: 'в Санкт-Петербурге',
+    nameGenitive: 'Санкт-Петербурга',
+    region: 'Санкт-Петербург',
+    population: '5,6 млн',
+    lat: 59.9343,
+    lng: 30.3351,
+    priority: 'major',
+  },
+  {
+    slug: 'novosibirsk',
+    name: 'Новосибирск',
+    nameIn: 'в Новосибирске',
+    nameGenitive: 'Новосибирска',
+    region: 'Новосибирская область',
+    population: '1,6 млн',
+    lat: 55.0084,
+    lng: 82.9357,
+    priority: 'major',
+  },
+  {
+    slug: 'ekaterinburg',
+    name: 'Екатеринбург',
+    nameIn: 'в Екатеринбурге',
+    nameGenitive: 'Екатеринбурга',
+    region: 'Свердловская область',
+    population: '1,5 млн',
+    lat: 56.8389,
+    lng: 60.6057,
+    priority: 'major',
+  },
+  {
+    slug: 'kazan',
+    name: 'Казань',
+    nameIn: 'в Казани',
+    nameGenitive: 'Казани',
+    region: 'Республика Татарстан',
+    population: '1,3 млн',
+    lat: 55.7961,
+    lng: 49.1064,
+    priority: 'major',
+  },
+  {
+    slug: 'nizhny-novgorod',
+    name: 'Нижний Новгород',
+    nameIn: 'в Нижнем Новгороде',
+    nameGenitive: 'Нижнего Новгорода',
+    region: 'Нижегородская область',
+    population: '1,2 млн',
+    lat: 56.2965,
+    lng: 43.9361,
+    priority: 'major',
+  },
+  {
+    slug: 'krasnodar',
+    name: 'Краснодар',
+    nameIn: 'в Краснодаре',
+    nameGenitive: 'Краснодара',
+    region: 'Краснодарский край',
+    population: '1,1 млн',
+    lat: 45.0355,
+    lng: 38.9753,
+    priority: 'major',
+  },
+  {
+    slug: 'rostov-on-don',
+    name: 'Ростов-на-Дону',
+    nameIn: 'в Ростове-на-Дону',
+    nameGenitive: 'Ростова-на-Дону',
+    region: 'Ростовская область',
+    population: '1,1 млн',
+    lat: 47.2357,
+    lng: 39.7015,
+    priority: 'major',
+  },
+  {
+    slug: 'samara',
+    name: 'Самара',
+    nameIn: 'в Самаре',
+    nameGenitive: 'Самары',
+    region: 'Самарская область',
+    population: '1,1 млн',
+    lat: 53.1959,
+    lng: 50.1002,
+    priority: 'major',
+  },
+  {
+    slug: 'voronezh',
+    name: 'Воронеж',
+    nameIn: 'в Воронеже',
+    nameGenitive: 'Воронежа',
+    region: 'Воронежская область',
+    population: '1 млн',
+    lat: 51.672,
+    lng: 39.1843,
+    priority: 'regional',
+  },
+  {
+    slug: 'ufa',
+    name: 'Уфа',
+    nameIn: 'в Уфе',
+    nameGenitive: 'Уфы',
+    region: 'Республика Башкортостан',
+    population: '1,1 млн',
+    lat: 54.7388,
+    lng: 55.9721,
+    priority: 'regional',
+  },
+  {
+    slug: 'krasnoyarsk',
+    name: 'Красноярск',
+    nameIn: 'в Красноярске',
+    nameGenitive: 'Красноярска',
+    region: 'Красноярский край',
+    population: '1,1 млн',
+    lat: 56.0153,
+    lng: 92.8932,
+    priority: 'regional',
+  },
+]
+
+export function getRussiaCityBySlug(slug: string): RussiaCity | undefined {
+  return RUSSIA_CITIES.find((c) => c.slug === slug)
+}
+
+export function getRussiaCitySitemapPriority(slug: string): number {
+  const city = getRussiaCityBySlug(slug)
+  if (!city) return 0.8
+  if (city.slug === 'moscow') return 0.96
+  if (city.priority === 'primary') return 0.9
+  if (city.priority === 'major') return 0.85
+  return 0.82
+}

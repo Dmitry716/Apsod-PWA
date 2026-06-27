@@ -155,6 +155,14 @@ export default function Footer() {
                   {locale === 'en' ? 'Belarus' : 'Города РБ'}
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/russia"
+                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
+                >
+                  {locale === 'en' ? 'Russia' : 'Города РФ'}
+                </Link>
+              </li>
             </ul>
           </nav>
 

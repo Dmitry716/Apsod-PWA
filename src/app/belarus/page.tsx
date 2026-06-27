@@ -73,6 +73,11 @@ export default function BelarusIndexPage() {
           </li>
         </ul>
         <p>
+          Также работаем в{' '}
+          <Link href="/russia" className="text-blue-600 hover:underline">
+            России (Москва и регионы)
+          </Link>
+          .{' '}
           <Link href="/contact" className="text-blue-600 hover:underline">
             Связаться с нами →
           </Link>
