@@ -341,7 +341,7 @@ export const SERVICE_SEO: Record<
   'technical-support': {
     title: 'Техническая поддержка сайтов — Россия и Беларусь',
     description:
-      'Техподдержка сайтов на React, Next.js, Node.js, MongoDB и PostgreSQL. Обновления, безопасность, мониторинг, резервное копирование. Без WordPress и конструкторов.',
+      'Техподдержка сайтов на React, Next.js, Node.js, MongoDB и PostgreSQL. Обновления, безопасность, мониторинг, резервное копирование.',
     keywords: ['техподдержка сайта', 'поддержка Next.js', 'PostgreSQL поддержка', 'MERN поддержка', 'сопровождение сайта Москва'],
   },
   'ui-ux': {
