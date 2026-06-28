@@ -1,9 +1,10 @@
-import { Metadata } from 'next'
+import { buildPageMetadata } from '../../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Политика обработки cookie | APSOD',
+export const metadata = buildPageMetadata({
+  title: 'Политика обработки cookie',
   description: 'Политика использования файлов cookie на сайте apsod.com в соответствии с законодательством Республики Беларусь.',
-}
+  path: '/legal/cookie-policy',
+})
 
 export default function CookiePolicyPage() {
   return (

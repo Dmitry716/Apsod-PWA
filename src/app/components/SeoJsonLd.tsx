@@ -1,14 +1,19 @@
 /**
  * Выводит JSON-LD (Schema.org) в head страницы.
- * Передайте один объект или массив объектов для нескольких схем.
+ * Автоматически добавляет @context для отдельных схем.
  */
 export default function SeoJsonLd({
   data,
 }: {
   data: object | object[]
 }) {
-  const json =
-    Array.isArray(data) ? data : [data]
+  const withContext = (item: object) => {
+    if ('@context' in item || '@graph' in item) return item
+    return { '@context': 'https://schema.org', ...item }
+  }
+
+  const json = (Array.isArray(data) ? data : [data]).map(withContext)
+
   return (
     <>
       {json.map((item, i) => (

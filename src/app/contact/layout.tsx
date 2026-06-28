@@ -1,16 +1,18 @@
 import { Metadata } from 'next'
-import { buildPageMetadata } from '../lib/seo'
+import SeoJsonLd from '../components/SeoJsonLd'
+import { buildPageMetadata, generateContactPageSchema } from '../lib/seo'
 
 export const metadata: Metadata = buildPageMetadata({
-  title: 'Контакты APSOD — заказать разработку сайта в Беларуси',
+  title: 'Контакты — заказать разработку сайта в РФ и Беларуси',
   description:
-    'Свяжитесь с APSOD в Минске: разработка сайтов, интернет-магазинов, мобильных приложений и SEO по всей Беларуси. Офис: ул. Фрунзе, 9.',
+    'Свяжитесь с APSOD: разработка сайтов, SEO и мобильных приложений. Москва, Минск и регионы РФ/РБ. Офис в Минске, ул. Фрунзе, 9.',
   path: '/contact',
   keywords: [
     'контакты APSOD',
+    'заказать сайт Москва',
     'заказать сайт Минск',
-    'разработка сайтов Беларусь',
-    'IT компания Минск',
+    'разработка сайтов контакты',
+    'IT компания Москва',
   ],
 })
 
@@ -19,5 +21,10 @@ export default function ContactLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <>{children}</>
+  return (
+    <>
+      <SeoJsonLd data={generateContactPageSchema()} />
+      {children}
+    </>
+  )
 }

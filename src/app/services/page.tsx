@@ -1,17 +1,24 @@
 import Link from 'next/link'
-import { buildPageMetadata } from '../lib/seo'
+import SeoJsonLd from '../components/SeoJsonLd'
+import {
+  buildPageMetadata,
+  generateBreadcrumbSchema,
+  generateItemListSchema,
+  SITE_URL,
+} from '../lib/seo'
 
 export const metadata = buildPageMetadata({
-  title: 'Услуги — разработка сайтов и digital в Беларуси',
+  title: 'Услуги — разработка сайтов и digital в РФ и Беларуси',
   description:
-    'Полный спектр IT-услуг APSOD в Беларуси: сайты, интернет-магазины, мобильные приложения, SEO, CRM, ERP и техподдержка.',
+    'IT-услуги APSOD: сайты, интернет-магазины, мобильные приложения, SEO в Яндексе и Google, CRM, ERP и техподдержка. Москва, Минск, регионы.',
   path: '/services',
   keywords: [
-    'услуги IT Беларусь',
-    'разработка сайтов',
+    'услуги IT Москва',
+    'разработка сайтов Россия',
     'SEO продвижение',
     'мобильные приложения',
     'техподдержка сайтов',
+    'услуги IT Беларусь',
   ],
 })
 
@@ -155,8 +162,22 @@ const services = [
 ];
 
 export default function ServicesPage() {
+  const breadcrumb = generateBreadcrumbSchema([
+    { name: 'Главная', path: '/' },
+    { name: 'Услуги', path: '/services' },
+  ])
+  const servicesList = generateItemListSchema({
+    name: 'IT-услуги APSOD',
+    items: services.map((service) => ({
+      name: service.title,
+      url: `${SITE_URL}${service.link}`,
+      description: service.description,
+    })),
+  })
+
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <SeoJsonLd data={[breadcrumb, servicesList]} />
       
       {/* Hero секция */}
       <section className="relative pt-32 pb-20 overflow-hidden">

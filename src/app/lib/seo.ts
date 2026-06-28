@@ -89,6 +89,75 @@ type PageMetadataOptions = {
   modifiedTime?: string
   images?: string[]
   noIndex?: boolean
+  /** Не добавлять суффикс «| APSOD» из layout template */
+  absoluteTitle?: boolean
+}
+
+const DEFAULT_INDEX_ROBOTS = {
+  index: true,
+  follow: true,
+  googleBot: {
+    index: true,
+    follow: true,
+    'max-image-preview': 'large' as const,
+    'max-snippet': -1,
+    'max-video-preview': -1,
+  },
+}
+
+/** Приоритеты страниц услуг в sitemap.xml */
+export const SERVICE_SITEMAP_PRIORITY: Partial<Record<ServicePath, number>> = {
+  'web-development': 0.92,
+  seo: 0.91,
+  'mobile-development': 0.89,
+  'pwa-development': 0.88,
+  'technical-support': 0.87,
+  'ui-ux': 0.86,
+  crm: 0.85,
+  erp: 0.85,
+}
+
+/** Парсинг даты вида «3 февраля 2026» в ISO 8601 */
+export function parseRussianDateToIso(dateStr: string): string {
+  const months: Record<string, string> = {
+    января: '01',
+    февраля: '02',
+    марта: '03',
+    апреля: '04',
+    мая: '05',
+    июня: '06',
+    июля: '07',
+    августа: '08',
+    сентября: '09',
+    октября: '10',
+    ноября: '11',
+    декабря: '12',
+  }
+  const parts = dateStr.trim().split(/\s+/)
+  if (parts.length >= 3) {
+    const day = parts[0].padStart(2, '0')
+    const month = months[parts[1].toLowerCase()] || '01'
+    const year = parts[2]
+    const parsed = new Date(`${year}-${month}-${day}T12:00:00.000Z`)
+    if (!Number.isNaN(parsed.getTime())) return parsed.toISOString()
+  }
+  return new Date().toISOString()
+}
+
+/** Объединяет несколько JSON-LD-схем в @graph */
+export function generateGraphSchema(schemas: object[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@graph': schemas,
+  }
+}
+
+export function getOrganizationId() {
+  return `${SITE_URL.replace(/\/$/, '')}/#organization`
+}
+
+export function getWebSiteId() {
+  return `${SITE_URL.replace(/\/$/, '')}/#website`
 }
 
 /** Единый генератор metadata для страниц */
@@ -103,6 +172,7 @@ export function buildPageMetadata(options: PageMetadataOptions): Metadata {
     modifiedTime,
     images,
     noIndex,
+    absoluteTitle,
   } = options
 
   const canonical = buildCanonical(path)
@@ -110,7 +180,7 @@ export function buildPageMetadata(options: PageMetadataOptions): Metadata {
     url: url.startsWith('http') ? url : `${SITE_URL}${url}`,
     width: 1200,
     height: 630,
-    alt: SITE_NAME,
+    alt: title,
   }))
 
   const keywordList = Array.isArray(keywords)
@@ -119,26 +189,34 @@ export function buildPageMetadata(options: PageMetadataOptions): Metadata {
       ? keywords.split(',').map((k) => k.trim())
       : MAIN_KEYWORDS
 
+  const publishedIso = publishedTime?.includes('T')
+    ? publishedTime
+    : publishedTime
+      ? parseRussianDateToIso(publishedTime)
+      : undefined
+
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
     keywords: keywordList,
     alternates: { canonical },
-    ...(noIndex ? { robots: { index: false, follow: false } } : {}),
+    robots: noIndex
+      ? { index: false, follow: false }
+      : DEFAULT_INDEX_ROBOTS,
     openGraph: {
-      title: `${title} | ${SITE_NAME}`,
+      title: absoluteTitle ? title : `${title} | ${SITE_NAME}`,
       description,
       url: canonical,
       siteName: SITE_NAME,
       locale: SITE_LOCALE,
       type: ogType,
       images: ogImages,
-      ...(publishedTime ? { publishedTime } : {}),
+      ...(publishedIso ? { publishedTime: publishedIso } : {}),
       ...(modifiedTime ? { modifiedTime } : {}),
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${title} | ${SITE_NAME}`,
+      title: absoluteTitle ? title : `${title} | ${SITE_NAME}`,
       description,
       images: ogImages.map((i) => i.url),
     },
@@ -147,14 +225,20 @@ export function buildPageMetadata(options: PageMetadataOptions): Metadata {
 
 export function generateOrganizationSchema() {
   return {
-    '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': getOrganizationId(),
     name: SITE_NAME,
     legalName: COMPANY.legalName,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
-    logo: `${SITE_URL}/icons/icon-192x192.png`,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${SITE_URL}/icons/icon-192x192.png`,
+      width: 192,
+      height: 192,
+    },
     email: COMPANY.email,
+    telephone: COMPANY.phone,
     address: {
       '@type': 'PostalAddress',
       streetAddress: COMPANY.address.street,
@@ -173,20 +257,20 @@ export function generateOrganizationSchema() {
 
 export function generateWebSiteSchema() {
   return {
-    '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': getWebSiteId(),
     name: SITE_NAME,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
-    publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+    publisher: { '@id': getOrganizationId() },
     inLanguage: 'ru-RU',
   }
 }
 
 export function generateLocalBusinessSchema() {
   return {
-    '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
+    '@id': `${SITE_URL.replace(/\/$/, '')}/#localbusiness`,
     name: SITE_NAME,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
@@ -194,6 +278,7 @@ export function generateLocalBusinessSchema() {
     telephone: COMPANY.phone,
     email: COMPANY.email,
     priceRange: '$$',
+    parentOrganization: { '@id': getOrganizationId() },
     address: {
       '@type': 'PostalAddress',
       streetAddress: COMPANY.address.street,
@@ -236,7 +321,6 @@ export function generateBreadcrumbSchema(
   items: { name: string; path: string }[]
 ) {
   return {
-    '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: items.map((item, i) => ({
       '@type': 'ListItem',
@@ -253,11 +337,10 @@ export function generateServiceSchema(options: {
   path: string
 }) {
   return {
-    '@context': 'https://schema.org',
     '@type': 'Service',
     name: options.name,
     description: options.description,
-    provider: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+    provider: { '@id': getOrganizationId() },
     areaServed: [
       { '@type': 'Country', name: 'Belarus' },
       { '@type': 'Country', name: 'Russia' },
@@ -274,12 +357,12 @@ export function generateCityLandingSchema(options: {
   countryName?: string
 }) {
   return {
-    '@context': 'https://schema.org',
     '@type': 'WebPage',
     name: `Разработка сайтов ${options.cityName} — ${SITE_NAME}`,
     description: options.description,
     url: buildCanonical(`/${options.countryPath}/${options.citySlug}`),
     inLanguage: 'ru-RU',
+    isPartOf: { '@id': getWebSiteId() },
     about: {
       '@type': 'Service',
       name: `Разработка сайтов ${options.cityName}`,
@@ -287,8 +370,82 @@ export function generateCityLandingSchema(options: {
         { '@type': 'City', name: options.cityName },
         { '@type': 'Country', name: options.countryName ?? (options.countryPath === 'russia' ? 'Russia' : 'Belarus') },
       ],
-      provider: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+      provider: { '@id': getOrganizationId() },
     },
+  }
+}
+
+export function generateArticleSchema(options: {
+  title: string
+  description: string
+  slug: string
+  author: string
+  date: string
+  image?: string
+}) {
+  const url = buildCanonical(`/blog/${options.slug}`)
+  const datePublished = parseRussianDateToIso(options.date)
+  return {
+    '@type': 'Article',
+    headline: options.title,
+    description: options.description,
+    author: { '@type': 'Person', name: options.author },
+    datePublished,
+    dateModified: datePublished,
+    image: options.image ? buildOgImageUrl(options.image) : DEFAULT_OG_IMAGE_URL,
+    publisher: { '@id': getOrganizationId() },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    inLanguage: 'ru-RU',
+    isPartOf: { '@id': getWebSiteId() },
+  }
+}
+
+export function generateCreativeWorkSchema(options: {
+  title: string
+  description: string
+  slug: string
+  image?: string
+  location?: string
+  year?: string
+}) {
+  return {
+    '@type': 'CreativeWork',
+    name: options.title,
+    description: options.description,
+    url: buildCanonical(`/portfolio/${options.slug}`),
+    image: options.image ? buildOgImageUrl(options.image) : DEFAULT_OG_IMAGE_URL,
+    creator: { '@id': getOrganizationId() },
+    ...(options.location ? { contentLocation: { '@type': 'Place', name: options.location } } : {}),
+    ...(options.year ? { dateCreated: `${options.year}-01-01` } : {}),
+  }
+}
+
+export function generateContactPageSchema() {
+  return {
+    '@type': 'ContactPage',
+    name: `Контакты — ${SITE_NAME}`,
+    url: buildCanonical('/contact'),
+    description: 'Связаться с APSOD: разработка сайтов, SEO и мобильных приложений в Беларуси и России.',
+    mainEntity: { '@id': getOrganizationId() },
+    isPartOf: { '@id': getWebSiteId() },
+  }
+}
+
+export function generateItemListSchema(options: {
+  name: string
+  items: { name: string; url: string; description?: string }[]
+}) {
+  return {
+    '@type': 'ItemList',
+    name: options.name,
+    numberOfItems: options.items.length,
+    itemListElement: options.items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      url: item.url.startsWith('http') ? item.url : buildCanonical(item.url),
+      ...(item.description ? { description: item.description } : {}),
+    })),
   }
 }
 

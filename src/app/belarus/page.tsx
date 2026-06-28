@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { BELARUS_CITIES } from '../lib/belarus-cities'
-import { buildPageMetadata, generateBreadcrumbSchema, SITE_NAME } from '../lib/seo'
+import { buildPageMetadata, generateBreadcrumbSchema, generateItemListSchema, SITE_NAME } from '../lib/seo'
 import SeoJsonLd from '../components/SeoJsonLd'
 
 export const metadata: Metadata = buildPageMetadata({
@@ -23,9 +23,18 @@ export default function BelarusIndexPage() {
     { name: 'Беларусь', path: '/belarus' },
   ])
 
+  const cityList = generateItemListSchema({
+    name: 'Разработка сайтов в городах Беларуси',
+    items: BELARUS_CITIES.map((city) => ({
+      name: `Разработка сайтов ${city.name}`,
+      url: `/belarus/${city.slug}`,
+      description: `IT-услуги APSOD в ${city.nameIn}`,
+    })),
+  })
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-16">
-      <SeoJsonLd data={breadcrumb} />
+      <SeoJsonLd data={[breadcrumb, cityList]} />
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
         Разработка сайтов и digital-услуги по всей Беларуси
       </h1>

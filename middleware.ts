@@ -11,12 +11,14 @@ export function middleware(req: NextRequest) {
   const url = req.nextUrl
   const { pathname } = url
 
-  // Skip Next internals, API, and static assets
+  // Skip Next internals, API, SEO files, and static assets
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/icons') ||
     pathname.startsWith('/images') ||
+    pathname === '/sitemap.xml' ||
+    pathname === '/robots.txt' ||
     pathname.includes('.')
   ) {
     return NextResponse.next()
@@ -48,5 +50,11 @@ export function middleware(req: NextRequest) {
   const res = NextResponse.next()
   res.cookies.set('lang', lang, { path: '/' })
   return res
+}
+
+export const config = {
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|manifest.json|sw.js|notification-sw.js|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|xml|txt|json|js|woff2?)$).*)',
+  ],
 }
 

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { blogPosts } from '../data/posts'
 import SeoJsonLd from '../../components/SeoJsonLd'
-import { buildPageMetadata, SITE_URL } from '../../lib/seo'
+import { buildPageMetadata, generateArticleSchema, generateBreadcrumbSchema } from '../../lib/seo'
 import { cookies } from 'next/headers'
 import { normalizeLocale, t } from '../../lib/i18n'
 
@@ -21,7 +21,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 
-  const url = `${SITE_URL}/blog/${post.slug}`
   return buildPageMetadata({
     title: post.title,
     description: post.excerpt,
@@ -49,25 +48,19 @@ export default async function BlogPostPage({ params }: Props) {
     .filter(p => p.categorySlug === post.categorySlug && p.slug !== post.slug)
     .slice(0, 3);
 
-  const articleSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: post.title,
+  const articleSchema = generateArticleSchema({
+    title: post.title,
     description: post.excerpt,
-    author: { '@type': 'Person', name: post.author },
-    datePublished: post.date,
-    publisher: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/blog/${post.slug}` },
-  }
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE_URL },
-      { '@type': 'ListItem', position: 2, name: 'Блог', item: `${SITE_URL}/blog` },
-      { '@type': 'ListItem', position: 3, name: post.title, item: `${SITE_URL}/blog/${post.slug}` },
-    ],
-  }
+    slug: post.slug,
+    author: post.author,
+    date: post.date,
+    image: post.image,
+  })
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Главная', path: '/' },
+    { name: 'Блог', path: '/blog' },
+    { name: post.title, path: `/blog/${post.slug}` },
+  ])
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">

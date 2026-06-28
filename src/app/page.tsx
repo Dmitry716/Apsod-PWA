@@ -8,6 +8,7 @@ export const metadata = buildPageMetadata({
   description:
     'IT-компания APSOD: сайты, интернет-магазины, SEO и мобильные приложения. Москва, МО, Минск и регионы РФ/РБ. Яндекс и Google.',
   path: '/',
+  absoluteTitle: true,
 });
 
 // Известные мировые компании

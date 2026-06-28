@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { RUSSIA_CITIES } from '../lib/russia-cities'
-import { buildPageMetadata, generateBreadcrumbSchema, SITE_NAME } from '../lib/seo'
+import { buildPageMetadata, generateBreadcrumbSchema, generateItemListSchema, SITE_NAME } from '../lib/seo'
 import SeoJsonLd from '../components/SeoJsonLd'
 
 export const metadata: Metadata = buildPageMetadata({
@@ -30,9 +30,18 @@ export default function RussiaIndexPage() {
   const moscowRegion = RUSSIA_CITIES.filter((c) => c.priority === 'primary')
   const majorCities = RUSSIA_CITIES.filter((c) => c.priority === 'major' || c.priority === 'regional')
 
+  const cityList = generateItemListSchema({
+    name: 'Разработка сайтов в городах России',
+    items: RUSSIA_CITIES.map((city) => ({
+      name: `Разработка сайтов ${city.name}`,
+      url: `/russia/${city.slug}`,
+      description: `SEO и веб-разработка ${city.nameIn}`,
+    })),
+  })
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-16">
-      <SeoJsonLd data={breadcrumb} />
+      <SeoJsonLd data={[breadcrumb, cityList]} />
 
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
         Разработка сайтов и SEO в России

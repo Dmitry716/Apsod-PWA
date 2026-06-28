@@ -1,10 +1,11 @@
-import { Metadata } from 'next'
-import Link from 'next/link'
+import { buildPageMetadata } from '../../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Политика конфиденциальности | APSOD',
-  description: 'Политика конфиденциальности и обработки персональных данных ИП Карелин Д.В. в соответствии с Законом РБ № 99-З «О защите персональных данных».',
-}
+export const metadata = buildPageMetadata({
+  title: 'Политика конфиденциальности',
+  description: 'Политика конфиденциальности и обработки персональных данных APSOD в соответствии с Законом РБ № 99-З «О защите персональных данных».',
+  path: '/legal/privacy-policy',
+  keywords: ['политика конфиденциальности', 'персональные данные', 'APSOD'],
+})
 
 export default function PrivacyPolicyPage() {
   return (
