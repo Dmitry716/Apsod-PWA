@@ -1,19 +1,19 @@
 import { Metadata } from 'next'
-import { SITE_URL } from '../lib/seo'
+import { buildPageMetadata } from '../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Блог',
-  description: 'Блог APSOD: статьи о разработке сайтов, интернет-магазинов, мобильных приложений, SEO продвижении и технической поддержке сайтов.',
-  keywords: 'блог APSOD, разработка сайтов, SEO, PWA, поддержка сайтов',
-  openGraph: {
-    title: 'Блог | APSOD',
-    description: 'Статьи о разработке сайтов, приложений, SEO и поддержке.',
-    url: `${SITE_URL}/blog`,
-    siteName: 'APSOD',
-    type: 'website',
-  },
-  alternates: { canonical: `${SITE_URL}/blog` },
-}
+export const metadata: Metadata = buildPageMetadata({
+  title: 'Блог — разработка сайтов, SEO и digital для бизнеса',
+  description:
+    'Блог APSOD: экспертные статьи о разработке сайтов, SEO в Яндексе и Google, PWA, мобильных приложениях и техподдержке для рынков РФ и Беларуси.',
+  path: '/blog',
+  keywords: [
+    'блог веб-разработки',
+    'SEO статьи',
+    'разработка сайтов блог',
+    'PWA блог',
+    'техподдержка сайтов',
+  ],
+})
 
 export default function BlogLayout({
   children,

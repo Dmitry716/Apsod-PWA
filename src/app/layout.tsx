@@ -9,6 +9,7 @@ import PushPermissionBanner from "./components/PushPermissionBanner";
 import ChatWidget from "./components/ChatWidget";
 import SeoJsonLd from "./components/SeoJsonLd";
 import YandexMetrika from "./components/YandexMetrika";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 import {
   SITE_URL,
   SITE_NAME,
@@ -19,6 +20,7 @@ import {
   generateOrganizationSchema,
   generateWebSiteSchema,
   generateLocalBusinessSchema,
+  generateGraphSchema,
 } from "./lib/seo";
 import { normalizeLocale } from "./lib/i18n";
 import "./globals.css";
@@ -63,6 +65,17 @@ export const metadata: Metadata = {
     images: [DEFAULT_OG_IMAGE_URL],
   },
   alternates: { canonical: SITE_URL },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
     ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
     : {}),
@@ -80,22 +93,27 @@ export default async function RootLayout({
   const cookieLang = cookieStore.get('lang')?.value
   const lang = normalizeLocale(cookieLang)
 
-  const jsonLd = [
-    generateOrganizationSchema(),
-    generateWebSiteSchema(),
-    generateLocalBusinessSchema(),
-  ]
-
   return (
     <html lang={lang === 'en' ? 'en' : 'ru'} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
-        <meta name="geo.region" content="BY" />
-        <meta name="geo.placename" content="Minsk" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+        <meta name="theme-color" content="#1e3a5f" />
+        <meta name="author" content={SITE_NAME} />
+        <meta name="geo.region" content="BY-MI" />
+        <meta name="geo.placename" content="Minsk, Belarus" />
+        <meta name="geo.position" content="53.9045;27.5615" />
         <meta name="ICBM" content="53.9045, 27.5615" />
-        <SeoJsonLd data={jsonLd} />
+        <SeoJsonLd
+          data={generateGraphSchema([
+            generateOrganizationSchema(),
+            generateWebSiteSchema(),
+            generateLocalBusinessSchema(),
+          ])}
+        />
       </head>
       <body className={inter.className}>
+        <GoogleAnalytics />
         <YandexMetrika />
         <Providers>
           <Header />

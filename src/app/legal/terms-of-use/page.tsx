@@ -1,9 +1,10 @@
-import { Metadata } from 'next'
+import { buildPageMetadata } from '../../lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Пользовательское соглашение | APSOD',
-  description: 'Условия использования сайта apsod.com и сервисов ИП Карелин Д.В.',
-}
+export const metadata = buildPageMetadata({
+  title: 'Пользовательское соглашение',
+  description: 'Условия использования сайта apsod.com и сервисов APSOD.',
+  path: '/legal/terms-of-use',
+})
 
 export default function TermsOfUsePage() {
   return (
