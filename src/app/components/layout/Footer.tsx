@@ -152,7 +152,7 @@ export default function Footer() {
                   href="/belarus"
                   className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
                 >
-                  {locale === 'en' ? 'Belarus' : 'Города РБ'}
+                  {locale === 'en' ? 'Services in Belarus' : 'Услуги в РБ'}
                 </Link>
               </li>
               <li>
@@ -160,7 +160,7 @@ export default function Footer() {
                   href="/russia"
                   className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
                 >
-                  {locale === 'en' ? 'Russia' : 'Города РФ'}
+                  {locale === 'en' ? 'Services in Russia' : 'Услуги в РФ'}
                 </Link>
               </li>
             </ul>
