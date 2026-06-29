@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
+import DevelopmentProcessSection from '../components/DevelopmentProcessSection'
+import { WEB_DEVELOPMENT_PROCESS } from '../lib/development-process'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
 export const metadata = buildServiceMetadata('web-development')
@@ -193,7 +195,7 @@ export default function WebDevelopmentPage() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Создаем современные веб-приложения на передовом стеке технологий
+              Enterprise-подход: от бизнес-анализа и экспертизы до Agile-разработки, QA и production-запуска
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
@@ -212,6 +214,12 @@ export default function WebDevelopmentPage() {
           </div>
         </div>
       </section>
+
+      <DevelopmentProcessSection
+        title="Как мы разрабатываем веб-проекты"
+        subtitle="Восемь этапов по стандартам крупных IT-компаний: Discovery, экспертиза, архитектура, дизайн, Agile, QA, DevOps и поддержка"
+        phases={WEB_DEVELOPMENT_PROCESS}
+      />
 
       {/* Технологические стеки */}
       {technologies.map((category, idx) => (

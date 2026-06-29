@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
+import DevelopmentProcessSection from '../components/DevelopmentProcessSection'
+import { MOBILE_DEVELOPMENT_PROCESS } from '../lib/development-process'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
 export const metadata = buildServiceMetadata('mobile-development')
@@ -128,7 +130,7 @@ export default function MobileDevelopmentPage() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Создаем нативные и кроссплатформенные приложения для iOS и Android
+              Полный цикл mobile-разработки: от Discovery и технической экспертизы до публикации в App Store и Google Play
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
@@ -147,6 +149,12 @@ export default function MobileDevelopmentPage() {
           </div>
         </div>
       </section>
+
+      <DevelopmentProcessSection
+        title="Как мы создаём мобильные приложения"
+        subtitle="Профессиональный процесс разработки: анализ, экспертиза, проектирование, дизайн, Agile, QA, релиз в сторах и post-launch поддержка"
+        phases={MOBILE_DEVELOPMENT_PROCESS}
+      />
 
       {/* Технологические стеки */}
       {technologies.map((category, idx) => (
@@ -237,45 +245,6 @@ export default function MobileDevelopmentPage() {
           </div>
         </section>
       ))}
-
-      {/* Процесс разработки */}
-      <section className="py-20 bg-white dark:bg-gray-800">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-12">
-            Как мы создаем мобильные приложения
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-2xl font-bold text-blue-600 dark:text-blue-400 mx-auto mb-4">
-                1
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Анализ и прототип</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Изучаем задачу, создаем прототип</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-2xl font-bold text-blue-600 dark:text-blue-400 mx-auto mb-4">
-                2
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Дизайн</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Разрабатываем UI/UX дизайн</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-2xl font-bold text-blue-600 dark:text-blue-400 mx-auto mb-4">
-                3
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Разработка</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Пишем код и интеграции</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center text-2xl font-bold text-blue-600 dark:text-blue-400 mx-auto mb-4">
-                4
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Релиз и поддержка</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Публикация в сторах</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section className="py-20">
