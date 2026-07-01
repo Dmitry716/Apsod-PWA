@@ -449,6 +449,20 @@ export function generateItemListSchema(options: {
   }
 }
 
+export function generateFAQSchema(items: { question: string; answer: string }[]) {
+  return {
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  }
+}
+
 /** SEO-данные для страниц услуг */
 export const SERVICE_SEO: Record<
   ServicePath,

@@ -130,6 +130,19 @@ export default async function RussiaCityPage({ params }: Props) {
 
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
+          Заказать разработку сайта {city.nameIn}
+        </h2>
+        <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
+          Бизнес {city.nameIn} заказывает у {SITE_NAME} сайты, интернет-магазины, мобильные
+          приложения и SEO в Яндексе и Google. Для {city.region} важны скорость загрузки,
+          адаптивная вёрстка и локальное продвижение — мы закладываем это на этапе архитектуры
+          и контента. Бесплатная консультация: обсудим задачу, покажем кейсы и предложим план
+          работ {city.nameIn}.
+        </p>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
           {isMoscow ? 'Почему APSOD для бизнеса в Москве' : `Почему APSOD для бизнеса ${city.nameGenitive}`}
         </h2>
         <ul className="space-y-2 text-gray-600 dark:text-gray-300 list-disc pl-5">

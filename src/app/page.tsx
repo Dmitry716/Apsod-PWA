@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { blogPosts } from "./blog/data/posts";
 import { getFeaturedPortfolioProjects } from "./portfolio/data";
-import { buildPageMetadata } from "./lib/seo";
+import { buildPageMetadata, generateFAQSchema } from "./lib/seo";
+import { HOMEPAGE_FAQ } from "./lib/homepage-faq";
+import SeoJsonLd from "./components/SeoJsonLd";
+import HomeSeoSection from "./components/HomeSeoSection";
 
 export const metadata = buildPageMetadata({
   title: 'APSOD — разработка сайтов и SEO в Беларуси и России',
@@ -72,6 +75,7 @@ const starPositions = {
 export default function Home() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
+      <SeoJsonLd data={generateFAQSchema([...HOMEPAGE_FAQ])} />
       {/* Hero секция */}
       <section className="hero-section relative pt-32 pb-20 overflow-hidden bg-linear-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         {/* Эффект космоса - ТОЛЬКО В ТЕМНОЙ ТЕМЕ */}
@@ -178,19 +182,19 @@ export default function Home() {
                 IT-компания полного цикла
               </div>
 
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight max-md:text-4xl">
-                <span className="block animate-slide-in-left">Создаем</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight max-md:text-3xl">
+                <span className="block animate-slide-in-left">Разработка сайтов</span>
                 <span className="block text-blue-600 dark:text-blue-400 animate-slide-in-right animation-delay-300">
-                  цифровые продукты
+                  и SEO-продвижение
                 </span>
-                <span className="block animate-slide-in-left animation-delay-600">
-                  для вашего бизнеса
+                <span className="block animate-slide-in-left animation-delay-600 text-3xl md:text-4xl lg:text-5xl mt-1">
+                  в Беларуси и России
                 </span>
               </h1>
 
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-lg animate-fade-in-up animation-delay-900 max-md:text-base">
-                Веб-разработка, SEO в Яндексе и Google, мобильные приложения для
-                бизнеса в Москве, регионах РФ и Беларуси.
+                Создание сайтов, интернет-магазинов и мобильных приложений. Продвижение в Яндексе
+                и Google для бизнеса в Москве, Минске и регионах РФ и РБ.
               </p>
 
               <div className="flex flex-wrap gap-4 animate-fade-in-up animation-delay-1000">
@@ -556,6 +560,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <HomeSeoSection />
 
       <section className="py-20 bg-linear-to-r from-blue-600 to-purple-600 max-md:py-12">
         <div className="container mx-auto px-4 text-center">
