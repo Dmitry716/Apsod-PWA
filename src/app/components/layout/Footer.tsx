@@ -109,6 +109,46 @@ export default function Footer() {
             <ul className="space-y-2" aria-labelledby="footer-nav">
               <li>
                 <Link
+                  href="/services/web-development"
+                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
+                >
+                  {locale === 'en' ? 'Web development' : 'Разработка сайтов'}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/services/seo"
+                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
+                >
+                  {locale === 'en' ? 'SEO promotion' : 'SEO-продвижение'}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/services/mobile-development"
+                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
+                >
+                  {locale === 'en' ? 'Mobile apps' : 'Мобильные приложения'}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/belarus/minsk"
+                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
+                >
+                  {locale === 'en' ? 'Minsk' : 'Сайты в Минске'}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/russia/moscow"
+                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
+                >
+                  {locale === 'en' ? 'Moscow' : 'Сайты в Москве'}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/services"
                   className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
                 >

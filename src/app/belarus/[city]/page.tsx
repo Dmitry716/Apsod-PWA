@@ -110,6 +110,19 @@ export default async function BelarusCityPage({ params }: Props) {
 
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
+          Заказать разработку сайта {city.nameIn}
+        </h2>
+        <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
+          Компании {city.nameIn} заказывают у {SITE_NAME} корпоративные сайты, лендинги,
+          интернет-магазины и SEO-продвижение в Google и Яндексе. Мы подбираем стек под задачу
+          (Next.js, React, Node.js), проектируем структуру под поисковые запросы региона{' '}
+          {city.region} и сопровождаем проект после запуска. Оставьте заявку — подготовим
+          оценку сроков и стоимости под ваш бизнес {city.nameIn}.
+        </p>
+      </section>
+
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
           Почему {SITE_NAME} для бизнеса {city.nameGenitive}
         </h2>
         <ul className="space-y-2 text-gray-600 dark:text-gray-300 list-disc pl-5">
