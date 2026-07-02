@@ -17,6 +17,10 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(canonical, 301)
   }
 
+  if (pathname === '/Contact') {
+    return NextResponse.redirect(new URL('/contact' + url.search, req.url), 301)
+  }
+
   // Skip Next internals, API, SEO files, and static assets
   if (
     pathname.startsWith('/_next') ||
