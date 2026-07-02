@@ -11,6 +11,12 @@ export function middleware(req: NextRequest) {
   const url = req.nextUrl
   const { pathname } = url
 
+  const host = req.headers.get('host')?.split(':')[0]
+  if (host === 'www.apsod.com') {
+    const canonical = new URL(pathname + url.search, 'https://apsod.com')
+    return NextResponse.redirect(canonical, 301)
+  }
+
   // Skip Next internals, API, SEO files, and static assets
   if (
     pathname.startsWith('/_next') ||

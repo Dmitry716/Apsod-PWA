@@ -47,7 +47,7 @@ export default function CookieConsent() {
             <h3 className="font-bold text-lg">🍪 Мы используем куки</h3>
             <p className="text-sm text-white/80 mt-1">
               Этот сайт использует файлы cookie для улучшения работы. Продолжая использовать сайт, вы соглашаетесь с нашей{' '}
-              <a href="/privacy" className="underline hover:text-white transition-colors">политикой конфиденциальности</a>.
+              <a href="/legal/privacy-policy" className="underline hover:text-white transition-colors">политикой конфиденциальности</a>.
             </p>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import withPWA from 'next-pwa';
+import { legacyRedirects } from './legacy-redirects.mjs';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -43,6 +44,10 @@ const nextConfig = {
     } : false,
   },
   
+  async redirects() {
+    return legacyRedirects;
+  },
+
   // Добавляем заголовки для PWA и кэширования
   async headers() {
     return [
