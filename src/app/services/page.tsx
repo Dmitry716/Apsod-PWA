@@ -10,7 +10,7 @@ import {
 export const metadata = buildPageMetadata({
   title: 'Услуги — разработка сайтов и digital в РФ и Беларуси',
   description:
-    'IT-услуги APSOD: сайты, интернет-магазины, мобильные приложения, SEO в Яндексе и Google, CRM, ERP и техподдержка. Москва, Минск, регионы.',
+    'IT-услуги APSOD: сайты, интернет-магазины, мобильные приложения, SEO в Яндексе и Google, CRM, ERP и техподдержка. Витебск, Москва, Минск, регионы.',
   path: '/services',
   keywords: [
     'услуги IT Москва',

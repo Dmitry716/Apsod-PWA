@@ -100,10 +100,10 @@ export default async function RootLayout({
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <meta name="theme-color" content="#1e3a5f" />
         <meta name="author" content={SITE_NAME} />
-        <meta name="geo.region" content="BY-MI" />
-        <meta name="geo.placename" content="Minsk, Belarus" />
-        <meta name="geo.position" content="53.9045;27.5615" />
-        <meta name="ICBM" content="53.9045, 27.5615" />
+        <meta name="geo.region" content="BY-VI" />
+        <meta name="geo.placename" content="Vitebsk, Belarus" />
+        <meta name="geo.position" content="55.1848;30.2016" />
+        <meta name="ICBM" content="55.1848, 30.2016" />
         <SeoJsonLd
           data={generateGraphSchema([
             generateOrganizationSchema(),

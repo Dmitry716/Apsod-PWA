@@ -88,7 +88,7 @@ export default async function BelarusCityPage({ params }: Props) {
       </p>
       <p className="text-gray-600 dark:text-gray-300 mb-10 max-w-3xl">
         {SITE_NAME} создаёт сайты, интернет-магазины и цифровые продукты для компаний{' '}
-        {city.nameIn} и всей {city.region}. Работаем удалённо и с офисом в Минске.
+        {city.nameIn} и всей {city.region}. {SITE_NAME} базируется в Витебске и работает удалённо по всей Беларуси.
         Продвигаем проекты в Google и Яндексе с учётом белорусского рынка.
       </p>
 

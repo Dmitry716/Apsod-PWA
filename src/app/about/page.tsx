@@ -6,7 +6,7 @@ export const metadata = buildPageMetadata({
   description:
     'APSOD — IT-компания с 15-летним опытом в Беларуси: разработка сайтов, интернет-магазинов, мобильных приложений, SEO и техподдержка.',
   path: '/about',
-  keywords: ['APSOD', 'IT компания Беларусь', 'разработка сайтов Минск', 'о компании'],
+  keywords: ['APSOD', 'IT компания Беларусь', 'разработка сайтов Витебск', 'разработка сайтов Минск', 'о компании'],
 })
 
 export default function AboutPage() {
