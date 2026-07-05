@@ -9,7 +9,7 @@ import HomeSeoSection from "./components/HomeSeoSection";
 export const metadata = buildPageMetadata({
   title: 'APSOD — разработка сайтов и SEO в Беларуси и России',
   description:
-    'IT-компания APSOD: сайты, интернет-магазины, SEO и мобильные приложения. Москва, МО, Минск и регионы РФ/РБ. Яндекс и Google.',
+    'IT-компания APSOD: сайты, интернет-магазины, SEO и мобильные приложения. Витебск, Москва, МО, Минск и регионы РФ/РБ. Яндекс и Google.',
   path: '/',
   absoluteTitle: true,
 });
@@ -194,7 +194,7 @@ export default function Home() {
 
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-lg animate-fade-in-up animation-delay-900 max-md:text-base">
                 Создание сайтов, интернет-магазинов и мобильных приложений. Продвижение в Яндексе
-                и Google для бизнеса в Москве, Минске и регионах РФ и РБ.
+                и Google для бизнеса в Витебске, Москве, Минске и регионах РФ и РБ.
               </p>
 
               <div className="flex flex-wrap gap-4 animate-fade-in-up animation-delay-1000">

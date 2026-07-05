@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const moscowFocus =
     city.slug === 'moscow'
       ? 'Заказать разработку сайта, интернет-магазина и SEO в Москве. Продвижение в Яндексе и Google, мобильные приложения, PWA.'
-      : `Заказать разработку сайта и SEO ${city.nameIn}. Работаем с клиентами по всей России, основной офис — Минск.`
+      : `Заказать разработку сайта и SEO ${city.nameIn}. Работаем с клиентами по всей России, база — Витебск.`
 
   return buildPageMetadata({
     title: `Разработка сайтов ${city.nameIn} — ${city.region}`,
@@ -109,7 +109,7 @@ export default async function RussiaCityPage({ params }: Props) {
         {city.nameIn} и всей России.
         {isMoscow
           ? ' Москва — наш приоритетный рынок в РФ: SEO в Яндексе и Google, e-commerce, PWA и мобильные приложения под ключ.'
-          : ' Работаем удалённо по всей РФ, с офисом в Минске. Основной фокус — Москва и Московская область.'}
+          : ' Работаем удалённо по всей РФ из Витебска. Основной фокус — Москва и Московская область.'}
       </p>
 
       <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">

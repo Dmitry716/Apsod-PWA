@@ -7,22 +7,28 @@ export const SITE_LOCALE = 'ru_RU' as const
 
 export const COMPANY = {
   legalName: 'APSOD',
-  phone: '+375 (29) 000-00-00',
+  phone: '+375 (44) 577-77-24',
   email: 'karelinseo@gmail.com',
   address: {
-    street: 'ул. Фрунзе, 9',
-    city: 'Минск',
-    region: 'Минская область',
-    postalCode: '220034',
+    street: 'ул. 33 Армии, 7',
+    city: 'Витебск',
+    region: 'Витебская область',
+    postalCode: '210000',
     country: 'BY',
     countryName: 'Беларусь',
   },
-  geo: { lat: 53.9045, lng: 27.5615 },
+  geo: { lat: 55.1848, lng: 30.2016 },
   openingHours: 'Mo-Fr 09:00-18:00',
 }
 
+/** Полный адрес ИП для legal, футера и контактов */
+export const COMPANY_ADDRESS_DISPLAY = 'г. Витебск, ул. 33 Армии, 7'
+
+export const COMPANY_REMOTE_NOTE =
+  'ИП зарегистрирован в Витебске. Проекты ведём удалённо по всей Беларуси и России.'
+
 export const SITE_DESCRIPTION =
-  'IT-компания APSOD: разработка сайтов, интернет-магазинов и мобильных приложений в Беларуси и России. SEO в Яндексе и Google. Основной фокус РФ — Москва и МО. Работаем по всей РБ и регионам России.'
+  'IT-компания APSOD: разработка сайтов, интернет-магазинов и мобильных приложений в Беларуси и России. SEO в Яндексе и Google. База в Витебске, работаем по всей РБ и регионам России.'
 
 export const SITE_OG_IMAGE = '/og-image.jpg'
 export const DEFAULT_OG_IMAGE_URL = `${SITE_URL}${SITE_OG_IMAGE}`
@@ -38,6 +44,8 @@ export const MAIN_KEYWORDS = [
   'интернет-магазин Москва',
   'веб-разработка Московская область',
   'разработка сайтов Беларусь',
+  'создание сайтов Витебск',
+  'разработка сайтов Витебск',
   'создание сайтов Минск',
   'разработка сайтов Минск',
   'IT компания Беларусь',
@@ -471,7 +479,7 @@ export const SERVICE_SEO: Record<
   'web-development': {
     title: 'Разработка сайтов и интернет-магазинов — Беларусь и Россия',
     description:
-      'Разработка сайтов на Next.js и React по enterprise-процессу: Discovery, экспертиза, архитектура, Agile, QA и DevOps. Москва, МО, Минск и регионы РФ/РБ.',
+      'Разработка сайтов на Next.js и React по enterprise-процессу: Discovery, экспертиза, архитектура, Agile, QA и DevOps. Витебск, Москва, МО, Минск и регионы РФ/РБ.',
     keywords: [
       'разработка сайтов Москва',
       'разработка сайтов Беларусь',

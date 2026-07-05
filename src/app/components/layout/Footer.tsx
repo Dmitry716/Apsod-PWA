@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import PushNotificationSubscribe from "../PushNotificationSubscribe";
+import { COMPANY_ADDRESS_DISPLAY } from "@/app/lib/seo";
 import { t } from "@/app/lib/i18n";
 import { useLocale } from "@/app/lib/useLocale";
 import LanguageSwitcher from "../ui/LanguageSwitcher";
@@ -133,6 +134,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/belarus/vitebsk"
+                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
+                >
+                  {locale === 'en' ? 'Vitebsk' : 'Сайты в Витебске'}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/belarus/minsk"
                   className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
                 >
@@ -235,7 +244,8 @@ export default function Footer() {
                   karelinseo@gmail.com
                 </a>
               </p>
-              <p>г. Минск, ул. Фрунзе, 9</p>
+              <p>{COMPANY_ADDRESS_DISPLAY}</p>
+              <p className="text-gray-400 text-xs">Удалённая работа по РБ и РФ</p>
             </address>
           </div>
 

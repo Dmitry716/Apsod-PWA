@@ -3,8 +3,8 @@ import { HOMEPAGE_FAQ } from '../lib/homepage-faq'
 import { SITE_NAME } from '../lib/seo'
 
 const GEO_LINKS = [
-  { href: '/belarus/minsk', label: 'Разработка сайтов в Минске' },
   { href: '/belarus/vitebsk', label: 'Разработка сайтов в Витебске' },
+  { href: '/belarus/minsk', label: 'Разработка сайтов в Минске' },
   { href: '/russia/moscow', label: 'Разработка сайтов в Москве' },
   { href: '/russia/saint-petersburg', label: 'Разработка сайтов в Санкт-Петербурге' },
   { href: '/belarus', label: 'Услуги по всей Беларуси' },
@@ -34,7 +34,7 @@ export default function HomeSeoSection() {
               <Link href="/services/seo" className="text-blue-600 dark:text-blue-400 hover:underline">
                 SEO-продвижением в Яндексе и Google
               </Link>
-              . Работаем с бизнесом в <strong>Минске</strong>, <strong>Москве</strong>, регионах
+              . Работаем с бизнесом в <strong>Витебске</strong>, <strong>Минске</strong>, <strong>Москве</strong> и регионах
               Беларуси и России.
             </p>
             <p>

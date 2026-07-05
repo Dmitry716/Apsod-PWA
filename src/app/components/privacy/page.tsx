@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { buildPageMetadata } from '../../lib/seo'
+import { buildPageMetadata, COMPANY_ADDRESS_DISPLAY } from '../../lib/seo'
 
 export const metadata = buildPageMetadata({
   title: 'Политика конфиденциальности (архив)',
@@ -73,7 +73,7 @@ export default function PrivacyPage() {
               <p className="text-gray-800 dark:text-white font-medium">Индивидуальный предприниматель Карелин Дмитрий Васильевич</p>
               <p className="text-gray-600 dark:text-gray-300 mt-2">УНП 391853923</p>
               <p className="text-gray-600 dark:text-gray-300">Дата регистрации: 15.03.2018</p>
-              <p className="text-gray-600 dark:text-gray-300">Адрес: г. Витебск, ул. Ленина, 1</p>
+              <p className="text-gray-600 dark:text-gray-300">Адрес: {COMPANY_ADDRESS_DISPLAY}</p>
               <p className="text-gray-600 dark:text-gray-300">Email: info@apsod.com</p>
               <p className="text-gray-600 dark:text-gray-300">Тел.: +375 (29) 123-45-67</p>
             </div>
