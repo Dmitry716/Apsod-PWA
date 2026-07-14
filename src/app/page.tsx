@@ -208,7 +208,7 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-4 relative max-md:gap-2">
                 {[
                   { value: "15+", label: "лет на рынке", color: "blue" },
-                  { value: "10+", label: "реальных кейсов", color: "purple" },
+                  { value: "350+", label: "реальных кейсов", color: "purple" },
                   { value: "РБ + РФ", label: "география", color: "indigo" },
                   { value: "24ч", label: "ответ на заявку", color: "pink" },
                 ].map((stat, index) => (
@@ -406,8 +406,8 @@ export default function Home() {
               Реальные проекты клиентов
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto max-md:text-base">
-              Сайты и приложения для бизнеса в Витебске, Полоцке и на рынках РБ/РФ и США —
-              без чужих логотипов и выдуманных кейсов.
+              Более 350 выполненных проектов. Ниже — избранные работы; в портфолио на сайте
+              опубликована часть кейсов.
             </p>
           </div>
 

@@ -21,7 +21,7 @@ const dictionary = {
 
     // Portfolio
     'portfolio.title': 'Наши проекты',
-    'portfolio.subtitle': 'Реальные проекты для бизнеса в Беларуси и по всему миру',
+    'portfolio.subtitle': 'Более 350 кейсов; ниже — избранные работы (полный архив не выложен)',
     'portfolio.filters.all': 'Все проекты',
     'portfolio.filters.web': 'Веб-сайты',
     'portfolio.filters.mobile': 'Мобильные приложения',
@@ -108,7 +108,7 @@ const dictionary = {
 
     // Portfolio
     'portfolio.title': 'Our projects',
-    'portfolio.subtitle': 'Real projects for businesses in Belarus and around the world',
+    'portfolio.subtitle': '350+ completed projects; selected case studies shown below',
     'portfolio.filters.all': 'All projects',
     'portfolio.filters.web': 'Web sites',
     'portfolio.filters.mobile': 'Mobile apps',
