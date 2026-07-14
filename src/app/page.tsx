@@ -5,11 +5,13 @@ import { buildPageMetadata, generateFAQSchema } from "./lib/seo";
 import { HOMEPAGE_FAQ } from "./lib/homepage-faq";
 import SeoJsonLd from "./components/SeoJsonLd";
 import HomeSeoSection from "./components/HomeSeoSection";
+import HomeHeroCopy from "./components/HomeHeroCopy";
+import HomeValueSections from "./components/HomeValueSections";
 
 export const metadata = buildPageMetadata({
-  title: 'APSOD — разработка сайтов и SEO в Беларуси и России',
+  title: 'APSOD — организация бизнеса в интернете, уникальная разработка и SEO',
   description:
-    'IT-компания APSOD: сайты, интернет-магазины, SEO и мобильные приложения. Витебск, Москва, МО, Минск и регионы РФ/РБ. Яндекс и Google.',
+    'APSOD: аналитика, уникальная и безопасная разработка сайтов и приложений, SEO и поддержка. Без конструкторов. Витебск, Минск, Москва и удалённо по миру.',
   path: '/',
   absoluteTitle: true,
 });
@@ -163,43 +165,7 @@ export default function Home() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Левая колонка */}
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full mb-6 animate-fade-in-up">
-                <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></span>
-                IT-компания полного цикла
-              </div>
-
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight max-md:text-3xl">
-                <span className="block animate-slide-in-left">Разработка сайтов</span>
-                <span className="block text-blue-600 dark:text-blue-400 animate-slide-in-right animation-delay-300">
-                  и SEO-продвижение
-                </span>
-                <span className="block animate-slide-in-left animation-delay-600 text-3xl md:text-4xl lg:text-5xl mt-1">
-                  в Беларуси и России
-                </span>
-              </h1>
-
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-lg animate-fade-in-up animation-delay-900 max-md:text-base">
-                Создание сайтов, интернет-магазинов и мобильных приложений. Продвижение в Яндексе
-                и Google для бизнеса в Витебске, Москве, Минске и регионах РФ и РБ.
-              </p>
-
-              <div className="flex flex-wrap gap-4 animate-fade-in-up animation-delay-1000">
-                <Link
-                  href="/contact"
-                  className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25 active:scale-95 max-md:px-6 max-md:py-3 max-md:text-sm"
-                >
-                  Обсудить проект
-                </Link>
-                <Link
-                  href="/portfolio"
-                  className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-lg font-semibold border-2 border-gray-200 dark:border-gray-700 hover:border-blue-600 hover:text-blue-600 hover:shadow-lg transition-all active:scale-95 max-md:px-6 max-md:py-3 max-md:text-sm"
-                >
-                  Наши работы
-                </Link>
-              </div>
-            </div>
+            <HomeHeroCopy />
 
             {/* Правая колонка со статистикой */}
             <div className="relative animate-fade-in-up animation-delay-500">
@@ -209,7 +175,7 @@ export default function Home() {
                 {[
                   { value: "15+", label: "лет на рынке", color: "blue" },
                   { value: "350+", label: "реальных кейсов", color: "purple" },
-                  { value: "РБ + РФ", label: "география", color: "indigo" },
+                  { value: "0", label: "конструкторов", color: "indigo" },
                   { value: "24ч", label: "ответ на заявку", color: "pink" },
                 ].map((stat, index) => (
                   <div
@@ -232,7 +198,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Остальные секции - БЕЗ ИЗМЕНЕНИЙ (копируем из предыдущего ответа) */}
+      <HomeValueSections />
+
+      {/* Остальные секции */}
       <section className="py-20 bg-white dark:bg-gray-800 max-md:py-12">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 max-md:mb-8">
@@ -240,7 +208,7 @@ export default function Home() {
               Наши услуги
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto max-md:text-base">
-              Комплексные решения для развития вашего бизнеса
+              Аналитика, уникальная разработка, SEO и поддержка — без конструкторов и шаблонных сборок
             </p>
           </div>
 
@@ -577,15 +545,15 @@ const services = [
     icon: "🌐",
     title: "Веб-разработка",
     description:
-      "Создаем современные сайты, интернет-магазины и веб-приложения под ключ.",
-    tags: ["Next.js", "React", "TypeScript", "Node.js"],
+      "Корпоративные сайты и интернет-магазины на своём коде: аналитика, архитектура, безопасность.",
+    tags: ["Next.js", "React", "TypeScript", "Без конструкторов"],
     link: "/services/web-development",
   },
   {
     icon: "📱",
     title: "Мобильные приложения",
     description:
-      "Разрабатываем нативные и кроссплатформенные приложения для iOS и Android.",
+      "Уникальные iOS и Android продукты с упором на безопасность и стабильность.",
     tags: ["React Native", "Flutter", "Swift", "Kotlin"],
     link: "/services/mobile-development",
   },
@@ -593,41 +561,49 @@ const services = [
     icon: "🤝",
     title: "CRM системы",
     description:
-      "Внедряем и разрабатываем кастомные CRM системы для управления бизнесом.",
-    tags: ["Salesforce", "Bitrix24", "AmoCRM"],
+      "Настройка и кастомные CRM для заявок, продаж и коммуникаций с клиентами.",
+    tags: ["Bitrix24", "AmoCRM", "Интеграции"],
     link: "/services/crm",
   },
   {
     icon: "⚙️",
-    title: "ERP системы",
+    title: "ERP и учёт",
     description:
-      "Комплексные решения для управления производством, складом и финансами.",
-    tags: ["1С", "SAP", "Oracle"],
+      "Индивидуальные решения и интеграции для процессов, склада и отчётности.",
+    tags: ["1С интеграция", "Кастом", "Отчёты"],
     link: "/services/erp",
   },
   {
     icon: "🎨",
     title: "UI/UX дизайн",
     description:
-      "Создаем удобные и красивые интерфейсы, которые нравятся пользователям.",
-    tags: ["Figma", "Adobe XD", "Прототипирование"],
+      "Уникальный дизайн под бренд и сценарии пользователя — не готовые шаблоны.",
+    tags: ["Figma", "Прототипы", "Дизайн-системы"],
     link: "/services/ui-ux",
   },
   {
     icon: "📈",
-    title: "SEO продвижение",
+    title: "SEO и аналитика",
     description:
-      "Выводим сайты в топ поисковых систем и увеличиваем органический трафик.",
-    tags: ["SEO", "Аналитика", "Контент"],
+      "Стратегия продвижения и измеримый рост в Яндексе и Google.",
+    tags: ["SEO", "Метрика", "Контент"],
     link: "/services/seo",
   },
   {
     icon: "📲",
     title: "PWA разработка",
     description:
-      "Создаем прогрессивные веб-приложения, которые работают как нативные и устанавливаются на телефон.",
+      "Прогрессивные веб-приложения с push, офлайном и установкой на устройство.",
     tags: ["Next.js", "Service Workers", "Manifest"],
     link: "/services/pwa-development",
+  },
+  {
+    icon: "🛠️",
+    title: "Техподдержка",
+    description:
+      "Сопровождение после запуска: мониторинг, обновления, развитие продукта.",
+    tags: ["Next.js", "Безопасность", "SLA"],
+    link: "/services/technical-support",
   },
 ];
 

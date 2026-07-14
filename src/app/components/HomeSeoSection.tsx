@@ -11,11 +11,11 @@ const GEO_LINKS = [
 ]
 
 const SERVICE_LINKS = [
-  { href: '/services/web-development', label: 'Разработка сайтов и интернет-магазинов' },
-  { href: '/services/seo', label: 'SEO-продвижение в Яндексе и Google' },
-  { href: '/services/mobile-development', label: 'Мобильные приложения iOS и Android' },
+  { href: '/services/web-development', label: 'Уникальная веб-разработка' },
+  { href: '/services/seo', label: 'SEO и аналитика' },
+  { href: '/services/mobile-development', label: 'Безопасные мобильные приложения' },
   { href: '/services/pwa-development', label: 'PWA-разработка' },
-  { href: '/services/technical-support', label: 'Техподдержка сайтов' },
+  { href: '/services/technical-support', label: 'Поддержка и развитие' },
 ]
 
 export default function HomeSeoSection() {
@@ -24,35 +24,34 @@ export default function HomeSeoSection() {
       <section className="py-20 bg-gray-50 dark:bg-gray-900/50 max-md:py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-            {SITE_NAME} — разработка сайтов, SEO и мобильных приложений
+            {SITE_NAME} — организация бизнеса в интернете
           </h2>
           <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 space-y-4">
             <p>
-              <strong>{SITE_NAME}</strong> — IT-компания полного цикла: создаём корпоративные сайты,
-              интернет-магазины, мобильные приложения и занимаемся{' '}
-              <Link href="/services/seo" className="text-blue-600 dark:text-blue-400 hover:underline">
-                SEO-продвижением в Яндексе и Google
-              </Link>
-              . Работаем с бизнесом в <strong>Витебске</strong>, <strong>Минске</strong>, <strong>Москве</strong> и регионах
-              Беларуси и России.
+              <strong>{SITE_NAME}</strong> — для клиентов, которым нужна не «страница на конструкторе»,
+              а профессиональная настройка digital-канала: аналитика и стратегия, уникальный дизайн,
+              безопасная разработка, SEO в Яндексе и Google, интеграции и поддержка после запуска.
             </p>
             <p>
-              Разрабатываем проекты на <strong>Next.js, React и Node.js</strong> — это даёт высокую
-              скорость загрузки, хорошие позиции в поиске и удобство масштабирования. Каждый проект
-              проходит этапы Discovery, технической экспертизы, проектирования, Agile-разработки и QA —
-              по стандартам крупных IT-компаний.
+              Мы разрабатываем <strong>только индивидуальные сайты и приложения на своём коде</strong>{' '}
+              (Next.js, React, Node.js и мобильный стек). С Tilda, Wix и другими конструкторами не
+              работаем — такие решения не дают нужного уровня безопасности, гибкости и контроля.
             </p>
             <p>
-              Если вам нужен сайт под ключ, интернет-магазин, мобильное приложение или вывод бизнеса
-              в топ поисковой выдачи — оставьте заявку на{' '}
+              География работы: <strong>Витебск</strong>, <strong>Минск</strong>, <strong>Москва</strong>{' '}
+              и удалённые проекты по миру. Начните с{' '}
               <Link href="/contact" className="text-blue-600 dark:text-blue-400 hover:underline">
-                бесплатную консультацию
+                консультации
               </Link>
-              . Покажем{' '}
-              <Link href="/portfolio" className="text-blue-600 dark:text-blue-400 hover:underline">
-                кейсы из портфолио
+              , изучите{' '}
+              <Link href="/pricing" className="text-blue-600 dark:text-blue-400 hover:underline">
+                цены
               </Link>{' '}
-              и предложим решение под ваш бюджет и сроки.
+              или{' '}
+              <Link href="/portfolio" className="text-blue-600 dark:text-blue-400 hover:underline">
+                избранные кейсы
+              </Link>
+              .
             </p>
           </div>
 
@@ -98,10 +97,10 @@ export default function HomeSeoSection() {
       <section className="py-20 bg-white dark:bg-gray-800 max-md:py-12">
         <div className="container mx-auto px-4 max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 text-center">
-            Частые вопросы о разработке сайтов и SEO
+            Частые вопросы
           </h2>
           <p className="text-center text-gray-600 dark:text-gray-300 mb-10">
-            Ответы на популярные запросы клиентов из Беларуси и России
+            О процессе, технологиях и формате работы
           </p>
           <div className="space-y-3">
             {HOMEPAGE_FAQ.map((item) => (
@@ -111,7 +110,10 @@ export default function HomeSeoSection() {
               >
                 <summary className="cursor-pointer px-6 py-4 font-semibold text-gray-900 dark:text-white list-none flex justify-between items-center gap-4">
                   {item.question}
-                  <span className="text-blue-500 shrink-0 group-open:rotate-45 transition-transform text-xl" aria-hidden>
+                  <span
+                    className="text-blue-500 shrink-0 group-open:rotate-45 transition-transform text-xl"
+                    aria-hidden
+                  >
                     +
                   </span>
                 </summary>
