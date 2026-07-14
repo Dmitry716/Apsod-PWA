@@ -28,6 +28,8 @@ const PACKAGES = [
     price: 'от 8 000 Б̶',
     priceRu: 'или от 240 000 ₽',
     term: '2–4 недели',
+    goal: 'landing',
+    budget: 'landing-8k',
     items: [
       'Дизайн и адаптив',
       'Форма заявки / WhatsApp',
@@ -40,6 +42,8 @@ const PACKAGES = [
     price: 'от 15 000 Б̶',
     priceRu: 'или от 450 000 ₽',
     term: '4–8 недель',
+    goal: 'corporate',
+    budget: 'corporate-15k',
     items: [
       'До 10–15 страниц',
       'CMS / удобное редактирование',
@@ -53,6 +57,8 @@ const PACKAGES = [
     price: 'от 23 000 Б̶',
     priceRu: 'или от 690 000 ₽',
     term: 'от 2–3 месяцев',
+    goal: 'shop',
+    budget: 'shop-23k',
     items: [
       'Каталог, корзина, оплата',
       'Интеграции (оплата, доставка)',
@@ -135,7 +141,7 @@ export default function PricingPage() {
               ))}
             </ul>
             <Link
-              href="/contact"
+              href={`/contact?goal=${pkg.goal}&budget=${pkg.budget}`}
               className="inline-block w-full text-center px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
             >
               Получить смету

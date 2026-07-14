@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { PORTFOLIO_PROJECTS, getFeaturedRank } from './data'
+import { PORTFOLIO_PROJECTS, getCasePath, getFeaturedRank } from './data'
 import { t } from '../lib/i18n'
 import { useLocale } from '../lib/useLocale'
 
@@ -278,9 +278,14 @@ export default function PortfolioPage() {
                     <span className="text-sm">{project.location}</span>
                   </div>
 
-                  <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                  <p className="text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
                     {project.description}
                   </p>
+                  {project.results[0] ? (
+                    <p className="text-sm text-blue-700 dark:text-blue-300 mb-4 line-clamp-2">
+                      Результат: {project.results[0]}
+                    </p>
+                  ) : null}
 
                   {/* Теги */}
                   <div className="flex flex-wrap gap-2 mb-4">
@@ -291,22 +296,9 @@ export default function PortfolioPage() {
                     ))}
                   </div>
 
-                  {/* Ссылка: внешние сайты — в новой вкладке, кейсы — страница на сайте */}
-                  {project.link.startsWith('http') ? (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium group-hover:gap-3 transition-all cursor-pointer hover:underline"
-                    >
-                      Посетить сайт
-                      <svg className="w-4 h-4 ml-2 group-hover:ml-3 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </a>
-                  ) : (
+                  <div className="flex flex-wrap items-center gap-4">
                     <Link
-                      href={project.link}
+                      href={getCasePath(project)}
                       className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium group-hover:gap-3 transition-all cursor-pointer hover:underline"
                     >
                       Смотреть кейс
@@ -314,7 +306,17 @@ export default function PortfolioPage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
                     </Link>
-                  )}
+                    {project.liveUrl ? (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600"
+                      >
+                        Сайт ↗
+                      </a>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             ))}

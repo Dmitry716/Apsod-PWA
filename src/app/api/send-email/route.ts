@@ -62,12 +62,16 @@ function getServiceLabel(value: string): string {
 
 function getBudgetLabel(value: string): string {
   const budgets: Record<string, string> = {
+    'landing-8k': 'от 8 000 Б̶ (лендинг)',
+    'corporate-15k': 'от 15 000 Б̶ (корп. сайт)',
+    'shop-23k': 'от 23 000 Б̶ (магазин)',
+    complex: 'от 30 000 Б̶+ (сложный продукт)',
+    negotiable: 'Пока не знаю / нужна смета',
     '1000-3000': '$1,000 - $3,000',
     '3000-5000': '$3,000 - $5,000',
     '5000-10000': '$5,000 - $10,000',
     '10000-20000': '$10,000 - $20,000',
     '20000+': '$20,000+',
-    negotiable: 'Договорной'
   };
   return budgets[value] || value;
 }
