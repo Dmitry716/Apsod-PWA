@@ -1,4 +1,4 @@
-/** 301 с адресов старого HTML-сайта (см. GSC Coverage 404). */
+/** 301 с адресов старого HTML-сайта (см. GSC Coverage 404) и сжатого гео-каталога. */
 export const legacyRedirects = [
   { source: '/privacy', destination: '/legal/privacy-policy', permanent: true },
   { source: '/home', destination: '/', permanent: true },
@@ -10,4 +10,40 @@ export const legacyRedirects = [
   { source: '/blog/gpt-5-revolution-web-development', destination: '/blog', permanent: true },
   { source: '/о нас', destination: '/about', permanent: true },
   { source: '/о%20нас', destination: '/about', permanent: true },
+
+  // РБ: сжатие гео (оставляем vitebsk + minsk)
+  { source: '/belarus/brest', destination: '/belarus', permanent: true },
+  { source: '/belarus/gomel', destination: '/belarus', permanent: true },
+  { source: '/belarus/grodno', destination: '/belarus', permanent: true },
+  { source: '/belarus/mogilev', destination: '/belarus', permanent: true },
+  { source: '/belarus/bobruisk', destination: '/belarus', permanent: true },
+  { source: '/belarus/baranovichi', destination: '/belarus', permanent: true },
+  { source: '/belarus/borisov', destination: '/belarus', permanent: true },
+  { source: '/belarus/pinsk', destination: '/belarus', permanent: true },
+  { source: '/belarus/orsha', destination: '/belarus', permanent: true },
+  { source: '/belarus/mozyr', destination: '/belarus', permanent: true },
+  { source: '/belarus/soligorsk', destination: '/belarus', permanent: true },
+  { source: '/belarus/lida', destination: '/belarus', permanent: true },
+  { source: '/belarus/polotsk', destination: '/belarus', permanent: true },
+
+  // РФ: сжатие гео (оставляем moscow)
+  { source: '/russia/khimki', destination: '/russia', permanent: true },
+  { source: '/russia/podolsk', destination: '/russia', permanent: true },
+  { source: '/russia/balashikha', destination: '/russia', permanent: true },
+  { source: '/russia/mytishchi', destination: '/russia', permanent: true },
+  { source: '/russia/odintsovo', destination: '/russia', permanent: true },
+  { source: '/russia/korolev', destination: '/russia', permanent: true },
+  { source: '/russia/domodedovo', destination: '/russia', permanent: true },
+  { source: '/russia/lyubertsy', destination: '/russia', permanent: true },
+  { source: '/russia/saint-petersburg', destination: '/russia', permanent: true },
+  { source: '/russia/novosibirsk', destination: '/russia', permanent: true },
+  { source: '/russia/ekaterinburg', destination: '/russia', permanent: true },
+  { source: '/russia/kazan', destination: '/russia', permanent: true },
+  { source: '/russia/nizhny-novgorod', destination: '/russia', permanent: true },
+  { source: '/russia/krasnodar', destination: '/russia', permanent: true },
+  { source: '/russia/rostov-on-don', destination: '/russia', permanent: true },
+  { source: '/russia/samara', destination: '/russia', permanent: true },
+  { source: '/russia/voronezh', destination: '/russia', permanent: true },
+  { source: '/russia/ufa', destination: '/russia', permanent: true },
+  { source: '/russia/krasnoyarsk', destination: '/russia', permanent: true },
 ]

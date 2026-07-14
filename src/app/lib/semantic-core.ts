@@ -23,14 +23,7 @@ export type SemanticKeyword = {
     | 'general'
 }
 
-const BY_TIER_A = new Set([
-  'minsk',
-  'vitebsk',
-  'gomel',
-  'grodno',
-  'brest',
-  'mogilev',
-])
+const BY_TIER_A = new Set(['minsk', 'vitebsk'])
 
 /** Тир города РБ по slug */
 export function getBelarusGeoTier(slug: string): GeoTier {
