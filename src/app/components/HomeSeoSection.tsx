@@ -5,10 +5,7 @@ import { SITE_NAME } from '../lib/seo'
 const GEO_LINKS = [
   { href: '/belarus/vitebsk', label: 'Разработка сайтов в Витебске' },
   { href: '/belarus/minsk', label: 'Разработка сайтов в Минске' },
-  { href: '/belarus/gomel', label: 'Разработка сайтов в Гомеле' },
   { href: '/russia/moscow', label: 'Разработка сайтов в Москве' },
-  { href: '/russia/saint-petersburg', label: 'Разработка сайтов в Санкт-Петербурге' },
-  { href: '/russia/kazan', label: 'Разработка сайтов в Казани' },
   { href: '/belarus', label: 'Услуги по всей Беларуси' },
   { href: '/russia', label: 'Услуги по всей России' },
 ]

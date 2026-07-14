@@ -314,14 +314,9 @@ export function generateLocalBusinessSchema() {
     areaServed: [
       { '@type': 'Country', name: 'Belarus' },
       { '@type': 'Country', name: 'Russia' },
-      { '@type': 'City', name: 'Moscow' },
-      { '@type': 'City', name: 'Minsk' },
-      { '@type': 'City', name: 'Saint Petersburg' },
-      { '@type': 'City', name: 'Brest' },
-      { '@type': 'City', name: 'Gomel' },
       { '@type': 'City', name: 'Vitebsk' },
-      { '@type': 'City', name: 'Grodno' },
-      { '@type': 'City', name: 'Mogilev' },
+      { '@type': 'City', name: 'Minsk' },
+      { '@type': 'City', name: 'Moscow' },
     ],
     openingHours: COMPANY.openingHours,
     knowsAbout: [

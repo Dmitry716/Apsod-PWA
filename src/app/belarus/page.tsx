@@ -8,7 +8,7 @@ import SeoJsonLd from '../components/SeoJsonLd'
 export const metadata: Metadata = buildPageMetadata({
   title: 'Разработка сайтов по всей Беларуси — создание сайтов и интернет-магазинов',
   description:
-    'Создание и разработка сайтов в Беларуси: Минск, Витебск, Брест, Гомель, Гродно, Могилёв и регионы. Интернет-магазины, SEO, мобильные приложения.',
+    'Создание и разработка сайтов в Беларуси: фокус Минск и Витебск, удалённо по всей РБ. Интернет-магазины, SEO, мобильные приложения.',
   path: '/belarus',
   keywords: NATIONAL_BY_KEYWORDS,
 })
@@ -32,12 +32,13 @@ export default function BelarusIndexPage() {
     <div className="max-w-5xl mx-auto px-4 py-16">
       <SeoJsonLd data={[breadcrumb, cityList]} />
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        Разработка сайтов и digital-услуги по всей Беларуси
+        Разработка сайтов и digital-услуги по Беларуси
       </h1>
       <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-3xl">
-        {SITE_NAME} работает с клиентами по всей РБ: от Витебска до региональных центров.
-        Создание сайтов, разработка интернет-магазинов, мобильные приложения и SEO-продвижение
-        в Google и Яндексе для белорусского рынка.
+        {SITE_NAME}: ИП в Витебске, работаем удалённо по всей РБ. Гео-страницы —{' '}
+        <strong>Витебск</strong> и <strong>Минск</strong>; клиентов из других городов Беларуси
+        обслуживаем на тех же условиях. Сайты, интернет-магазины, мобильные приложения и SEO в
+        Google и Яндексе.
       </p>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
