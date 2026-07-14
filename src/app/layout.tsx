@@ -25,6 +25,7 @@ import {
 import { normalizeLocale } from "./lib/i18n";
 import "./globals.css";
 import "./hero-animations.css";
+import "./premium-motion.css";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
