@@ -1,12 +1,7 @@
 import Link from 'next/link'
-import { buildPageMetadata } from '../../lib/seo'
+import { buildSnippetMetadata } from '../../lib/seo'
 
-export const metadata = buildPageMetadata({
-  title: 'Политика обработки cookie (архив)',
-  description: 'Архивная страница политики cookie APSOD.',
-  path: '/components/cookie-policy',
-  noIndex: true,
-})
+export const metadata = buildSnippetMetadata('/components/cookie-policy', { noIndex: true })
 
 export default function CookiePolicyPage() {
   return (

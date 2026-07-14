@@ -1,13 +1,8 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
-import { buildPageMetadata } from './lib/seo'
+import { buildSnippetMetadata } from './lib/seo'
 
-export const metadata: Metadata = buildPageMetadata({
-  title: 'Страница не найдена',
-  description: 'Запрашиваемая страница не найдена. Перейдите на главную или воспользуйтесь меню сайта APSOD.',
-  path: '/404',
-  noIndex: true,
-})
+export const metadata: Metadata = buildSnippetMetadata('/404')
 
 export default function NotFound() {
   return (

@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { blogPosts } from '../data/posts'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { buildPageMetadata, generateArticleSchema, generateBreadcrumbSchema } from '../../lib/seo'
+import { blogPostSnippet } from '../../lib/page-snippets'
 import { cookies } from 'next/headers'
 import { normalizeLocale, t } from '../../lib/i18n'
 
@@ -21,11 +22,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   }
 
+  const snippet = blogPostSnippet(post.title, post.excerpt)
   return buildPageMetadata({
-    title: post.title,
-    description: post.excerpt,
+    title: snippet.title,
+    description: snippet.description,
     path: `/blog/${post.slug}`,
-    keywords: [...post.tags, 'блог APSOD', 'IT Беларусь'],
+    keywords: [...(snippet.keywords ?? []), ...post.tags],
     ogType: 'article',
     publishedTime: post.date,
     images: [post.image],

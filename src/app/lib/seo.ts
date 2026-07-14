@@ -1,4 +1,10 @@
 import type { Metadata } from 'next'
+import {
+  clipDescription,
+  clipTitle,
+  getPageSnippet,
+  type PageSnippet,
+} from './page-snippets'
 
 /** Базовые данные сайта для SEO, Schema.org и Open Graph */
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://apsod.com'
@@ -181,7 +187,7 @@ export function getWebSiteId() {
   return `${SITE_URL.replace(/\/$/, '')}/#website`
 }
 
-/** Единый генератор metadata для страниц */
+/** Единый генератор metadata для страниц (SERP-сниппет) */
 export function buildPageMetadata(options: PageMetadataOptions): Metadata {
   const {
     title,
@@ -196,12 +202,14 @@ export function buildPageMetadata(options: PageMetadataOptions): Metadata {
     absoluteTitle,
   } = options
 
+  const snippetTitle = clipTitle(title)
+  const snippetDescription = clipDescription(description)
   const canonical = buildCanonical(path)
   const ogImages = (images?.length ? images : [DEFAULT_OG_IMAGE_URL]).map((url) => ({
     url: url.startsWith('http') ? url : `${SITE_URL}${url}`,
     width: 1200,
     height: 630,
-    alt: title,
+    alt: snippetTitle,
   }))
 
   const keywordList = Array.isArray(keywords)
@@ -216,17 +224,19 @@ export function buildPageMetadata(options: PageMetadataOptions): Metadata {
       ? parseRussianDateToIso(publishedTime)
       : undefined
 
+  const ogTitle = absoluteTitle ? snippetTitle : `${snippetTitle} | ${SITE_NAME}`
+
   return {
-    title: absoluteTitle ? { absolute: title } : title,
-    description,
+    title: absoluteTitle ? { absolute: snippetTitle } : snippetTitle,
+    description: snippetDescription,
     keywords: keywordList,
     alternates: { canonical },
     robots: noIndex
       ? { index: false, follow: false }
       : DEFAULT_INDEX_ROBOTS,
     openGraph: {
-      title: absoluteTitle ? title : `${title} | ${SITE_NAME}`,
-      description,
+      title: ogTitle,
+      description: snippetDescription,
       url: canonical,
       siteName: SITE_NAME,
       locale: SITE_LOCALE,
@@ -237,11 +247,36 @@ export function buildPageMetadata(options: PageMetadataOptions): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title: absoluteTitle ? title : `${title} | ${SITE_NAME}`,
-      description,
+      title: ogTitle,
+      description: snippetDescription,
       images: ogImages.map((i) => i.url),
     },
   }
+}
+
+/** Metadata из реестра сниппетов PAGE_SNIPPETS */
+export function buildSnippetMetadata(
+  path: string,
+  overrides?: Partial<PageMetadataOptions> & { snippet?: PageSnippet }
+): Metadata {
+  const fromRegistry = getPageSnippet(path)
+  const snippet = overrides?.snippet ?? fromRegistry
+  if (!snippet && !overrides?.title) {
+    throw new Error(`No SERP snippet registered for path: ${path}`)
+  }
+
+  return buildPageMetadata({
+    title: overrides?.title ?? snippet!.title,
+    description: overrides?.description ?? snippet!.description,
+    path,
+    keywords: overrides?.keywords ?? snippet?.keywords,
+    absoluteTitle: overrides?.absoluteTitle ?? snippet?.absoluteTitle,
+    noIndex: overrides?.noIndex ?? snippet?.noIndex,
+    ogType: overrides?.ogType,
+    publishedTime: overrides?.publishedTime,
+    modifiedTime: overrides?.modifiedTime,
+    images: overrides?.images,
+  })
 }
 
 export function generateOrganizationSchema() {
@@ -445,7 +480,7 @@ export function generateContactPageSchema() {
     '@type': 'ContactPage',
     name: `Контакты — ${SITE_NAME}`,
     url: buildCanonical('/contact'),
-    description: 'Связаться с APSOD: разработка сайтов, SEO и мобильных приложений в Беларуси и России.',
+    description: 'Связаться с APSOD: бриф, разработка сайтов, SEO и мобильные приложения. Минск, Витебск, Москва.',
     mainEntity: { '@id': getOrganizationId() },
     isPartOf: { '@id': getWebSiteId() },
   }
@@ -483,115 +518,63 @@ export function generateFAQSchema(items: { question: string; answer: string }[])
   }
 }
 
-/** SEO-данные для страниц услуг */
+/** SEO-данные для страниц услуг (из PAGE_SNIPPETS) */
+function serviceSnippet(service: ServicePath) {
+  return (
+    getPageSnippet(`/services/${service}`) ?? {
+      title: service,
+      description: SITE_DESCRIPTION,
+      keywords: MAIN_KEYWORDS,
+    }
+  )
+}
+
 export const SERVICE_SEO: Record<
   ServicePath,
   { title: string; description: string; keywords: string[] }
 > = {
   'web-development': {
-    title: 'Разработка сайтов и создание сайта — Минск, Витебск, Москва',
-    description:
-      'Разработка сайтов и создание сайта с нуля: корпоративный сайт, лендинг, интернет-магазин. Минск, Витебск, Москва и удалённо. Уникальный код, без конструкторов. Смета после брифа.',
-    keywords: [
-      'разработка сайтов Москва',
-      'создание сайтов Москва',
-      'создание сайта Москва',
-      'заказать сайт Москва',
-      'разработка сайтов Минск',
-      'создание сайтов Минск',
-      'разработка сайтов Витебск',
-      'создание сайтов Витебск',
-      'разработка сайтов Беларусь',
-      'создание сайта с нуля',
-      'разработка интернет-магазина Москва',
-      'разработка интернет-магазина Минск',
-      'стоимость сайта',
-      'корпоративный сайт',
-    ],
+    title: serviceSnippet('web-development').title,
+    description: serviceSnippet('web-development').description,
+    keywords: [...(serviceSnippet('web-development').keywords ?? [])],
   },
   'mobile-development': {
-    title: 'Разработка мобильных приложений — Москва, Минск, Беларусь',
-    description:
-      'Создание мобильного приложения и разработка мобильных приложений iOS / Android. React Native, Flutter. Москва, Минск, Витебск и удалённо. Смета после Discovery.',
-    keywords: [
-      'разработка мобильных приложений Москва',
-      'создание мобильного приложения Москва',
-      'заказать мобильное приложение Москва',
-      'разработка мобильных приложений Минск',
-      'создание мобильного приложения Минск',
-      'разработка мобильных приложений Беларусь',
-      'разработка приложения iOS',
-      'разработка приложения Android',
-      'React Native',
-    ],
+    title: serviceSnippet('mobile-development').title,
+    description: serviceSnippet('mobile-development').description,
+    keywords: [...(serviceSnippet('mobile-development').keywords ?? [])],
   },
   'pwa-development': {
-    title: 'PWA-разработка для бизнеса в РФ и Беларуси',
-    description:
-      'Progressive Web Apps: офлайн, push-уведомления, установка на экран. Для компаний в Москве, регионах РФ и РБ.',
-    keywords: ['PWA Москва', 'PWA Россия', 'PWA разработка Беларусь', 'progressive web app', 'push уведомления'],
+    title: serviceSnippet('pwa-development').title,
+    description: serviceSnippet('pwa-development').description,
+    keywords: [...(serviceSnippet('pwa-development').keywords ?? [])],
   },
   seo: {
-    title: 'SEO продвижение сайта — Яндекс и Google, Москва, Минск',
-    description:
-      'SEO продвижение и продвижение сайта в Яндексе и Google. Москва, Минск, Витебск, Беларусь. Аудит, семантика, контент, локальная выдача. Стоимость — после аудита.',
-    keywords: [
-      'SEO продвижение Москва',
-      'продвижение сайта Москва',
-      'SEO продвижение сайта Москва',
-      'продвижение сайта Яндекс Москва',
-      'продвижение сайта Google Москва',
-      'SEO Яндекс Москва',
-      'SEO Google Москва',
-      'SEO продвижение Минск',
-      'продвижение сайта Минск',
-      'SEO продвижение Витебск',
-      'SEO продвижение Беларусь',
-      'продвижение сайта в Яндексе',
-      'продвижение сайта в Google',
-      'SEO оптимизация сайта',
-      'стоимость SEO продвижения',
-    ],
+    title: serviceSnippet('seo').title,
+    description: serviceSnippet('seo').description,
+    keywords: [...(serviceSnippet('seo').keywords ?? [])],
   },
   'technical-support': {
-    title: 'Техническая поддержка сайтов — Россия и Беларусь',
-    description:
-      'Техподдержка сайтов на React, Next.js, Node.js, MongoDB и PostgreSQL. Обновления, безопасность, мониторинг, резервное копирование.',
-    keywords: [
-      'техническая поддержка сайтов',
-      'техподдержка сайта Москва',
-      'сопровождение сайта',
-      'поддержка Next.js',
-      'PostgreSQL поддержка',
-      'MERN поддержка',
-    ],
+    title: serviceSnippet('technical-support').title,
+    description: serviceSnippet('technical-support').description,
+    keywords: [...(serviceSnippet('technical-support').keywords ?? [])],
   },
   'ui-ux': {
-    title: 'UI/UX дизайн сайтов и приложений',
-    description:
-      'UI/UX дизайн для сайтов и мобильных приложений. Прототипы и дизайн-системы для рынков РФ и Беларуси.',
-    keywords: ['UI UX дизайн', 'дизайн сайта Москва', 'дизайн сайта Минск', 'прототипирование'],
+    title: serviceSnippet('ui-ux').title,
+    description: serviceSnippet('ui-ux').description,
+    keywords: [...(serviceSnippet('ui-ux').keywords ?? [])],
   },
   crm: {
-    title: 'Разработка и внедрение CRM — Россия и Беларусь',
-    description:
-      'CRM-системы для бизнеса в Москве, регионах РФ и Беларуси: автоматизация продаж, интеграции, отчёты.',
-    keywords: ['CRM Москва', 'CRM Россия', 'CRM Беларусь', 'внедрение CRM', 'автоматизация продаж'],
+    title: serviceSnippet('crm').title,
+    description: serviceSnippet('crm').description,
+    keywords: [...(serviceSnippet('crm').keywords ?? [])],
   },
   erp: {
-    title: 'ERP-системы для бизнеса — РФ и РБ',
-    description:
-      'Разработка и внедрение ERP: учёт, склад, производство, финансы. Решения для компаний в России и Беларуси.',
-    keywords: ['ERP Россия', 'ERP Москва', 'ERP Беларусь', 'автоматизация бизнеса', 'учётная система'],
+    title: serviceSnippet('erp').title,
+    description: serviceSnippet('erp').description,
+    keywords: [...(serviceSnippet('erp').keywords ?? [])],
   },
 }
 
 export function buildServiceMetadata(service: ServicePath): Metadata {
-  const data = SERVICE_SEO[service]
-  return buildPageMetadata({
-    title: data.title,
-    description: data.description,
-    path: `/services/${service}`,
-    keywords: data.keywords,
-  })
+  return buildSnippetMetadata(`/services/${service}`)
 }

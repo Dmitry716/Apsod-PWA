@@ -1,15 +1,11 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { RUSSIA_CITIES } from '../lib/russia-cities'
-import { buildPageMetadata, generateBreadcrumbSchema, generateItemListSchema, SITE_NAME } from '../lib/seo'
+import { buildSnippetMetadata, generateBreadcrumbSchema, generateItemListSchema, SITE_NAME } from '../lib/seo'
 import { NATIONAL_RU_KEYWORDS } from '../lib/semantic-core'
 import SeoJsonLd from '../components/SeoJsonLd'
 
-export const metadata: Metadata = buildPageMetadata({
-  title: 'Разработка сайтов Москва — создание сайта, SEO, приложения',
-  description:
-    'Создание и разработка сайтов в Москве и по России удалённо. Интернет-магазины, SEO продвижение в Яндексе и Google, мобильные приложения.',
-  path: '/russia',
+export const metadata: Metadata = buildSnippetMetadata('/russia', {
   keywords: NATIONAL_RU_KEYWORDS,
 })
 

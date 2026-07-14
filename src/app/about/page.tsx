@@ -1,20 +1,7 @@
 import Link from 'next/link'
-import { buildPageMetadata } from '../lib/seo'
+import { buildSnippetMetadata } from '../lib/seo'
 
-export const metadata = buildPageMetadata({
-  title: 'О компании APSOD — профессиональная digital-команда',
-  description:
-    'APSOD организует бизнес в интернете: аналитика, уникальная и безопасная разработка без конструкторов, SEO и поддержка. 15+ лет, 350+ кейсов. ИП в Витебске.',
-  path: '/about',
-  keywords: [
-    'APSOD',
-    'IT компания Беларусь',
-    'уникальная разработка сайтов',
-    'без конструкторов',
-    'разработка сайтов Витебск',
-    'о компании',
-  ],
-})
+export const metadata = buildSnippetMetadata('/about')
 
 export default function AboutPage() {
   const stats = [

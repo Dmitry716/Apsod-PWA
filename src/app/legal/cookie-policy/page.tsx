@@ -1,10 +1,6 @@
-import { buildPageMetadata } from '../../lib/seo'
+import { buildSnippetMetadata } from '../../lib/seo'
 
-export const metadata = buildPageMetadata({
-  title: 'Политика обработки cookie',
-  description: 'Политика использования файлов cookie на сайте apsod.com в соответствии с законодательством Республики Беларусь.',
-  path: '/legal/cookie-policy',
-})
+export const metadata = buildSnippetMetadata('/legal/cookie-policy')
 
 export default function CookiePolicyPage() {
   return (

@@ -1,11 +1,6 @@
-import { buildPageMetadata, COMPANY_ADDRESS_DISPLAY } from '../../lib/seo'
+import { buildSnippetMetadata, COMPANY_ADDRESS_DISPLAY } from '../../lib/seo'
 
-export const metadata = buildPageMetadata({
-  title: 'Политика конфиденциальности',
-  description: 'Политика конфиденциальности и обработки персональных данных APSOD в соответствии с Законом РБ № 99-З «О защите персональных данных».',
-  path: '/legal/privacy-policy',
-  keywords: ['политика конфиденциальности', 'персональные данные', 'APSOD'],
-})
+export const metadata = buildSnippetMetadata('/legal/privacy-policy')
 
 export default function PrivacyPolicyPage() {
   return (

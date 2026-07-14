@@ -1,15 +1,11 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { BELARUS_CITIES } from '../lib/belarus-cities'
-import { buildPageMetadata, generateBreadcrumbSchema, generateItemListSchema, SITE_NAME } from '../lib/seo'
+import { buildSnippetMetadata, generateBreadcrumbSchema, generateItemListSchema, SITE_NAME } from '../lib/seo'
 import { NATIONAL_BY_KEYWORDS } from '../lib/semantic-core'
 import SeoJsonLd from '../components/SeoJsonLd'
 
-export const metadata: Metadata = buildPageMetadata({
-  title: 'Разработка сайтов Беларусь — создание сайта, SEO, приложения',
-  description:
-    'Создание и разработка сайтов в Беларуси: Минск и Витебск, удалённо по РБ. Интернет-магазины, SEO продвижение в Яндексе и Google, мобильные приложения.',
-  path: '/belarus',
+export const metadata: Metadata = buildSnippetMetadata('/belarus', {
   keywords: NATIONAL_BY_KEYWORDS,
 })
 
