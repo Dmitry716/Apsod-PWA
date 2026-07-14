@@ -5,10 +5,10 @@ export const metadata = buildSnippetMetadata('/about')
 
 export default function AboutPage() {
   const stats = [
-    { value: '15+', label: 'лет опыта', icon: '⏳' },
+    { value: '15+', label: 'лет в digital', icon: '⏳' },
     { value: '350+', label: 'реальных кейсов', icon: '🚀' },
     { value: 'полный цикл', label: 'от аналитики до поддержки', icon: '🧭' },
-    { value: 'свой код', label: 'без конструкторов', icon: '🔒' },
+    { value: '100%', label: 'уникальный код', icon: '🔒' },
   ]
 
   const industries = [
@@ -82,7 +82,7 @@ export default function AboutPage() {
   {
     title: 'Надежность',
     description:
-      '15 лет на рынке и ответственность за результат: от договорённостей на старте до поддержки после запуска.',
+      '15 лет в digital и ответственность за результат: от договорённостей на старте до поддержки после запуска.',
     icon: '🔒'
   },
   {
