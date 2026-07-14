@@ -2,23 +2,15 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { RUSSIA_CITIES } from '../lib/russia-cities'
 import { buildPageMetadata, generateBreadcrumbSchema, generateItemListSchema, SITE_NAME } from '../lib/seo'
+import { NATIONAL_RU_KEYWORDS } from '../lib/semantic-core'
 import SeoJsonLd from '../components/SeoJsonLd'
 
 export const metadata: Metadata = buildPageMetadata({
   title: 'Разработка сайтов в России — Москва и регионы',
   description:
-    'APSOD — разработка сайтов, интернет-магазинов, SEO и мобильных приложений по всей России. Основной фокус: Москва и Московская область. Яндекс, Google, PWA.',
+    'Создание и разработка сайтов в России: Москва и МО — приоритет. Интернет-магазины, SEO в Яндексе и Google, мобильные приложения, PWA по всей РФ.',
   path: '/russia',
-  keywords: [
-    'разработка сайтов Россия',
-    'разработка сайтов Москва',
-    'SEO Москва',
-    'SEO продвижение Россия',
-    'создание сайта Москва',
-    'IT компания Москва',
-    'интернет-магазин Москва',
-    'веб-разработка Московская область',
-  ],
+  keywords: NATIONAL_RU_KEYWORDS,
 })
 
 export default function RussiaIndexPage() {

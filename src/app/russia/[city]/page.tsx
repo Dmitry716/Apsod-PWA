@@ -8,6 +8,11 @@ import {
   generateCityLandingSchema,
   SITE_NAME,
 } from '../../lib/seo'
+import {
+  getCityContentBlocks,
+  getCityMetaKeywords,
+  getRussiaGeoTier,
+} from '../../lib/semantic-core'
 import SeoJsonLd from '../../components/SeoJsonLd'
 
 type Props = { params: Promise<{ city: string }> }
@@ -21,25 +26,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const city = getRussiaCityBySlug(citySlug)
   if (!city) return { title: 'Город не найден' }
 
+  const tier = getRussiaGeoTier(city.priority, city.slug)
   const moscowFocus =
     city.slug === 'moscow'
-      ? 'Заказать разработку сайта, интернет-магазина и SEO в Москве. Продвижение в Яндексе и Google, мобильные приложения, PWA.'
-      : `Заказать разработку сайта и SEO ${city.nameIn}. Работаем с клиентами по всей России, база — Витебск.`
+      ? 'Создание и разработка сайтов в Москве, интернет-магазин под ключ, SEO в Яндексе и Google, мобильные приложения.'
+      : `Создание и разработка сайтов ${city.nameIn}, SEO продвижение, интернет-магазин. Работаем по РФ из Витебска.`
 
   return buildPageMetadata({
-    title: `Разработка сайтов ${city.nameIn} — ${city.region}`,
-    description: `${moscowFocus} ${SITE_NAME} — IT-компания для бизнеса в ${city.region} и по всей РФ.`,
+    title: `Разработка сайтов ${city.nameIn} — создание сайтов и интернет-магазинов`,
+    description: `${moscowFocus} ${SITE_NAME} — IT для бизнеса в ${city.region} и по всей России.`,
     path: `/russia/${city.slug}`,
-    keywords: [
-      `разработка сайтов ${city.name}`,
-      `создание сайта ${city.name}`,
-      `SEO ${city.name}`,
-      `SEO продвижение ${city.name}`,
-      `интернет-магазин ${city.name}`,
-      `IT компания ${city.name}`,
-      `веб-разработка ${city.region}`,
-      'разработка сайтов Россия',
-    ],
+    keywords: getCityMetaKeywords(city.name, city.region, tier, 'Россия'),
   })
 }
 
@@ -83,6 +80,7 @@ export default async function RussiaCityPage({ params }: Props) {
   const otherMajor = RUSSIA_CITIES.filter(
     (c) => c.priority === 'major' && c.slug !== city.slug
   ).slice(0, 5)
+  const contentBlocks = getCityContentBlocks(city.name, city.nameIn, city.region)
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-16">
@@ -128,16 +126,26 @@ export default async function RussiaCityPage({ params }: Props) {
         ))}
       </div>
 
+      {contentBlocks.map((block) => (
+        <section key={block.h2} className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
+            {block.h2}
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
+            {block.body}
+          </p>
+        </section>
+      ))}
+
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
-          Заказать разработку сайта {city.nameIn}
+          Заказать сайт {city.nameIn}
         </h2>
         <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
-          Бизнес {city.nameIn} заказывает у {SITE_NAME} сайты, интернет-магазины, мобильные
-          приложения и SEO в Яндексе и Google. Для {city.region} важны скорость загрузки,
-          адаптивная вёрстка и локальное продвижение — мы закладываем это на этапе архитектуры
-          и контента. Бесплатная консультация: обсудим задачу, покажем кейсы и предложим план
-          работ {city.nameIn}.
+          Бизнес {city.nameIn} заказывает у {SITE_NAME} сайт под ключ, интернет-магазин, мобильные
+          приложения и SEO в Яндексе и Google. Для {city.region} важны скорость, адаптив и
+          локальное продвижение — закладываем это в архитектуру и контент. Консультация: обсудим
+          задачу и план работ по созданию сайта {city.nameIn}.
         </p>
       </section>
 
