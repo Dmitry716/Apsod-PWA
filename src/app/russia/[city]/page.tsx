@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tier = getRussiaGeoTier(city.priority, city.slug)
   const moscowFocus =
     city.slug === 'moscow'
-      ? 'Создание и разработка сайтов в Москве, интернет-магазин под ключ, SEO в Яндексе и Google, мобильные приложения.'
+      ? 'Создание и разработка сайтов в Москве, интернет-магазин, SEO в Яндексе и Google, мобильные приложения.'
       : `Создание и разработка сайтов ${city.nameIn}, SEO продвижение, интернет-магазин. Работаем по РФ из Витебска.`
 
   return buildPageMetadata({
@@ -111,7 +111,7 @@ export default async function RussiaCityPage({ params }: Props) {
         {SITE_NAME} создаёт сайты, интернет-магазины и digital-продукты для компаний{' '}
         {city.nameIn} и всей России.
         {isMoscow
-          ? ' Москва — наш приоритетный рынок в РФ: SEO в Яндексе и Google, e-commerce, PWA и мобильные приложения под ключ.'
+          ? ' Москва — наш приоритетный рынок в РФ: SEO в Яндексе и Google, e-commerce, PWA и мобильные приложения.'
           : ' Работаем удалённо по всей РФ из Витебска. Основной фокус — Москва и Московская область.'}
       </p>
 
@@ -147,7 +147,7 @@ export default async function RussiaCityPage({ params }: Props) {
           Заказать сайт {city.nameIn}
         </h2>
         <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
-          Бизнес {city.nameIn} заказывает у {SITE_NAME} сайт под ключ, интернет-магазин, мобильные
+          Бизнес {city.nameIn} заказывает у {SITE_NAME} сайт с нуля, интернет-магазин, мобильные
           приложения и SEO в Яндексе и Google. Для {city.region} важны скорость, адаптив и
           локальное продвижение — закладываем это в архитектуру и контент. Консультация: обсудим
           задачу и план работ по созданию сайта {city.nameIn}.

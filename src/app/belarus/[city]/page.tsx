@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return buildPageMetadata({
     title: `Разработка сайтов ${city.nameIn} — создание сайтов и интернет-магазинов`,
-    description: `Создание и разработка сайтов ${city.nameIn}, интернет-магазин под ключ, SEO в Яндексе и Google, мобильные приложения. ${SITE_NAME} — IT для бизнеса в ${city.region}.`,
+    description: `Создание и разработка сайтов ${city.nameIn}, интернет-магазин, SEO в Яндексе и Google, мобильные приложения. ${SITE_NAME} — IT для бизнеса в ${city.region}.`,
     path: `/belarus/${city.slug}`,
     keywords: getCityMetaKeywords(city.name, city.region, tier, 'Беларусь'),
   })
@@ -130,7 +130,7 @@ export default async function BelarusCityPage({ params }: Props) {
           Заказать сайт {city.nameIn}
         </h2>
         <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
-          Компании {city.nameIn} заказывают у {SITE_NAME} сайт под ключ, лендинг, корпоративный
+          Компании {city.nameIn} заказывают у {SITE_NAME} сайт с нуля, лендинг, корпоративный
           сайт, интернет-магазин и SEO-продвижение. Стек под задачу (Next.js, React, Node.js),
           структура под запросы {city.region}, сопровождение после запуска. Оставьте заявку —
           оценим сроки и стоимость создания сайта {city.nameIn}.
