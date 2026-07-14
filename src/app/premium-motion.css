@@ -252,6 +252,32 @@
   animation: apsod-pulse-ring 2.2s ease-out infinite;
 }
 
+@keyframes apsod-messenger-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.apsod-messenger-fab {
+  position: relative;
+  animation: apsod-messenger-bob 2.8s ease-in-out infinite;
+}
+
+.apsod-messenger-fab::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  border: 1px solid currentColor;
+  opacity: 0.35;
+  animation: apsod-pulse-ring 2.4s ease-out infinite;
+  pointer-events: none;
+}
+
 .apsod-line-draw {
   height: 2px;
   width: 0;
@@ -268,7 +294,9 @@
   .apsod-hero-enter,
   .apsod-cta-primary::before,
   .apsod-mesh-blob,
-  .apsod-badge-pulse::after {
+  .apsod-badge-pulse::after,
+  .apsod-messenger-fab,
+  .apsod-messenger-fab::after {
     animation: none !important;
     transition: none !important;
   }

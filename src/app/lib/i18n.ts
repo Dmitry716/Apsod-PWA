@@ -62,6 +62,8 @@ const dictionary = {
 
     // Chat widget
     'chat.open': 'Открыть чат',
+    'chat.writeTelegram': 'Написать в Telegram',
+    'chat.writeWhatsApp': 'Написать в WhatsApp',
     'chat.close': 'Закрыть',
     'chat.supportFallback': 'Поддержка APSOD',
     'chat.welcome': 'Добро пожаловать в APSOD! Чем мы можем помочь?',
@@ -149,6 +151,8 @@ const dictionary = {
 
     // Chat widget
     'chat.open': 'Open chat',
+    'chat.writeTelegram': 'Message on Telegram',
+    'chat.writeWhatsApp': 'Message on WhatsApp',
     'chat.close': 'Close',
     'chat.supportFallback': 'APSOD Support',
     'chat.welcome': 'Welcome to APSOD! How can we help you?',
