@@ -265,7 +265,7 @@ export default function ERPPage() {
             Нужна ERP для вашего бизнеса?
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Проведем аудит, подберем решение и внедрим ERP под ключ
+            Проведём аудит, подберём решение и внедрим ERP с нуля до запуска
           </p>
           <Link
             href="/contact"
