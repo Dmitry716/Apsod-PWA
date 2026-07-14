@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
+import ServiceSemanticBlocks from '../../components/ServiceSemanticBlocks'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
@@ -132,13 +133,11 @@ export default function SEOPage() {
               Выводим в топ поисковых систем
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              SEO{' '}
-              <span className="text-blue-600 dark:text-blue-400">
-                продвижение
-              </span>
+              SEO продвижение{' '}
+              <span className="text-blue-600 dark:text-blue-400">сайта</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Привлекайте целевых клиентов из поисковых систем и увеличивайте продажи без постоянных затрат на рекламу
+              Продвижение сайта в Яндексе и Google: Москва, Минск, Витебск и удалённо по РБ/РФ
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
@@ -157,6 +156,8 @@ export default function SEOPage() {
           </div>
         </div>
       </section>
+
+      <ServiceSemanticBlocks service="seo" />
 
       {/* Что такое SEO */}
       <section className="py-20 bg-white dark:bg-gray-800">

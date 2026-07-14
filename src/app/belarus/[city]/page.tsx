@@ -14,6 +14,8 @@ import {
   getCityContentBlocks,
   getCityFaq,
   getCityMetaKeywords,
+  getCityPageDescription,
+  getCityPageTitle,
 } from '../../lib/semantic-core'
 import SeoJsonLd from '../../components/SeoJsonLd'
 
@@ -31,8 +33,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const tier = getBelarusGeoTier(city.slug)
 
   return buildPageMetadata({
-    title: `Разработка сайтов ${city.nameIn} — создание сайтов и интернет-магазинов`,
-    description: `Создание и разработка сайтов ${city.nameIn}, интернет-магазин, SEO в Яндексе и Google, мобильные приложения. ${SITE_NAME} — IT для бизнеса в ${city.region}.`,
+    title: getCityPageTitle(city.nameIn),
+    description: getCityPageDescription(city.nameIn, city.region),
     path: `/belarus/${city.slug}`,
     keywords: getCityMetaKeywords(city.name, city.region, tier, 'Беларусь'),
   })
@@ -87,7 +89,7 @@ export default async function BelarusCityPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        Разработка сайтов {city.nameIn}
+        Разработка сайтов {city.nameIn} — создание сайта и SEO
       </h1>
       <p className="text-lg text-gray-600 dark:text-gray-300 mb-2">
         {city.region} · население ~{city.population}
