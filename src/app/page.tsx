@@ -187,7 +187,7 @@ export default function Home() {
                 {[
                   {
                     value: "15+",
-                    label: "лет на рынке",
+                    label: "лет в digital",
                     valueClass: "text-blue-600 dark:text-blue-400",
                   },
                   {
@@ -196,8 +196,8 @@ export default function Home() {
                     valueClass: "text-indigo-600 dark:text-indigo-400",
                   },
                   {
-                    value: "0",
-                    label: "конструкторов",
+                    value: "100%",
+                    label: "уникальный код",
                     valueClass: "text-cyan-600 dark:text-cyan-400",
                   },
                   {
