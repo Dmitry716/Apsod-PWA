@@ -5,7 +5,6 @@ export type BelarusCity = {
   nameIn: string
   nameGenitive: string
   region: string
-  population: string
   lat: number
   lng: number
 }
@@ -17,7 +16,6 @@ export const BELARUS_CITIES: BelarusCity[] = [
     nameIn: 'в Витебске',
     nameGenitive: 'Витебска',
     region: 'Витебская область',
-    population: '370 тыс.',
     lat: 55.1848,
     lng: 30.2016,
   },
@@ -27,7 +25,6 @@ export const BELARUS_CITIES: BelarusCity[] = [
     nameIn: 'в Минске',
     nameGenitive: 'Минска',
     region: 'Минская область',
-    population: '2 млн',
     lat: 53.9045,
     lng: 27.5615,
   },

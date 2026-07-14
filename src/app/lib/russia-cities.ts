@@ -5,7 +5,6 @@ export type RussiaCity = {
   nameIn: string
   nameGenitive: string
   region: string
-  population: string
   lat: number
   lng: number
   priority: 'primary' | 'major' | 'regional'
@@ -18,7 +17,6 @@ export const RUSSIA_CITIES: RussiaCity[] = [
     nameIn: 'в Москве',
     nameGenitive: 'Москвы',
     region: 'Москва',
-    population: '13 млн',
     lat: 55.7558,
     lng: 37.6173,
     priority: 'primary',
