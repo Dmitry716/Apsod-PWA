@@ -10,9 +10,9 @@ import HomeValueSections from "./components/HomeValueSections";
 import Reveal from "./components/Reveal";
 
 export const metadata = buildPageMetadata({
-  title: 'APSOD — организация бизнеса в интернете, уникальная разработка и SEO',
+  title: 'APSOD — разработка сайтов, SEO продвижение, мобильные приложения',
   description:
-    'APSOD: аналитика, уникальная и безопасная разработка сайтов и приложений, SEO и поддержка. Без конструкторов. Витебск, Минск, Москва и удалённо по миру.',
+    'Разработка сайтов и создание сайта с нуля, SEO продвижение в Яндексе и Google, мобильные приложения. Минск, Витебск, Москва. Без конструкторов. Уникальный код.',
   path: '/',
   absoluteTitle: true,
 });

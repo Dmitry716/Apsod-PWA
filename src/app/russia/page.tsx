@@ -6,9 +6,9 @@ import { NATIONAL_RU_KEYWORDS } from '../lib/semantic-core'
 import SeoJsonLd from '../components/SeoJsonLd'
 
 export const metadata: Metadata = buildPageMetadata({
-  title: 'Разработка сайтов в России — Москва и вся РФ удалённо',
+  title: 'Разработка сайтов Москва — создание сайта, SEO, приложения',
   description:
-    'Создание и разработка сайтов в России: фокус Москва, удалённо по всей РФ. Интернет-магазины, SEO в Яндексе и Google, мобильные приложения, PWA.',
+    'Создание и разработка сайтов в Москве и по России удалённо. Интернет-магазины, SEO продвижение в Яндексе и Google, мобильные приложения.',
   path: '/russia',
   keywords: NATIONAL_RU_KEYWORDS,
 })

@@ -13,6 +13,8 @@ import {
   getCityContentBlocks,
   getCityFaq,
   getCityMetaKeywords,
+  getCityPageDescription,
+  getCityPageTitle,
   getRussiaGeoTier,
 } from '../../lib/semantic-core'
 import SeoJsonLd from '../../components/SeoJsonLd'
@@ -29,14 +31,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!city) return { title: 'Город не найден' }
 
   const tier = getRussiaGeoTier(city.priority, city.slug)
-  const moscowFocus =
-    city.slug === 'moscow'
-      ? 'Создание и разработка сайтов в Москве, интернет-магазин, SEO в Яндексе и Google, мобильные приложения.'
-      : `Создание и разработка сайтов ${city.nameIn}, SEO продвижение, интернет-магазин. Работаем по РФ из Витебска.`
 
   return buildPageMetadata({
-    title: `Разработка сайтов ${city.nameIn} — создание сайтов и интернет-магазинов`,
-    description: `${moscowFocus} ${SITE_NAME} — IT для бизнеса в ${city.region} и по всей России.`,
+    title: getCityPageTitle(city.nameIn),
+    description: getCityPageDescription(city.nameIn, city.region),
     path: `/russia/${city.slug}`,
     keywords: getCityMetaKeywords(city.name, city.region, tier, 'Россия'),
   })
@@ -101,8 +99,8 @@ export default async function RussiaCityPage({ params }: Props) {
 
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
         {isMoscow
-          ? 'Разработка сайтов и SEO в Москве'
-          : `Разработка сайтов ${city.nameIn}`}
+          ? 'Разработка сайтов в Москве — создание сайта, SEO и приложения'
+          : `Разработка сайтов ${city.nameIn} — создание сайта и SEO`}
       </h1>
       <p className="text-lg text-gray-600 dark:text-gray-300 mb-2">
         {city.region} · население ~{city.population}

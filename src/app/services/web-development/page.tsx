@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ServiceSemanticBlocks from '../../components/ServiceSemanticBlocks'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import DevelopmentProcessSection from '../components/DevelopmentProcessSection'
@@ -191,13 +192,13 @@ export default function WebDevelopmentPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              Веб-{' '}
-              <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                разработка
+              Разработка сайтов{' '}
+              <span className="bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                и создание сайта
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Enterprise-подход: от бизнес-анализа и экспертизы до Agile-разработки, QA и production-запуска
+              Минск, Витебск, Москва и удалённо: корпоративные сайты, лендинги и интернет-магазины на уникальном коде
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
@@ -216,6 +217,8 @@ export default function WebDevelopmentPage() {
           </div>
         </div>
       </section>
+
+      <ServiceSemanticBlocks service="web-development" />
 
       <DevelopmentProcessSection
         title="Как мы разрабатываем веб-проекты"

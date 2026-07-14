@@ -6,9 +6,9 @@ import { NATIONAL_BY_KEYWORDS } from '../lib/semantic-core'
 import SeoJsonLd from '../components/SeoJsonLd'
 
 export const metadata: Metadata = buildPageMetadata({
-  title: 'Разработка сайтов по всей Беларуси — создание сайтов и интернет-магазинов',
+  title: 'Разработка сайтов Беларусь — создание сайта, SEO, приложения',
   description:
-    'Создание и разработка сайтов в Беларуси: фокус Минск и Витебск, удалённо по всей РБ. Интернет-магазины, SEO, мобильные приложения.',
+    'Создание и разработка сайтов в Беларуси: Минск и Витебск, удалённо по РБ. Интернет-магазины, SEO продвижение в Яндексе и Google, мобильные приложения.',
   path: '/belarus',
   keywords: NATIONAL_BY_KEYWORDS,
 })

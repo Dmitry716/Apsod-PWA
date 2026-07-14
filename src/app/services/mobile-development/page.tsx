@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
+import ServiceSemanticBlocks from '../../components/ServiceSemanticBlocks'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import DevelopmentProcessSection from '../components/DevelopmentProcessSection'
 import { MOBILE_DEVELOPMENT_PROCESS } from '../lib/development-process'
@@ -126,13 +127,13 @@ export default function MobileDevelopmentPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              Мобильная{' '}
-              <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                разработка
+              Разработка{' '}
+              <span className="bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                мобильных приложений
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Полный цикл mobile-разработки: от Discovery и технической экспертизы до публикации в App Store и Google Play
+              Создание мобильного приложения iOS и Android: Москва, Минск, Беларусь и удалённо
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
@@ -151,6 +152,8 @@ export default function MobileDevelopmentPage() {
           </div>
         </div>
       </section>
+
+      <ServiceSemanticBlocks service="mobile-development" />
 
       <DevelopmentProcessSection
         title="Как мы создаём мобильные приложения"
