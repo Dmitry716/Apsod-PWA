@@ -3,9 +3,9 @@
 export const POSITIONING = {
   ru: {
     badge: 'Профессиональная digital-команда',
-    heroTitle1: 'Полная организация',
-    heroTitle2: 'бизнеса в интернете',
-    heroTitle3: 'уникальная разработка на своём коде',
+    heroTitle1: 'Разработка сайтов',
+    heroTitle2: 'и приложений',
+    heroTitle3: 'уникальный код',
     heroLead:
       'Не просто «сделать сайт». Аналитика и стратегия, дизайн, безопасная разработка, SEO, интеграции и поддержка — единый контур digital-присутствия. Только индивидуальные проекты на своём коде. С конструкторами сайтов не работаем.',
     ctaPrimary: 'Обсудить проект',
@@ -108,9 +108,9 @@ export const POSITIONING = {
   },
   en: {
     badge: 'Professional digital team',
-    heroTitle1: 'End-to-end',
-    heroTitle2: 'online business setup',
-    heroTitle3: 'custom secure development',
+    heroTitle1: 'Websites',
+    heroTitle2: 'and apps',
+    heroTitle3: 'unique code',
     heroLead:
       'Not just “build a website”. Analytics and strategy, design, secure engineering, SEO, integrations and support — one operating system for your online presence. Custom code only. We do not work with website builders.',
     ctaPrimary: 'Discuss a project',
