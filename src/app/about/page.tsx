@@ -12,7 +12,7 @@ export const metadata = buildPageMetadata({
 export default function AboutPage() {
   const stats = [
     { value: '15+', label: 'лет опыта', icon: '⏳' },
-    { value: '10+', label: 'кейсов в портфолио', icon: '🚀' },
+    { value: '350+', label: 'реальных кейсов', icon: '🚀' },
     { value: 'РБ + РФ', label: 'работаем удалённо', icon: '🤝' },
     { value: 'ИП', label: 'в Витебске', icon: '📍' },
   ]
@@ -122,8 +122,9 @@ export default function AboutPage() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-              15 лет создаём сайты и digital-продукты для бизнеса. Портфолио — реальные проекты
-              в Беларуси и для клиентов за рубежом. ИП зарегистрирован в Витебске.
+              15 лет создаём сайты и digital-продукты для бизнеса. Более 350 реальных кейсов;
+              на сайте — избранные работы. ИП зарегистрирован в Витебске, работаем удалённо по РБ,
+              РФ и миру.
             </p>
             
             {/* Статистика */}
