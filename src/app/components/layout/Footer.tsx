@@ -166,6 +166,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/pricing"
+                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
+                >
+                  {locale === 'en' ? 'Pricing' : 'Цены'}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/about"
                   className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
                 >

@@ -22,6 +22,7 @@ export default function Header() {
 
   const navLinks = [
     { href: "/services", label: t(locale, 'nav.services') },
+    { href: "/pricing", label: locale === 'en' ? 'Pricing' : 'Цены' },
     { href: "/about", label: t(locale, 'nav.about') },
     { href: "/portfolio", label: t(locale, 'nav.portfolio') },
     { href: "/blog", label: t(locale, 'nav.blog') },

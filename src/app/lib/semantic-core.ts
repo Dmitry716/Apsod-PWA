@@ -273,3 +273,24 @@ export function getCityContentBlocks(
     },
   ]
 }
+
+/** Локальный FAQ для гео-страницы */
+export function getCityFaq(
+  cityName: string,
+  nameIn: string
+): { question: string; answer: string }[] {
+  return [
+    {
+      question: `Сколько стоит создание сайта ${nameIn}?`,
+      answer: `Ориентиры: лендинг — от 1 500 BYN, корпоративный сайт — от 3 500 BYN, интернет-магазин — от 6 000 BYN. Для ${cityName} работаем удалённо: бриф, смета и договор онлайн. Актуальные пакеты — на странице «Цены».`,
+    },
+    {
+      question: `Делаете ли SEO ${nameIn}?`,
+      answer: `Да. SEO продвижение ${cityName} в Яндексе и Google: техника, семантика и контент под локальный спрос. Можно вместе с разработкой сайта или отдельно.`,
+    },
+    {
+      question: `Есть ли кейсы рядом с ${cityName}?`,
+      answer: `В портфолио — проекты из Витебска и Полоцка (Amba Detail, Maxximum, Динамо-Витебск, NEXTON, BMservice) и другие работы. Смотрите раздел «Портфолио» и оставьте заявку на консультацию ${nameIn}.`,
+    },
+  ]
+}

@@ -9,7 +9,6 @@ import { useLocale } from '../lib/useLocale'
 export default function PortfolioPage() {
   const [activeFilter, setActiveFilter] = useState('all')
   const [activeIndustry, setActiveIndustry] = useState('all')
-  const [visibleProjects, setVisibleProjects] = useState(6)
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({})
   const { locale } = useLocale()
   const industryOrder = useMemo(
@@ -54,8 +53,6 @@ export default function PortfolioPage() {
   }
 
   const resetView = () => {
-    // Сбрасываем пагинацию при смене фильтров
-    setVisibleProjects(6)
     setImageErrors({})
   }
 
@@ -114,10 +111,6 @@ export default function PortfolioPage() {
 
     return list
   }, [activeFilter, activeIndustry, industryOrder, sortedProjects])
-
-  const loadMore = () => {
-    setVisibleProjects(prev => prev + 3)
-  }
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
@@ -226,7 +219,7 @@ export default function PortfolioPage() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.slice(0, visibleProjects).map((project) => (
+            {filteredProjects.map((project) => (
               <div
                 key={project.id}
                 className="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
@@ -326,18 +319,6 @@ export default function PortfolioPage() {
               </div>
             ))}
           </div>
-
-          {/* Кнопка "Загрузить еще" */}
-          {visibleProjects < filteredProjects.length && (
-            <div className="text-center mt-12">
-              <button
-                onClick={loadMore}
-                className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-lg font-semibold border-2 border-gray-200 dark:border-gray-700 hover:border-blue-600 hover:text-blue-600 transition-all hover:scale-105"
-              >
-                {t(locale, 'portfolio.loadMore')}
-              </button>
-            </div>
-          )}
         </div>
       </section>
 

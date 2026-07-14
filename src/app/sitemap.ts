@@ -27,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/blog`, lastModified: now, changeFrequency: 'daily', priority: 0.85 },
     { url: `${base}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${base}/pricing`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
   ]
 
   const servicePages: MetadataRoute.Sitemap = SERVICE_PATHS.map((slug) => ({

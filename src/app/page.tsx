@@ -14,18 +14,6 @@ export const metadata = buildPageMetadata({
   absoluteTitle: true,
 });
 
-// Известные мировые компании
-const trustedCompanies = [
-  { name: "Microsoft" },
-  { name: "Google" },
-  { name: "Amazon" },
-  { name: "IBM" },
-  { name: "Oracle" },
-  { name: "SAP" },
-  { name: "Salesforce" },
-  { name: "Adobe" },
-];
-
 // Генерируем случайные значения ОДИН РАЗ вне компонента
 const starPositions = {
   // Крупные звезды - ТОЛЬКО ДЛЯ ДЕСКТОПА
@@ -220,9 +208,9 @@ export default function Home() {
               <div className="grid grid-cols-2 gap-4 relative max-md:gap-2">
                 {[
                   { value: "15+", label: "лет на рынке", color: "blue" },
-                  { value: "750+", label: "проектов", color: "purple" },
-                  { value: "350+", label: "клиентов", color: "indigo" },
-                  { value: "25+", label: "экспертов", color: "pink" },
+                  { value: "10+", label: "реальных кейсов", color: "purple" },
+                  { value: "РБ + РФ", label: "география", color: "indigo" },
+                  { value: "24ч", label: "ответ на заявку", color: "pink" },
                 ].map((stat, index) => (
                   <div
                     key={index}
@@ -403,7 +391,7 @@ export default function Home() {
                   {industry.name}
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 max-md:text-xs">
-                  {industry.projects}+ проектов
+                  Отрасль фокуса
                 </p>
               </div>
             ))}
@@ -413,53 +401,40 @@ export default function Home() {
 
       <section className="py-16 bg-linear-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 max-md:py-10">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12 max-md:mb-8">
+          <div className="text-center mb-10 max-md:mb-8">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 max-md:text-2xl">
-              Нам доверяют ведущие компании
+              Реальные проекты клиентов
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto max-md:text-base">
-              Мы гордимся сотрудничеством с мировыми лидерами индустрии
+              Сайты и приложения для бизнеса в Витебске, Полоцке и на рынках РБ/РФ и США —
+              без чужих логотипов и выдуманных кейсов.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center max-md:gap-4">
-            {trustedCompanies.map((company, index) => (
-              <div
-                key={index}
-                className="group relative w-full flex items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 max-md:p-3"
+          <div className="flex flex-wrap justify-center gap-4 mb-10">
+            {['Amba Detail', 'NEXTON', 'Maxximum', 'Динамо-Витебск', 'BMservice'].map((name) => (
+              <span
+                key={name}
+                className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium"
               >
-                <div className="text-gray-400 dark:text-gray-500 font-semibold text-lg max-md:text-sm">
-                  {company.name}
-                </div>
-              </div>
+                {name}
+              </span>
             ))}
           </div>
 
-          <div className="flex flex-wrap justify-center gap-8 mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 max-md:gap-4 max-md:mt-8 max-md:pt-4">
-            <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400 max-md:text-xl">
-                95%
-              </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 max-md:text-xs">
-                клиентов продолжают сотрудничество
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600 dark:text-purple-400 max-md:text-xl">
-                12+
-              </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 max-md:text-xs">
-                лет среднее сотрудничество
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 max-md:text-xl">
-                40+
-              </div>
-              <div className="text-sm text-gray-500 dark:text-gray-400 max-md:text-xs">
-                стран представлены
-              </div>
-            </div>
+          <div className="text-center">
+            <Link
+              href="/portfolio"
+              className="inline-flex px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+            >
+              Смотреть портфолио
+            </Link>
+            <Link
+              href="/pricing"
+              className="inline-flex ml-3 px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-500 font-medium text-gray-800 dark:text-gray-200"
+            >
+              Цены и пакеты
+            </Link>
           </div>
         </div>
       </section>
@@ -658,13 +633,13 @@ const services = [
 
 // Данные для отраслей
 const industries = [
-  { icon: "🏭", name: "Производство", projects: 10 },
-  { icon: "🏦", name: "Финансы", projects: 9 },
-  { icon: "🏥", name: "Медицина", projects: 8 },
-  { icon: "🛍️", name: "Ритейл", projects: 10 },
-  { icon: "🚚", name: "Логистика", projects: 7 },
-  { icon: "📚", name: "Образование", projects: 10 },
-  { icon: "⚡", name: "Энергетика", projects: 7 },
-  { icon: "🎮", name: "Развлечения", projects: 6 },
-  { icon: "📊", name: "Консалтинг", projects: 8 },
+  { icon: "🏭", name: "Производство" },
+  { icon: "🏦", name: "Финансы" },
+  { icon: "🏥", name: "Медицина" },
+  { icon: "🛍️", name: "Ритейл" },
+  { icon: "🚚", name: "Логистика" },
+  { icon: "📚", name: "Образование" },
+  { icon: "⚡", name: "Энергетика" },
+  { icon: "🎮", name: "Развлечения" },
+  { icon: "📊", name: "Консалтинг" },
 ];
