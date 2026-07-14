@@ -25,8 +25,8 @@ export const metadata = buildPageMetadata({
 const PACKAGES = [
   {
     title: 'Лендинг / одностраничник',
-    price: 'от 1 500 BYN',
-    priceRu: 'или от 45 000 ₽',
+    price: 'от 6 000 BYN',
+    priceRu: 'или от 180 000 ₽',
     term: '2–4 недели',
     items: [
       'Дизайн и адаптив',
@@ -37,8 +37,8 @@ const PACKAGES = [
   },
   {
     title: 'Корпоративный сайт',
-    price: 'от 3 500 BYN',
-    priceRu: 'или от 100 000 ₽',
+    price: 'от 12 000 BYN',
+    priceRu: 'или от 360 000 ₽',
     term: '4–8 недель',
     items: [
       'До 10–15 страниц',
@@ -50,8 +50,8 @@ const PACKAGES = [
   },
   {
     title: 'Интернет-магазин',
-    price: 'от 6 000 BYN',
-    priceRu: 'или от 180 000 ₽',
+    price: 'от 15 000 BYN',
+    priceRu: 'или от 450 000 ₽',
     term: 'от 2–3 месяцев',
     items: [
       'Каталог, корзина, оплата',
