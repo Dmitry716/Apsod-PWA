@@ -94,9 +94,7 @@ export default async function BelarusCityPage({ params }: Props) {
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
         Разработка сайтов {city.nameIn} — создание сайта и SEO
       </h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-2">
-        {city.region} · население ~{city.population}
-      </p>
+      <p className="text-lg text-gray-600 dark:text-gray-300 mb-2">{city.region}</p>
       <p className="text-gray-600 dark:text-gray-300 mb-10 max-w-3xl">
         {SITE_NAME} создаёт сайты, интернет-магазины и цифровые продукты для компаний{' '}
         {city.nameIn} и всей {city.region}. {SITE_NAME} базируется в Витебске и работает удалённо по всей Беларуси.

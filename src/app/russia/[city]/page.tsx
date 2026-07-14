@@ -105,9 +105,7 @@ export default async function RussiaCityPage({ params }: Props) {
           ? 'Разработка сайтов в Москве — создание сайта, SEO и приложения'
           : `Разработка сайтов ${city.nameIn} — создание сайта и SEO`}
       </h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-2">
-        {city.region} · население ~{city.population}
-      </p>
+      <p className="text-lg text-gray-600 dark:text-gray-300 mb-2">{city.region}</p>
       <p className="text-gray-600 dark:text-gray-300 mb-10 max-w-3xl">
         {SITE_NAME} создаёт сайты, интернет-магазины и digital-продукты для компаний{' '}
         {city.nameIn} и всей России.
