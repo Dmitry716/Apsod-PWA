@@ -31,6 +31,53 @@ export const POSITIONING = {
         body: 'Современный стек, защищённые интеграции, контроль доступа, резервные копии и практики, принятые в серьёзной продуктовой разработке.',
       },
     ],
+    vsBuildersTitle: 'Свой код, конструктор или готовая CMS?',
+    vsBuildersLead:
+      'Конструктор — для быстрого теста. CMS вроде WordPress или 1С-Битрикс — знакомый компромисс. Уникальный код — когда сайт и сервис должны быть инфраструктурой бизнеса, а не набором плагинов.',
+    vsBuildersNote:
+      'Мы честно говорим о плюсах каждого подхода. APSOD работает только с уникальной разработкой: полный контроль над продуктом, безопасностью и развитием.',
+    vsBuildersColBuilder: 'Конструкторы (Tilda, Wix…)',
+    vsBuildersColCms: 'Готовые CMS (WordPress, Битрикс…)',
+    vsBuildersColCustom: 'APSOD — уникальный код',
+    vsBuildersRows: [
+      {
+        aspect: 'Скорость запуска',
+        builder: 'Часы–дни на шаблоне',
+        cms: 'Быстрее «с нуля», но долго при кастомизации',
+        custom: 'Сроки под scope: осознанный дизайн и инженерия',
+      },
+      {
+        aspect: 'Уникальность и бренд',
+        builder: 'Типовые блоки, похожие сайты',
+        cms: 'Тема + доработки; риск «как у всех»',
+        custom: 'Архитектура и дизайн строго под бизнес',
+      },
+      {
+        aspect: 'SEO и скорость',
+        builder: 'Жёсткие лимиты платформы',
+        cms: 'Зависит от темы, плагинов и «раздутия»',
+        custom: 'Полный контроль разметки и Core Web Vitals',
+      },
+      {
+        aspect: 'Интеграции и логика',
+        builder: 'Только то, что разрешил конструктор',
+        cms: 'Плагины и костыли; потолок кодовой базы CMS',
+        custom: 'CRM, оплата, API, сложные сценарии без потолка',
+      },
+      {
+        aspect: 'Безопасность',
+        builder: 'Общая платформа, мало контроля',
+        cms: 'Частые цели атак; нужна дисциплина обновлений',
+        custom: 'Минимальная поверхность атаки, свои политики доступа',
+      },
+      {
+        aspect: 'Владение и развитие',
+        builder: 'Зависимость от чужого сервиса',
+        cms: 'Код «внутри» CMS + долг на плагинах',
+        custom: 'Ваш репозиторий, понятный roadmap, независимый хостинг',
+      },
+    ],
+    vsBuildersCta: 'Обсудить свой проект',
     lifecycle: [
       {
         step: '01',
@@ -89,6 +136,53 @@ export const POSITIONING = {
         body: 'Modern stack, hardened integrations, access control, backups and practices used in serious product teams.',
       },
     ],
+    vsBuildersTitle: 'Custom code, page builder, or off-the-shelf CMS?',
+    vsBuildersLead:
+      'Builders are for quick tests. WordPress or Bitrix are a familiar compromise. Custom code fits when the product must be business infrastructure — not a stack of plugins.',
+    vsBuildersNote:
+      'We are fair about each approach. APSOD only ships custom development: full control of the product, security and roadmap.',
+    vsBuildersColBuilder: 'Builders (Tilda, Wix…)',
+    vsBuildersColCms: 'CMS (WordPress, Bitrix…)',
+    vsBuildersColCustom: 'APSOD — unique code',
+    vsBuildersRows: [
+      {
+        aspect: 'Time to launch',
+        builder: 'Hours–days on a template',
+        cms: 'Faster than greenfield, slower once heavily customized',
+        custom: 'Timeline matched to scope: deliberate design & engineering',
+      },
+      {
+        aspect: 'Brand uniqueness',
+        builder: 'Lookalike blocks',
+        cms: 'Theme + tweaks; “looks like everyone else” risk',
+        custom: 'Architecture and design built for your business',
+      },
+      {
+        aspect: 'SEO & performance',
+        builder: 'Hard platform limits',
+        cms: 'Depends on theme/plugins and bloat',
+        custom: 'Full control of markup and Core Web Vitals',
+      },
+      {
+        aspect: 'Integrations & logic',
+        builder: 'Only what the builder allows',
+        cms: 'Plugins and workarounds; CMS ceiling',
+        custom: 'CRM, payments, APIs, complex flows without a ceiling',
+      },
+      {
+        aspect: 'Security',
+        builder: 'Shared platform, little control',
+        cms: 'Frequent attack target; update discipline required',
+        custom: 'Smaller attack surface, your access policies',
+      },
+      {
+        aspect: 'Ownership & growth',
+        builder: 'Locked to a vendor service',
+        cms: 'Code trapped in CMS + plugin debt',
+        custom: 'Your repo, clear roadmap, independent hosting',
+      },
+    ],
+    vsBuildersCta: 'Discuss your project',
     lifecycle: [
       {
         step: '01',

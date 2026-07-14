@@ -49,6 +49,72 @@ export default function HomeValueSections() {
         </div>
       </section>
 
+      <section className="py-16 md:py-24 bg-slate-50 dark:bg-gray-950">
+        <div className="container mx-auto px-4">
+          <Reveal className="max-w-3xl mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              {copy.vsBuildersTitle}
+            </h2>
+            <div className="apsod-line-draw mb-4" />
+            <p className="text-gray-600 dark:text-gray-300 text-lg">{copy.vsBuildersLead}</p>
+          </Reveal>
+
+          <Reveal>
+            <div className="overflow-x-auto rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm">
+              <table className="w-full min-w-[780px] text-left text-sm md:text-[15px]">
+                <thead>
+                  <tr className="border-b border-gray-200 dark:border-gray-700">
+                    <th className="px-3 py-4 md:px-5 font-semibold text-gray-500 dark:text-gray-400 w-[16%]">
+                      {locale === 'en' ? 'Aspect' : 'Параметр'}
+                    </th>
+                    <th className="px-3 py-4 md:px-5 font-semibold text-gray-500 dark:text-gray-400 w-[28%]">
+                      {copy.vsBuildersColBuilder}
+                    </th>
+                    <th className="px-3 py-4 md:px-5 font-semibold text-gray-500 dark:text-gray-400 w-[28%]">
+                      {copy.vsBuildersColCms}
+                    </th>
+                    <th className="px-3 py-4 md:px-5 font-semibold text-blue-700 dark:text-blue-300 bg-blue-50/80 dark:bg-blue-950/40 w-[28%]">
+                      {copy.vsBuildersColCustom}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {copy.vsBuildersRows.map((row) => (
+                    <tr
+                      key={row.aspect}
+                      className="border-b border-gray-100 dark:border-gray-800 last:border-0"
+                    >
+                      <td className="px-3 py-4 md:px-5 font-medium text-gray-900 dark:text-white align-top">
+                        {row.aspect}
+                      </td>
+                      <td className="px-3 py-4 md:px-5 text-gray-500 dark:text-gray-400 align-top">
+                        {row.builder}
+                      </td>
+                      <td className="px-3 py-4 md:px-5 text-gray-500 dark:text-gray-400 align-top">
+                        {row.cms}
+                      </td>
+                      <td className="px-3 py-4 md:px-5 text-gray-800 dark:text-gray-100 bg-blue-50/50 dark:bg-blue-950/20 align-top">
+                        {row.custom}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </Reveal>
+
+          <Reveal className="mt-6 max-w-3xl" stagger={2}>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{copy.vsBuildersNote}</p>
+            <Link
+              href="/contact"
+              className="apsod-cta-primary inline-flex px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+            >
+              <span>{copy.vsBuildersCta}</span>
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
       <section className="py-16 md:py-24 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <Reveal className="max-w-3xl mb-12">
