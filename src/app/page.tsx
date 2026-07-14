@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { blogPosts } from "./blog/data/posts";
 import { getCasePath, getFeaturedPortfolioProjects } from "./portfolio/data";
-import { buildPageMetadata, generateFAQSchema } from "./lib/seo";
+import { buildSnippetMetadata, generateFAQSchema } from "./lib/seo";
 import { HOMEPAGE_FAQ } from "./lib/homepage-faq";
 import SeoJsonLd from "./components/SeoJsonLd";
 import HomeSeoSection from "./components/HomeSeoSection";
@@ -9,13 +9,7 @@ import HomeHeroCopy from "./components/HomeHeroCopy";
 import HomeValueSections from "./components/HomeValueSections";
 import Reveal from "./components/Reveal";
 
-export const metadata = buildPageMetadata({
-  title: 'APSOD — разработка сайтов, SEO продвижение, мобильные приложения',
-  description:
-    'Разработка сайтов и создание сайта с нуля, SEO продвижение в Яндексе и Google, мобильные приложения. Минск, Витебск, Москва. Без конструкторов. Уникальный код.',
-  path: '/',
-  absoluteTitle: true,
-});
+export const metadata = buildSnippetMetadata('/');
 
 // Генерируем случайные значения ОДИН РАЗ вне компонента
 const starPositions = {

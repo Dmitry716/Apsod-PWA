@@ -1,10 +1,6 @@
-import { buildPageMetadata, COMPANY_ADDRESS_DISPLAY } from '../../lib/seo'
+import { buildSnippetMetadata, COMPANY_ADDRESS_DISPLAY } from '../../lib/seo'
 
-export const metadata = buildPageMetadata({
-  title: 'Пользовательское соглашение',
-  description: 'Условия использования сайта apsod.com и сервисов APSOD.',
-  path: '/legal/terms-of-use',
-})
+export const metadata = buildSnippetMetadata('/legal/terms-of-use')
 
 export default function TermsOfUsePage() {
   return (

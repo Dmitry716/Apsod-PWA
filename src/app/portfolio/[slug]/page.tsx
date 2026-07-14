@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { getAllPortfolioSlugs, getProjectBySlug } from '../data'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { buildPageMetadata, generateCreativeWorkSchema, generateBreadcrumbSchema } from '../../lib/seo'
+import { portfolioCaseSnippet } from '../../lib/page-snippets'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -16,11 +17,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const project = getProjectBySlug(slug)
   if (!project) return { title: 'Проект не найден' }
+  const snippet = portfolioCaseSnippet(project.title, project.description)
   return buildPageMetadata({
-    title: `${project.title} — кейс APSOD`,
-    description: project.description,
+    title: snippet.title,
+    description: snippet.description,
     path: `/portfolio/${slug}`,
-    keywords: [...project.tags, 'портфолио APSOD', project.category, 'кейс'],
+    keywords: [...(snippet.keywords ?? []), ...project.tags, project.category],
     images: [project.image],
   })
 }

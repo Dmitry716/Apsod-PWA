@@ -1,26 +1,13 @@
 import Link from 'next/link'
 import SeoJsonLd from '../components/SeoJsonLd'
 import {
-  buildPageMetadata,
+  buildSnippetMetadata,
   generateBreadcrumbSchema,
   generateItemListSchema,
   SITE_URL,
 } from '../lib/seo'
 
-export const metadata = buildPageMetadata({
-  title: 'Услуги — организация бизнеса в интернете и уникальная разработка',
-  description:
-    'Аналитика, уникальные сайты и приложения без конструкторов, SEO, CRM, поддержка. APSOD: полный digital-контур для бизнеса в РБ, РФ и мире.',
-  path: '/services',
-  keywords: [
-    'уникальная разработка сайтов',
-    'без конструкторов',
-    'организация бизнеса в интернете',
-    'SEO продвижение',
-    'мобильные приложения',
-    'техподдержка сайтов',
-  ],
-})
+export const metadata = buildSnippetMetadata('/services')
 
 const services = [
   {

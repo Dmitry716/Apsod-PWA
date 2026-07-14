@@ -14,9 +14,8 @@ import {
   getCityContentBlocks,
   getCityFaq,
   getCityMetaKeywords,
-  getCityPageDescription,
-  getCityPageTitle,
 } from '../../lib/semantic-core'
+import { cityPageSnippet } from '../../lib/page-snippets'
 import SeoJsonLd from '../../components/SeoJsonLd'
 
 type Props = { params: Promise<{ city: string }> }
@@ -31,12 +30,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!city) return { title: 'Город не найден' }
 
   const tier = getBelarusGeoTier(city.slug)
+  const snippet = cityPageSnippet(city.name, city.nameIn, city.region)
 
   return buildPageMetadata({
-    title: getCityPageTitle(city.nameIn),
-    description: getCityPageDescription(city.nameIn, city.region),
+    title: snippet.title,
+    description: snippet.description,
     path: `/belarus/${city.slug}`,
-    keywords: getCityMetaKeywords(city.name, city.region, tier, 'Беларусь'),
+    keywords: [
+      ...snippet.keywords!,
+      ...getCityMetaKeywords(city.name, city.region, tier, 'Беларусь'),
+    ],
   })
 }
 

@@ -1,26 +1,13 @@
 import Link from 'next/link'
 import {
-  buildPageMetadata,
+  buildSnippetMetadata,
   generateBreadcrumbSchema,
   generateFAQSchema,
 } from '../lib/seo'
 import SeoJsonLd from '../components/SeoJsonLd'
 import { HOMEPAGE_FAQ } from '../lib/homepage-faq'
 
-export const metadata = buildPageMetadata({
-  title: 'Цены на разработку сайтов и SEO — Беларусь и Россия',
-  description:
-    'Стоимость создания сайта, интернет-магазина, мобильного приложения и SEO в Яндексе и Google. Ориентиры по цене для Минска, Витебска, Москвы. Бесплатная смета.',
-  path: '/pricing',
-  keywords: [
-    'стоимость сайта Минск',
-    'стоимость сайта Москва',
-    'стоимость сайта Витебск',
-    'цена разработки сайта Беларусь',
-    'сколько стоит интернет-магазин',
-    'цены SEO продвижение',
-  ],
-})
+export const metadata = buildSnippetMetadata('/pricing')
 
 const PACKAGES = [
   {
