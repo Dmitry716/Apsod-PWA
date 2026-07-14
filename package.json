@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "icons:generate": "node scripts/generate-favicon.mjs"
   },
   "dependencies": {
     "@upstash/redis": "^1.36.2",

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="APSOD">
+  <defs>
+    <linearGradient id="bg" x1="8%" y1="0%" x2="92%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="45%" stop-color="#2563eb"/>
+      <stop offset="100%" stop-color="#0e7490"/>
+    </linearGradient>
+    <linearGradient id="sheen" x1="50%" y1="0%" x2="50%" y2="65%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="118" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="118" fill="url(#sheen)"/>
+
+  <!-- soft tech mesh -->
+  <g opacity="0.16" fill="none" stroke="#a5f3fc" stroke-width="5" stroke-linecap="round">
+    <circle cx="108" cy="120" r="36"/>
+    <circle cx="404" cy="396" r="30"/>
+    <path d="M140 140 L210 200 M378 372 L310 300"/>
+  </g>
+
+  <!-- Monogram A (evenodd for counter) -->
+  <path
+    fill="#ffffff"
+    fill-rule="evenodd"
+    d="
+      M256 92
+      L410 400
+      H338
+      L306 318
+      H206
+      L174 400
+      H102
+      Z
+      M256 176
+      L224 268
+      H288
+      Z
+    "
+  />
+
+  <!-- Signal node — SEO / digital pulse -->
+  <circle cx="390" cy="142" r="26" fill="#67e8f9"/>
+  <circle cx="390" cy="142" r="11" fill="#164e63"/>
+</svg>
