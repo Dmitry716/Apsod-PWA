@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { blogPosts } from "./blog/data/posts";
-import { getFeaturedPortfolioProjects } from "./portfolio/data";
+import { getCasePath, getFeaturedPortfolioProjects } from "./portfolio/data";
 import { buildPageMetadata, generateFAQSchema } from "./lib/seo";
 import { HOMEPAGE_FAQ } from "./lib/homepage-faq";
 import SeoJsonLd from "./components/SeoJsonLd";
@@ -353,23 +353,12 @@ export default function Home() {
                     <p className="text-gray-600 dark:text-gray-300 mb-4 max-md:text-sm">
                       {project.description}
                     </p>
-                    {project.link.startsWith("http") ? (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-                      >
-                        Посетить сайт →
-                      </a>
-                    ) : (
-                      <Link
-                        href={project.link}
-                        className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
-                      >
-                        Смотреть кейс →
-                      </Link>
-                    )}
+                    <Link
+                      href={getCasePath(project)}
+                      className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                    >
+                      Смотреть кейс →
+                    </Link>
                   </div>
                 </div>
               </Reveal>
