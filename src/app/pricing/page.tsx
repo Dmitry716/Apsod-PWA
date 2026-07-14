@@ -25,7 +25,7 @@ export const metadata = buildPageMetadata({
 const PACKAGES = [
   {
     title: 'Лендинг / одностраничник',
-    price: 'от 8 000 BYN',
+    price: 'от 8 000 Б̶',
     priceRu: 'или от 240 000 ₽',
     term: '2–4 недели',
     items: [
@@ -37,7 +37,7 @@ const PACKAGES = [
   },
   {
     title: 'Корпоративный сайт',
-    price: 'от 15 000 BYN',
+    price: 'от 15 000 Б̶',
     priceRu: 'или от 450 000 ₽',
     term: '4–8 недель',
     items: [
@@ -50,7 +50,7 @@ const PACKAGES = [
   },
   {
     title: 'Интернет-магазин',
-    price: 'от 23 000 BYN',
+    price: 'от 23 000 Б̶',
     priceRu: 'или от 690 000 ₽',
     term: 'от 2–3 месяцев',
     items: [
@@ -65,17 +65,17 @@ const PACKAGES = [
 const EXTRA = [
   {
     title: 'SEO в Яндексе и Google',
-    desc: 'Аудит, семантика, техника, контент, локальное продвижение — от 800 BYN/мес. или пакетный старт после аудита.',
+    desc: 'Аудит, семантика, техника, контент, локальное продвижение — от 800 Б̶/мес. или пакетный старт после аудита.',
     href: '/services/seo',
   },
   {
     title: 'Мобильное приложение',
-    desc: 'iOS / Android / React Native — смета после Discovery. MVP обычно от нескольких тысяч BYN.',
+    desc: 'iOS / Android / React Native — смета после Discovery. MVP обычно от нескольких тысяч Б̶.',
     href: '/services/mobile-development',
   },
   {
     title: 'PWA и техподдержка',
-    desc: 'PWA-доработки и ежемесячное сопровождение сайта — по договору, от нескольких сотен BYN/мес.',
+    desc: 'PWA-доработки и ежемесячное сопровождение сайта — по договору, от нескольких сотен Б̶/мес.',
     href: '/services/technical-support',
   },
 ]
