@@ -6,10 +6,12 @@ import {
   buildPageMetadata,
   generateBreadcrumbSchema,
   generateCityLandingSchema,
+  generateFAQSchema,
   SITE_NAME,
 } from '../../lib/seo'
 import {
   getCityContentBlocks,
+  getCityFaq,
   getCityMetaKeywords,
   getRussiaGeoTier,
 } from '../../lib/semantic-core'
@@ -59,6 +61,9 @@ export default async function RussiaCityPage({ params }: Props) {
     ? 'Разработка сайтов, интернет-магазинов и SEO в Москве — ключевой рынок APSOD в России.'
     : `IT-услуги ${city.nameIn}: разработка сайтов, SEO и мобильные приложения для ${city.region}.`
 
+  const contentBlocks = getCityContentBlocks(city.name, city.nameIn, city.region)
+  const cityFaq = getCityFaq(city.name, city.nameIn)
+
   const schemas = [
     generateBreadcrumbSchema([
       { name: 'Главная', path: '/' },
@@ -72,6 +77,7 @@ export default async function RussiaCityPage({ params }: Props) {
       countryPath: 'russia',
       countryName: 'Russia',
     }),
+    generateFAQSchema(cityFaq),
   ]
 
   const moscowRegionCities = RUSSIA_CITIES.filter(
@@ -80,7 +86,6 @@ export default async function RussiaCityPage({ params }: Props) {
   const otherMajor = RUSSIA_CITIES.filter(
     (c) => c.priority === 'major' && c.slug !== city.slug
   ).slice(0, 5)
-  const contentBlocks = getCityContentBlocks(city.name, city.nameIn, city.region)
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-16">
@@ -170,12 +175,37 @@ export default async function RussiaCityPage({ params }: Props) {
           Обсудить проект
         </Link>
         <Link
+          href="/pricing"
+          className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-500"
+        >
+          Цены
+        </Link>
+        <Link
           href="/portfolio"
           className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-500"
         >
           Портфолио
         </Link>
       </div>
+
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
+          Вопросы про разработку сайтов {city.nameIn}
+        </h2>
+        <div className="space-y-3">
+          {cityFaq.map((item) => (
+            <details
+              key={item.question}
+              className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4"
+            >
+              <summary className="cursor-pointer font-medium text-gray-900 dark:text-white">
+                {item.question}
+              </summary>
+              <p className="mt-2 text-gray-600 dark:text-gray-300 text-sm">{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
 
       {(moscowRegionCities.length > 0 || otherMajor.length > 0) && (
         <section className="space-y-6">

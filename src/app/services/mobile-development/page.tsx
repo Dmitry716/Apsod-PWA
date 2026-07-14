@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
+import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import DevelopmentProcessSection from '../components/DevelopmentProcessSection'
 import { MOBILE_DEVELOPMENT_PROCESS } from '../lib/development-process'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
@@ -113,6 +114,7 @@ export default function MobileDevelopmentPage() {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <ServiceBreadcrumbs service="mobile-development" />
       <SeoJsonLd data={[serviceSchema, breadcrumbSchema]} />
       {/* Hero секция */}
       <section className="relative pt-32 pb-20 overflow-hidden">
@@ -266,6 +268,7 @@ export default function MobileDevelopmentPage() {
           </Link>
         </div>
       </section>
-    </div>
+          <ServiceFaqBlock service="mobile-development" />
+</div>
   )
 }

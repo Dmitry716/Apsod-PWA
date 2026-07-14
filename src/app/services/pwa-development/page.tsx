@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
+import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
 export const metadata = buildServiceMetadata('pwa-development')
@@ -182,6 +183,7 @@ export default function PWADevelopmentPage() {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <ServiceBreadcrumbs service="pwa-development" />
       <SeoJsonLd data={[serviceSchema, breadcrumbSchema]} />
       {/* Hero секция */}
       <section className="relative pt-32 pb-20 overflow-hidden">
@@ -501,6 +503,7 @@ export default function PWADevelopmentPage() {
           </Link>
         </div>
       </section>
-    </div>
+          <ServiceFaqBlock service="pwa-development" />
+</div>
   )
 }

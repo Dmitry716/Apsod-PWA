@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
+import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
 export const metadata = buildServiceMetadata('ui-ux')
@@ -82,6 +83,7 @@ export default function UIUXPage() {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <ServiceBreadcrumbs service="ui-ux" />
       <SeoJsonLd data={[serviceSchema, breadcrumbSchema]} />
       {/* Hero секция */}
       <section className="relative pt-32 pb-20 overflow-hidden">
@@ -246,6 +248,7 @@ export default function UIUXPage() {
           </Link>
         </div>
       </section>
+      <ServiceFaqBlock service="ui-ux" />
     </div>
   );
 }

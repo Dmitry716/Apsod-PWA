@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
+import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
 export const metadata = buildServiceMetadata('technical-support')
@@ -74,6 +75,7 @@ export default function TechnicalSupportPage() {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <ServiceBreadcrumbs service="technical-support" />
       <SeoJsonLd data={[serviceSchema, breadcrumbSchema]} />
 
       <section className="relative pt-32 pb-20 overflow-hidden">
@@ -189,6 +191,7 @@ export default function TechnicalSupportPage() {
           </Link>
         </div>
       </section>
-    </div>
+          <ServiceFaqBlock service="technical-support" />
+</div>
   )
 }

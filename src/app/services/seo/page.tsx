@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
+import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 
 export const metadata = buildServiceMetadata('seo')
@@ -8,7 +9,7 @@ export default function SEOPage() {
   const benefits = [
     {
       title: "Увеличение трафика",
-      description: "Рост поискового трафика до 500% за счет вывода в топ по целевым запросам.",
+      description: "Рост целевого трафика за счёт вывода в топ по коммерческим и информационным запросам.",
       icon: "📈"
     },
     {
@@ -115,6 +116,7 @@ export default function SEOPage() {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <ServiceBreadcrumbs service="seo" />
       <SeoJsonLd data={[serviceSchema, breadcrumbSchema]} />
       {/* Hero секция */}
       <section className="relative pt-32 pb-20 overflow-hidden">
@@ -324,6 +326,7 @@ export default function SEOPage() {
           </Link>
         </div>
       </section>
+      <ServiceFaqBlock service="seo" />
     </div>
   );
 }

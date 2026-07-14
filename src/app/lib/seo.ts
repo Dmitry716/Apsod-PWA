@@ -266,7 +266,11 @@ export function generateOrganizationSchema() {
       { '@type': 'Country', name: 'Belarus' },
       { '@type': 'Country', name: 'Russia' },
     ],
-    sameAs: [] as string[],
+    sameAs: [
+      'https://t.me/DMITRYJS',
+      'https://www.facebook.com/share/1GuC7K2jZ1/?mibextid=wwXIfr',
+      'https://wa.me/375445777724',
+    ],
   }
 }
 

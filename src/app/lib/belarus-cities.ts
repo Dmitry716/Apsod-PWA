@@ -133,9 +133,9 @@ export const BELARUS_CITIES: BelarusCity[] = [
   },
   {
     slug: 'soligorsk',
-    name: 'Солигorsk',
-    nameIn: 'в Солигorske',
-    nameGenitive: 'Солигorska',
+    name: 'Солигорск',
+    nameIn: 'в Солигорске',
+    nameGenitive: 'Солигорска',
     region: 'Минская область',
     population: '105 тыс.',
     lat: 52.7928,
