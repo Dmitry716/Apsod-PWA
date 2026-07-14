@@ -270,10 +270,10 @@
 .apsod-messenger-fab::after {
   content: '';
   position: absolute;
-  inset: -3px;
+  inset: -2px;
   border-radius: 9999px;
   border: 1px solid currentColor;
-  opacity: 0.35;
+  opacity: 0.3;
   animation: apsod-pulse-ring 2.4s ease-out infinite;
   pointer-events: none;
 }
