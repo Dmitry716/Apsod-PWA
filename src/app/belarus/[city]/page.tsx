@@ -8,6 +8,11 @@ import {
   generateCityLandingSchema,
   SITE_NAME,
 } from '../../lib/seo'
+import {
+  getBelarusGeoTier,
+  getCityContentBlocks,
+  getCityMetaKeywords,
+} from '../../lib/semantic-core'
 import SeoJsonLd from '../../components/SeoJsonLd'
 
 type Props = { params: Promise<{ city: string }> }
@@ -21,18 +26,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const city = getCityBySlug(citySlug)
   if (!city) return { title: 'Город не найден' }
 
+  const tier = getBelarusGeoTier(city.slug)
+
   return buildPageMetadata({
-    title: `Разработка сайтов ${city.nameIn} — ${city.region}`,
-    description: `Заказать разработку сайта, интернет-магазина или мобильного приложения ${city.nameIn}. SEO-продвижение, PWA, CRM и техподдержка. ${SITE_NAME} — IT-компания для бизнеса в ${city.region}.`,
+    title: `Разработка сайтов ${city.nameIn} — создание сайтов и интернет-магазинов`,
+    description: `Создание и разработка сайтов ${city.nameIn}, интернет-магазин под ключ, SEO в Яндексе и Google, мобильные приложения. ${SITE_NAME} — IT для бизнеса в ${city.region}.`,
     path: `/belarus/${city.slug}`,
-    keywords: [
-      `разработка сайтов ${city.name}`,
-      `создание сайта ${city.name}`,
-      `SEO ${city.name}`,
-      `интернет-магазин ${city.name}`,
-      `IT компания ${city.name}`,
-      `веб-разработка ${city.region}`,
-    ],
+    keywords: getCityMetaKeywords(city.name, city.region, tier, 'Беларусь'),
   })
 }
 
@@ -67,6 +67,7 @@ export default async function BelarusCityPage({ params }: Props) {
   ]
 
   const otherCities = BELARUS_CITIES.filter((c) => c.slug !== city.slug).slice(0, 6)
+  const contentBlocks = getCityContentBlocks(city.name, city.nameIn, city.region)
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-16">
@@ -108,16 +109,26 @@ export default async function BelarusCityPage({ params }: Props) {
         ))}
       </div>
 
+      {contentBlocks.map((block) => (
+        <section key={block.h2} className="mb-12">
+          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
+            {block.h2}
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
+            {block.body}
+          </p>
+        </section>
+      ))}
+
       <section className="mb-12">
         <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
-          Заказать разработку сайта {city.nameIn}
+          Заказать сайт {city.nameIn}
         </h2>
         <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
-          Компании {city.nameIn} заказывают у {SITE_NAME} корпоративные сайты, лендинги,
-          интернет-магазины и SEO-продвижение в Google и Яндексе. Мы подбираем стек под задачу
-          (Next.js, React, Node.js), проектируем структуру под поисковые запросы региона{' '}
-          {city.region} и сопровождаем проект после запуска. Оставьте заявку — подготовим
-          оценку сроков и стоимости под ваш бизнес {city.nameIn}.
+          Компании {city.nameIn} заказывают у {SITE_NAME} сайт под ключ, лендинг, корпоративный
+          сайт, интернет-магазин и SEO-продвижение. Стек под задачу (Next.js, React, Node.js),
+          структура под запросы {city.region}, сопровождение после запуска. Оставьте заявку —
+          оценим сроки и стоимость создания сайта {city.nameIn}.
         </p>
       </section>
 

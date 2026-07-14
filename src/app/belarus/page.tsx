@@ -2,19 +2,15 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { BELARUS_CITIES } from '../lib/belarus-cities'
 import { buildPageMetadata, generateBreadcrumbSchema, generateItemListSchema, SITE_NAME } from '../lib/seo'
+import { NATIONAL_BY_KEYWORDS } from '../lib/semantic-core'
 import SeoJsonLd from '../components/SeoJsonLd'
 
 export const metadata: Metadata = buildPageMetadata({
-  title: 'Разработка сайтов по всей Беларуси',
+  title: 'Разработка сайтов по всей Беларуси — создание сайтов и интернет-магазинов',
   description:
-    'APSOD — IT-компания с охватом по всей РБ: Минск, Брест, Гомель, Витебск, Гродно, Могилёв и другие города. Разработка сайтов, интернет-магазинов, SEO и мобильных приложений.',
+    'Создание и разработка сайтов в Беларуси: Минск, Витебск, Брест, Гомель, Гродно, Могилёв и регионы. Интернет-магазины, SEO, мобильные приложения.',
   path: '/belarus',
-  keywords: [
-    'разработка сайтов Беларусь',
-    'IT компания РБ',
-    'создание сайтов по Беларуси',
-    'веб-разработка регионы',
-  ],
+  keywords: NATIONAL_BY_KEYWORDS,
 })
 
 export default function BelarusIndexPage() {
@@ -40,7 +36,7 @@ export default function BelarusIndexPage() {
       </h1>
       <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-3xl">
         {SITE_NAME} работает с клиентами по всей РБ: от Витебска до региональных центров.
-        Создаём сайты, интернет-магазины, мобильные приложения и занимаемся SEO-продвижением
+        Создание сайтов, разработка интернет-магазинов, мобильные приложения и SEO-продвижение
         в Google и Яндексе для белорусского рынка.
       </p>
 
