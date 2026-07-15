@@ -94,6 +94,18 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
       'Продвижение сайта в Яндексе и Google: аудит, семантика, контент. Москва, Минск, Витебск. Стоимость SEO — после аудита.',
     keywords: ['SEO продвижение', 'продвижение сайта', 'SEO Яндекс', 'SEO Google'],
   },
+  '/services/geo-promotion': {
+    title: 'GEO продвижение — локальное SEO и карты',
+    description:
+      'GEO и локальное SEO: Яндекс Бизнес, Google Business, карты, отзывы, NAP. Витебск, Минск, Москва. Аудит и ведение.',
+    keywords: [
+      'GEO продвижение',
+      'локальное SEO',
+      'продвижение в картах',
+      'Яндекс Бизнес',
+      'Google Business',
+    ],
+  },
   '/services/mobile-development': {
     title: 'Разработка мобильных приложений',
     description:

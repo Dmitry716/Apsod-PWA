@@ -636,6 +636,14 @@ const services = [
     link: "/services/seo",
   },
   {
+    icon: "📍",
+    title: "GEO продвижение",
+    description:
+      "Локальное SEO: карты, карточки бизнеса, отзывы и клиенты из вашего города.",
+    tags: ["Карты", "Яндекс Бизнес", "Google Business"],
+    link: "/services/geo-promotion",
+  },
+  {
     icon: "📲",
     title: "PWA разработка",
     description:

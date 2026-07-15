@@ -82,6 +82,7 @@ export const SERVICE_PATHS = [
   'mobile-development',
   'pwa-development',
   'seo',
+  'geo-promotion',
   'technical-support',
   'ui-ux',
   'crm',
@@ -136,6 +137,7 @@ const DEFAULT_INDEX_ROBOTS = {
 export const SERVICE_SITEMAP_PRIORITY: Partial<Record<ServicePath, number>> = {
   'web-development': 0.92,
   seo: 0.91,
+  'geo-promotion': 0.9,
   'mobile-development': 0.89,
   'pwa-development': 0.88,
   'technical-support': 0.87,
@@ -552,6 +554,11 @@ export const SERVICE_SEO: Record<
     title: serviceSnippet('seo').title,
     description: serviceSnippet('seo').description,
     keywords: [...(serviceSnippet('seo').keywords ?? [])],
+  },
+  'geo-promotion': {
+    title: serviceSnippet('geo-promotion').title,
+    description: serviceSnippet('geo-promotion').description,
+    keywords: [...(serviceSnippet('geo-promotion').keywords ?? [])],
   },
   'technical-support': {
     title: serviceSnippet('technical-support').title,

@@ -13,6 +13,7 @@ const GEO_LINKS = [
 const SERVICE_LINKS = [
   { href: '/services/web-development', label: 'Уникальная веб-разработка' },
   { href: '/services/seo', label: 'SEO и аналитика' },
+  { href: '/services/geo-promotion', label: 'GEO продвижение' },
   { href: '/services/mobile-development', label: 'Безопасные мобильные приложения' },
   { href: '/services/pwa-development', label: 'PWA-разработка' },
   { href: '/services/technical-support', label: 'Поддержка и развитие' },

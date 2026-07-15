@@ -65,6 +65,9 @@ export default function BelarusIndexPage() {
             <Link href="/services/seo">SEO-продвижение в Google и Яндексе</Link>
           </li>
           <li>
+            <Link href="/services/geo-promotion">GEO-продвижение: карты и локальное SEO</Link>
+          </li>
+          <li>
             <Link href="/services/mobile-development">Мобильные приложения</Link>
           </li>
           <li>

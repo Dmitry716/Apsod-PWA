@@ -126,6 +126,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/services/geo-promotion"
+                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
+                >
+                  {locale === 'en' ? 'GEO / local SEO' : 'GEO-продвижение'}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/services/mobile-development"
                   className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
                 >
