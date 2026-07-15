@@ -72,6 +72,9 @@ export default function RussiaIndexPage() {
             <Link href="/services/seo">SEO-продвижение в Яндексе и Google</Link>
           </li>
           <li>
+            <Link href="/services/geo-promotion">GEO-продвижение: карты и локальное SEO</Link>
+          </li>
+          <li>
             <Link href="/services/mobile-development">Мобильные приложения</Link>
           </li>
           <li>

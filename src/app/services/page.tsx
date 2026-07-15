@@ -80,6 +80,25 @@ const services = [
     color: 'from-yellow-500 to-amber-500'
   },
   {
+    id: 9,
+    title: 'GEO продвижение',
+    description:
+      'Локальное SEO: карты, Яндекс Бизнес, Google Business, отзывы и выдача «рядом»',
+    icon: '📍',
+    fullDescription:
+      'GEO-продвижение для бизнеса с точкой на карте: карточки в Яндексе и Google, карты и 2GIS, NAP, отзывы, локальная семантика и посадочные под город. Фокус — Витебск, Минск, Москва.',
+    features: [
+      'Аудит локальной видимости',
+      'Яндекс Бизнес и Google Business Profile',
+      'Карты и справочники (NAP)',
+      'Отзывы и репутация',
+      'Локальная семантика и посадочные',
+    ],
+    technologies: ['Яндекс Бизнес', 'Google Business', 'Карты', '2GIS', 'Локальное SEO'],
+    link: '/services/geo-promotion',
+    color: 'from-emerald-600 to-teal-500',
+  },
+  {
     id: 5,
     title: 'CRM системы',
     description: 'Внедряем и разрабатываем кастомные CRM системы для управления бизнесом и клиентами',

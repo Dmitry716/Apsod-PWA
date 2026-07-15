@@ -58,8 +58,13 @@ const PACKAGES = [
 const EXTRA = [
   {
     title: 'SEO в Яндексе и Google',
-    desc: 'Аудит, семантика, техника, контент, локальное продвижение — от 800 Б̶/мес. или пакетный старт после аудита.',
+    desc: 'Аудит, семантика, техника, контент — от 800 Б̶/мес. или пакетный старт после аудита.',
     href: '/services/seo',
+  },
+  {
+    title: 'GEO продвижение',
+    desc: 'Карты, Яндекс Бизнес, Google Business, отзывы и локальная выдача — от 600 Б̶ за аудит, ведение от 700 Б̶/мес.',
+    href: '/services/geo-promotion',
   },
   {
     title: 'Мобильное приложение',
@@ -140,7 +145,7 @@ export default function PricingPage() {
       <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
         Другие услуги
       </h2>
-      <div className="grid sm:grid-cols-3 gap-4 mb-12">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
         {EXTRA.map((item) => (
           <Link
             key={item.href}
