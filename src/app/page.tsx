@@ -636,11 +636,11 @@ const services = [
     link: "/services/seo",
   },
   {
-    icon: "📍",
+    icon: "🤖",
     title: "GEO продвижение",
     description:
-      "Локальное SEO: карты, карточки бизнеса, отзывы и клиенты из вашего города.",
-    tags: ["Карты", "Яндекс Бизнес", "Google Business"],
+      "Видимость бренда в нейросетях: ChatGPT, Google AI, Алиса — клиенты по всему миру.",
+    tags: ["ChatGPT", "AI Overviews", "Алиса"],
     link: "/services/geo-promotion",
   },
   {
