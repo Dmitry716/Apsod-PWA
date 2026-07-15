@@ -95,15 +95,15 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
     keywords: ['SEO продвижение', 'продвижение сайта', 'SEO Яндекс', 'SEO Google'],
   },
   '/services/geo-promotion': {
-    title: 'GEO продвижение — локальное SEO и карты',
+    title: 'GEO-продвижение сайта и бренда в нейросетях',
     description:
-      'GEO и локальное SEO: Яндекс Бизнес, Google Business, карты, отзывы, NAP. Витебск, Минск, Москва. Аудит и ведение.',
+      'GEO: AI-видимость в ChatGPT, Google AI, Алисе. Аудит, факт-матрица, тарифы Базовый / Стандарт / Бизнес, ежемесячный мониторинг. Клиенты по всему миру.',
     keywords: [
       'GEO продвижение',
-      'локальное SEO',
-      'продвижение в картах',
-      'Яндекс Бизнес',
-      'Google Business',
+      'GEO в нейросетях',
+      'Generative Engine Optimization',
+      'AI-видимость',
+      'продвижение в ChatGPT',
     ],
   },
   '/services/mobile-development': {

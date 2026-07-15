@@ -129,7 +129,7 @@ export default function Footer() {
                   href="/services/geo-promotion"
                   className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
                 >
-                  {locale === 'en' ? 'GEO / local SEO' : 'GEO-продвижение'}
+                  {locale === 'en' ? 'GEO in AI / LLMs' : 'GEO в нейросетях'}
                 </Link>
               </li>
               <li>

@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const SERVICES = [
   { href: '/services/web-development', title: 'Разработка сайтов', desc: 'Корпоративные сайты, каталоги, интернет-магазины' },
   { href: '/services/seo', title: 'SEO-продвижение', desc: 'Google, Яндекс, органика' },
-  { href: '/services/geo-promotion', title: 'GEO-продвижение', desc: 'Карты, карточки бизнеса, локальная выдача' },
+  { href: '/services/geo-promotion', title: 'GEO-продвижение', desc: 'AI-видимость в нейросетях по всему миру' },
   { href: '/services/mobile-development', title: 'Мобильные приложения', desc: 'iOS, Android, React Native' },
   { href: '/services/pwa-development', title: 'PWA', desc: 'Веб-приложения с push-уведомлениями' },
   { href: '/services/technical-support', title: 'Техподдержка', desc: 'Сопровождение и обновления' },

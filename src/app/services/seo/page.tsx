@@ -138,9 +138,9 @@ export default function SEOPage() {
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
               Продвижение сайта в Яндексе и Google: Москва, Минск, Витебск и удалённо по РБ/РФ.
-              Для карт и карточек бизнеса —{' '}
+              Для AI-видимости в нейросетях —{' '}
               <Link href="/services/geo-promotion" className="text-blue-600 dark:text-blue-400 hover:underline">
-                GEO продвижение
+                GEO-продвижение
               </Link>
               .
             </p>
