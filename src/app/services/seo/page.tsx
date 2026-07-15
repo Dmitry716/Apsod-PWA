@@ -3,6 +3,7 @@ import SeoJsonLd from '../../components/SeoJsonLd'
 import ServiceSemanticBlocks from '../../components/ServiceSemanticBlocks'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
+import { formatDualPrice } from '../../lib/currency'
 
 export const metadata = buildServiceMetadata('seo')
 
@@ -44,22 +45,22 @@ export default function SEOPage() {
     {
       title: "SEO-аудит",
       description: "Полный анализ сайта: технические ошибки, контент, ссылочная масса, юзабилити.",
-      price: "от 800 Б̶"
+      price: formatDualPrice(800)
     },
     {
       title: "Техническая оптимизация",
       description: "Исправление ошибок, улучшение скорости загрузки, настройка индексации.",
-      price: "от 1500 Б̶"
+      price: formatDualPrice(1500)
     },
     {
       title: "Сбор семантики",
       description: "Составление полного ядра поисковых запросов, кластеризация.",
-      price: "от 500 Б̶"
+      price: formatDualPrice(500)
     },
     {
       title: "Оптимизация контента",
       description: "Написание SEO-текстов, оптимизация мета-тегов, работа с контентом.",
-      price: "от 1000 Б̶"
+      price: formatDualPrice(1000)
     },
     {
       title: "Ссылочное продвижение",
@@ -69,7 +70,7 @@ export default function SEOPage() {
     {
       title: "Комплексное SEO",
       description: "Полный комплекс работ по продвижению сайта.",
-      price: "от 3000 Б̶/мес"
+      price: formatDualPrice(3000, { perMonth: true })
     }
   ];
 
@@ -239,7 +240,7 @@ export default function SEOPage() {
               >
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{service.title}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{service.description}</p>
-                <p className="text-lg font-bold text-blue-600 dark:text-blue-400">{service.price}</p>
+                <p className="text-base font-bold text-blue-600 dark:text-blue-400 leading-snug">{service.price}</p>
               </div>
             ))}
           </div>

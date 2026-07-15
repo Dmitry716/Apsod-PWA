@@ -2,6 +2,7 @@ import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
+import { DUAL_CURRENCY_NOTE, formatDualPrice } from '../../lib/currency'
 
 export const metadata = buildServiceMetadata('geo-promotion')
 
@@ -33,7 +34,7 @@ export default function GeoPromotionPage() {
   const tariffs = [
     {
       name: 'Базовый',
-      price: 'от 2 500 Б̶/мес',
+      price: formatDualPrice(2500, { perMonth: true }),
       focus: 'В основном внутренний контур',
       suit: 'Старт подготовки сайта к AI-видимости и регулярный мониторинг.',
       points: [
@@ -47,7 +48,7 @@ export default function GeoPromotionPage() {
     },
     {
       name: 'Стандартный',
-      price: 'от 4 000 Б̶/мес',
+      price: formatDualPrice(4000, { perMonth: true }),
       focus: 'Внутренний контур + расширение внешнего',
       suit: 'Несколько направлений, услуг, регионов или более широкая контентная структура.',
       points: [
@@ -62,7 +63,7 @@ export default function GeoPromotionPage() {
     },
     {
       name: 'Бизнес',
-      price: 'от 6 500 Б̶/мес',
+      price: formatDualPrice(6500, { perMonth: true }),
       focus: 'Внутренний + внешний контур',
       suit: 'Когда AI-видимость зависит от публикаций, карточек, каталогов и рейтингов.',
       points: [
@@ -122,9 +123,12 @@ export default function GeoPromotionPage() {
     '@type': 'Service',
     name: 'GEO-продвижение сайта и бренда в нейросетях',
     description:
-      'GEO (Generative Engine Optimization): повышение AI-видимости бренда в ChatGPT, Google AI Overviews, Алисе и других нейросетях. Аудит, факт-матрица, доработка контента, ежемесячный мониторинг. Для клиентов по всему миру.',
+      'GEO (Generative Engine Optimization): повышение AI-видимости бренда в ChatGPT, Google AI Overviews, Алисе и других нейросетях. Аудит, факт-матрица, доработка контента, ежемесячный мониторинг.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    areaServed: { '@type': 'Place', name: 'Worldwide' },
+    areaServed: [
+      { '@type': 'Country', name: 'Belarus' },
+      { '@type': 'Country', name: 'Russia' },
+    ],
     url: `${SITE_URL}/services/geo-promotion`,
   }
   const breadcrumbSchema = {
@@ -158,7 +162,7 @@ export default function GeoPromotionPage() {
           <div className="max-w-4xl mx-auto text-center mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 rounded-full mb-6 text-sm font-medium">
               <span className="w-2 h-2 bg-violet-600 rounded-full animate-pulse" />
-              Generative Engine Optimization · клиенты по всему миру
+              Generative Engine Optimization · AI-видимость бренда
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
               GEO-продвижение{' '}
@@ -223,8 +227,7 @@ export default function GeoPromotionPage() {
                 сравнениях нейросетей. Часто нужны оба контура.
               </p>
               <p className="text-gray-600 dark:text-gray-300">
-                Работаем удалённо с клиентами <strong className="text-gray-900 dark:text-white">по всему миру</strong>
-                — набор AI-систем и языков подстраиваем под ваш рынок.
+                Набор AI-систем и языков подстраиваем под ваш рынок и сценарии запросов клиентов.
               </p>
             </div>
             <div className="bg-linear-to-br from-violet-600 to-indigo-700 rounded-2xl p-8 text-white">
@@ -308,7 +311,7 @@ export default function GeoPromotionPage() {
             Три уровня регулярной работы. Точная смета — после брифа и аудита.
           </p>
           <p className="text-center text-sm text-gray-500 dark:text-gray-400 mb-12">
-            Ориентиры в BYN; для международных клиентов возможна фиксация в USD/EUR.
+            {DUAL_CURRENCY_NOTE}
           </p>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {tariffs.map((t) => (
@@ -317,7 +320,7 @@ export default function GeoPromotionPage() {
                 className="flex flex-col rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-7 shadow-sm"
               >
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{t.name}</h3>
-                <p className="text-2xl font-bold text-violet-600 dark:text-violet-400 mt-2 mb-3">
+                <p className="text-lg font-bold text-violet-600 dark:text-violet-400 leading-snug mt-2 mb-3">
                   {t.price}
                 </p>
                 <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">
@@ -408,7 +411,8 @@ export default function GeoPromotionPage() {
               <h3 className="font-bold text-gray-900 dark:text-white mb-2">GEO-аудит отдельно</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
                 Срез текущей AI-видимости, конкуренты и карта проблем — без регулярного ведения.
-                От 1 200 Б̶.
+                {' '}
+                {formatDualPrice(1200)}.
               </p>
               <Link href="/contact" className="text-violet-600 dark:text-violet-400 text-sm font-medium hover:underline">
                 Заказать аудит →
@@ -435,8 +439,7 @@ export default function GeoPromotionPage() {
             У вас есть деловой запрос? Давайте обсудим
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Оставьте заявку — предложим формат: аудит, стратегия или ежемесячный GEO-цикл. Клиенты
-            по всему миру.
+            Оставьте заявку — предложим формат: аудит, стратегия или ежемесячный GEO-цикл.
           </p>
           <Link
             href="/contact"

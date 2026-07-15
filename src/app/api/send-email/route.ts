@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { formatDualPrice } from '@/app/lib/currency';
 
 // Интерфейс для данных формы
 interface FormData {
@@ -62,10 +63,10 @@ function getServiceLabel(value: string): string {
 
 function getBudgetLabel(value: string): string {
   const budgets: Record<string, string> = {
-    'landing-8k': 'от 8 000 Б̶ (лендинг)',
-    'corporate-15k': 'от 15 000 Б̶ (корп. сайт)',
-    'shop-23k': 'от 23 000 Б̶ (магазин)',
-    complex: 'от 30 000 Б̶+ (сложный продукт)',
+    'landing-8k': `${formatDualPrice(8000)} (лендинг)`,
+    'corporate-15k': `${formatDualPrice(15000)} (корп. сайт)`,
+    'shop-23k': `${formatDualPrice(23000)} (магазин)`,
+    complex: `${formatDualPrice(30000, { plus: true })} (сложный продукт)`,
     negotiable: 'Пока не знаю / нужна смета',
     '1000-3000': '$1,000 - $3,000',
     '3000-5000': '$3,000 - $5,000',

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { IMaskInput } from 'react-imask'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
+import { formatDualPrice } from '../lib/currency'
 
 const GOALS = [
   {
@@ -45,10 +46,10 @@ const GOALS = [
 ] as const
 
 const BUDGETS = [
-  { value: 'landing-8k', label: 'от 8 000 Б̶', hint: 'лендинг' },
-  { value: 'corporate-15k', label: 'от 15 000 Б̶', hint: 'корп. сайт' },
-  { value: 'shop-23k', label: 'от 23 000 Б̶', hint: 'магазин' },
-  { value: 'complex', label: 'от 30 000 Б̶+', hint: 'сложный продукт' },
+  { value: 'landing-8k', label: formatDualPrice(8000), hint: 'лендинг' },
+  { value: 'corporate-15k', label: formatDualPrice(15000), hint: 'корп. сайт' },
+  { value: 'shop-23k', label: formatDualPrice(23000), hint: 'магазин' },
+  { value: 'complex', label: formatDualPrice(30000, { plus: true }), hint: 'сложный продукт' },
   { value: 'negotiable', label: 'Пока не знаю', hint: 'нужна смета' },
 ] as const
 
