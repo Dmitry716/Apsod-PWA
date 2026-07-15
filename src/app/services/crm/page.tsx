@@ -2,6 +2,7 @@ import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
+import { formatDualPrice } from '../../lib/currency'
 
 export const metadata = buildServiceMetadata('crm')
 
@@ -44,14 +45,14 @@ export default function CRMPage() {
       name: "Битрикс24",
       description: "Самая популярная CRM в СНГ. Подходит для малого и среднего бизнеса.",
       features: ["Бесплатный тариф", "Воронка продаж", "Телефония", "Задачи и проекты"],
-      price: "от 0 Б̶/мес",
+      price: formatDualPrice(0, { perMonth: true }),
       icon: "🇷🇺"
     },
     {
       name: "AmoCRM",
       description: "Простая и понятная CRM для активных продаж. Фокус на воронке и сделках.",
       features: ["Воронка продаж", "Интеграция с WhatsApp", "Виджеты", "API"],
-      price: "от 50 Б̶/мес",
+      price: formatDualPrice(50, { perMonth: true }),
       icon: "🟢"
     },
     {
@@ -216,7 +217,7 @@ export default function CRMPage() {
                     </li>
                   ))}
                 </ul>
-                <p className="text-lg font-bold text-blue-600 dark:text-blue-400">{solution.price}</p>
+                <p className="text-base font-bold text-blue-600 dark:text-blue-400 leading-snug">{solution.price}</p>
               </div>
             ))}
           </div>

@@ -639,7 +639,7 @@ const services = [
     icon: "🤖",
     title: "GEO продвижение",
     description:
-      "Видимость бренда в нейросетях: ChatGPT, Google AI, Алиса — клиенты по всему миру.",
+      "Видимость бренда в нейросетях: ChatGPT, Google AI, Алиса.",
     tags: ["ChatGPT", "AI Overviews", "Алиса"],
     link: "/services/geo-promotion",
   },
