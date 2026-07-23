@@ -29,6 +29,8 @@ export const PORTFOLIO_PRIORITY_LINKS = [
   'https://nexton.vip',
   'https://maxximum.by',
   'https://dynamovitebsk.by',
+  'https://bmservice.by',
+  'https://artdetailing.by',
 ] as const
 
 function normalizePortfolioLink(link: string): string {
@@ -165,6 +167,32 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     color: 'from-slate-700 to-gray-900',
     year: '2022',
     icon: '🔧',
+    location: 'Витебск',
+  },
+  {
+    id: 25,
+    slug: 'artdetailing',
+    title: 'ArtDetailing',
+    category: 'Детейлинг студия',
+    type: 'web',
+    description:
+      'Сайт детейлинг-студии ArtDetailing в Витебске: химчистка, полировка, оклейка, защитные покрытия и онлайн-запись.',
+    challenge:
+      'Студии нужна была яркая витрина услуг и портфолио работ, которая ведёт к записи — без шаблонного «конструкторного» вида.',
+    solution:
+      'Премиальный сайт с каталогом услуг, фото/видео работ, блоками о студии и удобной записью. Акцент на визуал и локальный поиск.',
+    results: [
+      'Понятная витрина услуг и комплексов',
+      'Сильный визуальный образ бренда',
+      'Канал заявок через сайт и мессенджеры',
+    ],
+    image: '/portfolio/artdetailing.png',
+    tags: ['Next.js', 'SEO', 'UI/UX'],
+    liveUrl: 'https://artdetailing.by/',
+    link: 'https://artdetailing.by/',
+    color: 'from-rose-700 to-red-900',
+    year: '2022',
+    icon: '✨',
     location: 'Витебск',
   },
   {

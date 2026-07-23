@@ -5,6 +5,7 @@ export const PORTFOLIO_SITEMAP_SLUGS = [
   'maxximum',
   'dynamo-vitebsk',
   'bmservice',
+  'artdetailing',
   'sparkite',
   'buzz',
   'erin',

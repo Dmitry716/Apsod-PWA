@@ -16,7 +16,7 @@ export const COMPANY = {
   phone: '+375 (44) 577-77-24',
   email: 'karelinseo@gmail.com',
   address: {
-    street: 'ул. 33 Армии, 7',
+    street: '',
     city: 'Витебск',
     region: 'Витебская область',
     postalCode: '210000',
@@ -27,11 +27,11 @@ export const COMPANY = {
   openingHours: 'Mo-Fr 09:00-18:00',
 }
 
-/** Полный адрес ИП для legal, футера и контактов */
-export const COMPANY_ADDRESS_DISPLAY = 'г. Витебск, ул. 33 Армии, 7'
+/** Формат работы / контакты (без уличного адреса) */
+export const COMPANY_ADDRESS_DISPLAY = 'Удалённая работа по всему миру'
 
 export const COMPANY_REMOTE_NOTE =
-  'ИП зарегистрирован в Витебске. Проекты ведём удалённо по всей Беларуси и России.'
+  'ИП зарегистрирован в Витебске. Проекты ведём удалённо по всему миру.'
 
 export const SITE_DESCRIPTION =
   'APSOD — профессиональная организация бизнеса в интернете: аналитика, уникальная и безопасная разработка сайтов и приложений на уникальном коде, SEO и поддержка. Без конструкторов. Витебск, Минск, Москва и удалённо по миру.'
@@ -299,16 +299,11 @@ export function generateOrganizationSchema() {
     telephone: COMPANY.phone,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: COMPANY.address.street,
       addressLocality: COMPANY.address.city,
       addressRegion: COMPANY.address.region,
-      postalCode: COMPANY.address.postalCode,
       addressCountry: COMPANY.address.country,
     },
-    areaServed: [
-      { '@type': 'Country', name: 'Belarus' },
-      { '@type': 'Country', name: 'Russia' },
-    ],
+    areaServed: { '@type': 'Place', name: 'Worldwide' },
     sameAs: [
       'https://t.me/DMITRYJS',
       'https://www.facebook.com/share/1GuC7K2jZ1/?mibextid=wwXIfr',
@@ -343,10 +338,8 @@ export function generateLocalBusinessSchema() {
     parentOrganization: { '@id': getOrganizationId() },
     address: {
       '@type': 'PostalAddress',
-      streetAddress: COMPANY.address.street,
       addressLocality: COMPANY.address.city,
       addressRegion: COMPANY.address.region,
-      postalCode: COMPANY.address.postalCode,
       addressCountry: COMPANY.address.country,
     },
     geo: {
@@ -354,13 +347,7 @@ export function generateLocalBusinessSchema() {
       latitude: COMPANY.geo.lat,
       longitude: COMPANY.geo.lng,
     },
-    areaServed: [
-      { '@type': 'Country', name: 'Belarus' },
-      { '@type': 'Country', name: 'Russia' },
-      { '@type': 'City', name: 'Vitebsk' },
-      { '@type': 'City', name: 'Minsk' },
-      { '@type': 'City', name: 'Moscow' },
-    ],
+    areaServed: { '@type': 'Place', name: 'Worldwide' },
     openingHours: COMPANY.openingHours,
     knowsAbout: [
       'Web Development',

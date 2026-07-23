@@ -261,7 +261,6 @@ export default function Footer() {
                 </a>
               </p>
               <p>{COMPANY_ADDRESS_DISPLAY}</p>
-              <p className="text-gray-400 text-xs">Удалённая работа по РБ и РФ</p>
             </address>
           </div>
 

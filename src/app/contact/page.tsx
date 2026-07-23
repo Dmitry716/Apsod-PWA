@@ -23,10 +23,10 @@ function ContactContent() {
       description: 'Ответим в течение 24 часов',
     },
     {
-      icon: '📍',
-      title: 'Адрес ИП',
+      icon: '🌍',
+      title: 'Формат работы',
       value: COMPANY_ADDRESS_DISPLAY,
-      link: 'https://maps.google.com/?q=Витебск+ул.+33+Армии+7',
+      link: '',
       description: COMPANY_REMOTE_NOTE,
     },
     {
@@ -92,14 +92,18 @@ function ContactContent() {
               >
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{item.title}</h3>
-                <a
-                  href={item.link}
-                  target={item.link.startsWith('http') ? '_blank' : undefined}
-                  rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium text-sm"
-                >
-                  {item.value}
-                </a>
+                {item.link ? (
+                  <a
+                    href={item.link}
+                    target={item.link.startsWith('http') ? '_blank' : undefined}
+                    rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="text-blue-600 dark:text-blue-400 hover:underline font-medium text-sm"
+                  >
+                    {item.value}
+                  </a>
+                ) : (
+                  <p className="text-blue-600 dark:text-blue-400 font-medium text-sm">{item.value}</p>
+                )}
                 <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">{item.description}</p>
               </div>
             ))}

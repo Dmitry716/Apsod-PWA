@@ -524,7 +524,7 @@ export function getCityFaq(
     },
     {
       question: `Есть ли кейсы рядом с ${cityName}?`,
-      answer: `За 15 лет — более 350 реальных кейсов. В портфолио — часть работ (Amba Detail, Maxximum, Динамо-Витебск, NEXTON, BMservice). Остальные проекты покажем на консультации.`,
+      answer: `За 15 лет — более 350 реальных кейсов. В портфолио — часть работ (Amba Detail, Maxximum, Динамо-Витебск, NEXTON, BMservice, ArtDetailing). Остальные проекты покажем на консультации.`,
     },
   ]
 }
