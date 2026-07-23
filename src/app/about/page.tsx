@@ -39,7 +39,7 @@ export default function AboutPage() {
     {
       title: 'Автосервис и ритейл услуг',
       icon: '🔧',
-      description: 'Сайты автосервисов и услуг населению: каталог услуг, прайс, онлайн-запись — Amba Detail, NEXTON, BMservice.',
+      description: 'Сайты автосервисов и услуг населению: каталог услуг, прайс, онлайн-запись — Amba Detail, NEXTON, BMservice, ArtDetailing.',
       color: 'from-orange-500 to-amber-500',
       projects: 'Кейсы РБ',
       features: ['Услуги и прайс', 'Онлайн-запись', 'SEO', 'Скорость']

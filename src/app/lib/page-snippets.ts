@@ -50,7 +50,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/portfolio': {
     title: 'Портфолио — кейсы разработки сайтов',
     description:
-      'Реальные проекты APSOD: сайты и приложения для бизнеса. Amba Detail, NEXTON, Maxximum, Динамо-Витебск и другие. Смотрите результаты.',
+      'Реальные проекты APSOD: сайты и приложения для бизнеса. Amba Detail, NEXTON, Maxximum, Динамо-Витебск, BMservice, ArtDetailing и другие. Смотрите результаты.',
     keywords: ['портфолио APSOD', 'кейсы разработки сайтов'],
   },
   '/blog': {

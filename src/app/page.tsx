@@ -410,7 +410,7 @@ export default function Home() {
           </Reveal>
 
           <Reveal className="flex flex-wrap justify-center gap-4 mb-10" stagger={2}>
-            {['Amba Detail', 'NEXTON', 'Maxximum', 'Динамо-Витебск', 'BMservice'].map((name) => (
+            {['Amba Detail', 'NEXTON', 'Maxximum', 'Динамо-Витебск', 'BMservice', 'ArtDetailing'].map((name) => (
               <span
                 key={name}
                 className="px-4 py-2 rounded-lg bg-white/90 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium backdrop-blur-sm hover:border-blue-400 hover:-translate-y-0.5 transition-all"
