@@ -5,54 +5,14 @@ import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeo
 import DevelopmentProcessSection from '../components/DevelopmentProcessSection'
 import { WEB_DEVELOPMENT_PROCESS } from '../lib/development-process'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
-import { DUAL_CURRENCY_NOTE, dualPriceLines, formatDualPrice } from '../../lib/currency'
+import { DUAL_CURRENCY_NOTE, formatDualPrice } from '../../lib/currency'
+import {
+  WEB_DEV_CASES,
+  WEB_DEV_FEATURED_PACKAGES,
+} from '../../lib/web-dev-packages'
+import { BELARUS_CITIES } from '../../lib/belarus-cities'
 
 export const metadata = buildServiceMetadata('web-development')
-
-const PACKAGES = [
-  {
-    title: 'Лендинг',
-    ...dualPriceLines(8000),
-    term: '2–4 недели',
-    goal: 'landing',
-    budget: 'landing-8k',
-    highlight: false,
-    items: [
-      'Уникальный дизайн и адаптив',
-      'Форма заявки / WhatsApp / Telegram',
-      'Базовая SEO-разметка',
-      'Подключение аналитики',
-    ],
-  },
-  {
-    title: 'Корпоративный сайт',
-    ...dualPriceLines(15000),
-    term: '4–8 недель',
-    goal: 'corporate',
-    budget: 'corporate-15k',
-    highlight: true,
-    items: [
-      'До 10–15 страниц под семантику',
-      'CMS / удобное редактирование',
-      'Скорость и Core Web Vitals',
-      'Структура под заявки и SEO',
-    ],
-  },
-  {
-    title: 'Интернет-магазин',
-    ...dualPriceLines(23000),
-    term: 'от 2–3 месяцев',
-    goal: 'shop',
-    budget: 'shop-23k',
-    highlight: false,
-    items: [
-      'Каталог, корзина, оплата',
-      'Интеграции доставки и CRM',
-      'Админка и SEO каталога',
-      'Обучение и запуск',
-    ],
-  },
-]
 
 const FOR_WHOM = [
   'Нужен сайт как канал заявок, а не «визитка на конструкторе»',
@@ -75,24 +35,6 @@ const STACK = [
   'MongoDB',
   'Tailwind CSS',
   'Vercel / Docker',
-]
-
-const CASES = [
-  {
-    title: 'Amba Detail',
-    result: 'Единая витрина услуг и цен вместо разрозненных сообщений',
-    href: '/portfolio/amba-detail',
-  },
-  {
-    title: 'NEXTON',
-    result: 'Чёткая презентация узких услуг автосервиса для двух городов',
-    href: '/portfolio/nexton',
-  },
-  {
-    title: 'Maxximum',
-    result: 'Запись на пробные занятия с сайта спортивного центра',
-    href: '/portfolio/maxximum',
-  },
 ]
 
 export default function WebDevelopmentPage() {
@@ -146,6 +88,39 @@ export default function WebDevelopmentPage() {
         </div>
       </section>
 
+      <section className="pb-12">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="rounded-2xl border border-blue-200 dark:border-blue-800 bg-blue-50/60 dark:bg-blue-950/30 p-6 md:p-8 text-center">
+            <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3">
+              Разработка сайтов в Минске и Витебске
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-5 max-w-2xl mx-auto">
+              Отдельные посадочные под ключ: пакеты, этапы оплаты и смета для бизнеса в Беларуси.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {BELARUS_CITIES.map((city) => (
+                <Link
+                  key={city.slug}
+                  href={`/services/web-development/${city.slug}`}
+                  className="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+                >
+                  Сайт {city.nameIn}
+                </Link>
+              ))}
+              {BELARUS_CITIES.map((city) => (
+                <Link
+                  key={`hub-${city.slug}`}
+                  href={`/belarus/${city.slug}`}
+                  className="px-5 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg font-medium hover:border-blue-500"
+                >
+                  Все услуги · {city.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="pb-16">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="grid md:grid-cols-2 gap-6">
@@ -186,7 +161,7 @@ export default function WebDevelopmentPage() {
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-5 mb-8">
-            {PACKAGES.map((pkg) => (
+            {WEB_DEV_FEATURED_PACKAGES.map((pkg) => (
               <div
                 key={pkg.title}
                 className={`rounded-2xl border p-6 flex flex-col ${
@@ -261,7 +236,7 @@ export default function WebDevelopmentPage() {
             Примеры работ
           </h2>
           <div className="grid md:grid-cols-3 gap-4 mb-8">
-            {CASES.map((c) => (
+            {WEB_DEV_CASES.slice(0, 3).map((c) => (
               <Link
                 key={c.href}
                 href={c.href}

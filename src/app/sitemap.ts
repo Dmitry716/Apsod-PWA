@@ -65,6 +65,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: city.slug === 'minsk' ? 0.92 : 0.82,
   }))
 
+  const belarusWebDevLandings: MetadataRoute.Sitemap = BELARUS_CITIES.map((city) => ({
+    url: `${base}/services/web-development/${city.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
   const russiaCityPages: MetadataRoute.Sitemap = RUSSIA_CITIES.map((city) => ({
     url: `${base}/russia/${city.slug}`,
     lastModified: now,
@@ -79,6 +86,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...portfolioPages,
     ...legalPages,
     ...belarusCityPages,
+    ...belarusWebDevLandings,
     ...russiaCityPages,
   ]
 }

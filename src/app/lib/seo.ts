@@ -119,6 +119,8 @@ type PageMetadataOptions = {
   noIndex?: boolean
   /** Не добавлять суффикс «| APSOD» из layout template */
   absoluteTitle?: boolean
+  /** Если задан — canonical/OG url указывают сюда (для зеркальных посадочных) */
+  canonicalPath?: string
 }
 
 const DEFAULT_INDEX_ROBOTS = {
@@ -202,11 +204,12 @@ export function buildPageMetadata(options: PageMetadataOptions): Metadata {
     images,
     noIndex,
     absoluteTitle,
+    canonicalPath,
   } = options
 
   const snippetTitle = clipTitle(title)
   const snippetDescription = clipDescription(description)
-  const canonical = buildCanonical(path)
+  const canonical = buildCanonical(canonicalPath || path)
   const ogImages = (images?.length ? images : [DEFAULT_OG_IMAGE_URL]).map((url) => ({
     url: url.startsWith('http') ? url : `${SITE_URL}${url}`,
     width: 1200,
@@ -278,6 +281,7 @@ export function buildSnippetMetadata(
     publishedTime: overrides?.publishedTime,
     modifiedTime: overrides?.modifiedTime,
     images: overrides?.images,
+    canonicalPath: overrides?.canonicalPath,
   })
 }
 
