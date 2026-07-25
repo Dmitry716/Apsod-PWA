@@ -36,6 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: snippet.title,
     description: snippet.description,
     path: `/russia/${city.slug}`,
+    absoluteTitle: snippet.absoluteTitle,
     keywords: [
       ...snippet.keywords!,
       ...getCityMetaKeywords(city.name, city.region, tier, 'Россия'),
@@ -60,8 +61,8 @@ export default async function RussiaCityPage({ params }: Props) {
 
   const isMoscow = city.slug === 'moscow'
   const description = isMoscow
-    ? 'Разработка сайтов, интернет-магазинов и SEO в Москве — ключевой рынок APSOD в России.'
-    : `IT-услуги ${city.nameIn}: разработка сайтов, SEO и мобильные приложения для ${city.region}.`
+    ? 'Разработка и продвижение сайтов в Москве — ключевой рынок APSOD в России.'
+    : `Разработка и продвижение сайтов ${city.nameIn}: сайты, SEO и мобильные приложения для ${city.region}.`
 
   const contentBlocks = getCityContentBlocks(city.name, city.nameIn, city.region)
   const cityFaq = getCityFaq(city.name, city.nameIn)
@@ -102,17 +103,15 @@ export default async function RussiaCityPage({ params }: Props) {
       </nav>
 
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        {isMoscow
-          ? 'Разработка сайтов в Москве — создание сайта, SEO и приложения'
-          : `Разработка сайтов ${city.nameIn} — создание сайта и SEO`}
+        Разработка и продвижение сайтов {city.nameIn}
       </h1>
       <p className="text-lg text-gray-600 dark:text-gray-300 mb-2">{city.region}</p>
       <p className="text-gray-600 dark:text-gray-300 mb-10 max-w-3xl">
         {SITE_NAME} создаёт сайты, интернет-магазины и digital-продукты для компаний{' '}
-        {city.nameIn} и всей России.
+        {city.nameIn} и в России.
         {isMoscow
           ? ' Москва — наш приоритетный рынок в РФ: SEO в Яндексе и Google, e-commerce, PWA и мобильные приложения.'
-          : ' Работаем удалённо по всей РФ из Витебска. Основной фокус — Москва и Московская область.'}
+          : ' Работаем удалённо в России из Витебска. Основной фокус — Москва и Московская область.'}
       </p>
 
       <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">

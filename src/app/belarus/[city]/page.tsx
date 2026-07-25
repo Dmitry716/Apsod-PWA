@@ -60,7 +60,7 @@ export default async function BelarusCityPage({ params }: Props) {
   const city = getCityBySlug(citySlug)
   if (!city) notFound()
 
-  const description = `Разработка сайтов под ключ ${city.nameIn}: лендинг, корпоративный сайт, каталог, интернет-магазин на уникальном коде. SEO и сопровождение.`
+  const description = `Разработка и продвижение сайтов ${city.nameIn}: лендинг, корпоративный сайт, каталог, интернет-магазин на уникальном коде. SEO и сопровождение.`
 
   const contentBlocks = getCityContentBlocks(city.name, city.nameIn, city.region)
   const cityFaq = getCityFaq(city.name, city.nameIn)
@@ -68,7 +68,7 @@ export default async function BelarusCityPage({ params }: Props) {
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: `Разработка сайтов под ключ ${city.nameIn}`,
+    name: `Разработка и продвижение сайтов ${city.nameIn}`,
     description,
     provider: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
     areaServed: {

@@ -3,11 +3,11 @@ import { HOMEPAGE_FAQ } from '../lib/homepage-faq'
 import { SITE_NAME } from '../lib/seo'
 
 const GEO_LINKS = [
-  { href: '/belarus/vitebsk', label: 'Разработка сайтов в Витебске' },
-  { href: '/belarus/minsk', label: 'Разработка сайтов в Минске' },
-  { href: '/russia/moscow', label: 'Разработка сайтов в Москве' },
-  { href: '/belarus', label: 'Услуги по всей Беларуси' },
-  { href: '/russia', label: 'Услуги по всей России' },
+  { href: '/belarus/vitebsk', label: 'Разработка и продвижение сайтов в Витебске' },
+  { href: '/belarus/minsk', label: 'Разработка и продвижение сайтов в Минске' },
+  { href: '/russia/moscow', label: 'Разработка и продвижение сайтов в Москве' },
+  { href: '/belarus', label: 'Разработка и продвижение сайтов в Беларуси' },
+  { href: '/russia', label: 'Разработка и продвижение сайтов в России' },
 ]
 
 const SERVICE_LINKS = [
@@ -25,7 +25,7 @@ export default function HomeSeoSection() {
       <section className="py-20 bg-gray-50 dark:bg-gray-900/50 max-md:py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-            {SITE_NAME} — организация бизнеса в интернете
+            {SITE_NAME} — продвижение бизнеса в интернете
           </h2>
           <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 space-y-4">
             <p>
