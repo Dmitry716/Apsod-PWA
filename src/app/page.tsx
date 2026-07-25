@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { blogPosts } from "./blog/data/posts";
-import { getCasePath, getFeaturedPortfolioProjects } from "./portfolio/data";
+import { getCasePath, getFeaturedPortfolioProjects, PORTFOLIO_PROJECTS } from "./portfolio/data";
 import { buildSnippetMetadata, generateFAQSchema } from "./lib/seo";
 import { HOMEPAGE_FAQ } from "./lib/homepage-faq";
 import SeoJsonLd from "./components/SeoJsonLd";
 import HomeSeoSection from "./components/HomeSeoSection";
 import HomeHeroCopy from "./components/HomeHeroCopy";
 import HomeValueSections from "./components/HomeValueSections";
+import HomeGeoBanner from "./components/HomeGeoBanner";
+import HomeLeadStrip from "./components/HomeLeadStrip";
 import Reveal from "./components/Reveal";
 
 export const metadata = buildSnippetMetadata('/');
@@ -58,11 +60,15 @@ const starPositions = {
 };
 
 export default function Home() {
+  const featuredServices = services.filter((s) => s.featured)
+  const moreServices = services.filter((s) => !s.featured)
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <SeoJsonLd data={generateFAQSchema([...HOMEPAGE_FAQ])} />
+      <HomeGeoBanner />
       {/* Hero секция */}
-      <section className="hero-section relative pt-32 pb-20 overflow-hidden bg-linear-to-br from-slate-50 via-blue-50/80 to-cyan-50/40 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <section className="hero-section relative pt-28 pb-20 overflow-hidden bg-linear-to-br from-slate-50 via-blue-50/80 to-cyan-50/40 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         {/* Светлая тема: сетка + soft mesh */}
         <div className="absolute inset-0 z-0 dark:hidden pointer-events-none" aria-hidden>
           <div className="apsod-grid-fade opacity-70" />
@@ -229,52 +235,79 @@ export default function Home() {
 
       <HomeValueSections />
 
-      {/* Остальные секции */}
+      {/* Топ услуг */}
       <section className="py-20 bg-white dark:bg-gray-800 max-md:py-12">
         <div className="container mx-auto px-4">
           <Reveal className="text-center mb-12 max-md:mb-8">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 max-md:text-3xl">
-              Наши услуги
+              Топ услуг для бизнеса
             </h2>
             <div className="apsod-line-draw mx-auto mb-4" />
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto max-md:text-base">
-              Аналитика, уникальная разработка, SEO и поддержка — без конструкторов и шаблонных сборок
+              Четыре приоритета роста: сайт, поиск, нейросети и сопровождение
             </p>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-md:gap-4">
-            {services.map((service, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-md:gap-4 mb-10">
+            {featuredServices.map((service, index) => (
               <Reveal
-                key={index}
-                stagger={(Math.min((index % 5) + 1, 5) as 1 | 2 | 3 | 4 | 5)}
+                key={service.link}
+                stagger={(Math.min(index + 1, 5) as 1 | 2 | 3 | 4 | 5)}
               >
                 <Link
                   href={service.link}
-                  className="apsod-card-lift group block h-full bg-gray-50 dark:bg-gray-700 rounded-2xl p-8 border border-transparent hover:border-blue-200 dark:hover:border-blue-800 max-md:p-4"
+                  className="apsod-card-lift group block h-full rounded-2xl p-8 border border-blue-100 dark:border-blue-900/40 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 hover:border-blue-400 max-md:p-4"
                 >
-                  <div className="text-4xl mb-4 max-md:text-3xl transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3">
-                    {service.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 max-md:text-lg group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4 max-md:text-sm">
-                    {service.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {service.tags.map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2 py-1 bg-gray-200 dark:bg-gray-600 text-xs rounded-full transition-colors group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  <div className="flex items-start gap-4">
+                    <div className="text-4xl max-md:text-3xl transition-transform duration-300 group-hover:scale-110">
+                      {service.icon}
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-300 mb-3 max-md:text-sm">
+                        {service.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {service.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2 py-1 bg-blue-50 dark:bg-blue-900/30 text-xs rounded-full text-blue-700 dark:text-blue-300"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </Link>
               </Reveal>
             ))}
           </div>
+
+          <Reveal className="text-center mb-4">
+            <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
+              Также в контуре APSOD
+            </p>
+            <div className="flex flex-wrap justify-center gap-2 mb-6">
+              {moreServices.map((service) => (
+                <Link
+                  key={service.link}
+                  href={service.link}
+                  className="px-3 py-1.5 rounded-full text-sm border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:border-blue-400 hover:text-blue-600 transition-colors"
+                >
+                  {service.icon} {service.title}
+                </Link>
+              ))}
+            </div>
+            <Link
+              href="/services"
+              className="inline-flex text-blue-600 dark:text-blue-400 font-medium hover:underline"
+            >
+              Смотреть все услуги →
+            </Link>
+          </Reveal>
         </div>
       </section>
 
@@ -287,7 +320,7 @@ export default function Home() {
               </h2>
               <div className="apsod-line-draw mb-4" />
               <p className="text-xl text-gray-600 dark:text-gray-300 max-md:text-base">
-                Реальные истории успеха наших клиентов
+                Избранные кейсы: что сделали и какой результат получили клиенты
               </p>
             </div>
             <Link
@@ -344,9 +377,14 @@ export default function Home() {
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 transition-colors max-md:text-xl">
                       {project.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300 mb-4 max-md:text-sm">
+                    <p className="text-gray-600 dark:text-gray-300 mb-3 max-md:text-sm">
                       {project.description}
                     </p>
+                    {project.results[0] ? (
+                      <p className="text-sm text-blue-700 dark:text-blue-300 mb-4 line-clamp-2">
+                        Результат: {project.results[0]}
+                      </p>
+                    ) : null}
                     <Link
                       href={getCasePath(project)}
                       className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
@@ -361,37 +399,45 @@ export default function Home() {
         </div>
       </section>
 
+      <HomeLeadStrip />
+
       <section className="py-20 bg-white dark:bg-gray-800 max-md:py-12">
         <div className="container mx-auto px-4">
           <Reveal className="text-center mb-16 max-md:mb-8">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 max-md:text-3xl">
-              Отрасли, которые мы трансформируем
+              Отрасли, с которыми работаем
             </h2>
             <div className="apsod-line-draw mx-auto mb-4" />
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto max-md:text-base">
-              Глубокая отраслевая экспертиза в различных секторах экономики
+              Выберите отрасль — откроется портфолио с релевантными проектами
             </p>
           </Reveal>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-md:gap-3">
-            {industries.map((industry, index) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 max-md:gap-3">
+            {industries.map((industry, index) => {
+              const sample = PORTFOLIO_PROJECTS.find((p) => p.category === industry.name)
+              return (
               <Reveal
-                key={index}
+                key={industry.name}
                 stagger={(Math.min((index % 5) + 1, 5) as 1 | 2 | 3 | 4 | 5)}
               >
-                <div className="apsod-card-lift group relative bg-gray-50 dark:bg-gray-700 rounded-2xl p-6 text-center max-md:p-3">
+                <Link
+                  href={`/portfolio?industry=${encodeURIComponent(industry.name)}`}
+                  className="apsod-card-lift group relative block bg-gray-50 dark:bg-gray-700 rounded-2xl p-6 text-center max-md:p-3 border border-transparent hover:border-blue-300 dark:hover:border-blue-700"
+                >
                   <div className="text-4xl mb-3 max-md:text-2xl transition-transform duration-300 group-hover:scale-125">
                     {industry.icon}
                   </div>
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-2 max-md:text-sm">
                     {industry.name}
                   </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 max-md:text-xs">
-                    Отрасль фокуса
+                  <p className="text-sm text-gray-500 dark:text-gray-400 max-md:text-xs line-clamp-1">
+                    {sample ? sample.title : 'Смотреть проекты'}
                   </p>
-                </div>
+                </Link>
               </Reveal>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
@@ -585,7 +631,7 @@ export default function Home() {
   );
 }
 
-// Данные для услуг
+// Данные для услуг (featured = топ на главной)
 const services = [
   {
     icon: "🌐",
@@ -594,38 +640,7 @@ const services = [
       "Корпоративные сайты и интернет-магазины на уникальном коде: аналитика, архитектура, безопасность.",
     tags: ["Next.js", "React", "TypeScript", "Без конструкторов"],
     link: "/services/web-development",
-  },
-  {
-    icon: "📱",
-    title: "Мобильные приложения",
-    description:
-      "Уникальные iOS и Android продукты с упором на безопасность и стабильность.",
-    tags: ["React Native", "Flutter", "Swift", "Kotlin"],
-    link: "/services/mobile-development",
-  },
-  {
-    icon: "🤝",
-    title: "CRM системы",
-    description:
-      "Настройка и кастомные CRM для заявок, продаж и коммуникаций с клиентами.",
-    tags: ["Bitrix24", "AmoCRM", "Интеграции"],
-    link: "/services/crm",
-  },
-  {
-    icon: "⚙️",
-    title: "ERP и учёт",
-    description:
-      "Индивидуальные решения и интеграции для процессов, склада и отчётности.",
-    tags: ["1С интеграция", "Кастом", "Отчёты"],
-    link: "/services/erp",
-  },
-  {
-    icon: "🎨",
-    title: "UI/UX дизайн",
-    description:
-      "Уникальный дизайн под бренд и сценарии пользователя — не готовые шаблоны.",
-    tags: ["Figma", "Прототипы", "Дизайн-системы"],
-    link: "/services/ui-ux",
+    featured: true,
   },
   {
     icon: "📈",
@@ -634,6 +649,7 @@ const services = [
       "Стратегия продвижения и измеримый рост в Яндексе и Google.",
     tags: ["SEO", "Метрика", "Контент"],
     link: "/services/seo",
+    featured: true,
   },
   {
     icon: "🤖",
@@ -642,14 +658,7 @@ const services = [
       "Видимость бренда в нейросетях: ChatGPT, Google AI, Алиса.",
     tags: ["ChatGPT", "AI Overviews", "Алиса"],
     link: "/services/geo-promotion",
-  },
-  {
-    icon: "📲",
-    title: "PWA разработка",
-    description:
-      "Прогрессивные веб-приложения с push, офлайном и установкой на устройство.",
-    tags: ["Next.js", "Service Workers", "Manifest"],
-    link: "/services/pwa-development",
+    featured: true,
   },
   {
     icon: "🛠️",
@@ -658,6 +667,52 @@ const services = [
       "Сопровождение после запуска: мониторинг, обновления, развитие продукта.",
     tags: ["Next.js", "Безопасность", "SLA"],
     link: "/services/technical-support",
+    featured: true,
+  },
+  {
+    icon: "📱",
+    title: "Мобильные приложения",
+    description:
+      "Уникальные iOS и Android продукты с упором на безопасность и стабильность.",
+    tags: ["React Native", "Flutter", "Swift", "Kotlin"],
+    link: "/services/mobile-development",
+    featured: false,
+  },
+  {
+    icon: "🤝",
+    title: "CRM системы",
+    description:
+      "Настройка и кастомные CRM для заявок, продаж и коммуникаций с клиентами.",
+    tags: ["Bitrix24", "AmoCRM", "Интеграции"],
+    link: "/services/crm",
+    featured: false,
+  },
+  {
+    icon: "⚙️",
+    title: "ERP и учёт",
+    description:
+      "Индивидуальные решения и интеграции для процессов, склада и отчётности.",
+    tags: ["1С интеграция", "Кастом", "Отчёты"],
+    link: "/services/erp",
+    featured: false,
+  },
+  {
+    icon: "🎨",
+    title: "UI/UX дизайн",
+    description:
+      "Уникальный дизайн под бренд и сценарии пользователя — не готовые шаблоны.",
+    tags: ["Figma", "Прототипы", "Дизайн-системы"],
+    link: "/services/ui-ux",
+    featured: false,
+  },
+  {
+    icon: "📲",
+    title: "PWA разработка",
+    description:
+      "Прогрессивные веб-приложения с push, офлайном и установкой на устройство.",
+    tags: ["Next.js", "Service Workers", "Manifest"],
+    link: "/services/pwa-development",
+    featured: false,
   },
 ];
 

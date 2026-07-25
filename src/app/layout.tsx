@@ -41,7 +41,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE_NAME} — разработка сайтов и SEO без конструкторов`,
+    default: `${SITE_NAME} — сайты и рост заявок на уникальном коде`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,

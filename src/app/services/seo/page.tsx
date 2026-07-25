@@ -3,107 +3,84 @@ import SeoJsonLd from '../../components/SeoJsonLd'
 import ServiceSemanticBlocks from '../../components/ServiceSemanticBlocks'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
-import { formatDualPrice } from '../../lib/currency'
+import { DUAL_CURRENCY_NOTE, formatDualPrice } from '../../lib/currency'
 
 export const metadata = buildServiceMetadata('seo')
 
+const ENTRY = [
+  {
+    title: 'SEO-аудит',
+    description: 'Техника, контент, индексация, конкуренты — карта проблем и приоритетов.',
+    price: formatDualPrice(800),
+    tag: 'Старт',
+  },
+  {
+    title: 'Сбор семантики',
+    description: 'Ядро запросов, кластеризация, структура посадочных под бизнес-цели.',
+    price: formatDualPrice(500),
+    tag: 'Основа',
+  },
+  {
+    title: 'Техническая оптимизация',
+    description: 'Скорость, индексация, ошибки, разметка — фундамент для роста позиций.',
+    price: formatDualPrice(1500),
+    tag: 'Техника',
+  },
+  {
+    title: 'Оптимизация контента',
+    description: 'Мета, тексты, перелинковка, страницы услуг под коммерческие запросы.',
+    price: formatDualPrice(1000),
+    tag: 'Контент',
+  },
+]
+
+const COMPLEX = {
+  title: 'Комплексное SEO',
+  price: formatDualPrice(3000, { perMonth: true }),
+  description:
+    'Ежемесячный цикл: техника, семантика, контент, внешние факторы и отчётность. Старт после аудита.',
+  points: [
+    'План работ по приоритетам аудита',
+    'Регулярные доработки страниц и контента',
+    'Мониторинг позиций и трафика',
+    'Отчёт и рекомендации на следующий месяц',
+  ],
+}
+
+const KPI = [
+  { title: 'Позиции', body: 'Динамика по приоритетным коммерческим и брендовым запросам' },
+  { title: 'Трафик', body: 'Органика из Яндекса и Google, качество посадочных' },
+  { title: 'Заявки', body: 'Цели в Метрике / Analytics: формы, звонки, мессенджеры' },
+  { title: 'Техника', body: 'Индексация, скорость, ошибки Crawl / Search Console' },
+]
+
+const STEPS = [
+  { n: '1', title: 'Аудит', body: 'Фиксируем точку ноль и узкие места' },
+  { n: '2', title: 'Семантика', body: 'Собираем и кластеризуем спрос' },
+  { n: '3', title: 'Оптимизация', body: 'Техника и контент по плану' },
+  { n: '4', title: 'Рост', body: 'Итерации, ссылки, доработки' },
+  { n: '5', title: 'Аналитика', body: 'Отчёт и корректировка курса' },
+]
+
+const AUDIENCE = [
+  'Сайт есть, но мало заявок из органики',
+  'Запускаете новый сайт и сразу закладываете SEO',
+  'Нужен рост в Яндексе и Google по Минску, Витебску, Москве или РФ/РБ',
+  'Готовы к системной работе 2–4+ месяца, а не к «волшебной кнопке»',
+]
+
 export default function SEOPage() {
-  const benefits = [
-    {
-      title: "Увеличение трафика",
-      description: "Рост целевого трафика за счёт вывода в топ по коммерческим и информационным запросам.",
-      icon: "📈"
-    },
-    {
-      title: "Целевые посетители",
-      description: "Привлекаем пользователей, которые уже ищут ваши товары или услуги.",
-      icon: "🎯"
-    },
-    {
-      title: "Долгосрочный результат",
-      description: "В отличие от рекламы, SEO работает годами без постоянных вложений.",
-      icon: "⏳"
-    },
-    {
-      title: "Доверие пользователей",
-      description: "Топ-позиции в поиске воспринимаются как знак качества и надежности.",
-      icon: "🤝"
-    },
-    {
-      title: "Рост бренда",
-      description: "Постоянное присутствие в поиске повышает узнаваемость вашего бренда.",
-      icon: "🏆"
-    },
-    {
-      title: "Аналитика",
-      description: "Прозрачная отчетность по позициям, трафику и конверсиям.",
-      icon: "📊"
-    }
-  ];
-
-  const services = [
-    {
-      title: "SEO-аудит",
-      description: "Полный анализ сайта: технические ошибки, контент, ссылочная масса, юзабилити.",
-      price: formatDualPrice(800)
-    },
-    {
-      title: "Техническая оптимизация",
-      description: "Исправление ошибок, улучшение скорости загрузки, настройка индексации.",
-      price: formatDualPrice(1500)
-    },
-    {
-      title: "Сбор семантики",
-      description: "Составление полного ядра поисковых запросов, кластеризация.",
-      price: formatDualPrice(500)
-    },
-    {
-      title: "Оптимизация контента",
-      description: "Написание SEO-текстов, оптимизация мета-тегов, работа с контентом.",
-      price: formatDualPrice(1000)
-    },
-    {
-      title: "Ссылочное продвижение",
-      description: "Наращивание качественной ссылочной массы на естественных площадках.",
-      price: "индивидуально"
-    },
-    {
-      title: "Комплексное SEO",
-      description: "Полный комплекс работ по продвижению сайта.",
-      price: formatDualPrice(3000, { perMonth: true })
-    }
-  ];
-
-  const advantages = [
-    {
-      title: "Безопасные методы",
-      description: "Используем только белые методы продвижения, рекомендованные поисковиками.",
-      icon: "🛡️"
-    },
-    {
-      title: "Прозрачная отчетность",
-      description: "Регулярные отчеты по позициям, трафику и достигнутым результатам.",
-      icon: "📋"
-    },
-    {
-      title: "Индивидуальный подход",
-      description: "Разрабатываем стратегию под ваш бизнес, а не используем шаблоны.",
-      icon: "🎯"
-    },
-    {
-      title: "Работа с конверсией",
-      description: "Оптимизируем не только трафик, но и конверсию в заявки и продажи.",
-      icon: "💰"
-    }
-  ];
-
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: 'SEO продвижение сайтов',
-    description: 'Профессиональное SEO продвижение: вывод в топ поисковых систем, рост органического трафика. Аудит, оптимизация, контент.',
+    description:
+      'SEO продвижение в Яндексе и Google: аудит, семантика, техника, контент. Минск, Витебск, Москва.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    areaServed: { '@type': 'Country', name: 'Belarus' },
+    areaServed: [
+      { '@type': 'Country', name: 'Belarus' },
+      { '@type': 'Country', name: 'Russia' },
+    ],
     url: `${SITE_URL}/services/seo`,
   }
 
@@ -111,220 +88,221 @@ export default function SEOPage() {
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <ServiceBreadcrumbs service="seo" />
       <SeoJsonLd data={serviceSchema} />
-      {/* Hero секция */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-96 h-96 bg-purple-200 dark:bg-purple-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        </div>
 
+      <section className="relative pt-16 pb-14 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full mb-6">
-              <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse"></span>
-              Выводим в топ поисковых систем
-            </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              SEO продвижение{' '}
-              <span className="text-blue-600 dark:text-blue-400">сайта</span>
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-3">
+              Яндекс · Google · органика
+            </p>
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-5">
+              SEO-продвижение сайта под заявки
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Продвижение сайта в Яндексе и Google: Москва, Минск, Витебск и удалённо по РБ/РФ.
-              Для AI-видимости в нейросетях —{' '}
+            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6">
+              Аудит, семантика, техника и контент. Комплекс —{' '}
+              {formatDualPrice(3000, { perMonth: true })}. Для AI-видимости в нейросетях — отдельно{' '}
               <Link href="/services/geo-promotion" className="text-blue-600 dark:text-blue-400 hover:underline">
-                GEO-продвижение
+                GEO
               </Link>
               .
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex flex-wrap gap-3 justify-center">
               <Link
-                href="/contact"
-                className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg"
+                href="/contact?goal=seo"
+                className="px-7 py-3.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700"
               >
                 Заказать SEO
               </Link>
               <Link
-                href="/portfolio"
-                className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-lg font-semibold border-2 border-gray-200 dark:border-gray-700 hover:border-blue-600 hover:text-blue-600 transition-all"
+                href="#products"
+                className="px-7 py-3.5 border border-gray-300 dark:border-gray-600 rounded-lg font-medium hover:border-blue-500"
               >
-                Наши кейсы
+                Что можно заказать
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="pb-14">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Кому подходит</h2>
+          <ul className="grid sm:grid-cols-2 gap-3">
+            {AUDIENCE.map((item) => (
+              <li
+                key={item}
+                className="flex gap-2 text-sm text-gray-600 dark:text-gray-300 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4"
+              >
+                <span className="text-blue-500 shrink-0">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section id="products" className="py-16 bg-white dark:bg-gray-800 scroll-mt-28">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+              Входные услуги и комплекс
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-sm md:text-base">
+              Можно начать с аудита или сразу с ежемесячного цикла. {DUAL_CURRENCY_NOTE}
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4 mb-6">
+            {ENTRY.map((item) => (
+              <div
+                key={item.title}
+                className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40 p-5"
+              >
+                <span className="text-xs font-medium text-blue-600 dark:text-blue-400">{item.tag}</span>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mt-1 mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{item.description}</p>
+                <p className="font-semibold text-blue-600 dark:text-blue-400">{item.price}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="rounded-2xl border border-blue-300 dark:border-blue-700 bg-blue-50/50 dark:bg-blue-950/30 p-6 md:p-8 mb-8">
+            <div className="md:flex md:items-start md:justify-between gap-6">
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                  {COMPLEX.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4 max-w-xl">{COMPLEX.description}</p>
+                <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300 mb-4">
+                  {COMPLEX.points.map((p) => (
+                    <li key={p}>• {p}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="shrink-0 text-left md:text-right">
+                <p className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-3">
+                  {COMPLEX.price}
+                </p>
+                <Link
+                  href="/contact?goal=seo"
+                  className="inline-flex px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+                >
+                  Запросить план
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-center text-sm text-gray-500">
+            Ссылочное продвижение — индивидуально после аудита.{' '}
+            <Link href="/pricing" className="text-blue-600 hover:underline">
+              Ориентиры на странице цен
+            </Link>
+          </p>
+        </div>
+      </section>
+
+      <section className="py-16">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white text-center mb-8">
+            Что измеряем
+          </h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {KPI.map((item) => (
+              <div
+                key={item.title}
+                className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5"
+              >
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 bg-white dark:bg-gray-800">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white text-center mb-10">
+            Этапы работы
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+            {STEPS.map((s) => (
+              <div key={s.n} className="text-center">
+                <div className="w-10 h-10 mx-auto mb-2 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 font-bold flex items-center justify-center">
+                  {s.n}
+                </div>
+                <h3 className="font-semibold text-gray-900 dark:text-white text-sm mb-1">{s.title}</h3>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{s.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       <ServiceSemanticBlocks service="seo" />
 
-      {/* Что такое SEO */}
-      <section className="py-20 bg-white dark:bg-gray-800">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <section className="py-14">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="rounded-2xl border border-violet-200 dark:border-violet-800 bg-violet-50/60 dark:bg-violet-950/30 p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                Что такое{' '}
-                <span className="text-blue-600 dark:text-blue-400">SEO</span>?
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                SEO закрывает поиск. GEO — нейросети.
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
-                SEO (Search Engine Optimization) — это комплекс мер по оптимизации сайта для поисковых систем, направленный на вывод сайта в топ выдачи по целевым запросам.
-              </p>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
-                В отличие от контекстной рекламы, где вы платите за каждый клик, SEO приносит бесплатный трафик из поиска. Результаты SEO сохраняются надолго и работают даже после завершения работ.
-              </p>
-              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 mt-6">
-                <p className="text-blue-800 dark:text-blue-200 font-medium">
-                  📊 Первое место в поиске получает около 30% всех кликов. В топ-3 уходит более 60% трафика.
-                </p>
-              </div>
-            </div>
-            <div className="bg-linear-to-br from-yellow-400 to-orange-500 rounded-2xl p-8 text-white">
-              <div className="text-7xl mb-4 text-center">📈🔝</div>
-              <h3 className="text-2xl font-bold text-center mb-4">Будьте в топе</h3>
-              <p className="text-center text-white/90">
-                Первые позиции в поиске — первые продажи в бизнесе
+              <p className="text-sm text-gray-600 dark:text-gray-300 max-w-xl">
+                Если бренд должен корректнее появляться в ответах ChatGPT, Google AI и Алисы —
+                добавьте GEO-цикл после или параллельно с SEO.
               </p>
             </div>
+            <Link
+              href="/services/geo-promotion"
+              className="shrink-0 px-5 py-2.5 bg-violet-600 text-white rounded-lg font-medium hover:bg-violet-500"
+            >
+              Смотреть GEO →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Преимущества SEO */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-4">
-            Почему стоит инвестировать в SEO
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 text-center mb-12 max-w-2xl mx-auto">
-            Долгосрочные результаты и окупаемость
+      <section className="py-12 bg-white dark:bg-gray-800">
+        <div className="container mx-auto px-4 max-w-3xl text-center">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Кейсы с сильным SEO-контуром</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-300 mb-5">
+            Сайты APSOD изначально собираем под семантику, скорость и локальный поиск — например Amba
+            Detail, NEXTON, BMservice.
           </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {benefits.map((benefit, index) => (
-              <div
-                key={index}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all hover:-translate-y-1"
-              >
-                <div className="text-5xl mb-4">{benefit.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{benefit.title}</h3>
-                <p className="text-gray-600 dark:text-gray-300">{benefit.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Наши услуги по SEO */}
-      <section className="py-20 bg-white dark:bg-gray-800">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-4">
-            Наши услуги по SEO
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 text-center mb-12 max-w-2xl mx-auto">
-            Комплексный подход к продвижению
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="bg-gray-50 dark:bg-gray-700 rounded-2xl p-6 hover:shadow-xl transition-all hover:-translate-y-1"
-              >
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{service.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{service.description}</p>
-                <p className="text-base font-bold text-blue-600 dark:text-blue-400 leading-snug">{service.price}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Наши преимущества */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-12">
-            Почему выбирают нас
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {advantages.map((advantage, index) => (
-              <div key={index} className="text-center">
-                <div className="text-5xl mb-3">{advantage.icon}</div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{advantage.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">{advantage.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Этапы работы */}
-      <section className="py-20 bg-white dark:bg-gray-800">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-12">
-            Этапы продвижения
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-xl font-bold text-blue-600 dark:text-blue-400 mx-auto mb-3">
-                1
-              </div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Аудит</h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Анализ текущего состояния</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-xl font-bold text-blue-600 dark:text-blue-400 mx-auto mb-3">
-                2
-              </div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Семантика</h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Сбор и кластеризация запросов</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-xl font-bold text-blue-600 dark:text-blue-400 mx-auto mb-3">
-                3
-              </div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Оптимизация</h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Техническая и контентная</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-xl font-bold text-blue-600 dark:text-blue-400 mx-auto mb-3">
-                4
-              </div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Наращивание</h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Ссылочная масса</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center text-xl font-bold text-blue-600 dark:text-blue-400 mx-auto mb-3">
-                5
-              </div>
-              <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Аналитика</h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Отслеживание результатов</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20 bg-linear-to-br from-blue-600 to-purple-600">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Хотите в топ?
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Проведем аудит, составим стратегию и выведем ваш сайт в лидеры поиска
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-xl"
-          >
-            Получить консультацию
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
+          <Link href="/portfolio" className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
+            Открыть портфолио →
           </Link>
         </div>
       </section>
+
+      <section className="py-14 bg-linear-to-br from-blue-700 to-indigo-700 text-white">
+        <div className="container mx-auto px-4 text-center max-w-2xl">
+          <h2 className="text-2xl md:text-3xl font-bold mb-3">Нужен план по SEO?</h2>
+          <p className="text-white/90 mb-6">
+            Начнём с аудита или сразу с комплексного цикла — подскажем после короткого брифа.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              href="/contact?goal=seo"
+              className="px-6 py-3 bg-white text-blue-700 rounded-lg font-semibold hover:bg-blue-50"
+            >
+              Получить консультацию
+            </Link>
+            <Link
+              href="/pricing"
+              className="px-6 py-3 border border-white/40 rounded-lg font-medium hover:bg-white/10"
+            >
+              Цены
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <ServiceFaqBlock service="seo" />
     </div>
-  );
+  )
 }
