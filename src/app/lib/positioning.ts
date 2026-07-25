@@ -2,12 +2,12 @@
 
 export const POSITIONING = {
   ru: {
-    badge: 'Профессиональная digital-команда',
-    heroTitle1: 'Разработка сайтов',
-    heroTitle2: 'и приложений',
-    heroTitle3: 'уникальный код',
+    badge: 'Уникальный код · без конструкторов',
+    heroTitle1: 'Сайты и рост заявок',
+    heroTitle2: 'на уникальном коде',
+    heroTitle3: 'SEO, GEO и поддержка в одном контуре',
     heroLead:
-      'Не просто «сделать сайт». Аналитика и стратегия, дизайн, безопасная разработка, SEO, интеграции и поддержка — единый контур digital-присутствия. Только индивидуальные проекты на уникальном коде. С конструкторами сайтов не работаем.',
+      'Аналитика, дизайн и разработка без Tilda/Wix. Сайт как канал заявок: Яндекс, Google и нейросети. Смета за 1 рабочий день.',
     ctaPrimary: 'Обсудить проект',
     ctaSecondary: 'Смотреть кейсы',
     servicesTitle: 'Что мы делаем',
@@ -107,12 +107,12 @@ export const POSITIONING = {
     ],
   },
   en: {
-    badge: 'Professional digital team',
-    heroTitle1: 'Websites',
-    heroTitle2: 'and apps',
-    heroTitle3: 'unique code',
+    badge: 'Custom code · no website builders',
+    heroTitle1: 'Websites that win',
+    heroTitle2: 'leads — custom code only',
+    heroTitle3: 'SEO, GEO and support in one system',
     heroLead:
-      'Not just “build a website”. Analytics and strategy, design, secure engineering, SEO, integrations and support — one operating system for your online presence. Custom code only. We do not work with website builders.',
+      'Analytics, design and engineering — no Tilda/Wix. Your site as a lead channel across search and AI answers. Quote within one business day.',
     ctaPrimary: 'Discuss a project',
     ctaSecondary: 'View case studies',
     servicesTitle: 'What we deliver',

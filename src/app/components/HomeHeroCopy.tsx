@@ -23,7 +23,7 @@ export default function HomeHeroCopy() {
         <span className="block apsod-hero-enter apsod-hero-enter-delay-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-700 dark:from-blue-400 dark:via-cyan-300 dark:to-indigo-400">
           {copy.heroTitle2}
         </span>
-        <span className="block apsod-hero-enter apsod-hero-enter-delay-4 text-2xl md:text-3xl lg:text-4xl mt-2 font-semibold text-gray-700 dark:text-gray-200">
+        <span className="block apsod-hero-enter apsod-hero-enter-delay-4 text-lg md:text-xl lg:text-2xl mt-2 font-semibold text-gray-700 dark:text-gray-200">
           {copy.heroTitle3}
         </span>
       </h1>

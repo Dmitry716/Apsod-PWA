@@ -9,169 +9,119 @@ import {
 
 export const metadata = buildSnippetMetadata('/services')
 
-const services = [
+type ServiceCard = {
+  title: string
+  description: string
+  icon: string
+  tags: string[]
+  link: string
+  highlight?: boolean
+}
+
+const GROUPS: {
+  id: string
+  title: string
+  subtitle: string
+  items: ServiceCard[]
+}[] = [
   {
-    id: 1,
-    title: 'Веб-разработка',
-    description: 'Сайты и веб-приложения на уникальном коде: анализ, архитектура, безопасность, Agile, QA',
-    icon: '🌐',
-    fullDescription:
-      'Не шаблон и не конструктор. Проектируем и разрабатываем уникальные корпоративные сайты, интернет-магазины и веб-приложения: Discovery, архитектура, UX/UI, безопасная разработка, QA, SEO-готовность и поддержка.',
-    features: [
-      'Корпоративные сайты и порталы',
-      'Интернет-магазины с каталогами',
-      'Веб-приложения и дашборды',
-      'Интеграция с CRM и ERP',
-      'Админ-панели для управления'
+    id: 'build',
+    title: 'Разработка',
+    subtitle: 'Уникальный код без конструкторов: сайт, приложение, интерфейс',
+    items: [
+      {
+        title: 'Веб-разработка',
+        description:
+          'Лендинги, корпоративные сайты и магазины на Next.js — под заявки и рост.',
+        icon: '🌐',
+        tags: ['Next.js', 'Без конструкторов', 'SEO-ready'],
+        link: '/services/web-development',
+        highlight: true,
+      },
+      {
+        title: 'Мобильные приложения',
+        description: 'iOS / Android и кроссплатформа: от MVP до публикации в сторах.',
+        icon: '📱',
+        tags: ['React Native', 'Flutter', 'Swift'],
+        link: '/services/mobile-development',
+      },
+      {
+        title: 'PWA',
+        description: 'Прогрессивные веб-приложения: установка, офлайн, push.',
+        icon: '📲',
+        tags: ['Service Workers', 'Manifest'],
+        link: '/services/pwa-development',
+      },
+      {
+        title: 'UI/UX дизайн',
+        description: 'Прототипы и уникальный дизайн под сценарии пользователя.',
+        icon: '🎨',
+        tags: ['Figma', 'Дизайн-система'],
+        link: '/services/ui-ux',
+      },
     ],
-    technologies: ['Next.js', 'React', 'TypeScript', 'Node.js', 'PostgreSQL', 'MongoDB'],
-    link: '/services/web-development',
-    color: 'from-blue-600 to-cyan-500'
   },
   {
-    id: 2,
-    title: 'Мобильные приложения',
-    description: 'iOS и Android: от Discovery и экспертизы до публикации в сторах',
-    icon: '📱',
-    fullDescription: 'Полный цикл mobile-разработки: бизнес-анализ, техническая экспертиза, проектирование, UX/UI, Agile-спринты, QA на реальных устройствах, релиз в App Store и Google Play, post-launch поддержка.',
-    features: [
-      'Нативные iOS приложения (Swift)',
-      'Нативные Android приложения (Kotlin)',
-      'Кроссплатформенные (React Native, Flutter)',
-      'Интеграция с бэкендом',
-      'Публикация в App Store и Google Play'
+    id: 'growth',
+    title: 'Продвижение',
+    subtitle: 'Поиск и нейросети: трафик, видимость бренда, измеримый рост',
+    items: [
+      {
+        title: 'SEO-продвижение',
+        description: 'Яндекс и Google: аудит, семантика, техника, контент, отчётность.',
+        icon: '📈',
+        tags: ['Яндекс', 'Google', 'Аналитика'],
+        link: '/services/seo',
+        highlight: true,
+      },
+      {
+        title: 'GEO в нейросетях',
+        description:
+          'AI-видимость в ChatGPT, Google AI и Алисе: аудит, факт-матрица, мониторинг.',
+        icon: '🤖',
+        tags: ['ChatGPT', 'AI Overviews', 'Алиса'],
+        link: '/services/geo-promotion',
+        highlight: true,
+      },
     ],
-    technologies: ['React Native', 'Flutter', 'Swift', 'Kotlin', 'Firebase'],
-    link: '/services/mobile-development',
-    color: 'from-purple-600 to-pink-500'
   },
   {
-    id: 3,
-    title: 'PWA разработка',
-    description: 'Создаем прогрессивные веб-приложения, которые работают как нативные и устанавливаются на телефон',
-    icon: '📲',
-    fullDescription: 'Progressive Web Apps (PWA) — гибрид веб-сайта и мобильного приложения. Установка на устройство, работа офлайн, push-уведомления, высокая скорость загрузки.',
-    features: [
-      'Установка на главный экран',
-      'Работа без интернета',
-      'Push-уведомления',
-      'Мгновенная загрузка',
-      'Автоматические обновления'
+    id: 'run',
+    title: 'Сопровождение',
+    subtitle: 'После запуска: стабильность, интеграции, развитие по данным',
+    items: [
+      {
+        title: 'Техподдержка',
+        description: 'Мониторинг, обновления, бэкапы и доработки на JS-стеке.',
+        icon: '🛠️',
+        tags: ['Next.js', 'SLA', 'Безопасность'],
+        link: '/services/technical-support',
+        highlight: true,
+      },
+      {
+        title: 'CRM',
+        description: 'Внедрение и кастомные CRM для заявок, продаж и коммуникаций.',
+        icon: '🤝',
+        tags: ['Bitrix24', 'AmoCRM', 'Интеграции'],
+        link: '/services/crm',
+      },
+      {
+        title: 'ERP и учёт',
+        description: 'Интеграции и кастомные решения для процессов и отчётности.',
+        icon: '⚙️',
+        tags: ['1С', 'Кастом', 'Отчёты'],
+        link: '/services/erp',
+      },
     ],
-    technologies: ['Next.js', 'Service Workers', 'Manifest', 'Workbox'],
-    link: '/services/pwa-development',
-    color: 'from-indigo-600 to-blue-500'
   },
-  {
-    id: 4,
-    title: 'SEO продвижение',
-    description: 'Выводим сайты в топ поисковых систем и увеличиваем органический трафик',
-    icon: '📈',
-    fullDescription: 'Комплексное продвижение сайтов в поисковых системах. Работаем с контентом, технической оптимизацией и внешними факторами.',
-    features: [
-      'Аудит сайта и анализ конкурентов',
-      'Техническая оптимизация',
-      'Работа с контентом',
-      'Внешняя оптимизация',
-      'Аналитика и отчетность'
-    ],
-    technologies: ['SEO Audit', 'Link Building', 'Content Marketing', 'Analytics'],
-    link: '/services/seo',
-    color: 'from-yellow-500 to-amber-500'
-  },
-  {
-    id: 9,
-    title: 'GEO продвижение',
-    description:
-      'AI-видимость бренда в нейросетях: ChatGPT, Google AI, Алиса',
-    icon: '🤖',
-    fullDescription:
-      'GEO-продвижение сайта и бренда в нейросетях (как Generative Engine Optimization): аудит AI-видимости, факт-матрица, тарифы Базовый / Стандарт / Бизнес, доработка контента под AI-ответы и ежемесячный мониторинг.',
-    features: [
-      'GEO-аудит AI-видимости и конкурентов',
-      'Факт-матрица и промпт-сет (до 40 сценариев)',
-      'Доработка услуг, FAQ, кейсов под AI',
-      'Ежемесячный мониторинг и отчёт',
-      'Внутренний и внешний контур источников',
-    ],
-    technologies: ['ChatGPT', 'Google AI', 'Алиса', 'Perplexity', 'ЯндексGPT'],
-    link: '/services/geo-promotion',
-    color: 'from-violet-600 to-indigo-500',
-  },
-  {
-    id: 5,
-    title: 'CRM системы',
-    description: 'Внедряем и разрабатываем кастомные CRM системы для управления бизнесом и клиентами',
-    icon: '🤝',
-    fullDescription: 'Автоматизируем продажи и взаимодействие с клиентами. Внедряем готовые решения или разрабатываем CRM с нуля под ваши бизнес-процессы.',
-    features: [
-      'Внедрение Salesforce, Bitrix24, AmoCRM',
-      'Разработка кастомных CRM',
-      'Интеграция с телефонией и почтой',
-      'Отчеты и аналитика продаж',
-      'Мобильный доступ для менеджеров'
-    ],
-    technologies: ['Salesforce', 'Bitrix24', 'AmoCRM', 'Custom CRM'],
-    link: '/services/crm',
-    color: 'from-green-600 to-emerald-500'
-  },
-  {
-    id: 6,
-    title: 'ERP системы',
-    description: 'Комплексные решения для управления производством, складом и финансами',
-    icon: '⚙️',
-    fullDescription: 'Оптимизируем управление ресурсами предприятия. Внедряем ERP-системы или разрабатываем индивидуальные решения под ваши задачи.',
-    features: [
-      'Управление производством и запасами',
-      'Складской учет и логистика',
-      'Финансовое планирование',
-      'Интеграция с 1С и бухгалтерией',
-      'Отчетность и аналитика'
-    ],
-    technologies: ['1С', 'SAP', 'Oracle', 'Custom ERP'],
-    link: '/services/erp',
-    color: 'from-orange-600 to-red-500'
-  },
-  {
-    id: 7,
-    title: 'UI/UX дизайн',
-    description: 'Создаем удобные и красивые интерфейсы, которые нравятся пользователям',
-    icon: '🎨',
-    fullDescription: 'Разрабатываем дизайн сайтов и приложений, ориентированный на пользователя. Проводим исследования и тестирования для создания лучшего опыта.',
-    features: [
-      'Прототипирование и дизайн-концепции',
-      'Дизайн сайтов и мобильных приложений',
-      'UI-киты и дизайн-системы',
-      'Анимация интерфейсов',
-      'Юзабилити-тестирование'
-    ],
-    technologies: ['Figma', 'Adobe XD', 'Sketch', 'ProtoPie'],
-    link: '/services/ui-ux',
-    color: 'from-pink-500 to-rose-500'
-  },
-  {
-    id: 8,
-    title: 'Техническая поддержка сайтов',
-    description: 'Сопровождение сайтов на React, Next.js и Node.js: контент, мониторинг, бэкапы и доработки',
-    icon: '🛠️',
-    fullDescription: 'Техподдержка сайтов на современном стеке: React, Next.js, Node.js, MongoDB, PostgreSQL. Обновления, исправление ошибок, резервные копии, мониторинг и доработки.',
-    features: [
-      'Обновление контента и правки на сайте',
-      'Мониторинг доступности и устранение сбоев',
-      'Резервное копирование и восстановление',
-      'Обновление npm-зависимостей и безопасности',
-      'Консультации и доработки по запросу'
-    ],
-    technologies: ['React', 'Next.js', 'Node.js', 'MongoDB', 'PostgreSQL'],
-    link: '/services/technical-support',
-    color: 'from-slate-600 to-slate-800'
-  }
-];
+]
+
+const ALL_SERVICES = GROUPS.flatMap((g) => g.items)
 
 export default function ServicesPage() {
   const servicesList = generateItemListSchema({
     name: 'IT-услуги APSOD',
-    items: services.map((service) => ({
+    items: ALL_SERVICES.map((service) => ({
       name: service.title,
       url: `${SITE_URL}${service.link}`,
       description: service.description,
@@ -187,149 +137,155 @@ export default function ServicesPage() {
         ]}
       />
       <SeoJsonLd data={servicesList} />
-      
-      {/* Hero секция */}
-      <section className="relative pt-16 pb-20 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-96 h-96 bg-purple-200 dark:bg-purple-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+
+      <section className="relative pt-16 pb-14 overflow-hidden">
+        <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden>
+          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
+          <div className="absolute top-40 right-10 w-96 h-96 bg-violet-200 dark:bg-violet-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              Наши{' '}
-              <span className="text-blue-600 dark:text-blue-400">
-                услуги
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Полная организация digital-присутствия: аналитика, уникальная и безопасная разработка,
-              SEO и поддержка. Без конструкторов и шаблонных сборок.
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-3">
+              Digital-контур на уникальном коде
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Детальный список услуг */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="space-y-16">
-            {services.map((service) => (
-              <div
-                key={service.id}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden"
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-5">
+              Услуги APSOD
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8">
+              Три направления: сделать продукт, привести клиентов из поиска и нейросетей,
+              сопровождать рост. Без Tilda, Wix и шаблонных сборок.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link
+                href="/contact"
+                className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700"
               >
-                <div className={`bg-linear-to-r ${service.color} p-8 text-white`}>
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className="text-5xl">{service.icon}</span>
-                    <h2 className="text-3xl md:text-4xl font-bold">{service.title}</h2>
-                  </div>
-                  <p className="text-lg text-white/90 max-w-3xl">
-                    {service.fullDescription}
-                  </p>
-                </div>
-                
-                <div className="p-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                        Что мы делаем:
-                      </h3>
-                      <ul className="space-y-3">
-                        {service.features.map((feature, idx) => (
-                          <li key={idx} className="flex items-start gap-3 text-gray-600 dark:text-gray-300">
-                            <svg className="w-5 h-5 text-green-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                        Используемые технологии:
-                      </h3>
-                      <div className="flex flex-wrap gap-2 mb-8">
-                        {service.technologies.map((tech, idx) => (
-                          <span
-                            key={idx}
-                            className="px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-sm text-gray-700 dark:text-gray-300"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                      
-                      <Link
-                        href={service.link}
-                        className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:gap-3 transition-all group"
-                      >
-                        Подробнее об услуге
-                        <svg className="w-4 h-4 ml-2 group-hover:ml-3 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
+                Обсудить задачу
+              </Link>
+              <Link
+                href="/pricing"
+                className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg font-medium hover:border-blue-500"
+              >
+                Цены
+              </Link>
+            </div>
+            <nav className="mt-8 flex flex-wrap justify-center gap-2 text-sm">
+              {GROUPS.map((g) => (
+                <a
+                  key={g.id}
+                  href={`#${g.id}`}
+                  className="px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 hover:border-blue-400"
+                >
+                  {g.title}
+                </a>
+              ))}
+            </nav>
+          </div>
+        </div>
+      </section>
+
+      <section className="pb-20">
+        <div className="container mx-auto px-4 space-y-16">
+          {GROUPS.map((group) => (
+            <div key={group.id} id={group.id} className="scroll-mt-28">
+              <div className="mb-6 max-w-2xl">
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                  {group.title}
+                </h2>
+                <p className="text-gray-600 dark:text-gray-300">{group.subtitle}</p>
               </div>
-            ))}
-          </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-4">
+                {group.items.map((item) => (
+                  <Link
+                    key={item.link}
+                    href={item.link}
+                    className={`group block rounded-2xl border p-6 bg-white dark:bg-gray-800 transition-all hover:-translate-y-0.5 hover:shadow-lg ${
+                      item.highlight
+                        ? 'border-blue-300 dark:border-blue-700 ring-1 ring-blue-500/20'
+                        : 'border-gray-200 dark:border-gray-700'
+                    }`}
+                  >
+                    <div className="flex items-start gap-4">
+                      <span className="text-3xl" aria-hidden>
+                        {item.icon}
+                      </span>
+                      <div>
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 mb-1">
+                          {item.title}
+                        </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                          {item.description}
+                        </p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {item.tags.map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2 py-0.5 text-xs rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Преимущества */}
-      <section className="py-20 bg-linear-to-r from-blue-600 to-purple-600">
+      <section className="py-14 bg-slate-950 text-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
-            Почему выбирают нас
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="text-center text-white">
-              <div className="text-5xl mb-4">⚡</div>
-              <h3 className="text-xl font-semibold mb-2">Современные технологии</h3>
-              <p className="text-white/80">Используем актуальный стек 2025-2026</p>
+          <div className="grid md:grid-cols-3 gap-6 text-center md:text-left">
+            <div>
+              <h3 className="font-semibold text-blue-200 mb-2">Уникальный код</h3>
+              <p className="text-sm text-slate-300">
+                Только индивидуальная разработка. Конструкторы не используем.
+              </p>
             </div>
-            <div className="text-center text-white">
-              <div className="text-5xl mb-4">🚀</div>
-              <h3 className="text-xl font-semibold mb-2">Быстрый старт</h3>
-              <p className="text-white/80">MVP за 2-3 месяца</p>
+            <div>
+              <h3 className="font-semibold text-blue-200 mb-2">Смета за 1 день</h3>
+              <p className="text-sm text-slate-300">
+                Короткий бриф — понятный ориентир по срокам и бюджету в Б̶ и ₽.
+              </p>
             </div>
-            <div className="text-center text-white">
-              <div className="text-5xl mb-4">🔒</div>
-              <h3 className="text-xl font-semibold mb-2">Безопасность</h3>
-              <p className="text-white/80">Защита данных и кода</p>
-            </div>
-            <div className="text-center text-white">
-              <div className="text-5xl mb-4">💬</div>
-              <h3 className="text-xl font-semibold mb-2">Поддержка 24/7</h3>
-              <p className="text-white/80">Всегда на связи</p>
+            <div>
+              <h3 className="font-semibold text-blue-200 mb-2">Полный контур</h3>
+              <p className="text-sm text-slate-300">
+                Сайт, SEO, GEO и поддержка — один подрядчик, одна логика роста.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20">
+      <section className="py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Нужна консультация?
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+            Есть деловой запрос?
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            Расскажите нам о ваших задачах, и мы подберем оптимальное решение
+          <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-xl mx-auto">
+            Расскажите задачу — предложим формат: разработка, SEO, GEO или сопровождение.
           </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold text-lg hover:bg-blue-700 transition-all transform hover:scale-105 shadow-xl"
-          >
-            Связаться с нами
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </Link>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              href="/contact"
+              className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700"
+            >
+              Оставить заявку
+            </Link>
+            <a
+              href="https://t.me/DMITRYJS"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 border border-gray-300 dark:border-gray-600 rounded-lg font-medium hover:border-blue-500"
+            >
+              Telegram
+            </a>
+          </div>
         </div>
       </section>
     </div>

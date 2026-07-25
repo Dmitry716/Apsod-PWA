@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { PORTFOLIO_PROJECTS, getCasePath, getFeaturedRank } from './data'
 import { t } from '../lib/i18n'
 import { useLocale } from '../lib/useLocale'
@@ -12,6 +13,7 @@ export default function PortfolioPage() {
   const [activeIndustry, setActiveIndustry] = useState('all')
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({})
   const { locale } = useLocale()
+  const searchParams = useSearchParams()
   const industryOrder = useMemo(
     () => [
       'Производство',
@@ -27,6 +29,14 @@ export default function PortfolioPage() {
     [],
   )
   const OTHER_INDUSTRY_KEY = 'other'
+
+  useEffect(() => {
+    const fromQuery = searchParams.get('industry')
+    if (!fromQuery) return
+    if (fromQuery === OTHER_INDUSTRY_KEY || industryOrder.includes(fromQuery)) {
+      setActiveIndustry(fromQuery)
+    }
+  }, [searchParams, industryOrder])
 
   const industryLabel = (industry: string) => {
     switch (industry) {

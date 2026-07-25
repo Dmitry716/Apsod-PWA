@@ -5,167 +5,108 @@ import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeo
 import DevelopmentProcessSection from '../components/DevelopmentProcessSection'
 import { WEB_DEVELOPMENT_PROCESS } from '../lib/development-process'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
+import { DUAL_CURRENCY_NOTE, dualPriceLines, formatDualPrice } from '../../lib/currency'
 
 export const metadata = buildServiceMetadata('web-development')
 
-export default function WebDevelopmentPage() {
-  const technologies = [
-    {
-      category: 'Frontend',
-      icon: '🎨',
-      description: 'Современные библиотеки и фреймворки для создания пользовательских интерфейсов',
-      stacks: [
-        {
-          name: 'Next.js 15+',
-          logo: '▲',
-          description: 'React фреймворк для production с серверным рендерингом, статической генерацией и отличным SEO',
-          features: ['Server Components', 'App Router', 'API Routes', 'Image Optimization'],
-          useCases: ['Корпоративные сайты', 'Интернет-магазины', 'Блоги', 'Сложные веб-приложения']
-        },
-        {
-          name: 'React 19+',
-          logo: '⚛️',
-          description: 'Библиотека для создания динамических пользовательских интерфейсов с компонентным подходом',
-          features: ['Hooks', 'Server Components', 'Concurrent Rendering', 'Suspense'],
-          useCases: ['SPA приложения', 'Интерактивные дашборды', 'Социальные сети', 'Админ-панели']
-        },
-        {
-          name: 'Vue 3+',
-          logo: '🟢',
-          description: 'Прогрессивный фреймворк для создания пользовательских интерфейсов с простым синтаксисом',
-          features: ['Composition API', 'Pinia', 'Vue Router', 'Vite'],
-          useCases: ['Легкие веб-приложения', 'Прототипы', 'Корпоративные порталы', 'SPA']
-        },
-        {
-          name: 'TypeScript',
-          logo: '📘',
-          description: 'Строго типизированное расширение JavaScript для надежной и масштабируемой разработки',
-          features: ['Статическая типизация', 'Интерфейсы', 'Generic', 'Advanced types'],
-          useCases: ['Крупные проекты', 'Библиотеки', 'Командная разработка', 'Миссия-критичные системы']
-        },
-        {
-          name: 'Tailwind CSS',
-          logo: '🎨',
-          description: 'Утилитарный CSS-фреймворк для быстрой и кастомизируемой верстки',
-          features: ['Utility-first', 'JIT компиляция', 'Темная тема', 'Адаптивность'],
-          useCases: ['Современный дизайн', 'Быстрый прототип', 'Адаптивные сайты', 'UI библиотеки']
-        }
-      ]
-    },
-    {
-      category: 'Backend',
-      icon: '⚙️',
-      description: 'Надежные серверные технологии для обработки бизнес-логики и данных',
-      stacks: [
-        {
-          name: 'Node.js',
-          logo: '🟢',
-          description: 'Серверная платформа на JavaScript/V8 для создания масштабируемых приложений',
-          features: ['Event-driven', 'NPM экосистема', 'Микросервисы', 'Real-time приложения'],
-          useCases: ['REST API', 'GraphQL серверы', 'Real-time чаты', 'Стриминговые сервисы']
-        },
-        {
-          name: 'NestJS',
-          logo: '🐱',
-          description: 'Прогрессивный Node.js фреймворк для создания эффективных и масштабируемых серверных приложений',
-          features: ['Модульная архитектура', 'Dependency Injection', 'WebSockets', 'GraphQL'],
-          useCases: ['Корпоративные API', 'Микросервисы', 'Сложные бэкенд системы']
-        },
-        {
-          name: 'Express.js',
-          logo: '🚂',
-          description: 'Минималистичный и гибкий веб-фреймворк для Node.js',
-          features: ['Middleware', 'Маршрутизация', 'REST API', 'Большое сообщество'],
-          useCases: ['REST API', 'MVP', 'Прототипы', 'Микросервисы']
-        },
-        {
-          name: 'Python (Django)',
-          logo: '🐍',
-          description: 'Высокоуровневый Python фреймворк для быстрой разработки с "батарейками в комплекте"',
-          features: ['ORM', 'Admin панель', 'Аутентификация', 'Маршрутизация'],
-          useCases: ['Сложные веб-приложения', 'Порталы', 'API', 'CMS']
-        }
-      ]
-    },
-    {
-      category: 'Базы данных',
-      icon: '🗄️',
-      description: 'Современные решения для хранения и обработки данных',
-      stacks: [
-        {
-          name: 'PostgreSQL',
-          logo: '🐘',
-          description: 'Мощная объектно-реляционная база данных с открытым исходным кодом',
-          features: ['ACID', 'JSON поддержка', 'Репликация', 'Full-text search'],
-          useCases: ['Сложные транзакции', 'Геоданные', 'Аналитика', 'Крупные проекты']
-        },
-        {
-          name: 'MongoDB',
-          logo: '🍃',
-          description: 'Документоориентированная NoSQL база данных для гибкого хранения данных',
-          features: ['Документная модель', 'Масштабирование', 'Ad-hoc запросы', 'Aggregation'],
-          useCases: ['Big Data', 'Каталоги', 'Real-time данные', 'Content management']
-        },
-        {
-          name: 'MySQL',
-          logo: '🐬',
-          description: 'Популярная реляционная база данных для веб-приложений',
-          features: ['Надежность', 'Производительность', 'Репликация', 'Транзакции'],
-          useCases: ['Интернет-магазины', 'CMS', 'Блоги', 'Средние проекты']
-        },
-        {
-          name: 'Redis',
-          logo: '🔴',
-          description: 'Высокопроизводительное хранилище данных в памяти для кэширования и real-time задач',
-          features: ['In-memory', 'Кэширование', 'Pub/Sub', 'Очереди'],
-          useCases: ['Кэширование', 'Сессии', 'Очереди задач', 'Real-time лидерборды']
-        }
-      ]
-    },
-    {
-      category: 'DevOps и инфраструктура',
-      icon: '☁️',
-      description: 'Инструменты для развертывания и управления инфраструктурой',
-      stacks: [
-        {
-          name: 'Docker',
-          logo: '🐳',
-          description: 'Платформа для контейнеризации приложений и их зависимостей',
-          features: ['Контейнеры', 'Docker Compose', 'Образы', 'Масштабирование'],
-          useCases: ['Микросервисы', 'CI/CD', 'Локальная разработка', 'Продакшен деплой']
-        },
-        {
-          name: 'Kubernetes',
-          logo: '⎈',
-          description: 'Система для оркестрации контейнеров и управления кластерами',
-          features: ['Автоматическое масштабирование', 'Self-healing', 'Service discovery', 'Load balancing'],
-          useCases: ['Крупные инфраструктуры', 'Микросервисы', 'Высоконагруженные системы']
-        },
-        {
-          name: 'AWS/GCP/Azure',
-          logo: '☁️',
-          description: 'Облачные платформы для хостинга и масштабирования приложений',
-          features: ['Compute', 'Storage', 'Databases', 'Serverless'],
-          useCases: ['Облачная инфраструктура', 'Serverless', 'Масштабирование', 'Глобальный охват']
-        },
-        {
-          name: 'GitHub Actions',
-          logo: '🔄',
-          description: 'Система непрерывной интеграции и доставки (CI/CD)',
-          features: ['Автоматизация сборки', 'Тестирование', 'Деплой', 'Интеграции'],
-          useCases: ['Автоматический деплой', 'Тестирование', 'Проверка кода', 'Мониторинг']
-        }
-      ]
-    }
-  ]
+const PACKAGES = [
+  {
+    title: 'Лендинг',
+    ...dualPriceLines(8000),
+    term: '2–4 недели',
+    goal: 'landing',
+    budget: 'landing-8k',
+    highlight: false,
+    items: [
+      'Уникальный дизайн и адаптив',
+      'Форма заявки / WhatsApp / Telegram',
+      'Базовая SEO-разметка',
+      'Подключение аналитики',
+    ],
+  },
+  {
+    title: 'Корпоративный сайт',
+    ...dualPriceLines(15000),
+    term: '4–8 недель',
+    goal: 'corporate',
+    budget: 'corporate-15k',
+    highlight: true,
+    items: [
+      'До 10–15 страниц под семантику',
+      'CMS / удобное редактирование',
+      'Скорость и Core Web Vitals',
+      'Структура под заявки и SEO',
+    ],
+  },
+  {
+    title: 'Интернет-магазин',
+    ...dualPriceLines(23000),
+    term: 'от 2–3 месяцев',
+    goal: 'shop',
+    budget: 'shop-23k',
+    highlight: false,
+    items: [
+      'Каталог, корзина, оплата',
+      'Интеграции доставки и CRM',
+      'Админка и SEO каталога',
+      'Обучение и запуск',
+    ],
+  },
+]
 
+const FOR_WHOM = [
+  'Нужен сайт как канал заявок, а не «визитка на конструкторе»',
+  'Важны скорость, безопасность и контроль над кодом',
+  'Планируете SEO / GEO и интеграции с CRM или оплатой',
+  'Готовы к индивидуальному дизайну и осознанным срокам',
+]
+
+const NOT_FOR = [
+  'Нужен сайт «за выходные» на Tilda / Wix',
+  'Достаточно типовой темы WordPress без кастомизации',
+]
+
+const STACK = [
+  'Next.js',
+  'React',
+  'TypeScript',
+  'Node.js',
+  'PostgreSQL',
+  'MongoDB',
+  'Tailwind CSS',
+  'Vercel / Docker',
+]
+
+const CASES = [
+  {
+    title: 'Amba Detail',
+    result: 'Единая витрина услуг и цен вместо разрозненных сообщений',
+    href: '/portfolio/amba-detail',
+  },
+  {
+    title: 'NEXTON',
+    result: 'Чёткая презентация узких услуг автосервиса для двух городов',
+    href: '/portfolio/nexton',
+  },
+  {
+    title: 'Maxximum',
+    result: 'Запись на пробные занятия с сайта спортивного центра',
+    href: '/portfolio/maxximum',
+  },
+]
+
+export default function WebDevelopmentPage() {
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: 'Разработка сайтов и интернет-магазинов',
-    description: 'Профессиональная разработка сайтов, интернет-магазинов и веб-приложений на Next.js, React, Node.js. Корпоративные сайты, лендинги, каталоги.',
+    description:
+      'Профессиональная разработка сайтов, интернет-магазинов и веб-приложений на Next.js, React, Node.js. Без конструкторов.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    areaServed: { '@type': 'Country', name: 'Belarus' },
+    areaServed: [
+      { '@type': 'Country', name: 'Belarus' },
+      { '@type': 'Country', name: 'Russia' },
+    ],
     url: `${SITE_URL}/services/web-development`,
   }
 
@@ -173,165 +114,198 @@ export default function WebDevelopmentPage() {
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <ServiceBreadcrumbs service="web-development" />
       <SeoJsonLd data={serviceSchema} />
-      {/* Hero секция */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-96 h-96 bg-purple-200 dark:bg-purple-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        </div>
 
+      <section className="relative pt-16 pb-16 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              Разработка сайтов{' '}
-              <span className="bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                и создание сайта
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Минск, Витебск, Москва и удалённо: корпоративные сайты, лендинги и интернет-магазины на уникальном коде
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-3">
+              Уникальный код · без конструкторов
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-5">
+              Разработка сайтов, которые приносят заявки
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8">
+              Лендинг, корпоративный сайт или магазин на Next.js. Минск, Витебск, Москва и удалённо.
+              Смета {formatDualPrice(8000)} — после короткого брифа.
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center">
               <Link
-                href="/contact"
-                className="px-8 py-4 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg"
+                href="/contact?goal=corporate"
+                className="px-7 py-3.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700"
               >
                 Обсудить проект
               </Link>
               <Link
-                href="/portfolio"
-                className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-lg font-semibold border-2 border-gray-200 dark:border-gray-700 hover:border-blue-600 hover:text-blue-600 transition-all"
+                href="#packages"
+                className="px-7 py-3.5 border border-gray-300 dark:border-gray-600 rounded-lg font-medium hover:border-blue-500"
               >
-                Наши работы
+                Смотреть пакеты
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="pb-16">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">Кому подходит</h2>
+              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                {FOR_WHOM.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="text-green-500 shrink-0">✓</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
+              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">Кому не подходит</h2>
+              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                {NOT_FOR.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="text-rose-400 shrink-0">×</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="packages" className="py-16 bg-white dark:bg-gray-800 scroll-mt-28">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+              Пакеты и что входит
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Ориентиры стоимости. Точная смета — после брифа. {DUAL_CURRENCY_NOTE}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5 mb-8">
+            {PACKAGES.map((pkg) => (
+              <div
+                key={pkg.title}
+                className={`rounded-2xl border p-6 flex flex-col ${
+                  pkg.highlight
+                    ? 'border-blue-500 ring-1 ring-blue-500/30 bg-blue-50/40 dark:bg-blue-950/20'
+                    : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40'
+                }`}
+              >
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{pkg.title}</h3>
+                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{pkg.byn}</p>
+                <p className="text-sm text-gray-500 mb-1">{pkg.rub}</p>
+                <p className="text-sm text-gray-500 mb-4">Срок: {pkg.term}</p>
+                <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300 mb-6 flex-1">
+                  {pkg.items.map((item) => (
+                    <li key={item}>• {item}</li>
+                  ))}
+                </ul>
+                <Link
+                  href={`/contact?goal=${pkg.goal}&budget=${pkg.budget}`}
+                  className="inline-block w-full text-center px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
+                >
+                  Получить смету
+                </Link>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-sm text-gray-500">
+            Нужен сложный продукт или кабинет?{' '}
+            <Link href="/contact?goal=complex" className="text-blue-600 hover:underline">
+              Обсудим индивидуально
+            </Link>
+            {' · '}
+            <Link href="/pricing" className="text-blue-600 hover:underline">
+              Все цены
+            </Link>
+          </p>
         </div>
       </section>
 
       <ServiceSemanticBlocks service="web-development" />
 
       <DevelopmentProcessSection
-        title="Как мы разрабатываем веб-проекты"
-        subtitle="Восемь этапов по стандартам крупных IT-компаний: Discovery, экспертиза, архитектура, дизайн, Agile, QA, DevOps и поддержка"
-        phases={WEB_DEVELOPMENT_PROCESS}
+        title="Как мы разрабатываем"
+        subtitle="От Discovery до запуска и поддержки — прозрачные этапы и артефакты"
+        phases={WEB_DEVELOPMENT_PROCESS.slice(0, 5)}
       />
 
-      {/* Технологические стеки */}
-      {technologies.map((category, idx) => (
-        <section key={idx} className="py-16 even:bg-white dark:even:bg-gray-800">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <div className="text-5xl mb-4">{category.icon}</div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-                {category.category}
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                {category.description}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {category.stacks.map((stack, stackIdx) => (
-                <div
-                  key={stackIdx}
-                  className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden border border-gray-100 dark:border-gray-700"
-                >
-                  <div className="p-6">
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="text-4xl bg-blue-50 dark:bg-blue-900/20 w-16 h-16 rounded-xl flex items-center justify-center shrink-0">
-                        {stack.logo}
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                          {stack.name}
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-300 text-sm">
-                          {stack.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Ключевые возможности:
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {stack.features.map((feature, i) => (
-                          <span key={i} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded-full text-gray-600 dark:text-gray-300">
-                            {feature}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Для чего используем:
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {stack.useCases.map((useCase, i) => (
-                          <span key={i} className="px-2 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs rounded-full">
-                            {useCase}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      ))}
-
-      {/* Преимущества работы с нами */}
-      <section className="py-20 bg-linear-to-r from-blue-600 to-purple-600">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
-            Почему выбирают нас
+      <section className="py-14 bg-white dark:bg-gray-800">
+        <div className="container mx-auto px-4 max-w-4xl text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            Стек
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center text-white">
-              <div className="text-5xl mb-4">⚡</div>
-              <h3 className="text-xl font-semibold mb-2">Современный стек</h3>
-              <p className="text-white/80">Используем только актуальные технологии</p>
-            </div>
-            <div className="text-center text-white">
-              <div className="text-5xl mb-4">🚀</div>
-              <h3 className="text-xl font-semibold mb-2">Высокая производительность</h3>
-              <p className="text-white/80">Оптимизируем код для максимальной скорости</p>
-            </div>
-            <div className="text-center text-white">
-              <div className="text-5xl mb-4">🔒</div>
-              <h3 className="text-xl font-semibold mb-2">Безопасность</h3>
-              <p className="text-white/80">Защита от современных угроз</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Готовы начать проект?
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            Расскажите нам о ваших задачах, и мы подберем оптимальный технологический стек
+          <p className="text-gray-600 dark:text-gray-300 mb-6 text-sm md:text-base">
+            Современный продуктовый стек — скорость, SEO из коробки и контроль над кодом.
           </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-xl"
-          >
-            Получить консультацию
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </Link>
+          <div className="flex flex-wrap justify-center gap-2">
+            {STACK.map((tech) => (
+              <span
+                key={tech}
+                className="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 text-sm text-gray-700 dark:text-gray-200"
+              >
+                {tech}
+              </span>
+            ))}
+          </div>
         </div>
       </section>
-          <ServiceFaqBlock service="web-development" />
-</div>
+
+      <section className="py-16">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+            Примеры работ
+          </h2>
+          <div className="grid md:grid-cols-3 gap-4 mb-8">
+            {CASES.map((c) => (
+              <Link
+                key={c.href}
+                href={c.href}
+                className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 hover:border-blue-400 transition-colors"
+              >
+                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{c.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{c.result}</p>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center">
+            <Link href="/portfolio" className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
+              Смотреть портфолио →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 bg-slate-950 text-white">
+        <div className="container mx-auto px-4 text-center max-w-2xl">
+          <h2 className="text-2xl md:text-3xl font-bold mb-3">Готовы обсудить сайт?</h2>
+          <p className="text-slate-300 mb-6">
+            Короткий бриф — смета за 1 рабочий день. Можно сразу в Telegram.
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              href="/contact"
+              className="px-6 py-3 bg-blue-500 hover:bg-blue-400 rounded-lg font-semibold"
+            >
+              Оставить заявку
+            </Link>
+            <a
+              href="https://t.me/DMITRYJS"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 border border-white/25 rounded-lg font-medium"
+            >
+              Telegram
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <ServiceFaqBlock service="web-development" />
+    </div>
   )
 }
