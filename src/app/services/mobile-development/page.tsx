@@ -103,20 +103,11 @@ export default function MobileDevelopmentPage() {
     areaServed: { '@type': 'Country', name: 'Belarus' },
     url: `${SITE_URL}/services/mobile-development`,
   }
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE_URL },
-      { '@type': 'ListItem', position: 2, name: 'Услуги', item: `${SITE_URL}/services` },
-      { '@type': 'ListItem', position: 3, name: 'Разработка мобильных приложений', item: `${SITE_URL}/services/mobile-development` },
-    ],
-  }
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <ServiceBreadcrumbs service="mobile-development" />
-      <SeoJsonLd data={[serviceSchema, breadcrumbSchema]} />
+      <SeoJsonLd data={serviceSchema} />
       {/* Hero секция */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { PORTFOLIO_PROJECTS, getCasePath, getFeaturedRank } from './data'
 import { t } from '../lib/i18n'
 import { useLocale } from '../lib/useLocale'
+import PageBreadcrumbs from '../components/PageBreadcrumbs'
 
 export default function PortfolioPage() {
   const [activeFilter, setActiveFilter] = useState('all')
@@ -114,9 +115,15 @@ export default function PortfolioPage() {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      
+      <PageBreadcrumbs
+        items={[
+          { name: 'Главная', path: '/' },
+          { name: 'Портфолио', path: '/portfolio' },
+        ]}
+      />
+
       {/* Hero секция */}
-      <section className="relative pt-32 pb-16 overflow-hidden">
+      <section className="relative pt-16 pb-16 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
           <div className="absolute top-40 right-10 w-96 h-96 bg-purple-200 dark:bg-purple-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>

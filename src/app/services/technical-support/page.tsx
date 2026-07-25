@@ -63,20 +63,11 @@ export default function TechnicalSupportPage() {
     url: `${SITE_URL}/services/technical-support`,
   }
 
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE_URL },
-      { '@type': 'ListItem', position: 2, name: 'Услуги', item: `${SITE_URL}/services` },
-      { '@type': 'ListItem', position: 3, name: 'Техническая поддержка сайтов', item: `${SITE_URL}/services/technical-support` },
-    ],
-  }
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <ServiceBreadcrumbs service="technical-support" />
-      <SeoJsonLd data={[serviceSchema, breadcrumbSchema]} />
+      <SeoJsonLd data={serviceSchema} />
 
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">

@@ -19,6 +19,7 @@ import {
   SITE_LOCALE,
   generateOrganizationSchema,
   generateWebSiteSchema,
+  generateSiteNavigationSchema,
   generateLocalBusinessSchema,
   generateGraphSchema,
 } from "./lib/seo";
@@ -40,7 +41,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE_NAME} — разработка сайтов и SEO в РФ и Беларуси`,
+    default: `${SITE_NAME} — разработка сайтов и SEO без конструкторов`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -130,6 +131,7 @@ export default async function RootLayout({
           data={generateGraphSchema([
             generateOrganizationSchema(),
             generateWebSiteSchema(),
+            generateSiteNavigationSchema(),
             generateLocalBusinessSchema(),
           ])}
         />

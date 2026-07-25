@@ -63,7 +63,7 @@ export default function Header() {
           </Link>
 
           {/* Десктопное меню */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-8" aria-label="Основная навигация">
             {navLinks.map((link) => {
               return (
                 <Link
@@ -108,7 +108,7 @@ export default function Header() {
         {/* Мобильное меню */}
         {isMenuOpen && (
           <div className="md:hidden py-4">
-            <nav className="bg-gray-100 dark:bg-gray-800 rounded-lg p-2">
+            <nav className="bg-gray-100 dark:bg-gray-800 rounded-lg p-2" aria-label="Мобильная навигация">
               <div className="px-3 py-2 text-xs text-gray-600 dark:text-gray-300 flex justify-between items-center">
                 <span className="font-semibold">{t(locale, 'header.menu')}</span>
                 <LanguageSwitcher compact onChange={() => setIsMenuOpen(false)} />
