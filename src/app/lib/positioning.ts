@@ -2,12 +2,12 @@
 
 export const POSITIONING = {
   ru: {
-    badge: 'Уникальный код · без конструкторов',
-    heroTitle1: 'Сайты и рост заявок',
-    heroTitle2: 'на уникальном коде',
-    heroTitle3: 'SEO, GEO и поддержка в одном контуре',
+    badge: 'Сайты · приложения · продвижение',
+    heroTitle1: 'Привлекаем клиентов',
+    heroTitle2: 'через digital-продукты',
+    heroTitle3: 'уникальный код, SEO и GEO',
     heroLead:
-      'Аналитика, дизайн и разработка без Tilda/Wix. Сайт как канал заявок: Яндекс, Google и нейросети. Смета за 1 рабочий день.',
+      'Разрабатываем сайты и приложения без конструкторов и продвигаем в Яндексе, Google и нейросетях. Смета за 1 рабочий день.',
     ctaPrimary: 'Обсудить проект',
     ctaSecondary: 'Смотреть кейсы',
     servicesTitle: 'Что мы делаем',
@@ -107,12 +107,12 @@ export const POSITIONING = {
     ],
   },
   en: {
-    badge: 'Custom code · no website builders',
-    heroTitle1: 'Websites that win',
-    heroTitle2: 'leads — custom code only',
-    heroTitle3: 'SEO, GEO and support in one system',
+    badge: 'Websites · apps · growth',
+    heroTitle1: 'Win more clients',
+    heroTitle2: 'with digital products',
+    heroTitle3: 'custom code, SEO and GEO',
     heroLead:
-      'Analytics, design and engineering — no Tilda/Wix. Your site as a lead channel across search and AI answers. Quote within one business day.',
+      'We build websites and apps without page builders, then grow visibility in search and AI answers. Quote within one business day.',
     ctaPrimary: 'Discuss a project',
     ctaSecondary: 'View case studies',
     servicesTitle: 'What we deliver',

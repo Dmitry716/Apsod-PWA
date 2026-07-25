@@ -9,6 +9,8 @@ import HomeHeroCopy from "./components/HomeHeroCopy";
 import HomeValueSections from "./components/HomeValueSections";
 import HomeGeoBanner from "./components/HomeGeoBanner";
 import HomeLeadStrip from "./components/HomeLeadStrip";
+import HomeGrowthFunnel from "./components/HomeGrowthFunnel";
+import HomeBeforeAfter from "./components/HomeBeforeAfter";
 import Reveal from "./components/Reveal";
 
 export const metadata = buildSnippetMetadata('/');
@@ -233,18 +235,21 @@ export default function Home() {
         </div>
       </section>
 
+      <HomeGrowthFunnel />
+      <HomeBeforeAfter />
+
       <HomeValueSections />
 
-      {/* Топ услуг */}
+      {/* Топ услуг — фокус на привлечение клиентов */}
       <section className="py-20 bg-white dark:bg-gray-800 max-md:py-12">
         <div className="container mx-auto px-4">
           <Reveal className="text-center mb-12 max-md:mb-8">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 max-md:text-3xl">
-              Топ услуг для бизнеса
+              Три направления для роста
             </h2>
             <div className="apsod-line-draw mx-auto mb-4" />
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto max-md:text-base">
-              Четыре приоритета роста: сайт, поиск, нейросети и сопровождение
+              Разработка сайтов, мобильные приложения и продвижение — ядро APSOD
             </p>
           </Reveal>
 
@@ -631,7 +636,7 @@ export default function Home() {
   );
 }
 
-// Данные для услуг (featured = топ на главной)
+// Ядро привлечения клиентов: сайт, apps, SEO, GEO
 const services = [
   {
     icon: "🌐",
@@ -640,6 +645,15 @@ const services = [
       "Корпоративные сайты и интернет-магазины на уникальном коде: аналитика, архитектура, безопасность.",
     tags: ["Next.js", "React", "TypeScript", "Без конструкторов"],
     link: "/services/web-development",
+    featured: true,
+  },
+  {
+    icon: "📱",
+    title: "Мобильные приложения",
+    description:
+      "Уникальные iOS и Android продукты с упором на безопасность и стабильность.",
+    tags: ["React Native", "Flutter", "Swift", "Kotlin"],
+    link: "/services/mobile-development",
     featured: true,
   },
   {
@@ -667,15 +681,6 @@ const services = [
       "Сопровождение после запуска: мониторинг, обновления, развитие продукта.",
     tags: ["Next.js", "Безопасность", "SLA"],
     link: "/services/technical-support",
-    featured: true,
-  },
-  {
-    icon: "📱",
-    title: "Мобильные приложения",
-    description:
-      "Уникальные iOS и Android продукты с упором на безопасность и стабильность.",
-    tags: ["React Native", "Flutter", "Swift", "Kotlin"],
-    link: "/services/mobile-development",
     featured: false,
   },
   {
