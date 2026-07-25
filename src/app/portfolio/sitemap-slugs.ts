@@ -11,4 +11,13 @@ export const PORTFOLIO_SITEMAP_SLUGS = [
   'erin',
   'vsenashi',
   'vigbo',
+  'nordforge-industrial',
+  'meridian-ledger',
+  'harbor-health',
+  'oak-and-thread',
+  'clearroute-logistics',
+  'brightpath-academy',
+  'solara-grid',
+  'stagewire-events',
+  'apex-advisory',
 ] as const

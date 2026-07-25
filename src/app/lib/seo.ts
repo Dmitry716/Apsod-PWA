@@ -312,15 +312,42 @@ export function generateOrganizationSchema() {
   }
 }
 
+/** Основные разделы для быстрых ссылок / SiteNavigationElement (короткие имена) */
+export const SITE_NAV_LINKS = [
+  { name: 'Услуги', path: '/services' },
+  { name: 'Цены', path: '/pricing' },
+  { name: 'Портфолио', path: '/portfolio' },
+  { name: 'Блог', path: '/blog' },
+  { name: 'О нас', path: '/about' },
+  { name: 'Контакты', path: '/contact' },
+] as const
+
+export function generateSiteNavigationSchema() {
+  return {
+    '@type': 'ItemList',
+    '@id': `${SITE_URL.replace(/\/$/, '')}/#site-navigation`,
+    name: 'Основная навигация APSOD',
+    numberOfItems: SITE_NAV_LINKS.length,
+    itemListElement: SITE_NAV_LINKS.map((link, index) => ({
+      '@type': 'SiteNavigationElement',
+      position: index + 1,
+      name: link.name,
+      url: buildCanonical(link.path),
+    })),
+  }
+}
+
 export function generateWebSiteSchema() {
   return {
     '@type': 'WebSite',
     '@id': getWebSiteId(),
     name: SITE_NAME,
+    alternateName: 'APSOD — разработка сайтов и SEO',
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     publisher: { '@id': getOrganizationId() },
     inLanguage: 'ru-RU',
+    hasPart: { '@id': `${SITE_URL.replace(/\/$/, '')}/#site-navigation` },
   }
 }
 
@@ -361,17 +388,29 @@ export function generateLocalBusinessSchema() {
   }
 }
 
+/**
+ * BreadcrumbList для навигационной цепочки в сниппете Яндекса/Google.
+ * У элементов: name + url (Яндекс) и item/@id (Schema.org).
+ */
 export function generateBreadcrumbSchema(
   items: { name: string; path: string }[]
 ) {
   return {
     '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      name: item.name,
-      item: buildCanonical(item.path),
-    })),
+    itemListElement: items.map((crumb, i) => {
+      const url = buildCanonical(crumb.path)
+      const isLast = i === items.length - 1
+      return {
+        '@type': 'ListItem',
+        position: i + 1,
+        name: crumb.name,
+        // Яндекс учитывает url; Schema.org — item
+        url,
+        ...(isLast
+          ? { item: { '@id': url, name: crumb.name } }
+          : { item: url }),
+      }
+    }),
   }
 }
 

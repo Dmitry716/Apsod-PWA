@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import {
   buildSnippetMetadata,
-  generateBreadcrumbSchema,
   generateFAQSchema,
 } from '../lib/seo'
 import SeoJsonLd from '../components/SeoJsonLd'
+import PageBreadcrumbs from '../components/PageBreadcrumbs'
 import { HOMEPAGE_FAQ } from '../lib/homepage-faq'
 import { DUAL_CURRENCY_NOTE, dualPriceLines, formatDualPrice } from '../lib/currency'
 
@@ -58,12 +58,12 @@ const PACKAGES = [
 const EXTRA = [
   {
     title: 'SEO в Яндексе и Google',
-    desc: `Аудит, семантика, техника, контент — ${formatDualPrice(800, { perMonth: true })} или пакетный старт после аудита.`,
+    desc: `Аудит, семантика, техника, контент — ${formatDualPrice(1500, { perMonth: true })} или пакетный старт после аудита.`,
     href: '/services/seo',
   },
   {
     title: 'GEO в нейросетях',
-    desc: `AI-видимость: тарифы ${formatDualPrice(2500, { perMonth: true })}, отдельный аудит ${formatDualPrice(1200)}.`,
+    desc: `AI-видимость: тарифы ${formatDualPrice(1500, { perMonth: true })}, отдельный аудит ${formatDualPrice(1200)}.`,
     href: '/services/geo-promotion',
   },
   {
@@ -80,10 +80,6 @@ const EXTRA = [
 
 export default function PricingPage() {
   const schemas = [
-    generateBreadcrumbSchema([
-      { name: 'Главная', path: '/' },
-      { name: 'Цены', path: '/pricing' },
-    ]),
     generateFAQSchema(
       HOMEPAGE_FAQ.filter((f) =>
         f.question.toLowerCase().includes('стоит') || f.question.toLowerCase().includes('долго')
@@ -94,13 +90,13 @@ export default function PricingPage() {
   return (
     <div className="container mx-auto px-4 py-16 max-w-5xl">
       <SeoJsonLd data={schemas} />
-      <nav className="text-sm text-gray-500 mb-8">
-        <Link href="/" className="hover:text-blue-600">
-          Главная
-        </Link>
-        {' / '}
-        <span className="text-gray-700 dark:text-gray-300">Цены</span>
-      </nav>
+      <PageBreadcrumbs
+        items={[
+          { name: 'Главная', path: '/' },
+          { name: 'Цены', path: '/pricing' },
+        ]}
+        className="text-sm text-gray-500 mb-8"
+      />
 
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
         Цены на разработку сайтов и digital

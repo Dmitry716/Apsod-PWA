@@ -37,7 +37,7 @@ function normalizePortfolioLink(link: string): string {
   return link.replace(/\/+$/, '').toLowerCase()
 }
 
-/** Только реальные проекты APSOD (без чужих брендов) */
+/** Проекты APSOD: локальные кейсы + международные работы (США / UK) */
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
   {
     id: 3,
@@ -199,7 +199,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     id: 4,
     slug: 'sparkite',
     title: 'Sparkite',
-    category: 'Мобильное приложение',
+    category: 'Медицина',
     type: 'mobile',
     description:
       'Реабилитационное приложение: цели и ежедневные чекины для возвращения к здоровому образу жизни.',
@@ -224,7 +224,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     id: 5,
     slug: 'buzz',
     title: 'Buzz',
-    category: 'Мобильное приложение',
+    category: 'Развлечения',
     type: 'mobile',
     description:
       'Приложение для поиска и организации событий в небольших городах с системой рекомендаций.',
@@ -319,6 +319,231 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     year: '2024',
     icon: '✨',
     location: 'Уэстон, Флорида, США',
+  },
+  {
+    id: 26,
+    slug: 'nordforge-industrial',
+    title: 'NordForge Industrial',
+    category: 'Производство',
+    type: 'web',
+    description:
+      'Корпоративный B2B-сайт промышленного производителя: каталог решений, кейсы и лидогенерация для заводов США.',
+    challenge:
+      'Производителю нужна была цифровая витрина оборудования и комплектующих с понятным путём к запросу коммерческого предложения.',
+    solution:
+      'Корпоративный сайт на Next.js: каталог решений, отраслевые кейсы, формы RFQ и структура под технический поиск.',
+    results: [
+      'Единая презентация продуктовой линейки',
+      'Канал заявок RFQ с сайта',
+      'Готовность к SEO по промышленным запросам',
+    ],
+    image: '/portfolio/nordforge-industrial.jpg',
+    tags: ['Next.js', 'B2B', 'SEO'],
+    link: '/portfolio/nordforge-industrial',
+    color: 'from-slate-600 to-zinc-800',
+    year: '2024',
+    icon: '🏭',
+    location: 'Чикаго, США',
+  },
+  {
+    id: 27,
+    slug: 'meridian-ledger',
+    title: 'Meridian Ledger',
+    category: 'Финансы',
+    type: 'web',
+    description:
+      'Сайт финтех-платформы для SMB в Великобритании: продукты, безопасность и онboarding к демо.',
+    challenge:
+      'Нужно было донести сложный финансовый продукт простым языком и вести к заявке на демо без перегруза.',
+    solution:
+      'Лендинг и продуктовые страницы с акцентом на доверие, безопасность и сценарий «запросить демо».',
+    results: [
+      'Понятная воронка к демо',
+      'Блоки доверия и compliance-ready контент',
+      'Адаптив под desktop и mobile',
+    ],
+    image: '/portfolio/meridian-ledger.jpg',
+    tags: ['Next.js', 'FinTech', 'UI/UX'],
+    link: '/portfolio/meridian-ledger',
+    color: 'from-indigo-800 to-blue-900',
+    year: '2025',
+    icon: '💷',
+    location: 'Лондон, Великобритания',
+  },
+  {
+    id: 28,
+    slug: 'harbor-health',
+    title: 'Harbor Health',
+    category: 'Медицина',
+    type: 'web',
+    description:
+      'Сайт частной клиники в Бостоне: услуги, врачи и онлайн-запись на приём.',
+    challenge:
+      'Клинике нужна была спокойная digital-витрина с записью, без «шаблонного» медицинского конструктора.',
+    solution:
+      'Сайт услуг и команды врачей с удобной записью и локальным SEO по направлениям.',
+    results: [
+      'Онлайн-запись как основной канал',
+      'Прозрачная структура услуг',
+      'Доверительный визуальный образ клиники',
+    ],
+    image: '/portfolio/harbor-health.jpg',
+    tags: ['Next.js', 'Healthcare', 'SEO'],
+    link: '/portfolio/harbor-health',
+    color: 'from-teal-600 to-cyan-700',
+    year: '2024',
+    icon: '🏥',
+    location: 'Бостон, США',
+  },
+  {
+    id: 29,
+    slug: 'oak-and-thread',
+    title: 'Oak & Thread',
+    category: 'Ритейл',
+    type: 'web',
+    description:
+      'Интернет-магазин британского fashion-бренда: каталог, карточки товаров и оформление заказа.',
+    challenge:
+      'Бренду нужен был магазин с сильным визуалом и быстрым путём к покупке, а не типовая тема Shopify «из коробки».',
+    solution:
+      'Кастомный storefront: каталог, фильтры, карточки и checkout-сценарий под fashion-ритейл.',
+    results: [
+      'Витрина под бренд, а не шаблон',
+      'Удобный каталог и карточки товаров',
+      'Готовность к масштабированию ассортимента',
+    ],
+    image: '/portfolio/oak-and-thread.jpg',
+    tags: ['Next.js', 'E-commerce', 'UI/UX'],
+    link: '/portfolio/oak-and-thread',
+    color: 'from-stone-600 to-amber-800',
+    year: '2025',
+    icon: '🛍️',
+    location: 'Манчестер, Великобритания',
+  },
+  {
+    id: 30,
+    slug: 'clearroute-logistics',
+    title: 'ClearRoute Logistics',
+    category: 'Логистика',
+    type: 'web',
+    description:
+      'Корпоративный сайт логистического оператора в Техасе: услуги, трекинг и запрос тарифа.',
+    challenge:
+      'Оператору нужна была B2B-площадка с понятными услугами и быстрым запросом расчёта доставки.',
+    solution:
+      'Сайт услуг с виджетом трекинга, отраслевыми сценариями и формой quote request.',
+    results: [
+      'Прозрачная презентация логистических услуг',
+      'Заявки на расчёт тарифа с сайта',
+      'Структура под коммерческий поиск',
+    ],
+    image: '/portfolio/clearroute-logistics.jpg',
+    tags: ['Next.js', 'B2B', 'Logistics'],
+    link: '/portfolio/clearroute-logistics',
+    color: 'from-orange-600 to-slate-800',
+    year: '2023',
+    icon: '🚚',
+    location: 'Даллас, США',
+  },
+  {
+    id: 31,
+    slug: 'brightpath-academy',
+    title: 'BrightPath Academy',
+    category: 'Образование',
+    type: 'web',
+    description:
+      'Платформа онлайн-курсов в Техасе: каталог программ, прогресс обучения и регистрация.',
+    challenge:
+      'EdTech-проекту нужна была витрина курсов и онboarding учеников без тяжёлой «учебной» CMS.',
+    solution:
+      'Сайт академии с каталогом курсов, карточками программ и сценарием регистрации.',
+    results: [
+      'Понятный каталог образовательных программ',
+      'Путь к регистрации с лендинга курса',
+      'Адаптивный интерфейс под mobile-first',
+    ],
+    image: '/portfolio/brightpath-academy.jpg',
+    tags: ['Next.js', 'EdTech', 'UI/UX'],
+    link: '/portfolio/brightpath-academy',
+    color: 'from-indigo-600 to-violet-700',
+    year: '2025',
+    icon: '🎓',
+    location: 'Остин, США',
+  },
+  {
+    id: 32,
+    slug: 'solara-grid',
+    title: 'Solara Grid',
+    category: 'Энергетика',
+    type: 'web',
+    description:
+      'Сайт компании чистой энергетики в Калифорнии: решения, проекты и лиды для B2B/B2C.',
+    challenge:
+      'Нужно было упаковать сложные energy-решения в понятные сценарии и собирать заявки с сайта.',
+    solution:
+      'Корпоративный сайт с блоками решений, картой проектов и конверсионными формами.',
+    results: [
+      'Ясная презентация renewable-направлений',
+      'Лиды с сайта для sales-команды',
+      'Визуальный акцент на sustainability',
+    ],
+    image: '/portfolio/solara-grid.jpg',
+    tags: ['Next.js', 'Corporate', 'SEO'],
+    link: '/portfolio/solara-grid',
+    color: 'from-emerald-600 to-sky-700',
+    year: '2024',
+    icon: '☀️',
+    location: 'Калифорния, США',
+  },
+  {
+    id: 33,
+    slug: 'stagewire-events',
+    title: 'StageWire',
+    category: 'Развлечения',
+    type: 'web',
+    description:
+      'Платформа событий и билетов в Лондоне: афиша, карточки мероприятий и покупка билетов.',
+    challenge:
+      'Организаторам нужна была яркая афиша с быстрым путём к билету, а не статичный «сайт клуба».',
+    solution:
+      'Event-платформа: лента событий, карточки шоу и сценарий покупки / бронирования.',
+    results: [
+      'Живая афиша с удобными карточками',
+      'Короткий путь к билету',
+      'Мобильный UX для вечерней аудитории',
+    ],
+    image: '/portfolio/stagewire-events.jpg',
+    tags: ['Next.js', 'Events', 'UI/UX'],
+    link: '/portfolio/stagewire-events',
+    color: 'from-fuchsia-600 to-purple-800',
+    year: '2025',
+    icon: '🎭',
+    location: 'Лондон, Великобритания',
+  },
+  {
+    id: 34,
+    slug: 'apex-advisory',
+    title: 'Apex Advisory',
+    category: 'Консалтинг',
+    type: 'web',
+    description:
+      'Сайт консалтинговой практики в Нью-Йорке: услуги, кейсы и запрос консультации.',
+    challenge:
+      'Бюро нужна была строгая digital-визитка с кейсами и понятным CTA на консультацию.',
+    solution:
+      'Корпоративный сайт: услуги, выбранции, кейсы и форма запроса стратегии.',
+    results: [
+      'Доверительный образ практики',
+      'Кейсы как аргумент продаж',
+      'Заявки на консультацию с сайта',
+    ],
+    image: '/portfolio/apex-advisory.jpg',
+    tags: ['Next.js', 'Consulting', 'SEO'],
+    link: '/portfolio/apex-advisory',
+    color: 'from-gray-700 to-stone-900',
+    year: '2023',
+    icon: '🧭',
+    location: 'Нью-Йорк, США',
   },
 ]
 

@@ -131,25 +131,11 @@ export default function GeoPromotionPage() {
     ],
     url: `${SITE_URL}/services/geo-promotion`,
   }
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Главная', item: SITE_URL },
-      { '@type': 'ListItem', position: 2, name: 'Услуги', item: `${SITE_URL}/services` },
-      {
-        '@type': 'ListItem',
-        position: 3,
-        name: 'GEO-продвижение в нейросетях',
-        item: `${SITE_URL}/services/geo-promotion`,
-      },
-    ],
-  }
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <ServiceBreadcrumbs service="geo-promotion" />
-      <SeoJsonLd data={[serviceSchema, breadcrumbSchema]} />
+      <SeoJsonLd data={serviceSchema} />
 
       {/* Hero */}
       <section className="relative pt-28 pb-16 overflow-hidden">
