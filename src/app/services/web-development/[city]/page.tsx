@@ -26,15 +26,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!city) return { title: 'Город не найден' }
 
   return buildPageMetadata({
-    title: `Разработка сайтов под ключ ${city.nameIn} | APSOD`,
-    description: `Заказать создание сайта ${city.nameIn}: лендинг, корпоративный, каталог, магазин на уникальном коде. Смета ${formatDualPrice(8000)}. APSOD.`,
+    title: `Разработка и продвижение сайтов ${city.nameIn} | APSOD`,
+    description: `Разработка и продвижение сайтов ${city.nameIn}: лендинг, корпоративный, каталог, магазин на уникальном коде. Смета ${formatDualPrice(8000)}. APSOD.`,
     path: `/services/web-development/${city.slug}`,
     canonicalPath: `/belarus/${city.slug}`,
     absoluteTitle: true,
     keywords: [
+      `разработка и продвижение сайтов ${city.name}`,
       `разработка сайтов ${city.name}`,
-      `создание сайта ${city.name}`,
-      `разработка сайтов под ключ ${city.name}`,
+      `продвижение сайтов ${city.name}`,
       `заказать сайт ${city.name}`,
     ],
   })
@@ -46,7 +46,7 @@ export default async function WebDevelopmentCityPage({ params }: Props) {
   if (!city) notFound()
 
   const cityFaq = getCityFaq(city.name, city.nameIn)
-  const description = `Разработка сайтов под ключ ${city.nameIn} на уникальном коде. Лендинг, корпоративный сайт, каталог, интернет-магазин.`
+  const description = `Разработка и продвижение сайтов ${city.nameIn} на уникальном коде. Лендинг, корпоративный сайт, каталог, интернет-магазин.`
 
   const schemas = [
     generateBreadcrumbSchema([
@@ -59,7 +59,7 @@ export default async function WebDevelopmentCityPage({ params }: Props) {
     {
       '@context': 'https://schema.org',
       '@type': 'Service',
-      name: `Разработка сайтов под ключ ${city.nameIn}`,
+      name: `Разработка и продвижение сайтов ${city.nameIn}`,
       description,
       provider: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
       areaServed: {

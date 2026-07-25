@@ -16,11 +16,11 @@ export default function RussiaIndexPage() {
   ])
 
   const cityList = generateItemListSchema({
-    name: 'Разработка сайтов в городах России',
+    name: 'Разработка и продвижение сайтов в России',
     items: RUSSIA_CITIES.map((city) => ({
-      name: `Разработка сайтов ${city.name}`,
+      name: `Разработка и продвижение сайтов ${city.nameIn}`,
       url: `/russia/${city.slug}`,
-      description: `SEO и веб-разработка ${city.nameIn}`,
+      description: `Разработка и продвижение сайтов ${city.nameIn}`,
     })),
   })
 
@@ -29,10 +29,10 @@ export default function RussiaIndexPage() {
       <SeoJsonLd data={[breadcrumb, cityList]} />
 
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        Разработка сайтов и SEO в России
+        Разработка и продвижение сайтов в России
       </h1>
       <p className="text-lg text-gray-600 dark:text-gray-300 mb-4 max-w-3xl">
-        {SITE_NAME} работает с клиентами по всей РФ удалённо. <strong>Гео-фокус — Москва</strong>:
+        {SITE_NAME} работает с клиентами в России удалённо. <strong>Гео-фокус — Москва</strong>:
         сайты, интернет-магазины, SEO в Яндексе и Google, PWA и мобильные приложения.
       </p>
       <p className="text-gray-600 dark:text-gray-300 mb-10 max-w-3xl">
@@ -56,7 +56,7 @@ export default function RussiaIndexPage() {
             </h3>
             <p className="text-sm text-gray-500 dark:text-gray-400">{city.region}</p>
             <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-              Разработка сайтов {city.nameIn}
+              Разработка и продвижение сайтов {city.nameIn}
             </p>
           </Link>
         ))}
@@ -86,7 +86,7 @@ export default function RussiaIndexPage() {
           <Link href="/belarus" className="text-blue-600 hover:underline">
             Беларуси
           </Link>
-          .{' '}
+          : разработка и продвижение сайтов.{' '}
           <Link href="/contact" className="text-blue-600 hover:underline">
             Связаться с нами →
           </Link>

@@ -39,7 +39,7 @@ export default function CityWebDevOffer({
             Уникальный код · без конструкторов · {city.name}
           </p>
           <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Разработка сайтов под ключ {city.nameIn}
+            Разработка и продвижение сайтов {city.nameIn}
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-2 max-w-3xl">
             Делаем сайты, которые показывают сильные стороны компании и ведут к заявке.

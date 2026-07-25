@@ -16,11 +16,11 @@ export default function BelarusIndexPage() {
   ])
 
   const cityList = generateItemListSchema({
-    name: 'Разработка сайтов в городах Беларуси',
+    name: 'Разработка и продвижение сайтов в Беларуси',
     items: BELARUS_CITIES.map((city) => ({
-      name: `Разработка сайтов ${city.name}`,
+      name: `Разработка и продвижение сайтов ${city.nameIn}`,
       url: `/belarus/${city.slug}`,
-      description: `IT-услуги APSOD в ${city.nameIn}`,
+      description: `IT-услуги APSOD ${city.nameIn}`,
     })),
   })
 
@@ -28,7 +28,7 @@ export default function BelarusIndexPage() {
     <div className="max-w-5xl mx-auto px-4 py-16">
       <SeoJsonLd data={[breadcrumb, cityList]} />
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        Разработка сайтов и digital-услуги по Беларуси
+        Разработка и продвижение сайтов в Беларуси
       </h1>
       <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-3xl">
         {SITE_NAME}: ИП в Витебске, работаем удалённо по всей РБ. Гео-страницы —{' '}
@@ -49,7 +49,7 @@ export default function BelarusIndexPage() {
             </h2>
             <p className="text-sm text-gray-500 dark:text-gray-400">{city.region}</p>
             <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-              Разработка сайтов {city.nameIn}
+              Разработка и продвижение сайтов {city.nameIn}
             </p>
           </Link>
         ))}
@@ -80,9 +80,9 @@ export default function BelarusIndexPage() {
         <p>
           Также работаем в{' '}
           <Link href="/russia" className="text-blue-600 hover:underline">
-            России (Москва и регионы)
+            России
           </Link>
-          .{' '}
+          : разработка и продвижение сайтов в Москве и регионах.{' '}
           <Link href="/contact" className="text-blue-600 hover:underline">
             Связаться с нами →
           </Link>
