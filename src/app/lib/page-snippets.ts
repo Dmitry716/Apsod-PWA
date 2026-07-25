@@ -195,16 +195,18 @@ export function cityPageSnippet(
   nameIn: string,
   region: string
 ): PageSnippet {
-  const title = `Разработка сайтов ${nameIn} — сайт, SEO, приложения`
-  const description = `Создание сайта ${nameIn}, интернет-магазин, SEO в Яндексе и Google, мобильные приложения. APSOD — IT для бизнеса в ${region}. Смета онлайн.`
+  const title = `Разработка сайтов под ключ ${nameIn}`
+  const description = `Создание сайта ${nameIn} на уникальном коде: лендинг, корпоративный, каталог, магазин. SEO в Яндексе и Google. APSOD — ${region}. Смета от 8 000 Б̶.`
   return {
     title: clipTitle(title),
     description: clipDescription(description),
+    absoluteTitle: true,
     keywords: [
       `разработка сайтов ${cityName}`,
       `создание сайта ${cityName}`,
-      `SEO продвижение ${cityName}`,
+      `разработка сайтов под ключ ${cityName}`,
       `заказать сайт ${cityName}`,
+      `SEO продвижение ${cityName}`,
     ],
   }
 }

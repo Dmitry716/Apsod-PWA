@@ -8,6 +8,7 @@ import {
   generateCityLandingSchema,
   generateFAQSchema,
   SITE_NAME,
+  SITE_URL,
 } from '../../lib/seo'
 import {
   getBelarusGeoTier,
@@ -17,6 +18,7 @@ import {
 } from '../../lib/semantic-core'
 import { cityPageSnippet } from '../../lib/page-snippets'
 import SeoJsonLd from '../../components/SeoJsonLd'
+import CityWebDevOffer from '../../components/CityWebDevOffer'
 
 type Props = { params: Promise<{ city: string }> }
 
@@ -36,6 +38,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: snippet.title,
     description: snippet.description,
     path: `/belarus/${city.slug}`,
+    absoluteTitle: snippet.absoluteTitle,
     keywords: [
       ...snippet.keywords!,
       ...getCityMetaKeywords(city.name, city.region, tier, 'Беларусь'),
@@ -43,13 +46,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   })
 }
 
-const SERVICES = [
-  { href: '/services/web-development', title: 'Разработка сайтов', desc: 'Корпоративные сайты, каталоги, интернет-магазины' },
+const OTHER_SERVICES = [
   { href: '/services/seo', title: 'SEO-продвижение', desc: 'Google, Яндекс, органика' },
-  { href: '/services/geo-promotion', title: 'GEO-продвижение', desc: 'AI-видимость бренда в нейросетях' },
+  { href: '/services/geo-promotion', title: 'GEO-продвижение', desc: 'AI-видимость в нейросетях' },
   { href: '/services/mobile-development', title: 'Мобильные приложения', desc: 'iOS, Android, React Native' },
-  { href: '/services/pwa-development', title: 'PWA', desc: 'Веб-приложения с push-уведомлениями' },
-  { href: '/services/technical-support', title: 'Техподдержка', desc: 'Сопровождение и обновления' },
+  { href: '/services/pwa-development', title: 'PWA', desc: 'Веб-приложения с push' },
+  { href: '/services/technical-support', title: 'Техподдержка', desc: 'Сопровождение после запуска' },
   { href: '/services/ui-ux', title: 'UI/UX дизайн', desc: 'Интерфейсы и прототипы' },
 ]
 
@@ -58,10 +60,24 @@ export default async function BelarusCityPage({ params }: Props) {
   const city = getCityBySlug(citySlug)
   if (!city) notFound()
 
-  const description = `IT-услуги ${city.nameIn}: разработка сайтов, интернет-магазинов, SEO и мобильных приложений для бизнеса ${city.region}.`
+  const description = `Разработка сайтов под ключ ${city.nameIn}: лендинг, корпоративный сайт, каталог, интернет-магазин на уникальном коде. SEO и сопровождение.`
 
   const contentBlocks = getCityContentBlocks(city.name, city.nameIn, city.region)
   const cityFaq = getCityFaq(city.name, city.nameIn)
+
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `Разработка сайтов под ключ ${city.nameIn}`,
+    description,
+    provider: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+    areaServed: {
+      '@type': 'City',
+      name: city.name,
+      containedInPlace: { '@type': 'Country', name: 'Belarus' },
+    },
+    url: `${SITE_URL}/belarus/${city.slug}`,
+  }
 
   const schemas = [
     generateBreadcrumbSchema([
@@ -76,148 +92,97 @@ export default async function BelarusCityPage({ params }: Props) {
       countryPath: 'belarus',
     }),
     generateFAQSchema(cityFaq),
+    serviceSchema,
   ]
 
-  const otherCities = BELARUS_CITIES.filter((c) => c.slug !== city.slug).slice(0, 6)
+  const otherCities = BELARUS_CITIES.filter((c) => c.slug !== city.slug)
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-16">
-      <SeoJsonLd data={schemas} />
+    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+      <div className="max-w-5xl mx-auto px-4 py-12 md:py-16">
+        <SeoJsonLd data={schemas} />
 
-      <nav className="text-sm text-gray-500 mb-6">
-        <Link href="/" className="hover:text-blue-600">Главная</Link>
-        {' / '}
-        <Link href="/belarus" className="hover:text-blue-600">Беларусь</Link>
-        {' / '}
-        <span className="text-gray-700 dark:text-gray-300">{city.name}</span>
-      </nav>
-
-      <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        Разработка сайтов {city.nameIn} — создание сайта и SEO
-      </h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-2">{city.region}</p>
-      <p className="text-gray-600 dark:text-gray-300 mb-10 max-w-3xl">
-        {SITE_NAME} создаёт сайты, интернет-магазины и цифровые продукты для компаний{' '}
-        {city.nameIn} и всей {city.region}. {SITE_NAME} базируется в Витебске и работает удалённо по всей Беларуси.
-        Продвигаем проекты в Google и Яндексе с учётом белорусского рынка.
-      </p>
-
-      <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
-        Услуги {city.nameIn}
-      </h2>
-      <div className="grid sm:grid-cols-2 gap-4 mb-12">
-        {SERVICES.map((s) => (
-          <Link
-            key={s.href}
-            href={s.href}
-            className="p-5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-blue-500 transition-colors"
-          >
-            <h3 className="font-semibold text-blue-600 dark:text-blue-400">{s.title}</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{s.desc}</p>
+        <nav className="text-sm text-gray-500 mb-6">
+          <Link href="/" className="hover:text-blue-600">
+            Главная
           </Link>
-        ))}
-      </div>
+          {' / '}
+          <Link href="/belarus" className="hover:text-blue-600">
+            Беларусь
+          </Link>
+          {' / '}
+          <span className="text-gray-700 dark:text-gray-300">{city.name}</span>
+        </nav>
 
-      {contentBlocks.map((block) => (
-        <section key={block.h2} className="mb-12">
+        <CityWebDevOffer city={city} showHero showFaq faq={cityFaq} />
+
+        <section className="py-12 border-t border-gray-100 dark:border-gray-800">
           <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
-            {block.h2}
+            Другие услуги {city.nameIn}
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
-            {block.body}
-          </p>
-        </section>
-      ))}
-
-      <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
-          Заказать сайт {city.nameIn}
-        </h2>
-        <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
-          Компании {city.nameIn} заказывают у {SITE_NAME} сайт с нуля, лендинг, корпоративный
-          сайт, интернет-магазин и SEO-продвижение. Стек под задачу (Next.js, React, Node.js),
-          структура под запросы {city.region}, сопровождение после запуска. Оставьте заявку —
-          оценим сроки и стоимость создания сайта {city.nameIn}.
-        </p>
-      </section>
-
-      <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
-          Почему {SITE_NAME} для бизнеса {city.nameGenitive}
-        </h2>
-        <ul className="space-y-2 text-gray-600 dark:text-gray-300 list-disc pl-5">
-          <li>15+ лет опыта в веб-разработке и digital</li>
-          <li>Портфолио с проектами по всей Беларуси, включая {city.region}</li>
-          <li>SEO под Google и Яндекс — важно для рынка РБ</li>
-          <li>Современный стек: Next.js, React, Node.js, PWA</li>
-          <li>Техподдержка и развитие проекта после запуска</li>
-        </ul>
-      </section>
-
-      <div className="flex flex-wrap gap-4 mb-12">
-        <Link
-          href="/contact"
-          className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
-        >
-          Обсудить проект
-        </Link>
-        <Link
-          href="/pricing"
-          className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-500"
-        >
-          Цены
-        </Link>
-        <Link
-          href="/portfolio"
-          className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-500"
-        >
-          Портфолио
-        </Link>
-      </div>
-
-      <section className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
-          Вопросы про разработку сайтов {city.nameIn}
-        </h2>
-        <div className="space-y-3">
-          {cityFaq.map((item) => (
-            <details
-              key={item.question}
-              className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4"
-            >
-              <summary className="cursor-pointer font-medium text-gray-900 dark:text-white">
-                {item.question}
-              </summary>
-              <p className="mt-2 text-gray-600 dark:text-gray-300 text-sm">{item.answer}</p>
-            </details>
-          ))}
-        </div>
-      </section>
-
-      {otherCities.length > 0 && (
-        <section>
-          <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
-            Другие города Беларуси
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {otherCities.map((c) => (
+          <div className="grid sm:grid-cols-2 gap-4 mb-10">
+            {OTHER_SERVICES.map((s) => (
               <Link
-                key={c.slug}
-                href={`/belarus/${c.slug}`}
-                className="px-3 py-1.5 text-sm rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+                key={s.href}
+                href={s.href}
+                className="p-5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-blue-500 transition-colors"
               >
-                {c.name}
+                <h3 className="font-semibold text-blue-600 dark:text-blue-400">{s.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{s.desc}</p>
               </Link>
             ))}
-            <Link
-              href="/belarus"
-              className="px-3 py-1.5 text-sm rounded-full text-blue-600 hover:underline"
-            >
-              Все города →
-            </Link>
           </div>
+
+          {contentBlocks.slice(0, 2).map((block) => (
+            <section key={block.h2} className="mb-10">
+              <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
+                {block.h2}
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
+                {block.body}
+              </p>
+            </section>
+          ))}
+
+          <section className="mb-10">
+            <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
+              Почему {SITE_NAME} для бизнеса {city.nameGenitive}
+            </h2>
+            <ul className="space-y-2 text-gray-600 dark:text-gray-300 list-disc pl-5">
+              <li>15+ лет опыта в веб-разработке и digital</li>
+              <li>Уникальный код без конструкторов</li>
+              <li>SEO под Google и Яндекс с учётом рынка РБ</li>
+              <li>База в Витебске, удалённая работа по Беларуси</li>
+              <li>Техподдержка и развитие после запуска</li>
+            </ul>
+          </section>
         </section>
-      )}
+
+        {otherCities.length > 0 && (
+          <section className="pt-6 border-t border-gray-100 dark:border-gray-800">
+            <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
+              Другие города
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {otherCities.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/belarus/${c.slug}`}
+                  className="px-3 py-1.5 text-sm rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+                >
+                  {c.name}
+                </Link>
+              ))}
+              <Link
+                href={`/services/web-development/${city.slug}`}
+                className="px-3 py-1.5 text-sm rounded-full text-blue-600 hover:underline"
+              >
+                Посадочная услуги →
+              </Link>
+            </div>
+          </section>
+        )}
+      </div>
     </div>
   )
 }
