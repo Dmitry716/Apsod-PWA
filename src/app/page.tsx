@@ -11,6 +11,7 @@ import HomeGeoBanner from "./components/HomeGeoBanner";
 import HomeLeadStrip from "./components/HomeLeadStrip";
 import HomeGrowthFunnel from "./components/HomeGrowthFunnel";
 import HomeBeforeAfter from "./components/HomeBeforeAfter";
+import HomeDeviceShowcase from "./components/HomeDeviceShowcase";
 import Reveal from "./components/Reveal";
 
 export const metadata = buildSnippetMetadata('/');
@@ -235,6 +236,7 @@ export default function Home() {
         </div>
       </section>
 
+      <HomeDeviceShowcase />
       <HomeGrowthFunnel />
       <HomeBeforeAfter />
 

@@ -252,13 +252,23 @@
   animation: apsod-pulse-ring 2.2s ease-out infinite;
 }
 
-@keyframes apsod-messenger-bob {
+@keyframes apsod-device-float {
   0%,
   100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-3px);
+    transform: translateY(-6px);
+  }
+}
+
+.apsod-device-float {
+  animation: apsod-device-float 5.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apsod-device-float {
+    animation: none !important;
   }
 }
 
@@ -296,7 +306,8 @@
   .apsod-mesh-blob,
   .apsod-badge-pulse::after,
   .apsod-messenger-fab,
-  .apsod-messenger-fab::after {
+  .apsod-messenger-fab::after,
+  .apsod-device-float {
     animation: none !important;
     transition: none !important;
   }
