@@ -20,11 +20,10 @@ import { cityPageSnippet } from '../../lib/page-snippets'
 import {
   getVitebskSeoBlocks,
   getVitebskSeoFaq,
-  VITEBSK_CASES,
 } from '../../lib/vitebsk-seo'
-import { formatDualPrice } from '../../lib/currency'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import CityWebDevOffer from '../../components/CityWebDevOffer'
+import VitebskLandingSections from '../../components/VitebskLandingSections'
 
 type Props = { params: Promise<{ city: string }> }
 
@@ -118,8 +117,8 @@ export default async function BelarusCityPage({ params }: Props) {
   const otherCities = BELARUS_CITIES.filter((c) => c.slug !== city.slug)
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-      <div className="max-w-5xl mx-auto px-4 py-12 md:py-16">
+    <div className="min-h-screen bg-linear-to-b from-slate-50 to-white dark:from-gray-950 dark:to-gray-900">
+      <div className={`mx-auto px-4 py-12 md:py-16 ${isVitebsk ? 'max-w-6xl' : 'max-w-5xl'}`}>
         <SeoJsonLd data={schemas} />
 
         <nav className="text-sm text-gray-500 mb-6">
@@ -142,115 +141,94 @@ export default async function BelarusCityPage({ params }: Props) {
           heroTitle={isVitebsk ? 'Создание сайтов в Витебске' : undefined}
           heroLead={
             isVitebsk
-              ? 'Создание и разработка сайтов под ключ: визитка, лендинг, каталог, магазин на уникальном коде. Раскрутка SEO и обслуживание — без конструкторов.'
+              ? 'Разрабатываем сайты под ключ для бизнеса Витебска: визитка, лендинг, корпоративный сайт, каталог и магазин на уникальном коде. SEO и сопровождение — без конструкторов и шаблонов.'
               : undefined
           }
         />
 
-        {isVitebsk && (
-          <section className="pb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">
-              Кейсы из Витебска
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl">
-              Реальные проекты APSOD для бизнеса в Витебске — не шаблоны конструктора.
-            </p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-              {VITEBSK_CASES.map((c) => (
-                <Link
-                  key={c.href}
-                  href={c.href}
-                  className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 hover:border-blue-400 transition-colors"
-                >
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{c.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300">{c.result}</p>
-                </Link>
-              ))}
-            </div>
-            <p className="text-sm text-gray-500">
-              Ориентир по цене создания сайта:{' '}
-              <Link href="/pricing" className="text-blue-600 hover:underline">
-                от {formatDualPrice(8000)}
-              </Link>
-            </p>
-          </section>
-        )}
-
-        <section className="py-12 border-t border-gray-100 dark:border-gray-800">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
-            Другие услуги {city.nameIn}
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-4 mb-10">
-            {OTHER_SERVICES.map((s) => (
-              <Link
-                key={s.href}
-                href={s.href}
-                className="p-5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-blue-500 transition-colors"
-              >
-                <h3 className="font-semibold text-blue-600 dark:text-blue-400">{s.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{s.desc}</p>
-              </Link>
-            ))}
-          </div>
-
-          {contentBlocks.map((block) => (
-            <section key={block.h2} className="mb-10">
-              <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
-                {block.h2}
+        {isVitebsk ? (
+          <VitebskLandingSections />
+        ) : (
+          <>
+            <section className="py-12 border-t border-gray-100 dark:border-gray-800">
+              <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
+                Другие услуги {city.nameIn}
               </h2>
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
-                {block.body}
-              </p>
-            </section>
-          ))}
+              <div className="grid sm:grid-cols-2 gap-4 mb-10">
+                {OTHER_SERVICES.map((s) => (
+                  <Link
+                    key={s.href}
+                    href={s.href}
+                    className="p-5 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-blue-500 transition-colors"
+                  >
+                    <h3 className="font-semibold text-blue-600 dark:text-blue-400">{s.title}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{s.desc}</p>
+                  </Link>
+                ))}
+              </div>
 
-          <section className="mb-10">
-            <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
-              Почему {SITE_NAME} для бизнеса {city.nameGenitive}
-            </h2>
-            <ul className="space-y-2 text-gray-600 dark:text-gray-300 list-disc pl-5">
-              {isVitebsk ? (
-                <>
-                  <li>ИП и команда в Витебске — локальный подрядчик, не «удалёнка из ниоткуда»</li>
-                  <li>Создание сайта на уникальном коде, без конструкторов и шаблонов</li>
-                  <li>Кейсы в Витебске: Amba Detail, Maxximum, Динамо-Витебск, ArtDetailing, BMservice</li>
-                  <li>SEO и раскрутка под Яндекс и Google с учётом рынка РБ</li>
-                  <li>Договор, смета за 1 день, сопровождение после запуска</li>
-                </>
-              ) : (
-                <>
+              {contentBlocks.map((block) => (
+                <section key={block.h2} className="mb-10">
+                  <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
+                    {block.h2}
+                  </h2>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">
+                    {block.body}
+                  </p>
+                </section>
+              ))}
+
+              <section className="mb-10">
+                <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
+                  Почему {SITE_NAME} для бизнеса {city.nameGenitive}
+                </h2>
+                <ul className="space-y-2 text-gray-600 dark:text-gray-300 list-disc pl-5">
                   <li>15+ лет опыта в веб-разработке и digital</li>
                   <li>Уникальный код без конструкторов</li>
                   <li>SEO под Google и Яндекс с учётом рынка РБ</li>
                   <li>База в Витебске, удалённая работа по Беларуси</li>
                   <li>Техподдержка и развитие после запуска</li>
-                </>
-              )}
-            </ul>
+                </ul>
+              </section>
+            </section>
+          </>
+        )}
+
+        {isVitebsk && (
+          <section className="py-12 border-t border-slate-200 dark:border-slate-800">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
+              Другие услуги для Витебска
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {OTHER_SERVICES.map((s) => (
+                <Link
+                  key={s.href}
+                  href={s.href}
+                  className="p-5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/50 hover:border-blue-500 transition-colors"
+                >
+                  <h3 className="font-semibold text-gray-900 dark:text-white">{s.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{s.desc}</p>
+                </Link>
+              ))}
+            </div>
           </section>
-        </section>
+        )}
 
         {otherCities.length > 0 && (
-          <section className="pt-6 border-t border-gray-100 dark:border-gray-800">
-            <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
-              Другие города
+          <section className="pt-8 border-t border-slate-200 dark:border-slate-800">
+            <h2 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
+              Другие города Беларуси
             </h2>
             <div className="flex flex-wrap gap-2">
               {otherCities.map((c) => (
                 <Link
                   key={c.slug}
                   href={`/belarus/${c.slug}`}
-                  className="px-3 py-1.5 text-sm rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+                  className="px-3 py-1.5 text-sm rounded-md bg-slate-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-950/40"
                 >
                   {c.name}
                 </Link>
               ))}
-              <Link
-                href={`/services/web-development/${city.slug}`}
-                className="px-3 py-1.5 text-sm rounded-full text-blue-600 hover:underline"
-              >
-                Посадочная услуги →
-              </Link>
             </div>
           </section>
         )}
