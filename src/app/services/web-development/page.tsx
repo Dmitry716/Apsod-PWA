@@ -269,7 +269,7 @@ export default function WebDevelopmentPage() {
               Оставить заявку
             </Link>
             <a
-              href="https://t.me/DMITRYJS"
+              href="https://t.me/Apsod_IT"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 border border-white/25 rounded-lg font-medium"

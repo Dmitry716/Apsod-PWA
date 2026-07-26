@@ -211,7 +211,7 @@ export default function CityWebDevOffer({
               Оставить заявку
             </Link>
             <a
-              href="https://t.me/DMITRYJS"
+              href="https://t.me/Apsod_IT"
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2.5 border border-white/25 rounded-lg font-medium"

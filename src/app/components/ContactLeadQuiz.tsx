@@ -254,7 +254,7 @@ export default function ContactLeadQuiz() {
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <a
-            href="https://t.me/DMITRYJS"
+            href="https://t.me/Apsod_IT"
             target="_blank"
             rel="noopener noreferrer"
             className="px-5 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
@@ -290,7 +290,7 @@ export default function ContactLeadQuiz() {
           </p>
           <div className="flex gap-2">
             <a
-              href="https://t.me/DMITRYJS"
+              href="https://t.me/Apsod_IT"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-blue-600 dark:text-blue-400 hover:underline"

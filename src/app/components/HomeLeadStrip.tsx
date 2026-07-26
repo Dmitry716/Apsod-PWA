@@ -55,7 +55,7 @@ export default function HomeLeadStrip() {
 
         <Reveal className="flex flex-wrap justify-center gap-3" stagger={3}>
           <a
-            href="https://t.me/DMITRYJS"
+            href="https://t.me/Apsod_IT"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex px-6 py-3 bg-blue-500 hover:bg-blue-400 rounded-lg font-semibold"

@@ -464,7 +464,7 @@ export default function ChatWidget() {
             aria-hidden={!showMessengers}
           >
             <a
-              href="https://t.me/DMITRYJS"
+              href="https://t.me/Apsod_IT"
               target="_blank"
               rel="noopener noreferrer"
               className="apsod-messenger-fab group relative w-10 h-10 rounded-full bg-[#229ED9] text-white shadow-md hover:bg-[#1b8ec4] flex items-center justify-center transition-colors touch-none"

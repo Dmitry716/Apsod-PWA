@@ -278,7 +278,7 @@ export default function ServicesPage() {
               Оставить заявку
             </Link>
             <a
-              href="https://t.me/DMITRYJS"
+              href="https://t.me/Apsod_IT"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-4 border border-gray-300 dark:border-gray-600 rounded-lg font-medium hover:border-blue-500"
