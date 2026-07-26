@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
   },
   openGraph: {
-    title: `${SITE_NAME} — IT-компания в России и Беларуси`,
+    title: `${SITE_NAME} — IT-компания и веб-студия`,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — разработка сайтов в России и Беларуси`,
+    title: `${SITE_NAME} — IT-компания и веб-студия`,
     description: SITE_DESCRIPTION,
     images: [DEFAULT_OG_IMAGE_URL],
   },

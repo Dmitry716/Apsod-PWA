@@ -38,13 +38,25 @@ export const COMPANY_REMOTE_NOTE =
   'ИП зарегистрирован в Витебске. Проекты ведём удалённо по всему миру.'
 
 export const SITE_DESCRIPTION =
-  'APSOD — профессиональное продвижение бизнеса в интернете: аналитика, уникальная и безопасная разработка сайтов и приложений на уникальном коде, SEO и поддержка. Без конструкторов. Витебск, Минск, Москва и удалённо по миру.'
+  'APSOD — IT-компания и веб-студия: разработка сайтов и приложений на уникальном коде, SEO и GEO. Без конструкторов. Витебск, Минск, Москва и удалённо.'
 
 export const SITE_OG_IMAGE = '/og-image.jpg'
 export const DEFAULT_OG_IMAGE_URL = `${SITE_URL}${SITE_OG_IMAGE}`
 
 /** Ключевые запросы: сайты + SEO + mobile × топ-гео (Витебск, Минск, Москва) */
 export const MAIN_KEYWORDS = [
+  'IT компания',
+  'IT-компания',
+  'веб-студия',
+  'веб студия',
+  'IT компания Беларусь',
+  'веб-студия Беларусь',
+  'IT компания Витебск',
+  'веб-студия Витебск',
+  'IT компания Минск',
+  'веб-студия Минск',
+  'IT компания Москва',
+  'веб-студия Москва',
   'разработка сайтов Москва',
   'создание сайтов Москва',
   'создание сайта Москва',
@@ -68,6 +80,7 @@ export const MAIN_KEYWORDS = [
   'разработка сайтов Витебск',
   'создание сайтов Витебск',
   'создание сайта Витебск',
+  'создание сайтов в Витебске',
   'заказать сайт Витебск',
   'SEO продвижение Витебск',
   'разработка сайтов Беларусь',
@@ -294,9 +307,18 @@ export function generateOrganizationSchema() {
     '@type': 'Organization',
     '@id': getOrganizationId(),
     name: SITE_NAME,
+    alternateName: ['APSOD IT', 'IT-компания APSOD', 'веб-студия APSOD'],
     legalName: COMPANY.legalName,
     url: SITE_URL,
     description: SITE_DESCRIPTION,
+    knowsAbout: [
+      'IT компания',
+      'веб-студия',
+      'Web Development',
+      'SEO',
+      'Mobile Apps',
+      'PWA',
+    ],
     logo: {
       '@type': 'ImageObject',
       url: `${SITE_URL}/icons/icon-192x192.png`,
@@ -350,7 +372,10 @@ export function generateWebSiteSchema() {
     '@type': 'WebSite',
     '@id': getWebSiteId(),
     name: SITE_NAME,
-    alternateName: 'APSOD — разработка сайтов и SEO',
+    alternateName: [
+      'APSOD — IT-компания и веб-студия',
+      'APSOD — разработка сайтов и SEO',
+    ],
     url: SITE_URL,
     description: SITE_DESCRIPTION,
     publisher: { '@id': getOrganizationId() },

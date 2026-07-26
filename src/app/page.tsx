@@ -12,6 +12,8 @@ import HomeLeadStrip from "./components/HomeLeadStrip";
 import HomeGrowthFunnel from "./components/HomeGrowthFunnel";
 import HomeBeforeAfter from "./components/HomeBeforeAfter";
 import HomeDeviceShowcase from "./components/HomeDeviceShowcase";
+import HomeGlobalDelivery from "./components/HomeGlobalDelivery";
+import HomeAtAGlance from "./components/HomeAtAGlance";
 import Reveal from "./components/Reveal";
 
 export const metadata = buildSnippetMetadata('/');
@@ -187,56 +189,13 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <HomeHeroCopy />
-
-            {/* Правая колонка со статистикой */}
-            <div className="relative apsod-hero-enter apsod-hero-enter-delay-4">
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-3xl blur-2xl opacity-80 dark:opacity-100"></div>
-
-              <div className="grid grid-cols-2 gap-4 relative max-md:gap-2">
-                {[
-                  {
-                    value: "15+",
-                    label: "лет в digital",
-                    valueClass: "text-blue-600 dark:text-blue-400",
-                  },
-                  {
-                    value: "350+",
-                    label: "реальных кейсов",
-                    valueClass: "text-indigo-600 dark:text-indigo-400",
-                  },
-                  {
-                    value: "100%",
-                    label: "уникальный код",
-                    valueClass: "text-cyan-600 dark:text-cyan-400",
-                  },
-                  {
-                    value: "24ч",
-                    label: "ответ на заявку",
-                    valueClass: "text-sky-600 dark:text-sky-400",
-                  },
-                ].map((stat, index) => (
-                  <div
-                    key={index}
-                    className="apsod-stat-card apsod-card-lift group bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-blue-100/80 dark:border-gray-700/50 max-md:p-3"
-                    style={{ transitionDelay: `${index * 60}ms` }}
-                  >
-                    <div
-                      className={`text-4xl font-bold ${stat.valueClass} group-hover:scale-110 transition-transform duration-300 max-md:text-2xl`}
-                    >
-                      {stat.value}
-                    </div>
-                    <div className="text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors max-md:text-xs">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <HomeGlobalDelivery />
           </div>
         </div>
       </section>
 
       <HomeDeviceShowcase />
+      <HomeAtAGlance />
       <HomeGrowthFunnel />
       <HomeBeforeAfter />
 

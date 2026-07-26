@@ -83,6 +83,7 @@ function sitesP2(city: string): SemanticKeyword[] {
     { phrase: `корпоративный сайт ${city}`, priority: 'P2', cluster: 'sites' },
     { phrase: `лендинг ${city}`, priority: 'P2', cluster: 'sites' },
     { phrase: `веб-студия ${city}`, priority: 'P2', cluster: 'sites' },
+    { phrase: `IT компания ${city}`, priority: 'P2', cluster: 'sites' },
     { phrase: `сайт компании ${city}`, priority: 'P2', cluster: 'sites' },
   ]
 }
@@ -267,6 +268,7 @@ export function getCityMetaKeywords(
     .map((k) => k.phrase)
   const extra = [
     `IT компания ${cityName}`,
+    `веб-студия ${cityName}`,
     `веб-разработка ${region}`,
     `разработка сайтов ${countryLabel}`,
     `SEO продвижение ${countryLabel}`,
@@ -279,6 +281,12 @@ export const NATIONAL_BY_KEYWORDS = [
   'разработка и продвижение сайтов в Беларуси',
   'разработка сайтов в Беларуси',
   'продвижение сайтов в Беларуси',
+  'IT компания Беларусь',
+  'веб-студия Беларусь',
+  'IT компания Витебск',
+  'веб-студия Витебск',
+  'IT компания Минск',
+  'веб-студия Минск',
   'создание сайтов в Витебске',
   'создание сайта в Витебске',
   'разработка сайтов в Витебске',
@@ -300,8 +308,6 @@ export const NATIONAL_BY_KEYWORDS = [
   'SEO продвижение Минск',
   'разработка сайтов Минск',
   'разработка сайтов Витебск',
-  'IT компания Беларусь',
-  'веб-студия Беларусь',
 ]
 
 export const NATIONAL_RU_KEYWORDS = [
@@ -336,6 +342,12 @@ export const NATIONAL_RU_KEYWORDS = [
  * Закрывают голову воронки: разработка, продвижение, приложения.
  */
 export const TOP_COMMERCIAL_KEYWORDS = [
+  // Бренд / тип компании
+  'IT компания',
+  'IT-компания',
+  'веб-студия',
+  'веб студия',
+  'заказать в веб-студии',
   // Сайты
   'разработка сайтов',
   'создание сайтов',
@@ -347,7 +359,6 @@ export const TOP_COMMERCIAL_KEYWORDS = [
   'цена разработки сайта',
   'корпоративный сайт',
   'лендинг',
-  'веб-студия',
   // Магазины
   'разработка интернет-магазина',
   'создание интернет-магазина',

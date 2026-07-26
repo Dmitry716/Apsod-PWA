@@ -25,18 +25,20 @@ export default function HomeSeoSection() {
       <section className="py-20 bg-gray-50 dark:bg-gray-900/50 max-md:py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-            {SITE_NAME} — продвижение бизнеса в интернете
+            {SITE_NAME} — IT-компания и веб-студия
           </h2>
           <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 space-y-4">
             <p>
-              <strong>{SITE_NAME}</strong> — для клиентов, которым нужна не «страница на конструкторе»,
-              а профессиональная настройка digital-канала: аналитика и стратегия, уникальный дизайн,
-              безопасная разработка, SEO в Яндексе и Google, интеграции и поддержка после запуска.
+              <strong>{SITE_NAME}</strong> — IT-компания и веб-студия для бизнеса, которому нужна не
+              «страница на конструкторе», а digital-канал заявок: аналитика и стратегия, уникальный
+              дизайн, безопасная разработка, SEO в Яндексе и Google, интеграции и поддержка после
+              запуска.
             </p>
             <p>
-              Мы разрабатываем <strong>только индивидуальные сайты и приложения на уникальном коде</strong>{' '}
-              (Next.js, React, Node.js и мобильный стек). С Tilda, Wix и другими конструкторами не
-              работаем — такие решения не дают нужного уровня безопасности, гибкости и контроля.
+              Как веб-студия мы разрабатываем{' '}
+              <strong>только индивидуальные сайты и приложения на уникальном коде</strong> (Next.js,
+              React, Node.js и мобильный стек). С Tilda, Wix и другими конструкторами не работаем —
+              такие решения не дают нужного уровня безопасности, гибкости и контроля.
             </p>
             <p>
               География работы: <strong>Витебск</strong>, <strong>Минск</strong>, <strong>Москва</strong>{' '}
