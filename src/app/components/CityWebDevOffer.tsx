@@ -11,6 +11,8 @@ import {
   WEB_DEV_SITE_TYPES,
   type WebDevPackageId,
 } from '../lib/web-dev-packages'
+import { COMPANY } from '../lib/seo'
+import { VITEBSK_TRUST_FACTS } from '../lib/vitebsk-seo'
 import DevelopmentProcessSection from '../services/components/DevelopmentProcessSection'
 import { WEB_DEVELOPMENT_PROCESS } from '../services/lib/development-process'
 
@@ -39,22 +41,53 @@ export default function CityWebDevOffer({
   const lead =
     heroLead ??
     'Делаем сайты, которые показывают сильные стороны компании и ведут к заявке. Стек Next.js / React — не Tilda и не шаблонный WordPress.'
+  const isVitebsk = city.slug === 'vitebsk'
 
   return (
     <div>
       {showHero && (
-        <section className="pt-4 pb-12 md:pb-14">
-          <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-3">
-            Уникальный код · без конструкторов · {city.name}
+        <section className="pt-4 pb-12 md:pb-16">
+          <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">
+            {isVitebsk
+              ? 'IT-компания · веб-студия · Витебск'
+              : `Уникальный код · без конструкторов · ${city.name}`}
           </p>
-          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
             {title}
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-2 max-w-3xl">{lead}</p>
-          <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-3xl">
-            {city.region}. База в Витебске, работаем удалённо по Беларуси. Смета от{' '}
-            {formatDualPrice(8000)} — за 1 рабочий день после брифа.
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-3 max-w-3xl leading-relaxed">
+            {lead}
           </p>
+          <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-3xl leading-relaxed">
+            {isVitebsk ? (
+              <>
+                ИП в Витебске, проекты по Беларуси и удалённо. Договор, поэтапная оплата, смета от{' '}
+                {formatDualPrice(8000)} — за 1 рабочий день после брифа.
+              </>
+            ) : (
+              <>
+                {city.region}. База в Витебске, работаем удалённо по Беларуси. Смета от{' '}
+                {formatDualPrice(8000)} — за 1 рабочий день после брифа.
+              </>
+            )}
+          </p>
+
+          {isVitebsk && (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8 max-w-4xl">
+              {VITEBSK_TRUST_FACTS.map((fact) => (
+                <div
+                  key={fact.label}
+                  className="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/60 px-3 py-3"
+                >
+                  <div className="text-sm font-bold text-slate-900 dark:text-white leading-snug">
+                    {fact.value}
+                  </div>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-1">{fact.label}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
           <div className="flex flex-wrap gap-3">
             <Link
               href="/contact?goal=corporate"
@@ -68,6 +101,14 @@ export default function CityWebDevOffer({
             >
               Стоимость разработки
             </Link>
+            {isVitebsk && (
+              <a
+                href={`tel:${COMPANY.phoneE164}`}
+                className="px-6 py-3 text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-blue-600"
+              >
+                {COMPANY.phone}
+              </a>
+            )}
           </div>
         </section>
       )}
