@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { blogPosts } from './blog/data/posts'
 import { PORTFOLIO_SITEMAP_SLUGS } from './portfolio/sitemap-slugs'
+import { getAllReadySiteSlugs } from './ready-sites/data'
 import { BELARUS_CITIES } from './lib/belarus-cities'
 import { RUSSIA_CITIES, getRussiaCitySitemapPriority } from './lib/russia-cities'
 import {
@@ -28,6 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/blog`, lastModified: now, changeFrequency: 'daily', priority: 0.85 },
     { url: `${base}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${base}/pricing`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/ready-sites`, lastModified: now, changeFrequency: 'weekly', priority: 0.88 },
   ]
 
   const servicePages: MetadataRoute.Sitemap = SERVICE_PATHS.map((slug) => ({
@@ -49,6 +51,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.72,
+  }))
+
+  const readySitePages: MetadataRoute.Sitemap = getAllReadySiteSlugs().map((slug) => ({
+    url: `${base}/ready-sites/${slug}`,
+    lastModified: now,
+    changeFrequency: 'weekly' as const,
+    priority: 0.86,
   }))
 
   const legalPages: MetadataRoute.Sitemap = LEGAL_PATHS.map((slug) => ({
@@ -85,6 +94,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...servicePages,
     ...blogPages,
     ...portfolioPages,
+    ...readySitePages,
     ...legalPages,
     ...belarusCityPages,
     ...belarusWebDevLandings,
