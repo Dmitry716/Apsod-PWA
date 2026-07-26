@@ -21,6 +21,10 @@ export type PortfolioProject = {
   year: string
   icon: string
   location: string
+  /** Сайт выставлен на продажу как готовый продукт */
+  forSale?: boolean
+  /** slug в /ready-sites/[slug] */
+  readySiteSlug?: string
 }
 
 /** Порядок проектов на главной и в портфолио */
@@ -194,6 +198,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     year: '2022',
     icon: '✨',
     location: 'Витебск',
+    forSale: true,
+    readySiteSlug: 'detailing-studio',
   },
   {
     id: 4,

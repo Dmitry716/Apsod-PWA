@@ -182,6 +182,14 @@ export default function Footer() {
               </li>
               <li>
                 <Link
+                  href="/ready-sites"
+                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
+                >
+                  {locale === 'en' ? 'Ready sites' : 'Готовые сайты'}
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/about"
                   className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
                 >

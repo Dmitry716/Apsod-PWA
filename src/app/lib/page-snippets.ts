@@ -59,6 +59,19 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
       'Лендинг от 8 000 Б̶ / 240 000 ₽, корпоративный сайт от 15 000 Б̶ / 450 000 ₽, магазин от 23 000 Б̶ / 690 000 ₽. SEO от 800 Б̶ / 24 000 ₽/мес. Минск, Витебск, Москва.',
     keywords: ['стоимость сайта', 'цена разработки сайта', 'стоимость SEO'],
   },
+  '/ready-sites': {
+    title: 'Готовые сайты — разработка с нуля, SEO и GEO',
+    description:
+      'Купить готовый сайт APSOD: уникальный код с нуля, ребренд, перенос на ваш домен, база SEO и GEO. Без конструкторов. От 8 000 Б̶.',
+    absoluteTitle: true,
+    keywords: [
+      'готовые сайты',
+      'купить готовый сайт',
+      'разработка сайта с нуля',
+      'готовый сайт SEO',
+      'готовый сайт GEO',
+    ],
+  },
   '/portfolio': {
     title: 'Портфолио — кейсы разработки сайтов',
     description:
@@ -277,6 +290,28 @@ export function portfolioCaseSnippet(
       description || `Кейс APSOD: ${projectTitle}. Задача, решение и результат уникальной разработки.`
     ),
     keywords: [projectTitle, 'портфолио APSOD', 'кейс разработки'],
+  }
+}
+
+/** Сниппет лота готового сайта */
+export function readySiteSnippet(site: {
+  title: string
+  subtitle: string
+  priceLabel: string
+}): PageSnippet {
+  return {
+    title: clipTitle(`${site.title} — разработка с нуля, SEO и GEO`),
+    description: clipDescription(
+      `${site.subtitle} Цена ${site.priceLabel}. Купить готовый сайт APSOD с ребрендом.`
+    ),
+    absoluteTitle: true,
+    keywords: [
+      'купить готовый сайт',
+      'готовый сайт детейлинг',
+      'разработка сайта с нуля',
+      'готовый сайт SEO',
+      'готовый сайт GEO',
+    ],
   }
 }
 

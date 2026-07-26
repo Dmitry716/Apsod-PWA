@@ -78,6 +78,24 @@ export default async function PortfolioSlugPage({ params }: Props) {
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mt-1 mb-4">
               {project.title}
             </h1>
+            {project.forSale && project.readySiteSlug ? (
+              <div className="mb-8 rounded-2xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/40 p-5 flex flex-col sm:flex-row sm:items-center gap-4">
+                <div className="flex-1">
+                  <p className="font-semibold text-blue-900 dark:text-blue-100">
+                    В продаже: разработка с нуля + SEO и GEO
+                  </p>
+                  <p className="text-sm text-blue-800/90 dark:text-blue-200/90 mt-1">
+                    Готовый продукт APSOD: ребренд, перенос на ваш домен, база под поиск и нейросети.
+                  </p>
+                </div>
+                <Link
+                  href={`/ready-sites/${project.readySiteSlug}`}
+                  className="inline-flex justify-center px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg whitespace-nowrap"
+                >
+                  Смотреть лот
+                </Link>
+              </div>
+            ) : null}
             <div className="flex flex-wrap items-center gap-3 text-gray-500 dark:text-gray-400 mb-8">
               <span>{project.year}</span>
               <span>•</span>

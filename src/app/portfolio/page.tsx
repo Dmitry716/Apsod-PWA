@@ -269,6 +269,11 @@ export default function PortfolioPage() {
                       </span>
                     </div>
                   ) : null}
+                  {project.forSale ? (
+                    <span className="absolute top-3 left-3 z-10 rounded-md bg-blue-600 text-white text-xs font-semibold px-2.5 py-1">
+                      В продаже
+                    </span>
+                  ) : null}
                 </div>
 
                 {/* Контент — выше оверлея, ссылки кликабельны */}
@@ -323,6 +328,14 @@ export default function PortfolioPage() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                       </svg>
                     </Link>
+                    {project.forSale && project.readySiteSlug ? (
+                      <Link
+                        href={`/ready-sites/${project.readySiteSlug}`}
+                        className="inline-flex items-center text-sm font-semibold text-rose-600 dark:text-rose-400 hover:underline"
+                      >
+                        Купить сайт
+                      </Link>
+                    ) : null}
                     {project.liveUrl ? (
                       <a
                         href={project.liveUrl}

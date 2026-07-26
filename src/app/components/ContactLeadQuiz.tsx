@@ -26,6 +26,12 @@ const GOALS = [
     hint: 'Каталог, оплата, доставка',
   },
   {
+    value: 'ready-site',
+    service: 'web',
+    label: 'Готовый сайт в продаже',
+    hint: 'Ребренд + перенос + SEO/GEO',
+  },
+  {
     value: 'mobile',
     service: 'mobile',
     label: 'Мобильное приложение',
@@ -46,6 +52,7 @@ const GOALS = [
 ] as const
 
 const BUDGETS = [
+  { value: 'ready-8k', label: formatDualPrice(8000, { from: false }), hint: 'готовый сайт' },
   { value: 'landing-8k', label: formatDualPrice(8000), hint: 'лендинг' },
   { value: 'corporate-15k', label: formatDualPrice(15000), hint: 'корп. сайт' },
   { value: 'shop-23k', label: formatDualPrice(23000), hint: 'магазин' },
@@ -126,19 +133,27 @@ export default function ContactLeadQuiz() {
     const goal = searchParams.get('goal') || ''
     const budget = searchParams.get('budget') || ''
     const service = searchParams.get('service') || ''
-    const ref = searchParams.get('ref') || ''
+    const readySite = searchParams.get('ready-site') || ''
+    const ref = searchParams.get('ref') || readySite || ''
     const matchedGoal = GOALS.find((g) => g.value === goal || g.service === service)
 
     if (matchedGoal || budget || ref) {
       setFormData((prev) => ({
         ...prev,
-        goal: matchedGoal?.value || prev.goal,
-        service: matchedGoal?.service || service || prev.service,
-        budget: BUDGETS.some((b) => b.value === budget) ? budget : prev.budget,
+        goal: matchedGoal?.value || (readySite ? 'ready-site' : prev.goal),
+        service: matchedGoal?.service || service || (readySite ? 'web' : prev.service),
+        budget: BUDGETS.some((b) => b.value === budget)
+          ? budget
+          : readySite
+            ? 'ready-8k'
+            : prev.budget,
         ref,
+        description: readySite
+          ? `Интересует готовый сайт: ${readySite}`
+          : prev.description,
       }))
       if (matchedGoal && budget) setStep(2)
-      else if (matchedGoal) setStep(1)
+      else if (matchedGoal || readySite) setStep(1)
     }
   }, [searchParams])
 
