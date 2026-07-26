@@ -2,322 +2,185 @@
 
 import Link from "next/link";
 import PushNotificationSubscribe from "../PushNotificationSubscribe";
-import { COMPANY_ADDRESS_DISPLAY } from "@/app/lib/seo";
+import { COMPANY, COMPANY_ADDRESS_DISPLAY } from "@/app/lib/seo";
 import { t } from "@/app/lib/i18n";
 import { useLocale } from "@/app/lib/useLocale";
 import LanguageSwitcher from "../ui/LanguageSwitcher";
 
+const linkClass =
+  "text-sm text-slate-300 hover:text-white focus:text-white focus:outline-none transition-colors";
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
   const { locale } = useLocale();
+  const isEn = locale === "en";
+
+  const serviceLinks = [
+    { href: "/services/web-development", label: isEn ? "Web development" : "Разработка сайтов" },
+    { href: "/services/seo", label: isEn ? "SEO" : "SEO-продвижение" },
+    { href: "/services/geo-promotion", label: isEn ? "GEO in AI" : "GEO в нейросетях" },
+    { href: "/services/mobile-development", label: isEn ? "Mobile apps" : "Мобильные приложения" },
+    { href: "/services", label: isEn ? "All services" : "Все услуги" },
+  ];
+
+  const companyLinks = [
+    { href: "/pricing", label: isEn ? "Pricing" : "Цены" },
+    { href: "/ready-sites", label: isEn ? "Ready sites" : "Готовые сайты" },
+    { href: "/portfolio", label: t(locale, "nav.portfolio") },
+    { href: "/about", label: t(locale, "nav.about") },
+    { href: "/blog", label: t(locale, "nav.blog") },
+    { href: "/contact", label: t(locale, "nav.contact") },
+  ];
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <footer
       role="contentinfo"
       aria-label="Подвал сайта"
-      style={{
-        background:
-          "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
-        color: "white",
-        position: "relative",
-        overflow: "hidden",
-      }}
+      className="relative overflow-hidden bg-slate-950 text-white"
     >
-      {/* Декоративные элементы */}
-      <div className="absolute inset-0 opacity-10" aria-hidden="true">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-blue-500 rounded-full filter blur-3xl animate-blob"></div>
-        <div className="absolute bottom-0 right-0 w-64 h-64 bg-purple-500 rounded-full filter blur-3xl animate-blob animation-delay-2000"></div>
-      </div>
+      <div
+        className="pointer-events-none absolute inset-0 opacity-40"
+        aria-hidden="true"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 50% at 10% 0%, rgba(37,99,235,0.25), transparent), radial-gradient(ellipse 50% 40% at 90% 100%, rgba(8,145,178,0.15), transparent)",
+        }}
+      />
 
-      <div className="container mx-auto px-4 py-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Колонка 1: Логотип и информация */}
-          <div className="space-y-4">
+      <div className="container mx-auto px-4 pt-14 pb-8 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+          {/* Brand */}
+          <div className="sm:col-span-2 lg:col-span-4 space-y-5">
             <Link
               href="/"
-              className="group inline-block transition-all duration-700 ease-out hover:scale-105 focus:scale-105 focus:outline-none"
-              aria-label="APSOD - на главную страницу"
+              className="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded"
+              aria-label="APSOD — на главную"
             >
-              <h3 className="text-2xl font-bold bg-linear-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent group-hover:from-blue-300 group-hover:to-purple-300 transition-all duration-500 relative">
-                APSOD
-                <span
-                  className="absolute -inset-2 bg-linear-to-r from-blue-400/20 to-purple-400/20 rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  aria-hidden="true"
-                ></span>
-                <span
-                  className="absolute -top-1 -right-4 text-blue-400 opacity-0 group-hover:opacity-100 transition-all duration-500 group-hover:rotate-12"
-                  aria-hidden="true"
-                >
-                  ✦
-                </span>
-              </h3>
+              <span className="text-2xl font-bold tracking-tight text-white">APSOD</span>
             </Link>
-
-            <p className="text-sm text-gray-300 leading-relaxed">
-              Профессиональная команда, которая делает технологии инструментом
-              для роста вашего бизнеса.
+            <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
+              {isEn
+                ? "IT company and web studio: custom sites, apps, SEO and GEO for clients worldwide."
+                : "IT-компания и веб-студия: сайты и приложения на уникальном коде, SEO и GEO для клиентов по миру."}
             </p>
-
-            {/* Переключение языка */}
-            <div className="mt-2">
+            <div className="flex flex-wrap items-center gap-3">
               <LanguageSwitcher />
-            </div>
-
-            {/* Кнопка "Наверх" */}
-            <button
-              onClick={scrollToTop}
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 text-white/90 rounded-lg transition-all duration-300 hover:bg-white/20 hover:text-white focus:bg-white/20 focus:text-white focus:outline-none group relative overflow-hidden"
-              aria-label={t(locale, 'footer.toTop')}
-              title={t(locale, 'footer.toTop')}
-            >
-              <svg
-                className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-1 group-focus:-translate-y-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
+              <button
+                type="button"
+                onClick={scrollToTop}
+                className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-white transition-colors px-2.5 py-1.5 rounded-md border border-white/10 hover:border-white/25"
+                aria-label={t(locale, "footer.toTop")}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M5 10l7-7m0 0l7 7m-7-7v18"
-                />
-              </svg>
-              <span>{t(locale, 'footer.toTop')}</span>
-              <span
-                className="absolute inset-0 bg-linear-to-r from-blue-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-500 blur-md"
-                aria-hidden="true"
-              ></span>
-            </button>
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                </svg>
+                {t(locale, "footer.toTop")}
+              </button>
+            </div>
           </div>
 
-          {/* Остальные колонки без изменений */}
-          <nav aria-label="Навигация по сайту">
-            <h4
-              className="text-lg font-semibold mb-4 text-white/90"
-              id="footer-nav"
-            >
-              {t(locale, 'footer.navigation')}
+          {/* Services */}
+          <nav className="lg:col-span-2" aria-labelledby="footer-services">
+            <h4 id="footer-services" className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4">
+              {isEn ? "Services" : "Услуги"}
             </h4>
-            <ul className="space-y-2" aria-labelledby="footer-nav">
+            <ul className="space-y-2.5">
+              {serviceLinks.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className={linkClass}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Company */}
+          <nav className="lg:col-span-2" aria-labelledby="footer-company">
+            <h4 id="footer-company" className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4">
+              {isEn ? "Company" : "Компания"}
+            </h4>
+            <ul className="space-y-2.5">
+              {companyLinks.map((item) => (
+                <li key={item.href}>
+                  <Link href={item.href} className={linkClass}>
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Contacts */}
+          <div className="lg:col-span-4 space-y-6">
+            <div>
+              <h4 id="footer-contacts" className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4">
+                {isEn ? "Contacts" : "Контакты"}
+              </h4>
+              <address className="not-italic space-y-2.5 text-sm text-slate-300" aria-labelledby="footer-contacts">
+                <p>
+                  <a href={`tel:${COMPANY.phoneE164}`} className={linkClass}>
+                    {COMPANY.phone}
+                  </a>
+                </p>
+                <p>
+                  <a href={`mailto:${COMPANY.email}`} className={linkClass}>
+                    {COMPANY.email}
+                  </a>
+                </p>
+                <p>
+                  <a
+                    href={COMPANY.telegramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={linkClass}
+                  >
+                    Telegram {COMPANY.telegramHandle}
+                  </a>
+                </p>
+                <p className="text-slate-500 pt-1">{COMPANY_ADDRESS_DISPLAY}</p>
+                <p className="text-xs text-slate-500">ИП Карелин Д.В. · УНП 391853923</p>
+              </address>
+            </div>
+            <div>
+              <h4
+                id="footer-subscribe"
+                className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3"
+              >
+                {t(locale, "footer.subscribe")}
+              </h4>
+              <PushNotificationSubscribe compact={true} />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <p className="text-xs text-slate-500 order-2 md:order-1">
+            © {currentYear} APSOD. {t(locale, "footer.copy")}
+          </p>
+          <nav aria-label="Юридическая информация" className="order-1 md:order-2">
+            <ul className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-slate-500">
               <li>
-                <Link
-                  href="/services/web-development"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {locale === 'en' ? 'Web development' : 'Разработка сайтов'}
+                <Link href="/legal/privacy-policy" className="hover:text-slate-300 transition-colors">
+                  {t(locale, "footer.privacy")}
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/services/seo"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {locale === 'en' ? 'SEO promotion' : 'SEO-продвижение'}
+                <Link href="/legal/cookie-policy" className="hover:text-slate-300 transition-colors">
+                  {t(locale, "footer.cookie")}
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/services/geo-promotion"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {locale === 'en' ? 'GEO in AI / LLMs' : 'GEO в нейросетях'}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services/mobile-development"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {locale === 'en' ? 'Mobile apps' : 'Мобильные приложения'}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/belarus/vitebsk"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {locale === 'en' ? 'Vitebsk' : 'Сайты в Витебске'}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/belarus/minsk"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {locale === 'en' ? 'Minsk' : 'Сайты в Минске'}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/russia/moscow"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {locale === 'en' ? 'Moscow' : 'Сайты в Москве'}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {t(locale, 'nav.services')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/pricing"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {locale === 'en' ? 'Pricing' : 'Цены'}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/ready-sites"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {locale === 'en' ? 'Ready sites' : 'Готовые сайты'}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/about"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {t(locale, 'nav.about')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/portfolio"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {t(locale, 'nav.portfolio')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blog"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {t(locale, 'nav.blog')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {t(locale, 'nav.contact')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/belarus"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {locale === 'en' ? 'Services in Belarus' : 'Услуги в РБ'}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/russia"
-                  className="text-gray-300 hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {locale === 'en' ? 'Services in Russia' : 'Услуги в РФ'}
+                <Link href="/legal/terms-of-use" className="hover:text-slate-300 transition-colors">
+                  {t(locale, "footer.terms")}
                 </Link>
               </li>
             </ul>
           </nav>
-
-          <div>
-            <h4
-              className="text-lg font-semibold mb-4 text-white/90"
-              id="footer-contacts"
-            >
-              {t(locale, 'footer.assets')}
-            </h4>
-            <address
-              className="space-y-3 text-sm text-gray-300 not-italic"
-              aria-labelledby="footer-contacts"
-            >
-              <p>ИП Карелин Д.В.</p>
-              <p>УНП 391853923</p>
-              <p>
-                <a
-                  href="tel:+375445777724"
-                  className="hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  +375 (44) 577-77-24
-                </a>
-              </p>
-              <p>
-                <a
-                  href="mailto:karelinseo@gmail.com"
-                  className="hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  karelinseo@gmail.com
-                </a>
-              </p>
-              <p>{COMPANY_ADDRESS_DISPLAY}</p>
-            </address>
-          </div>
-
-          <div>
-            <h4
-              className="text-lg font-semibold mb-4 text-white/90"
-              id="footer-subscribe"
-            >
-              {t(locale, 'footer.subscribe')}
-            </h4>
-            <PushNotificationSubscribe compact={true} />
-          </div>
-        </div>
-
-        <div className="mt-8 pt-6 border-t border-white/10">
-          <nav aria-label="Юридическая информация">
-            <ul className="flex flex-wrap justify-center gap-4 text-xs text-gray-400">
-              <li>
-                <Link
-                  href="/legal/privacy-policy"
-                  className="hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {t(locale, 'footer.privacy')}
-                </Link>
-              </li>
-              <li aria-hidden="true">•</li>
-              <li>
-                <Link
-                  href="/legal/cookie-policy"
-                  className="hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {t(locale, 'footer.cookie')}
-                </Link>
-              </li>
-              <li aria-hidden="true">•</li>
-              <li>
-                <Link
-                  href="/legal/terms-of-use"
-                  className="hover:text-white focus:text-white focus:outline-none transition-colors"
-                >
-                  {t(locale, 'footer.terms')}
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-
-        <div className="mt-4 text-center text-sm text-gray-400">
-          <span>© {currentYear} APSOD. {t(locale, 'footer.copy')}</span>
         </div>
       </div>
     </footer>
