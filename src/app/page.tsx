@@ -73,7 +73,7 @@ export default function Home() {
       <SeoJsonLd data={generateFAQSchema([...HOMEPAGE_FAQ])} />
       <HomeGeoBanner />
       {/* Hero секция */}
-      <section className="hero-section relative pt-28 pb-20 overflow-hidden bg-linear-to-br from-slate-50 via-blue-50/80 to-cyan-50/40 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+      <section className="hero-section relative pt-10 md:pt-14 pb-20 overflow-hidden bg-linear-to-br from-slate-50 via-blue-50/80 to-cyan-50/40 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
         {/* Светлая тема: сетка + soft mesh */}
         <div className="absolute inset-0 z-0 dark:hidden pointer-events-none" aria-hidden>
           <div className="apsod-grid-fade opacity-70" />
