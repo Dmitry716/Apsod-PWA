@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 import { usePushNotifications } from "@/hooks/usePushNotifications";
 import LocationPermissionModal, {
-  getLocationModalDismissed,
-  setLocationModalDismissed,
   type LocationChoice,
 } from "./LocationPermissionModal";
 
@@ -41,12 +39,9 @@ export default function PushPermissionBanner() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Откладываем на следующий тик, чтобы в React Strict Mode не показывать модалку дважды
+    // Геолокацию на старте не запрашиваем: мешает рекламным превью и замедляет первый экран.
+    // При необходимости вернуть: if (!getLocationModalDismissed()) { setActiveModal("location"); return }
     const t = setTimeout(() => {
-      if (!getLocationModalDismissed()) {
-        setActiveModal("location");
-        return;
-      }
       if (shouldShowPush()) {
         setActiveModal("push");
       } else {
