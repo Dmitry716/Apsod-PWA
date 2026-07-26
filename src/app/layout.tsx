@@ -143,7 +143,7 @@ export default async function RootLayout({
           <Header />
           <PushPermissionBanner />
           <CookieConsent />
-          <main className="pt-16 md:pt-20 min-h-screen">{children}</main>
+          <main className="pt-20 md:pt-24 min-h-screen">{children}</main>
           <Footer />
           <ChatWidget />
         </Providers>

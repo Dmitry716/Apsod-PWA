@@ -64,17 +64,13 @@ export default function Header() {
           </Link>
 
           {/* Десктопное меню */}
-          <nav className="hidden md:flex items-center space-x-8" aria-label="Основная навигация">
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-6" aria-label="Основная навигация">
             {navLinks.map((link) => {
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  style={{
-                    color: "inherit",
-                    fontWeight: "400",
-                    position: "relative",
-                  }}
+                  className="text-sm font-medium text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors whitespace-nowrap"
                 >
                   {link.label}
                 </Link>
@@ -88,10 +84,10 @@ export default function Header() {
             </div>
             <ThemeToggle />
 
-            {/* Кнопка мобильного меню */}
+            {/* Кнопка мобильного меню — до lg, т.к. пунктов много */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg"
+              className="lg:hidden p-2 rounded-lg"
               aria-label={t(locale, 'header.menu')}
               title={t(locale, 'header.menu')}
             >
@@ -108,7 +104,7 @@ export default function Header() {
 
         {/* Мобильное меню */}
         {isMenuOpen && (
-          <div className="md:hidden py-4">
+          <div className="lg:hidden py-4">
             <nav className="bg-gray-100 dark:bg-gray-800 rounded-lg p-2" aria-label="Мобильная навигация">
               <div className="px-3 py-2 text-xs text-gray-600 dark:text-gray-300 flex justify-between items-center">
                 <span className="font-semibold">{t(locale, 'header.menu')}</span>
