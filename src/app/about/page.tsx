@@ -1,15 +1,28 @@
 import Link from 'next/link'
 import { buildSnippetMetadata } from '../lib/seo'
 import PageBreadcrumbs from '../components/PageBreadcrumbs'
+import HomeAtAGlance from '../components/HomeAtAGlance'
 
 export const metadata = buildSnippetMetadata('/about')
 
 export default function AboutPage() {
-  const stats = [
-    { value: '15+', label: 'лет в digital', icon: '⏳' },
-    { value: '350+', label: 'реальных кейсов', icon: '🚀' },
-    { value: 'полный цикл', label: 'от аналитики до поддержки', icon: '🧭' },
-    { value: '100%', label: 'уникальный код', icon: '🔒' },
+  const deliveryPoints = [
+    {
+      title: 'BY · RU · remote',
+      body: 'Хабы в Витебске, Минске и Москве. Проекты ведём удалённо для клиентов по РБ, РФ и миру.',
+    },
+    {
+      title: 'Привлечение клиентов',
+      body: 'Сайт, приложение, SEO и GEO — как канал заявок и продаж, а не «сайт ради сайта».',
+    },
+    {
+      title: 'Сопровождение',
+      body: 'Поддержка и развитие после запуска: метрики, обновления, доработки по данным.',
+    },
+    {
+      title: 'Только уникальный код',
+      body: 'Без конструкторов и типовых шаблонов — полный контроль над продуктом и безопасностью.',
+    },
   ]
 
   const industries = [
@@ -120,37 +133,38 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              О{' '}
+              IT-компания и{' '}
               <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                компании
+                веб-студия
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-              APSOD — профессиональная команда, которая выстраивает бизнес в интернете: от аналитики
-              и стратегии до уникальной безопасной разработки, SEO и сопровождения. Только
-              индивидуальные продукты на уникальном коде. С конструкторами сайтов не работаем. ИП в
-              Витебске, проекты — удалённо по РБ, РФ и миру.
+              APSOD — IT-компания и веб-студия полного цикла: привлекаем и обслуживаем клиентов по
+              миру. Аналитика, уникальная разработка сайтов и приложений, SEO и сопровождение. Только
+              индивидуальные продукты на уникальном коде. ИП в Витебске, проекты — удалённо по РБ, РФ
+              и миру.
             </p>
-            
-            {/* Статистика */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-              {stats.map((stat, idx) => (
-                <div key={idx} className="text-center group">
-                  <div className="text-4xl mb-2 transform group-hover:scale-110 transition-transform">
-                    {stat.icon}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-10 text-left max-w-3xl mx-auto">
+              {deliveryPoints.map((point) => (
+                <div
+                  key={point.title}
+                  className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/60 p-5"
+                >
+                  <div className="font-semibold text-gray-900 dark:text-white mb-1.5">
+                    {point.title}
                   </div>
-                  <div className="text-3xl md:text-4xl font-bold text-blue-600 dark:text-blue-400">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                    {stat.label}
-                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    {point.body}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
         </div>
       </section>
+
+      <HomeAtAGlance />
 
       {/* Миссия */}
       <section className="py-20 bg-white dark:bg-gray-800">

@@ -2,12 +2,12 @@
 
 export const POSITIONING = {
   ru: {
-    badge: 'Сайты · приложения · продвижение',
+    badge: 'IT-компания · веб-студия',
     heroTitle1: 'Привлекаем клиентов',
     heroTitle2: 'через digital-продукты',
     heroTitle3: 'уникальный код, SEO и GEO',
     heroLead:
-      'Разрабатываем сайты и приложения без конструкторов и продвигаем в Яндексе, Google и нейросетях. Смета за 1 рабочий день.',
+      'Привлекаем и обслуживаем клиентов по миру: сайты и приложения без конструкторов, SEO и GEO, сопровождение после запуска. Смета за 1 рабочий день.',
     ctaPrimary: 'Обсудить проект',
     ctaSecondary: 'Смотреть кейсы',
     servicesTitle: 'Что мы делаем',
@@ -107,12 +107,12 @@ export const POSITIONING = {
     ],
   },
   en: {
-    badge: 'Websites · apps · growth',
+    badge: 'IT company · web studio',
     heroTitle1: 'Win more clients',
     heroTitle2: 'with digital products',
     heroTitle3: 'custom code, SEO and GEO',
     heroLead:
-      'We build websites and apps without page builders, then grow visibility in search and AI answers. Quote within one business day.',
+      'We attract and serve clients worldwide: custom websites and apps without page builders, SEO and GEO, and ongoing support after launch. Quote within one business day.',
     ctaPrimary: 'Discuss a project',
     ctaSecondary: 'View case studies',
     servicesTitle: 'What we deliver',
