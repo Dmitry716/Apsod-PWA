@@ -17,6 +17,12 @@ import {
   getCityMetaKeywords,
 } from '../../lib/semantic-core'
 import { cityPageSnippet } from '../../lib/page-snippets'
+import {
+  getVitebskSeoBlocks,
+  getVitebskSeoFaq,
+  VITEBSK_CASES,
+} from '../../lib/vitebsk-seo'
+import { formatDualPrice } from '../../lib/currency'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import CityWebDevOffer from '../../components/CityWebDevOffer'
 
@@ -47,11 +53,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const OTHER_SERVICES = [
-  { href: '/services/seo', title: 'SEO-продвижение', desc: 'Google, Яндекс, органика' },
+  { href: '/services/seo', title: 'SEO и раскрутка', desc: 'Яндекс, Google, локальная выдача' },
   { href: '/services/geo-promotion', title: 'GEO-продвижение', desc: 'AI-видимость в нейросетях' },
   { href: '/services/mobile-development', title: 'Мобильные приложения', desc: 'iOS, Android, React Native' },
   { href: '/services/pwa-development', title: 'PWA', desc: 'Веб-приложения с push' },
-  { href: '/services/technical-support', title: 'Техподдержка', desc: 'Сопровождение после запуска' },
+  { href: '/services/technical-support', title: 'Обслуживание сайтов', desc: 'Поддержка и развитие после запуска' },
   { href: '/services/ui-ux', title: 'UI/UX дизайн', desc: 'Интерфейсы и прототипы' },
 ]
 
@@ -60,15 +66,28 @@ export default async function BelarusCityPage({ params }: Props) {
   const city = getCityBySlug(citySlug)
   if (!city) notFound()
 
-  const description = `Разработка и продвижение сайтов ${city.nameIn}: лендинг, корпоративный сайт, каталог, интернет-магазин на уникальном коде. SEO и сопровождение.`
+  const isVitebsk = city.slug === 'vitebsk'
 
-  const contentBlocks = getCityContentBlocks(city.name, city.nameIn, city.region)
-  const cityFaq = getCityFaq(city.name, city.nameIn)
+  const description = isVitebsk
+    ? 'Создание и разработка сайтов в Витебске на уникальном коде: визитка, лендинг, каталог, интернет-магазин. SEO, раскрутка и обслуживание.'
+    : `Разработка и продвижение сайтов ${city.nameIn}: лендинг, корпоративный сайт, каталог, интернет-магазин на уникальном коде. SEO и сопровождение.`
+
+  const contentBlocks = isVitebsk
+    ? getVitebskSeoBlocks()
+    : getCityContentBlocks(city.name, city.nameIn, city.region)
+
+  const cityFaq = isVitebsk
+    ? [...getVitebskSeoFaq(), ...getCityFaq(city.name, city.nameIn)]
+    : getCityFaq(city.name, city.nameIn)
+
+  const serviceName = isVitebsk
+    ? 'Создание сайтов в Витебске'
+    : `Разработка и продвижение сайтов ${city.nameIn}`
 
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: `Разработка и продвижение сайтов ${city.nameIn}`,
+    name: serviceName,
     description,
     provider: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
     areaServed: {
@@ -90,6 +109,7 @@ export default async function BelarusCityPage({ params }: Props) {
       citySlug: city.slug,
       description,
       countryPath: 'belarus',
+      pageName: serviceName,
     }),
     generateFAQSchema(cityFaq),
     serviceSchema,
@@ -114,7 +134,47 @@ export default async function BelarusCityPage({ params }: Props) {
           <span className="text-gray-700 dark:text-gray-300">{city.name}</span>
         </nav>
 
-        <CityWebDevOffer city={city} showHero showFaq faq={cityFaq} />
+        <CityWebDevOffer
+          city={city}
+          showHero
+          showFaq
+          faq={cityFaq}
+          heroTitle={isVitebsk ? 'Создание сайтов в Витебске' : undefined}
+          heroLead={
+            isVitebsk
+              ? 'Создание и разработка сайтов под ключ: визитка, лендинг, каталог, магазин на уникальном коде. Раскрутка SEO и обслуживание — без конструкторов.'
+              : undefined
+          }
+        />
+
+        {isVitebsk && (
+          <section className="pb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-3">
+              Кейсы из Витебска
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl">
+              Реальные проекты APSOD для бизнеса в Витебске — не шаблоны конструктора.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
+              {VITEBSK_CASES.map((c) => (
+                <Link
+                  key={c.href}
+                  href={c.href}
+                  className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 hover:border-blue-400 transition-colors"
+                >
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{c.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300">{c.result}</p>
+                </Link>
+              ))}
+            </div>
+            <p className="text-sm text-gray-500">
+              Ориентир по цене создания сайта:{' '}
+              <Link href="/pricing" className="text-blue-600 hover:underline">
+                от {formatDualPrice(8000)}
+              </Link>
+            </p>
+          </section>
+        )}
 
         <section className="py-12 border-t border-gray-100 dark:border-gray-800">
           <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white">
@@ -133,7 +193,7 @@ export default async function BelarusCityPage({ params }: Props) {
             ))}
           </div>
 
-          {contentBlocks.slice(0, 2).map((block) => (
+          {contentBlocks.map((block) => (
             <section key={block.h2} className="mb-10">
               <h2 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
                 {block.h2}
@@ -149,11 +209,23 @@ export default async function BelarusCityPage({ params }: Props) {
               Почему {SITE_NAME} для бизнеса {city.nameGenitive}
             </h2>
             <ul className="space-y-2 text-gray-600 dark:text-gray-300 list-disc pl-5">
-              <li>15+ лет опыта в веб-разработке и digital</li>
-              <li>Уникальный код без конструкторов</li>
-              <li>SEO под Google и Яндекс с учётом рынка РБ</li>
-              <li>База в Витебске, удалённая работа по Беларуси</li>
-              <li>Техподдержка и развитие после запуска</li>
+              {isVitebsk ? (
+                <>
+                  <li>ИП и команда в Витебске — локальный подрядчик, не «удалёнка из ниоткуда»</li>
+                  <li>Создание сайта на уникальном коде, без конструкторов и шаблонов</li>
+                  <li>Кейсы в Витебске: Amba Detail, Maxximum, Динамо-Витебск, ArtDetailing, BMservice</li>
+                  <li>SEO и раскрутка под Яндекс и Google с учётом рынка РБ</li>
+                  <li>Договор, смета за 1 день, сопровождение после запуска</li>
+                </>
+              ) : (
+                <>
+                  <li>15+ лет опыта в веб-разработке и digital</li>
+                  <li>Уникальный код без конструкторов</li>
+                  <li>SEO под Google и Яндекс с учётом рынка РБ</li>
+                  <li>База в Витебске, удалённая работа по Беларуси</li>
+                  <li>Техподдержка и развитие после запуска</li>
+                </>
+              )}
             </ul>
           </section>
         </section>

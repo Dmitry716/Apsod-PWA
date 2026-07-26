@@ -20,6 +20,9 @@ type Props = {
   showHero?: boolean
   showFaq?: boolean
   faq?: { question: string; answer: string }[]
+  /** Переопределение H1 (например, «Создание сайтов в Витебске») */
+  heroTitle?: string
+  heroLead?: string
 }
 
 export default function CityWebDevOffer({
@@ -27,9 +30,15 @@ export default function CityWebDevOffer({
   showHero = true,
   showFaq = true,
   faq = [],
+  heroTitle,
+  heroLead,
 }: Props) {
   const [selected, setSelected] = useState<WebDevPackageId>('corporate')
   const pkg = WEB_DEV_PACKAGES.find((p) => p.id === selected) ?? WEB_DEV_PACKAGES[1]
+  const title = heroTitle ?? `Разработка и продвижение сайтов ${city.nameIn}`
+  const lead =
+    heroLead ??
+    'Делаем сайты, которые показывают сильные стороны компании и ведут к заявке. Стек Next.js / React — не Tilda и не шаблонный WordPress.'
 
   return (
     <div>
@@ -39,12 +48,9 @@ export default function CityWebDevOffer({
             Уникальный код · без конструкторов · {city.name}
           </p>
           <h1 className="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Разработка и продвижение сайтов {city.nameIn}
+            {title}
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-2 max-w-3xl">
-            Делаем сайты, которые показывают сильные стороны компании и ведут к заявке.
-            Стек Next.js / React — не Tilda и не шаблонный WordPress.
-          </p>
+          <p className="text-lg text-gray-600 dark:text-gray-300 mb-2 max-w-3xl">{lead}</p>
           <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-3xl">
             {city.region}. База в Витебске, работаем удалённо по Беларуси. Смета от{' '}
             {formatDualPrice(8000)} — за 1 рабочий день после брифа.

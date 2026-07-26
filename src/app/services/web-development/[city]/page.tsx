@@ -25,18 +25,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const city = getCityBySlug(citySlug)
   if (!city) return { title: 'Город не найден' }
 
+  const isVitebsk = city.slug === 'vitebsk'
+
   return buildPageMetadata({
-    title: `Разработка и продвижение сайтов ${city.nameIn} | APSOD`,
-    description: `Разработка и продвижение сайтов ${city.nameIn}: лендинг, корпоративный, каталог, магазин на уникальном коде. Смета ${formatDualPrice(8000)}. APSOD.`,
+    title: isVitebsk
+      ? 'Создание сайтов в Витебске | APSOD'
+      : `Разработка и продвижение сайтов ${city.nameIn} | APSOD`,
+    description: isVitebsk
+      ? `Создание и разработка сайтов в Витебске на уникальном коде. Смета ${formatDualPrice(8000)}. SEO, раскрутка, обслуживание. APSOD.`
+      : `Разработка и продвижение сайтов ${city.nameIn}: лендинг, корпоративный, каталог, магазин на уникальном коде. Смета ${formatDualPrice(8000)}. APSOD.`,
     path: `/services/web-development/${city.slug}`,
     canonicalPath: `/belarus/${city.slug}`,
     absoluteTitle: true,
-    keywords: [
-      `разработка и продвижение сайтов ${city.name}`,
-      `разработка сайтов ${city.name}`,
-      `продвижение сайтов ${city.name}`,
-      `заказать сайт ${city.name}`,
-    ],
+    keywords: isVitebsk
+      ? [
+          'создание сайтов в Витебске',
+          'создание сайта в Витебске',
+          'разработка сайтов в Витебске',
+          'заказать сайт в Витебске',
+        ]
+      : [
+          `разработка и продвижение сайтов ${city.name}`,
+          `разработка сайтов ${city.name}`,
+          `продвижение сайтов ${city.name}`,
+          `заказать сайт ${city.name}`,
+        ],
   })
 }
 
@@ -45,8 +58,15 @@ export default async function WebDevelopmentCityPage({ params }: Props) {
   const city = getCityBySlug(citySlug)
   if (!city) notFound()
 
+  const isVitebsk = city.slug === 'vitebsk'
   const cityFaq = getCityFaq(city.name, city.nameIn)
-  const description = `Разработка и продвижение сайтов ${city.nameIn} на уникальном коде. Лендинг, корпоративный сайт, каталог, интернет-магазин.`
+  const description = isVitebsk
+    ? 'Создание сайтов в Витебске на уникальном коде. Лендинг, корпоративный сайт, каталог, интернет-магазин.'
+    : `Разработка и продвижение сайтов ${city.nameIn} на уникальном коде. Лендинг, корпоративный сайт, каталог, интернет-магазин.`
+
+  const serviceName = isVitebsk
+    ? 'Создание сайтов в Витебске'
+    : `Разработка и продвижение сайтов ${city.nameIn}`
 
   const schemas = [
     generateBreadcrumbSchema([
@@ -59,7 +79,7 @@ export default async function WebDevelopmentCityPage({ params }: Props) {
     {
       '@context': 'https://schema.org',
       '@type': 'Service',
-      name: `Разработка и продвижение сайтов ${city.nameIn}`,
+      name: serviceName,
       description,
       provider: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
       areaServed: {
@@ -92,7 +112,18 @@ export default async function WebDevelopmentCityPage({ params }: Props) {
           <span className="text-gray-700 dark:text-gray-300">{city.name}</span>
         </nav>
 
-        <CityWebDevOffer city={city} showHero showFaq faq={cityFaq} />
+        <CityWebDevOffer
+          city={city}
+          showHero
+          showFaq
+          faq={cityFaq}
+          heroTitle={isVitebsk ? 'Создание сайтов в Витебске' : undefined}
+          heroLead={
+            isVitebsk
+              ? 'Создание и разработка сайтов под ключ на уникальном коде. Раскрутка SEO и обслуживание для бизнеса Витебска.'
+              : undefined
+          }
+        />
 
         <p className="mt-8 text-sm text-gray-500">
           Основная страница города:{' '}

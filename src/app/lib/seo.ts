@@ -442,17 +442,21 @@ export function generateCityLandingSchema(options: {
   description: string
   countryPath: 'belarus' | 'russia'
   countryName?: string
+  /** Переопределение name страницы (для Витебска — «Создание сайтов…») */
+  pageName?: string
 }) {
+  const serviceLabel =
+    options.pageName ?? `Разработка сайтов ${options.cityName}`
   return {
     '@type': 'WebPage',
-    name: `Разработка сайтов ${options.cityName} — ${SITE_NAME}`,
+    name: `${serviceLabel} — ${SITE_NAME}`,
     description: options.description,
     url: buildCanonical(`/${options.countryPath}/${options.citySlug}`),
     inLanguage: 'ru-RU',
     isPartOf: { '@id': getWebSiteId() },
     about: {
       '@type': 'Service',
-      name: `Разработка сайтов ${options.cityName}`,
+      name: serviceLabel,
       areaServed: [
         { '@type': 'City', name: options.cityName },
         { '@type': 'Country', name: options.countryName ?? (options.countryPath === 'russia' ? 'Russia' : 'Belarus') },
