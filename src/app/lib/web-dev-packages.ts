@@ -164,7 +164,7 @@ export const WEB_DEV_CASES = [
   },
   {
     title: 'ArtDetailing',
-    result: 'Сайт детейлинга с акцентом на заявки и доверие',
+    result: 'PWA детейлинг-студии: app-like интерфейс, запись и SEO',
     href: '/portfolio/artdetailing',
   },
 ] as const
