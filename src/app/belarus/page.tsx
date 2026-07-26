@@ -49,7 +49,9 @@ export default function BelarusIndexPage() {
             </h2>
             <p className="text-sm text-gray-500 dark:text-gray-400">{city.region}</p>
             <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
-              Разработка и продвижение сайтов {city.nameIn}
+              {city.slug === 'vitebsk'
+                ? 'Создание сайтов в Витебске'
+                : `Разработка и продвижение сайтов ${city.nameIn}`}
             </p>
           </Link>
         ))}

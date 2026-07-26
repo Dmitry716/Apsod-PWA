@@ -3,7 +3,7 @@ import { HOMEPAGE_FAQ } from '../lib/homepage-faq'
 import { SITE_NAME } from '../lib/seo'
 
 const GEO_LINKS = [
-  { href: '/belarus/vitebsk', label: 'Разработка и продвижение сайтов в Витебске' },
+  { href: '/belarus/vitebsk', label: 'Создание сайтов в Витебске' },
   { href: '/belarus/minsk', label: 'Разработка и продвижение сайтов в Минске' },
   { href: '/russia/moscow', label: 'Разработка и продвижение сайтов в Москве' },
   { href: '/belarus', label: 'Разработка и продвижение сайтов в Беларуси' },

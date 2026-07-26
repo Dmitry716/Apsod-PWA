@@ -62,7 +62,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${base}/belarus/${city.slug}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
-    priority: city.slug === 'minsk' ? 0.92 : 0.82,
+    // Витебск — домашний рынок; Минск — крупный спрос
+    priority: city.slug === 'vitebsk' ? 0.94 : city.slug === 'minsk' ? 0.92 : 0.82,
   }))
 
   const belarusWebDevLandings: MetadataRoute.Sitemap = BELARUS_CITIES.map((city) => ({
