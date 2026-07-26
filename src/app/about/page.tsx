@@ -149,7 +149,7 @@ export default function AboutPage() {
             <div className="relative mx-auto max-w-5xl mb-10 overflow-hidden rounded-2xl aspect-[16/9] bg-gray-200 dark:bg-gray-700 shadow-xl ring-1 ring-black/5 dark:ring-white/10">
               <Image
                 src="/about/office-team.jpg"
-                alt="Команда APSOD в современном IT-офисе: молодые специалисты за разработкой кода"
+                alt="Команда APSOD в современном офисе: Apple Studio Display, Mac mini M4 Pro и iPhone 17 Pro Max на рабочих столах"
                 fill
                 priority
                 className="object-cover"
