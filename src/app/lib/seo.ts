@@ -14,7 +14,11 @@ export const SITE_LOCALE = 'ru_RU' as const
 export const COMPANY = {
   legalName: 'APSOD',
   phone: '+375 (44) 577-77-24',
+  phoneE164: '+375445777724',
   email: 'karelinseo@gmail.com',
+  telegramUrl: 'https://t.me/Apsod_IT',
+  telegramHandle: '@Apsod_IT',
+  whatsappUrl: 'https://wa.me/375445777724',
   address: {
     street: '',
     city: 'Витебск',
@@ -309,9 +313,9 @@ export function generateOrganizationSchema() {
     },
     areaServed: { '@type': 'Place', name: 'Worldwide' },
     sameAs: [
-      'https://t.me/DMITRYJS',
+      COMPANY.telegramUrl,
       'https://www.facebook.com/share/1GuC7K2jZ1/?mibextid=wwXIfr',
-      'https://wa.me/375445777724',
+      COMPANY.whatsappUrl,
     ],
   }
 }

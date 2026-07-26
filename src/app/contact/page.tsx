@@ -32,8 +32,8 @@ function ContactContent() {
     {
       icon: '💬',
       title: 'Мессенджеры',
-      value: 'Telegram / WhatsApp',
-      link: 'https://t.me/DMITRYJS',
+      value: '@Apsod_IT / WhatsApp',
+      link: 'https://t.me/Apsod_IT',
       description: 'Быстрый ответ в рабочие часы',
     },
   ]
@@ -51,7 +51,7 @@ function ContactContent() {
     },
     {
       name: 'Telegram',
-      url: 'https://t.me/DMITRYJS',
+      url: 'https://t.me/Apsod_IT',
       color: 'bg-[#229ED9] hover:bg-[#1b8ec4]',
       icon: (
         <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden>

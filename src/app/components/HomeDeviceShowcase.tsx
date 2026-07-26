@@ -6,7 +6,6 @@ const SHOWCASE = [
   {
     src: '/devices/showcase-monitor.png',
     alt: 'Сайт автосервиса на мониторе Apple Studio Display',
-    caption: 'Studio Display · веб-проект',
     href: '/portfolio/amba-detail',
     aspect: 'aspect-[16/10]',
     sizes: '(max-width: 768px) 100vw, 50vw',
@@ -15,7 +14,6 @@ const SHOWCASE = [
   {
     src: '/devices/showcase-macbook.png',
     alt: 'Сайт спортивного клуба на экране MacBook Pro',
-    caption: 'MacBook Pro · сайт в работе',
     href: '/portfolio/maxximum',
     aspect: 'aspect-[16/10]',
     sizes: '(max-width: 768px) 100vw, 50vw',
@@ -24,7 +22,6 @@ const SHOWCASE = [
   {
     src: '/devices/showcase-iphone.png',
     alt: 'Мобильный сайт детейлинга на iPhone 17 Pro Max',
-    caption: 'iPhone 17 Pro Max · приложение / mobile web',
     href: '/portfolio/artdetailing',
     aspect: 'aspect-[3/4]',
     sizes: '(max-width: 768px) 80vw, 280px',
@@ -88,7 +85,6 @@ export default function HomeDeviceShowcase() {
 function ShowcasePhoto({
   src,
   alt,
-  caption,
   href,
   aspect,
   sizes,
@@ -96,7 +92,6 @@ function ShowcasePhoto({
 }: {
   src: string
   alt: string
-  caption: string
   href: string
   aspect: string
   sizes: string
@@ -116,9 +111,6 @@ function ShowcasePhoto({
           sizes={sizes}
           priority={priority}
         />
-      </div>
-      <div className="px-4 py-3 text-sm text-gray-600 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-        {caption}
       </div>
     </Link>
   )
