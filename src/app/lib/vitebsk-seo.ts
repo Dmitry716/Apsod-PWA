@@ -22,8 +22,8 @@ export const VITEBSK_CASES = [
   },
   {
     title: 'ArtDetailing',
-    niche: 'Детейлинг',
-    result: 'Сайт студии с онлайн-записью и каталогом услуг',
+    niche: 'Детейлинг · PWA',
+    result: 'PWA-приложение студии: запись, услуги, SEO под Витебск',
     href: '/portfolio/artdetailing',
   },
   {
