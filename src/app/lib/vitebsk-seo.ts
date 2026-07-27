@@ -22,8 +22,8 @@ export const VITEBSK_CASES = [
   },
   {
     title: 'ArtDetailing',
-    niche: 'Детейлинг · ASP.NET Core 10',
-    result: 'Сайт студии на ASP.NET Core 10: запись, услуги, SEO под Витебск',
+    niche: 'Детейлинг · PWA · ASP.NET Core 10',
+    result: 'PWA студии на ASP.NET Core 10: запись, услуги, SEO под Витебск',
     href: '/portfolio/artdetailing',
   },
   {
