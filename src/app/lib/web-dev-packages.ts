@@ -164,7 +164,7 @@ export const WEB_DEV_CASES = [
   },
   {
     title: 'ArtDetailing',
-    result: 'PWA детейлинг-студии: app-like интерфейс, запись и SEO',
+    result: 'Сайт детейлинг-студии на ASP.NET Core 10: запись и SEO',
     href: '/portfolio/artdetailing',
   },
 ] as const

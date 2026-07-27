@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { IMaskInput } from 'react-imask'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { formatDualPrice } from '../lib/currency'
+import { getReadySiteBySlug } from '../ready-sites/data'
 
 const GOALS = [
   {
@@ -52,7 +53,7 @@ const GOALS = [
 ] as const
 
 const BUDGETS = [
-  { value: 'ready-8k', label: formatDualPrice(8000, { from: false }), hint: 'готовый сайт' },
+  { value: 'ready-15k', label: formatDualPrice(15000, { from: false }), hint: 'готовый сайт' },
   { value: 'landing-8k', label: formatDualPrice(8000), hint: 'лендинг' },
   { value: 'corporate-15k', label: formatDualPrice(15000), hint: 'корп. сайт' },
   { value: 'shop-23k', label: formatDualPrice(23000), hint: 'магазин' },
@@ -137,6 +138,9 @@ export default function ContactLeadQuiz() {
     const ref = searchParams.get('ref') || readySite || ''
     const matchedGoal = GOALS.find((g) => g.value === goal || g.service === service)
 
+    const readySiteData = readySite ? getReadySiteBySlug(readySite) : undefined
+    const defaultReadyBudget = readySiteData?.contactBudgetKey ?? 'ready-15k'
+
     if (matchedGoal || budget || ref) {
       setFormData((prev) => ({
         ...prev,
@@ -145,7 +149,7 @@ export default function ContactLeadQuiz() {
         budget: BUDGETS.some((b) => b.value === budget)
           ? budget
           : readySite
-            ? 'ready-8k'
+            ? defaultReadyBudget
             : prev.budget,
         ref,
         description: readySite

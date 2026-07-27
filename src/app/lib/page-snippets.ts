@@ -3,6 +3,8 @@
  * Title ≈ до 60–65 символов, description ≈ 140–160 (Яндекс/Google).
  */
 
+import { formatDualPrice } from './currency'
+
 export type PageSnippet = {
   title: string
   description: string
@@ -62,7 +64,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/ready-sites': {
     title: 'Готовые сайты — разработка с нуля, SEO и GEO',
     description:
-      'Купить готовый сайт APSOD: уникальный код с нуля, ребренд, перенос на ваш домен, база SEO и GEO. Без конструкторов. От 8 000 Б̶.',
+      `Купить готовый сайт APSOD: уникальный код с нуля, ребренд, перенос на ваш домен, база SEO и GEO. Без конструкторов. От ${formatDualPrice(15000, { from: true })}.`,
     absoluteTitle: true,
     keywords: [
       'готовые сайты',
