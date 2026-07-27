@@ -2,6 +2,25 @@ import { NextRequest, NextResponse } from 'next/server'
 
 type Locale = 'ru' | 'en'
 
+/** Старые URL из GSC (404), в т.ч. кириллица после www→apex. */
+const LEGACY_EXACT_REDIRECTS: Record<string, string> = {
+  '/о нас': '/about',
+  '/careers': '/contact',
+}
+
+function decodePathname(pathname: string): string {
+  try {
+    return decodeURIComponent(pathname)
+  } catch {
+    return pathname
+  }
+}
+
+function legacyRedirectTarget(pathname: string): string | undefined {
+  const decoded = decodePathname(pathname)
+  return LEGACY_EXACT_REDIRECTS[decoded] ?? LEGACY_EXACT_REDIRECTS[pathname]
+}
+
 function stripLocalePrefix(pathname: string, locale: Locale) {
   if (locale === 'en') return pathname.replace(/^\/en/, '') || '/'
   return pathname.replace(/^\/ru/, '') || '/'
@@ -10,6 +29,12 @@ function stripLocalePrefix(pathname: string, locale: Locale) {
 export function middleware(req: NextRequest) {
   const url = req.nextUrl
   const { pathname } = url
+
+  const legacyTarget = legacyRedirectTarget(pathname)
+  if (legacyTarget) {
+    const target = new URL(legacyTarget + url.search, 'https://apsod.com')
+    return NextResponse.redirect(target, 301)
+  }
 
   const host = req.headers.get('host')?.split(':')[0]
   if (host === 'www.apsod.com') {
