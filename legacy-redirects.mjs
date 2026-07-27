@@ -8,6 +8,7 @@ export const legacyRedirects = [
   { source: '/terms', destination: '/legal/terms-of-use', permanent: true },
   { source: '/services/security', destination: '/services/technical-support', permanent: true },
   { source: '/blog/gpt-5-revolution-web-development', destination: '/blog', permanent: true },
+  { source: '/careers', destination: '/contact', permanent: true },
   { source: '/о нас', destination: '/about', permanent: true },
   { source: '/о%20нас', destination: '/about', permanent: true },
 
