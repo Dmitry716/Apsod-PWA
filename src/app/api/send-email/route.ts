@@ -67,6 +67,8 @@ function getBudgetLabel(value: string): string {
     'corporate-15k': `${formatDualPrice(15000)} (корп. сайт)`,
     'shop-23k': `${formatDualPrice(23000)} (магазин)`,
     complex: `${formatDualPrice(30000, { plus: true })} (сложный продукт)`,
+    'ready-8k': `${formatDualPrice(8000, { from: false })} (готовый сайт)`,
+    'ready-15k': `${formatDualPrice(15000, { from: false })} (готовый сайт)`,
     negotiable: 'Пока не знаю / нужна смета',
     '1000-3000': '$1,000 - $3,000',
     '3000-5000': '$3,000 - $5,000',

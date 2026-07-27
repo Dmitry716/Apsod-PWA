@@ -70,7 +70,7 @@ export default async function ReadySiteSlugPage({ params }: Props) {
     { name: site.title, path: `/ready-sites/${slug}` },
   ])
   const productSchema = generateProductSchema(site)
-  const contactHref = `/contact?goal=ready-site&budget=ready-8k&ref=${site.slug}&ready-site=${site.slug}`
+  const contactHref = `/contact?goal=ready-site&budget=${site.contactBudgetKey}&ref=${site.slug}&ready-site=${site.slug}`
 
   return (
     <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
