@@ -154,7 +154,7 @@ export const WEB_DEV_CASES = [
   },
   {
     title: 'NEXTON',
-    result: 'Чёткая презентация узких услуг автосервиса для двух городов',
+    result: 'PWA автосервиса: app-like интерфейс, услуги для двух городов',
     href: '/portfolio/nexton',
   },
   {
@@ -164,7 +164,7 @@ export const WEB_DEV_CASES = [
   },
   {
     title: 'ArtDetailing',
-    result: 'Сайт детейлинг-студии на ASP.NET Core 10: запись и SEO',
+    result: 'PWA детейлинг-студии на ASP.NET Core 10: запись и SEO',
     href: '/portfolio/artdetailing',
   },
 ] as const
