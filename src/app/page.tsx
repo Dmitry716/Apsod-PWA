@@ -1,68 +1,19 @@
 import Link from "next/link";
 import { blogPosts } from "./blog/data/posts";
-import { getCasePath, getFeaturedPortfolioProjects, PORTFOLIO_PROJECTS } from "./portfolio/data";
+import { getCasePath, getFeaturedPortfolioProjects } from "./portfolio/data";
 import { buildSnippetMetadata, generateFAQSchema } from "./lib/seo";
 import { HOMEPAGE_FAQ } from "./lib/homepage-faq";
 import SeoJsonLd from "./components/SeoJsonLd";
 import HomeSeoSection from "./components/HomeSeoSection";
 import HomeHeroCopy from "./components/HomeHeroCopy";
 import HomeValueSections from "./components/HomeValueSections";
-import HomeGeoBanner from "./components/HomeGeoBanner";
 import HomeLeadStrip from "./components/HomeLeadStrip";
-import HomeGrowthFunnel from "./components/HomeGrowthFunnel";
-import HomeBeforeAfter from "./components/HomeBeforeAfter";
 import HomeDeviceShowcase from "./components/HomeDeviceShowcase";
 import HomeGlobalDelivery from "./components/HomeGlobalDelivery";
 import HomeAtAGlance from "./components/HomeAtAGlance";
 import Reveal from "./components/Reveal";
 
 export const metadata = buildSnippetMetadata('/');
-
-// Генерируем случайные значения ОДИН РАЗ вне компонента
-const starPositions = {
-  // Крупные звезды - ТОЛЬКО ДЛЯ ДЕСКТОПА
-  large: [...Array(6)].map(() => ({
-    top: 10 + Math.random() * 80,
-    left: 10 + Math.random() * 80,
-    size: 2 + Math.random() * 2,
-    duration: 3 + Math.random() * 3,
-    delay: Math.random() * 4,
-  })),
-  // Средние звезды - для всех (увеличены)
-  medium: [...Array(16)].map(() => ({
-    top: 10 + Math.random() * 80,
-    left: 10 + Math.random() * 80,
-    size: 2 + Math.random() * 2.5,
-    opacity: 0.4 + Math.random() * 0.5,
-    duration: 2 + Math.random() * 4,
-    delay: Math.random() * 5,
-  })),
-  // Мелкие звезды - для всех, очень деликатно
-  small: [...Array(40)].map(() => ({
-    top: Math.random() * 100,
-    left: Math.random() * 100,
-    opacity: 0.1 + Math.random() * 0.2,
-    duration: 1 + Math.random() * 3,
-    delay: Math.random() * 3,
-  })),
-  // Усиленные звезды справа - ТОЛЬКО ДЛЯ ДЕСКТОПА
-  rightSideStars: [...Array(8)].map(() => ({
-    top: 20 + Math.random() * 60,
-    left: 60 + Math.random() * 35,
-    size: 1.5 + Math.random() * 2,
-    duration: 2 + Math.random() * 3,
-    delay: Math.random() * 2,
-  })),
-  // Космическая пыль - для всех (но на мобилке меньше)
-  dustParticles: [...Array(25)].map(() => ({
-    top: 20 + Math.random() * 60,
-    left: 60 + Math.random() * 35,
-    width: 1 + Math.random() * 3,
-    height: 1 + Math.random() * 3,
-    duration: 4 + Math.random() * 6,
-    delay: Math.random() * 5,
-  })),
-};
 
 export default function Home() {
   const featuredServices = services.filter((s) => s.featured)
@@ -71,123 +22,22 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <SeoJsonLd data={generateFAQSchema([...HOMEPAGE_FAQ])} />
-      <HomeGeoBanner />
-      {/* Hero секция */}
-      <section className="hero-section relative pt-10 md:pt-14 pb-20 overflow-hidden bg-linear-to-br from-slate-50 via-blue-50/80 to-cyan-50/40 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
-        {/* Светлая тема: сетка + soft mesh */}
-        <div className="absolute inset-0 z-0 dark:hidden pointer-events-none" aria-hidden>
-          <div className="apsod-grid-fade opacity-70" />
+
+      <section className="hero-section relative pt-28 md:pt-32 pb-16 md:pb-20 overflow-hidden bg-linear-to-br from-slate-50 via-blue-50/70 to-cyan-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-slate-950">
+        <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden>
+          <div className="apsod-grid-fade opacity-60 dark:opacity-30" />
           <div
-            className="apsod-mesh-blob w-[480px] h-[480px] bg-blue-400/25 top-[-120px] left-[-80px]"
+            className="apsod-mesh-blob w-[480px] h-[480px] bg-blue-400/20 dark:bg-blue-500/10 top-[-120px] left-[-80px]"
             style={{ animationDelay: "0s" }}
           />
           <div
-            className="apsod-mesh-blob w-[380px] h-[380px] bg-cyan-300/20 bottom-[-80px] right-[-40px]"
+            className="apsod-mesh-blob w-[380px] h-[380px] bg-cyan-300/15 dark:bg-cyan-500/10 bottom-[-80px] right-[-40px]"
             style={{ animationDelay: "3s" }}
           />
-          <div
-            className="apsod-mesh-blob w-[280px] h-[280px] bg-indigo-300/15 top-[40%] right-[20%]"
-            style={{ animationDelay: "6s" }}
-          />
-        </div>
-
-        {/* Эффект космоса - ТОЛЬКО В ТЕМНОЙ ТЕМЕ */}
-        <div className="absolute inset-0 z-0 dark:block hidden">
-          {/* Большие туманности - адаптивные */}
-          <div className="absolute bottom-20 right-10 w-[600px] h-[600px] bg-blue-500/10 rounded-full mix-blend-screen filter blur-3xl opacity-30 animate-float-slow animate-nebula max-md:w-[300px] max-md:h-[300px] max-md:opacity-15"></div>
-          <div className="absolute top-40 right-20 w-[400px] h-[400px] bg-indigo-500/10 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-float animation-delay-2000 animate-nebula max-md:w-[200px] max-md:h-[200px] max-md:opacity-10"></div>
-
-          {/* Звездное небо */}
-          <div className="absolute inset-0 overflow-hidden">
-            {/* КРУПНЫЕ ЗВЕЗДЫ - ТОЛЬКО ДЕСКТОП */}
-            {starPositions.large.map((star, i) => (
-              <div
-                key={`large-${i}`}
-                className="absolute bg-purple-300 rounded-full animate-twinkle shadow-lg max-md:hidden"
-                style={{
-                  top: `${star.top}%`,
-                  left: `${star.left}%`,
-                  width: `${star.size}px`,
-                  height: `${star.size}px`,
-                  opacity: 0.5,
-                  animationDuration: `${star.duration}s`,
-                  animationDelay: `${star.delay}s`,
-                }}
-              />
-            ))}
-
-            {/* УСИЛЕННЫЕ ЗВЕЗДЫ СПРАВА - ТОЛЬКО ДЕСКТОП */}
-            {starPositions.rightSideStars.map((star, i) => (
-              <div
-                key={`right-${i}`}
-                className="absolute right-side-star bg-gradient-to-br from-blue-300 to-purple-300 rounded-full max-md:hidden"
-                style={{
-                  top: `${star.top}%`,
-                  left: `${star.left}%`,
-                  width: `${star.size * 2}px`,
-                  height: `${star.size * 2}px`,
-                  opacity: 0.3,
-                  animationDuration: `${star.duration}s`,
-                  animationDelay: `${star.delay}s`,
-                }}
-              />
-            ))}
-
-            {/* СРЕДНИЕ ЗВЕЗДЫ - для всех (увеличены) */}
-            {starPositions.medium.map((pos, i) => (
-              <div
-                key={i}
-                className="absolute bg-white rounded-full animate-twinkle"
-                style={{
-                  top: `${pos.top}%`,
-                  left: `${pos.left}%`,
-                  width: `clamp(2px, ${pos.size * 0.3}vw, ${pos.size}px)`,
-                  height: `clamp(2px, ${pos.size * 0.3}vw, ${pos.size}px)`,
-                  opacity: pos.opacity,
-                  animationDuration: `${pos.duration}s`,
-                  animationDelay: `${pos.delay}s`,
-                }}
-              />
-            ))}
-
-            {/* МЕЛКИЕ ЗВЕЗДЫ - для всех (очень деликатно) */}
-            {starPositions.small.map((pos, i) => (
-              <div
-                key={`small-${i}`}
-                className="absolute bg-blue-200 rounded-full animate-star-pulse"
-                style={{
-                  top: `${pos.top}%`,
-                  left: `${pos.left}%`,
-                  width: "clamp(0.5px, 0.15vw, 1px)",
-                  height: "clamp(0.5px, 0.15vw, 1px)",
-                  opacity: `clamp(${pos.opacity * 0.2}, ${pos.opacity * 0.3}, ${pos.opacity})`,
-                  animationDuration: `${pos.duration}s`,
-                  animationDelay: `${pos.delay}s`,
-                }}
-              />
-            ))}
-
-            {/* КОСМИЧЕСКАЯ ПЫЛЬ - для всех (на мобилке очень деликатно) */}
-            {starPositions.dustParticles.map((dust, i) => (
-              <div
-                key={`dust-${i}`}
-                className="absolute bg-blue-400/20 rounded-full animate-dust"
-                style={{
-                  top: `${dust.top}%`,
-                  left: `${dust.left}%`,
-                  width: `clamp(1px, ${dust.width * 0.2}vw, ${dust.width}px)`,
-                  height: `clamp(1px, ${dust.height * 0.2}vw, ${dust.height}px)`,
-                  opacity: `clamp(0.1, 0.15, 0.2)`,
-                  animationDuration: `${dust.duration}s`,
-                  animationDelay: `${dust.delay}s`,
-                }}
-              />
-            ))}
-          </div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <HomeHeroCopy />
             <HomeGlobalDelivery />
           </div>
@@ -196,21 +46,17 @@ export default function Home() {
 
       <HomeDeviceShowcase />
       <HomeAtAGlance />
-      <HomeGrowthFunnel />
-      <HomeBeforeAfter />
-
       <HomeValueSections />
 
-      {/* Топ услуг — фокус на привлечение клиентов */}
       <section className="py-20 bg-white dark:bg-gray-800 max-md:py-12">
         <div className="container mx-auto px-4">
           <Reveal className="text-center mb-12 max-md:mb-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 max-md:text-3xl">
+            <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 max-md:text-3xl tracking-tight">
               Три направления для роста
             </h2>
             <div className="apsod-line-draw mx-auto mb-4" />
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto max-md:text-base">
-              Разработка сайтов, мобильные приложения и продвижение — ядро APSOD
+              Разработка сайтов в Минске, мобильные приложения и продвижение — ядро APSOD
             </p>
           </Reveal>
 
@@ -222,14 +68,14 @@ export default function Home() {
               >
                 <Link
                   href={service.link}
-                  className="apsod-card-lift group block h-full rounded-2xl p-8 border border-blue-100 dark:border-blue-900/40 bg-gradient-to-br from-gray-50 to-white dark:from-gray-700 dark:to-gray-800 hover:border-blue-400 max-md:p-4"
+                  className="apsod-card-lift group block h-full rounded-2xl p-8 border border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-gray-800/80 hover:border-blue-400 max-md:p-4"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="text-4xl max-md:text-3xl transition-transform duration-300 group-hover:scale-110">
-                      {service.icon}
-                    </div>
+                    <span className="font-display text-sm font-bold text-blue-600 dark:text-blue-400 tabular-nums mt-1">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
                     <div>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <h3 className="font-display text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {service.title}
                       </h3>
                       <p className="text-gray-600 dark:text-gray-300 mb-3 max-md:text-sm">
@@ -239,7 +85,7 @@ export default function Home() {
                         {service.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="px-2 py-1 bg-blue-50 dark:bg-blue-900/30 text-xs rounded-full text-blue-700 dark:text-blue-300"
+                            className="px-2.5 py-1 bg-white dark:bg-slate-900/60 text-xs rounded-md text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-600"
                           >
                             {tag}
                           </span>
@@ -261,9 +107,9 @@ export default function Home() {
                 <Link
                   key={service.link}
                   href={service.link}
-                  className="px-3 py-1.5 rounded-full text-sm border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:border-blue-400 hover:text-blue-600 transition-colors"
+                  className="px-3 py-1.5 rounded-md text-sm border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:border-blue-400 hover:text-blue-600 transition-colors"
                 >
-                  {service.icon} {service.title}
+                  {service.title}
                 </Link>
               ))}
             </div>
@@ -281,12 +127,12 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <Reveal className="flex justify-between items-end mb-12 max-md:flex-col max-md:items-start max-md:gap-4">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 max-md:text-3xl">
-                Наши проекты
+              <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 max-md:text-3xl tracking-tight">
+                Избранные проекты
               </h2>
               <div className="apsod-line-draw mb-4" />
               <p className="text-xl text-gray-600 dark:text-gray-300 max-md:text-base">
-                Избранные кейсы: что сделали и какой результат получили клиенты
+                Кейсы по Беларуси · студия в Минске
               </p>
             </div>
             <Link
@@ -316,17 +162,17 @@ export default function Home() {
                 key={project.id}
                 stagger={(Math.min(index + 1, 5) as 1 | 2 | 3 | 4 | 5)}
               >
-                <div className="apsod-card-lift group relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700">
+                <div className="apsod-card-lift group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700">
                   <div className="h-48 relative overflow-hidden">
                     <img
                       src={project.image}
                       alt={project.title}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-black/65 via-black/20 to-transparent" />
                     <div className="absolute top-3 left-3">
-                      <span className="px-3 py-1 bg-white/90 text-gray-900 rounded-full text-xs font-semibold backdrop-blur-sm">
+                      <span className="px-3 py-1 bg-white/90 text-gray-900 rounded-md text-xs font-semibold backdrop-blur-sm">
                         {project.category}
                       </span>
                     </div>
@@ -334,26 +180,26 @@ export default function Home() {
                   </div>
                   <div className="p-8 max-md:p-4">
                     <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-                      <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full">
+                      <span className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900/50 text-slate-600 dark:text-slate-300 rounded-md text-xs">
                         {project.type === "web" ? "Веб-сайт" : "Мобильное приложение"}
                       </span>
-                      <span>•</span>
+                      <span>·</span>
                       <span>{project.location}</span>
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 transition-colors max-md:text-xl">
+                    <h3 className="font-display text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 transition-colors max-md:text-xl">
                       {project.title}
                     </h3>
                     <p className="text-gray-600 dark:text-gray-300 mb-3 max-md:text-sm">
                       {project.description}
                     </p>
                     {project.results[0] ? (
-                      <p className="text-sm text-blue-700 dark:text-blue-300 mb-4 line-clamp-2">
+                      <p className="text-sm text-blue-700 dark:text-blue-300 mb-4">
                         Результат: {project.results[0]}
                       </p>
                     ) : null}
                     <Link
                       href={getCasePath(project)}
-                      className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                      className="inline-flex text-blue-600 dark:text-blue-400 font-medium text-sm hover:underline"
                     >
                       Смотреть кейс →
                     </Link>
@@ -367,65 +213,23 @@ export default function Home() {
 
       <HomeLeadStrip />
 
-      <section className="py-20 bg-white dark:bg-gray-800 max-md:py-12">
-        <div className="container mx-auto px-4">
-          <Reveal className="text-center mb-16 max-md:mb-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 max-md:text-3xl">
-              Отрасли, с которыми работаем
-            </h2>
-            <div className="apsod-line-draw mx-auto mb-4" />
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto max-md:text-base">
-              Выберите отрасль — откроется портфолио с релевантными проектами
-            </p>
-          </Reveal>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 max-md:gap-3">
-            {industries.map((industry, index) => {
-              const sample = PORTFOLIO_PROJECTS.find((p) => p.category === industry.name)
-              return (
-              <Reveal
-                key={industry.name}
-                stagger={(Math.min((index % 5) + 1, 5) as 1 | 2 | 3 | 4 | 5)}
-              >
-                <Link
-                  href={`/portfolio?industry=${encodeURIComponent(industry.name)}`}
-                  className="apsod-card-lift group relative block bg-gray-50 dark:bg-gray-700 rounded-2xl p-6 text-center max-md:p-3 border border-transparent hover:border-blue-300 dark:hover:border-blue-700"
-                >
-                  <div className="text-4xl mb-3 max-md:text-2xl transition-transform duration-300 group-hover:scale-125">
-                    {industry.icon}
-                  </div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2 max-md:text-sm">
-                    {industry.name}
-                  </h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 max-md:text-xs line-clamp-1">
-                    {sample ? sample.title : 'Смотреть проекты'}
-                  </p>
-                </Link>
-              </Reveal>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
       <section className="relative py-16 bg-linear-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 max-md:py-10 overflow-hidden">
         <div className="apsod-grid-fade opacity-40 dark:opacity-20" aria-hidden />
         <div className="container mx-auto px-4 relative z-10">
           <Reveal className="text-center mb-10 max-md:mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 max-md:text-2xl">
-              Реальные проекты клиентов
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 max-md:text-2xl tracking-tight">
+              Клиенты, которым доверяют результат
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto max-md:text-base">
-              Более 350 выполненных проектов. Ниже — избранные работы; в портфолио на сайте
-              опубликована часть кейсов.
+              Более 350 проектов. На сайте — избранные кейсы; полный архив покажем на консультации.
             </p>
           </Reveal>
 
-          <Reveal className="flex flex-wrap justify-center gap-4 mb-10" stagger={2}>
+          <Reveal className="flex flex-wrap justify-center gap-3 mb-10" stagger={2}>
             {['Amba Detail', 'NEXTON', 'Maxximum', 'Динамо-Витебск', 'BMservice', 'ArtDetailing'].map((name) => (
               <span
                 key={name}
-                className="px-4 py-2 rounded-lg bg-white/90 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-200 text-sm font-medium backdrop-blur-sm hover:border-blue-400 hover:-translate-y-0.5 transition-all"
+                className="px-4 py-2 rounded-md bg-white/90 dark:bg-gray-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-medium"
               >
                 {name}
               </span>
@@ -441,7 +245,7 @@ export default function Home() {
             </Link>
             <Link
               href="/pricing"
-              className="inline-flex ml-3 px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-500 hover:-translate-y-0.5 transition-all font-medium text-gray-800 dark:text-gray-200"
+              className="inline-flex ml-3 px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-500 transition-colors font-medium text-gray-800 dark:text-gray-200"
             >
               Цены и пакеты
             </Link>
@@ -453,13 +257,12 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <Reveal className="flex justify-between items-end mb-12 max-md:flex-col max-md:items-start max-md:gap-4">
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 max-md:text-3xl">
-                Последние{" "}
-                <span className="text-blue-600 dark:text-blue-400">статьи</span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 max-md:text-3xl tracking-tight">
+                Блог
               </h2>
               <div className="apsod-line-draw mb-4" />
               <p className="text-xl text-gray-600 dark:text-gray-300 max-md:text-base">
-                Актуальные материалы о технологиях и разработке
+                Материалы о разработке и продвижении
               </p>
             </div>
             <Link
@@ -483,66 +286,36 @@ export default function Home() {
             </Link>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-md:gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {blogPosts.slice(0, 3).map((post, index) => (
               <Reveal
                 key={post.slug}
                 stagger={(Math.min(index + 1, 5) as 1 | 2 | 3 | 4 | 5)}
               >
-                <article className="apsod-card-lift group bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700 h-full">
-                  <Link href={`/blog/${post.slug}`}>
-                    <div className="h-48 bg-linear-to-br from-blue-500 to-cyan-600 relative overflow-hidden max-md:h-32">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-black/10" />
-                      <div className="absolute top-3 left-3">
-                        <span className="px-3 py-1 bg-white/90 text-gray-900 rounded-full text-xs font-semibold backdrop-blur-sm">
-                          {post.category}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="p-6 max-md:p-3">
-                      <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3 max-md:text-xs">
-                        <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full">
-                          {post.category}
-                        </span>
-                        <span>•</span>
-                        <span>{post.date}</span>
-                      </div>
-                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors line-clamp-2 max-md:text-base">
-                        {post.title}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2 max-md:text-sm max-md:mb-2">
-                        {post.excerpt}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm text-gray-500 dark:text-gray-400 max-md:text-xs">
-                          {post.readTime} мин чтения
-                        </span>
-                        <span className="text-blue-600 dark:text-blue-400 font-medium group-hover:gap-3 transition-all inline-flex items-center text-sm max-md:text-xs">
-                          Читать
-                          <svg
-                            className="w-4 h-4 ml-2 group-hover:ml-3 transition-all max-md:w-3 max-md:h-3"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                </article>
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="apsod-card-lift group block h-full rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden bg-white dark:bg-gray-800"
+                >
+                  <div className="h-40 overflow-hidden">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <p className="text-xs text-slate-500 mb-2">
+                      {post.category} · {post.date}
+                    </p>
+                    <h3 className="font-display font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors line-clamp-2 mb-2">
+                      {post.title}
+                    </h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
+                      {post.excerpt}
+                    </p>
+                  </div>
+                </Link>
               </Reveal>
             ))}
           </div>
@@ -551,44 +324,20 @@ export default function Home() {
 
       <HomeSeoSection />
 
-      <section className="relative py-20 overflow-hidden max-md:py-12">
-        <div className="absolute inset-0 bg-linear-to-br from-blue-700 via-blue-600 to-cyan-600" />
-        <div className="apsod-mesh" aria-hidden>
-          <div className="apsod-mesh-blob w-[420px] h-[420px] bg-white/10 top-[-100px] right-[-60px]" />
-          <div
-            className="apsod-mesh-blob w-[320px] h-[320px] bg-cyan-300/20 bottom-[-80px] left-[-40px]"
-            style={{ animationDelay: "2s" }}
-          />
-        </div>
-        <div className="apsod-grid-fade opacity-30" aria-hidden />
-        <div className="container mx-auto px-4 text-center relative z-10">
+      <section className="py-20 bg-slate-950 text-white max-md:py-14">
+        <div className="container mx-auto px-4 text-center">
           <Reveal>
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 max-md:text-3xl">
-              Готовы начать проект?
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+              Готовы обсудить проект в Минске?
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto max-md:text-base">
-              Расскажите нам о вашей идее, и мы воплотим её в жизнь
+            <p className="text-slate-300 max-w-xl mx-auto mb-8">
+              Расскажите задачу — подготовим смету за 1 рабочий день. Офис: г. Минск, ул. Куйбышева, 35.
             </p>
             <Link
               href="/contact"
-              className="apsod-cta-primary inline-flex items-center px-8 py-4 bg-white text-blue-700 rounded-lg font-semibold text-lg shadow-xl max-md:px-6 max-md:py-3 max-md:text-base"
+              className="apsod-cta-primary inline-flex px-8 py-3.5 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold"
             >
-              <span className="inline-flex items-center">
-                Связаться с нами
-                <svg
-                  className="w-5 h-5 ml-2 max-md:w-4 max-md:h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
-              </span>
+              <span>Связаться с нами</span>
             </Link>
           </Reveal>
         </div>
@@ -597,10 +346,8 @@ export default function Home() {
   );
 }
 
-// Ядро привлечения клиентов: сайт, apps, SEO, GEO
 const services = [
   {
-    icon: "🌐",
     title: "Веб-разработка",
     description:
       "Корпоративные сайты и интернет-магазины на уникальном коде: аналитика, архитектура, безопасность.",
@@ -609,7 +356,6 @@ const services = [
     featured: true,
   },
   {
-    icon: "📱",
     title: "Мобильные приложения",
     description:
       "Уникальные iOS и Android продукты с упором на безопасность и стабильность.",
@@ -618,79 +364,52 @@ const services = [
     featured: true,
   },
   {
-    icon: "📈",
     title: "SEO и аналитика",
-    description:
-      "Стратегия продвижения и измеримый рост в Яндексе и Google.",
+    description: "Стратегия продвижения и измеримый рост в Яндексе и Google.",
     tags: ["SEO", "Метрика", "Контент"],
     link: "/services/seo",
     featured: true,
   },
   {
-    icon: "🤖",
     title: "GEO продвижение",
-    description:
-      "Видимость бренда в нейросетях: ChatGPT, Google AI, Алиса.",
+    description: "Видимость бренда в нейросетях: ChatGPT, Google AI, Алиса.",
     tags: ["ChatGPT", "AI Overviews", "Алиса"],
     link: "/services/geo-promotion",
     featured: true,
   },
   {
-    icon: "🛠️",
     title: "Техподдержка",
-    description:
-      "Сопровождение после запуска: мониторинг, обновления, развитие продукта.",
-    tags: ["Next.js", "Безопасность", "SLA"],
+    description: "Сопровождение и развитие после запуска.",
+    tags: [] as string[],
     link: "/services/technical-support",
     featured: false,
   },
   {
-    icon: "🤝",
     title: "CRM системы",
-    description:
-      "Настройка и кастомные CRM для заявок, продаж и коммуникаций с клиентами.",
-    tags: ["Bitrix24", "AmoCRM", "Интеграции"],
+    description: "Внедрение и кастомная разработка.",
+    tags: [] as string[],
     link: "/services/crm",
     featured: false,
   },
   {
-    icon: "⚙️",
     title: "ERP и учёт",
-    description:
-      "Индивидуальные решения и интеграции для процессов, склада и отчётности.",
-    tags: ["1С интеграция", "Кастом", "Отчёты"],
+    description: "Автоматизация процессов под ваш бизнес.",
+    tags: [] as string[],
     link: "/services/erp",
     featured: false,
   },
   {
-    icon: "🎨",
     title: "UI/UX дизайн",
-    description:
-      "Уникальный дизайн под бренд и сценарии пользователя — не готовые шаблоны.",
-    tags: ["Figma", "Прототипы", "Дизайн-системы"],
+    description: "Интерфейсы и прототипы под конверсию.",
+    tags: [] as string[],
     link: "/services/ui-ux",
     featured: false,
   },
   {
-    icon: "📲",
     title: "PWA разработка",
-    description:
-      "Прогрессивные веб-приложения с push, офлайном и установкой на устройство.",
-    tags: ["Next.js", "Service Workers", "Manifest"],
+    description: "Сайт как приложение на телефоне.",
+    tags: [] as string[],
     link: "/services/pwa-development",
     featured: false,
   },
-];
-
-// Данные для отраслей
-const industries = [
-  { icon: "🏭", name: "Производство" },
-  { icon: "🏦", name: "Финансы" },
-  { icon: "🏥", name: "Медицина" },
-  { icon: "🛍️", name: "Ритейл" },
-  { icon: "🚚", name: "Логистика" },
-  { icon: "📚", name: "Образование" },
-  { icon: "⚡", name: "Энергетика" },
-  { icon: "🎮", name: "Развлечения" },
-  { icon: "📊", name: "Консалтинг" },
 ];

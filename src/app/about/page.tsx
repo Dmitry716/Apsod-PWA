@@ -9,8 +9,8 @@ export const metadata = buildSnippetMetadata('/about')
 export default function AboutPage() {
   const deliveryPoints = [
     {
-      title: 'Минск · Беларусь',
-      body: 'Разработка сайтов для бизнеса Минска и компаний по РБ. Проекты ведём онлайн — бриф, договор, сдача.',
+      title: 'Офис в Минске',
+      body: 'г. Минск, ул. Куйбышева, 35. Встречи по договорённости — бриф, договор, сдача.',
     },
     {
       title: 'Привлечение клиентов',
@@ -127,24 +127,23 @@ export default function AboutPage() {
       <section className="relative pt-16 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-96 h-96 bg-purple-200 dark:bg-purple-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-20 left-1/2 w-96 h-96 bg-indigo-200 dark:bg-indigo-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+          <div className="absolute top-40 right-10 w-96 h-96 bg-cyan-200 dark:bg-cyan-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute bottom-20 left-1/2 w-96 h-96 bg-blue-100 dark:bg-indigo-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              IT-компания и{' '}
-              <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                веб-студия
-              </span>
+            <p className="font-display text-sm font-semibold tracking-[0.2em] uppercase text-blue-600 dark:text-blue-400 mb-4">
+              APSOD
+            </p>
+            <h1 className="font-display text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
+              Веб-студия в{' '}
+              <span className="text-blue-600 dark:text-blue-400">Минске</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-              APSOD — IT-компания и веб-студия полного цикла: привлекаем и обслуживаем клиентов по
-              миру. Аналитика, уникальная разработка сайтов и приложений, SEO и сопровождение. Только
-              индивидуальные продукты на уникальном коде. Фокус — Минск и Беларусь; в портфолио
-              реальные кейсы по РБ.
-              и миру.
+            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+              APSOD — разработка сайтов и приложений на уникальном коде для бизнеса Минска и
+              Беларуси. Аналитика, SEO, GEO и сопровождение после запуска. Офис:{' '}
+              ул. Куйбышева, 35.
             </p>
 
             <div className="relative mx-auto max-w-5xl mb-10 overflow-hidden rounded-2xl aspect-[16/9] bg-gray-200 dark:bg-gray-700 shadow-xl ring-1 ring-black/5 dark:ring-white/10">
@@ -189,7 +188,7 @@ export default function AboutPage() {
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
               Создавать технологии, которые реально работают и приносят пользу бизнесу. Мы объединяем 15-летнюю экспертизу в разработке с пониманием специфики разных отраслей, чтобы предлагать решения, которые действительно решают задачи клиентов.
             </p>
-            <div className="w-24 h-1 bg-linear-to-r from-blue-600 to-purple-600 mx-auto"></div>
+            <div className="w-24 h-1 bg-linear-to-r from-blue-600 to-cyan-500 mx-auto"></div>
           </div>
         </div>
       </section>

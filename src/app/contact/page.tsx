@@ -9,6 +9,14 @@ import PushNotificationSubscribe from '../components/PushNotificationSubscribe'
 function ContactContent() {
   const contactInfo = [
     {
+      icon: '📍',
+      title: 'Офис',
+      value: COMPANY_ADDRESS_DISPLAY,
+      link: 'https://yandex.by/maps/?text=Минск%2C%20ул.%20Куйбышева%2C%2035',
+      description: COMPANY_REMOTE_NOTE,
+      emphasize: true,
+    },
+    {
       icon: '📞',
       title: 'Телефон',
       value: '+375 (44) 577-77-24',
@@ -21,13 +29,6 @@ function ContactContent() {
       value: 'karelinseo@gmail.com',
       link: 'mailto:karelinseo@gmail.com',
       description: 'Ответим в течение 24 часов',
-    },
-    {
-      icon: '📍',
-      title: 'Адрес',
-      value: COMPANY_ADDRESS_DISPLAY,
-      link: 'https://yandex.by/maps/?text=Минск%2C%20ул.%20Куйбышева%2C%2035',
-      description: COMPANY_REMOTE_NOTE,
     },
     {
       icon: '💬',
@@ -81,14 +82,14 @@ function ContactContent() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
               Бриф за{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+              <span className="text-blue-600 dark:text-blue-400">
                 1 минуту
               </span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Цель → бюджет → сроки → контакты. Подготовим предложение без шаблонов и конструкторов.
+              Цель → бюджет → сроки → контакты. Офис в Минске: ул. Куйбышева, 35.
             </p>
           </div>
         </div>
@@ -100,7 +101,11 @@ function ContactContent() {
             {contactInfo.map((item) => (
               <div
                 key={item.title}
-                className="apsod-card-lift bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 p-5"
+                className={`apsod-card-lift bg-white dark:bg-gray-800 rounded-2xl border p-5 ${
+                  item.emphasize
+                    ? 'border-blue-200 dark:border-blue-800 md:col-span-2 lg:col-span-1 ring-1 ring-blue-100 dark:ring-blue-900/40'
+                    : 'border-gray-100 dark:border-gray-700'
+                }`}
               >
                 <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{item.title}</h3>

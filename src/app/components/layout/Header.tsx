@@ -54,10 +54,11 @@ export default function Header() {
             style={{
               fontSize: "2rem",
               fontWeight: "bold",
-              background: "linear-gradient(to right, #2563eb, #9333ea)",
+              background: "linear-gradient(to right, #2563eb, #0891b2)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              letterSpacing: "-0.02em",
+              letterSpacing: "-0.03em",
+              fontFamily: "var(--font-display), var(--font-sans), system-ui, sans-serif",
             }}
           >
             APSOD

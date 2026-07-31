@@ -36,7 +36,7 @@ export const COMPANY = {
 export const COMPANY_ADDRESS_DISPLAY = 'г. Минск, ул. Куйбышева, 35'
 
 export const COMPANY_REMOTE_NOTE =
-  'Офис APSOD в Минске. Встречи по договорённости, бриф и смета — онлайн.'
+  'Офис в центре Минска. Встречи по договорённости.'
 
 function companyPostalAddress() {
   return {

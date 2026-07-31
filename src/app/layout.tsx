@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import { cookies } from "next/headers";
 import { Providers } from "./providers";
 import Header from "./components/layout/Header";
@@ -28,7 +28,11 @@ import "./globals.css";
 import "./hero-animations.css";
 import "./premium-motion.css";
 
-const inter = Inter({ subsets: ["latin", "cyrillic"] });
+const inter = Inter({ subsets: ["latin", "cyrillic"], variable: "--font-sans" });
+const manrope = Manrope({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-display",
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -136,7 +140,7 @@ export default async function RootLayout({
           ])}
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${manrope.variable} ${inter.className}`}>
         <GoogleAnalytics />
         <YandexMetrika />
         <Providers>
