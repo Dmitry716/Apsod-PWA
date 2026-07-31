@@ -20,78 +20,59 @@ export const COMPANY = {
   telegramHandle: '@Apsod_IT',
   whatsappUrl: 'https://wa.me/375445777724',
   address: {
-    street: '',
-    city: 'Витебск',
-    region: 'Витебская область',
-    postalCode: '210000',
+    street: 'ул. Куйбышева, 35',
+    city: 'Минск',
+    region: 'Минск',
+    postalCode: '220029',
     country: 'BY',
     countryName: 'Беларусь',
   },
-  geo: { lat: 55.1848, lng: 30.2016 },
+  /** ул. Куйбышева, 35 */
+  geo: { lat: 53.918052, lng: 27.573716 },
   openingHours: 'Mo-Fr 09:00-18:00',
 }
 
-/** Формат работы / контакты (без уличного адреса) */
-export const COMPANY_ADDRESS_DISPLAY = 'Удалённая работа по всему миру'
+/** Полный адрес для контактов, футера и Schema */
+export const COMPANY_ADDRESS_DISPLAY = 'г. Минск, ул. Куйбышева, 35'
 
 export const COMPANY_REMOTE_NOTE =
-  'ИП зарегистрирован в Витебске. Проекты ведём удалённо по всему миру.'
+  'Офис APSOD в Минске. Встречи по договорённости, бриф и смета — онлайн.'
+
+function companyPostalAddress() {
+  return {
+    '@type': 'PostalAddress' as const,
+    streetAddress: COMPANY.address.street,
+    addressLocality: COMPANY.address.city,
+    addressRegion: COMPANY.address.region,
+    postalCode: COMPANY.address.postalCode,
+    addressCountry: COMPANY.address.country,
+  }
+}
 
 export const SITE_DESCRIPTION =
-  'APSOD — IT-компания и веб-студия: разработка сайтов и приложений на уникальном коде, SEO и GEO. Без конструкторов. Витебск, Минск, Москва и удалённо.'
+  'APSOD — разработка сайтов в Минске на уникальном коде, SEO и GEO. Лендинг, корпоративный сайт, магазин. Без конструкторов. Смета за 1 день.'
 
 export const SITE_OG_IMAGE = '/og-image.jpg'
 export const DEFAULT_OG_IMAGE_URL = `${SITE_URL}${SITE_OG_IMAGE}`
 
-/** Ключевые запросы: сайты + SEO + mobile × топ-гео (Витебск, Минск, Москва) */
+/** Ключевые запросы: Минск-first */
 export const MAIN_KEYWORDS = [
-  'IT компания',
-  'IT-компания',
-  'веб-студия',
-  'веб студия',
-  'IT компания Беларусь',
-  'веб-студия Беларусь',
-  'IT компания Витебск',
-  'веб-студия Витебск',
-  'IT компания Минск',
-  'веб-студия Минск',
-  'IT компания Москва',
-  'веб-студия Москва',
-  'разработка сайтов Москва',
-  'создание сайтов Москва',
-  'создание сайта Москва',
-  'заказать сайт Москва',
-  'разработка интернет-магазина Москва',
-  'создание интернет-магазина Москва',
-  'SEO продвижение Москва',
-  'продвижение сайта Москва',
-  'продвижение сайта Яндекс Москва',
-  'продвижение сайта Google Москва',
-  'разработка мобильных приложений Москва',
-  'создание мобильного приложения Москва',
+  'разработка сайтов в Минске',
   'разработка сайтов Минск',
-  'создание сайтов Минск',
+  'создание сайтов в Минске',
   'создание сайта Минск',
   'заказать сайт Минск',
-  'разработка интернет-магазина Минск',
+  'веб-студия Минск',
+  'IT компания Минск',
   'SEO продвижение Минск',
   'продвижение сайта Минск',
-  'разработка мобильных приложений Минск',
-  'разработка сайтов Витебск',
-  'создание сайтов Витебск',
-  'создание сайта Витебск',
-  'создание сайтов в Витебске',
-  'заказать сайт Витебск',
-  'SEO продвижение Витебск',
-  'разработка сайтов Беларусь',
-  'создание сайтов Беларусь',
-  'SEO продвижение Беларусь',
-  'продвижение сайта в Яндексе',
-  'продвижение сайта в Google',
+  'разработка интернет-магазина Минск',
   'создание сайта с нуля',
   'стоимость сайта',
   'PWA разработка',
   'техническая поддержка сайтов',
+  'разработка сайтов Беларусь',
+  'создание сайтов Беларусь',
 ]
 
 export const SERVICE_PATHS = [
@@ -327,13 +308,11 @@ export function generateOrganizationSchema() {
     },
     email: COMPANY.email,
     telephone: COMPANY.phone,
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: COMPANY.address.city,
-      addressRegion: COMPANY.address.region,
-      addressCountry: COMPANY.address.country,
-    },
-    areaServed: { '@type': 'Place', name: 'Worldwide' },
+    address: companyPostalAddress(),
+    areaServed: [
+      { '@type': 'City', name: 'Minsk' },
+      { '@type': 'Country', name: 'Belarus' },
+    ],
     sameAs: [
       COMPANY.telegramUrl,
       'https://www.facebook.com/share/1GuC7K2jZ1/?mibextid=wwXIfr',
@@ -373,8 +352,8 @@ export function generateWebSiteSchema() {
     '@id': getWebSiteId(),
     name: SITE_NAME,
     alternateName: [
+      'APSOD — разработка сайтов в Минске',
       'APSOD — IT-компания и веб-студия',
-      'APSOD — разработка сайтов и SEO',
     ],
     url: SITE_URL,
     description: SITE_DESCRIPTION,
@@ -396,18 +375,16 @@ export function generateLocalBusinessSchema() {
     email: COMPANY.email,
     priceRange: '$$',
     parentOrganization: { '@id': getOrganizationId() },
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: COMPANY.address.city,
-      addressRegion: COMPANY.address.region,
-      addressCountry: COMPANY.address.country,
-    },
+    address: companyPostalAddress(),
     geo: {
       '@type': 'GeoCoordinates',
       latitude: COMPANY.geo.lat,
       longitude: COMPANY.geo.lng,
     },
-    areaServed: { '@type': 'Place', name: 'Worldwide' },
+    areaServed: [
+      { '@type': 'City', name: 'Minsk' },
+      { '@type': 'Country', name: 'Belarus' },
+    ],
     openingHours: COMPANY.openingHours,
     knowsAbout: [
       'Web Development',
@@ -545,7 +522,7 @@ export function generateContactPageSchema() {
     '@type': 'ContactPage',
     name: `Контакты — ${SITE_NAME}`,
     url: buildCanonical('/contact'),
-    description: 'Связаться с APSOD: бриф, разработка сайтов, SEO и мобильные приложения. Минск, Витебск, Москва.',
+    description: 'Связаться с APSOD: бриф, разработка сайтов, SEO. Офис в Минске, ул. Куйбышева, 35.',
     mainEntity: { '@id': getOrganizationId() },
     isPartOf: { '@id': getWebSiteId() },
   }

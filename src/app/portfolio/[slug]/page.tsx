@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getAllPortfolioSlugs, getProjectBySlug } from '../data'
+import { getProjectBySlug, isIndexedPortfolioCase, getAllPortfolioSlugs } from '../data'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { buildPageMetadata, generateCreativeWorkSchema, generateBreadcrumbSchema } from '../../lib/seo'
 import { portfolioCaseSnippet } from '../../lib/page-snippets'
@@ -24,6 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     path: `/portfolio/${slug}`,
     keywords: [...(snippet.keywords ?? []), ...project.tags, project.category],
     images: [project.image],
+    noIndex: !isIndexedPortfolioCase(project),
   })
 }
 

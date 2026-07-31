@@ -2,8 +2,6 @@ import { MetadataRoute } from 'next'
 import { blogPosts } from './blog/data/posts'
 import { PORTFOLIO_SITEMAP_SLUGS } from './portfolio/sitemap-slugs'
 import { getAllReadySiteSlugs } from './ready-sites/data'
-import { BELARUS_CITIES } from './lib/belarus-cities'
-import { RUSSIA_CITIES, getRussiaCitySitemapPriority } from './lib/russia-cities'
 import {
   SITE_URL,
   SERVICE_PATHS,
@@ -22,8 +20,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
     { url: base, lastModified: now, changeFrequency: 'weekly', priority: 1 },
     { url: `${base}/services`, lastModified: now, changeFrequency: 'weekly', priority: 0.95 },
-    { url: `${base}/russia`, lastModified: now, changeFrequency: 'weekly', priority: 0.95 },
-    { url: `${base}/belarus`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/portfolio`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${base}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${base}/blog`, lastModified: now, changeFrequency: 'daily', priority: 0.85 },
@@ -67,28 +63,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.25,
   }))
 
-  const belarusCityPages: MetadataRoute.Sitemap = BELARUS_CITIES.map((city) => ({
-    url: `${base}/belarus/${city.slug}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    // Витебск — домашний рынок; Минск — крупный спрос
-    priority: city.slug === 'vitebsk' ? 0.94 : city.slug === 'minsk' ? 0.92 : 0.82,
-  }))
-
-  const belarusWebDevLandings: MetadataRoute.Sitemap = BELARUS_CITIES.map((city) => ({
-    url: `${base}/services/web-development/${city.slug}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }))
-
-  const russiaCityPages: MetadataRoute.Sitemap = RUSSIA_CITIES.map((city) => ({
-    url: `${base}/russia/${city.slug}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: getRussiaCitySitemapPriority(city.slug),
-  }))
-
   return [
     ...staticPages,
     ...servicePages,
@@ -96,8 +70,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...portfolioPages,
     ...readySitePages,
     ...legalPages,
-    ...belarusCityPages,
-    ...belarusWebDevLandings,
-    ...russiaCityPages,
   ]
 }

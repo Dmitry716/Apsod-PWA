@@ -41,7 +41,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE_NAME} — сайты и рост заявок на уникальном коде`,
+    default: `${SITE_NAME} — разработка сайтов в Минске`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     statusBarStyle: "default",
   },
   openGraph: {
-    title: `${SITE_NAME} — IT-компания и веб-студия`,
+    title: `${SITE_NAME} — разработка сайтов в Минске`,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} — IT-компания и веб-студия`,
+    title: `${SITE_NAME} — разработка сайтов в Минске`,
     description: SITE_DESCRIPTION,
     images: [DEFAULT_OG_IMAGE_URL],
   },
@@ -123,10 +123,10 @@ export default async function RootLayout({
         <meta name="msapplication-TileColor" content="#2563eb" />
         <meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
         <meta name="author" content={SITE_NAME} />
-        <meta name="geo.region" content="BY-VI" />
-        <meta name="geo.placename" content="Vitebsk, Belarus" />
-        <meta name="geo.position" content="55.1848;30.2016" />
-        <meta name="ICBM" content="55.1848, 30.2016" />
+        <meta name="geo.region" content="BY-HM" />
+        <meta name="geo.placename" content="Minsk, Belarus" />
+        <meta name="geo.position" content="53.918052;27.573716" />
+        <meta name="ICBM" content="53.918052, 27.573716" />
         <SeoJsonLd
           data={generateGraphSchema([
             generateOrganizationSchema(),

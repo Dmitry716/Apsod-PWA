@@ -2,12 +2,12 @@
 
 export const POSITIONING = {
   ru: {
-    badge: 'IT-компания · веб-студия',
-    heroTitle1: 'Привлекаем клиентов',
-    heroTitle2: 'через digital-продукты',
+    badge: 'IT-компания · веб-студия · Минск',
+    heroTitle1: 'Разработка сайтов',
+    heroTitle2: 'в Минске',
     heroTitle3: 'уникальный код, SEO и GEO',
     heroLead:
-      'Привлекаем и обслуживаем клиентов по миру: сайты и приложения без конструкторов, SEO и GEO, сопровождение после запуска. Смета за 1 рабочий день.',
+      'Сайты и приложения для бизнеса Минска и Беларуси — без конструкторов. SEO и GEO, сопровождение после запуска. Смета за 1 рабочий день.',
     ctaPrimary: 'Обсудить проект',
     ctaSecondary: 'Смотреть кейсы',
     servicesTitle: 'Что мы делаем',
@@ -107,12 +107,12 @@ export const POSITIONING = {
     ],
   },
   en: {
-    badge: 'IT company · web studio',
-    heroTitle1: 'Win more clients',
-    heroTitle2: 'with digital products',
+    badge: 'IT company · web studio · Minsk',
+    heroTitle1: 'Website development',
+    heroTitle2: 'in Minsk',
     heroTitle3: 'custom code, SEO and GEO',
     heroLead:
-      'We attract and serve clients worldwide: custom websites and apps without page builders, SEO and GEO, and ongoing support after launch. Quote within one business day.',
+      'Custom websites and apps for businesses in Minsk and Belarus — no page builders. SEO and GEO, support after launch. Quote within one business day.',
     ctaPrimary: 'Discuss a project',
     ctaSecondary: 'View case studies',
     servicesTitle: 'What we deliver',

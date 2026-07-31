@@ -1,23 +1,4 @@
-/** Внутренние страницы /portfolio/[slug] для sitemap.xml */
-export const PORTFOLIO_SITEMAP_SLUGS = [
-  'amba-detail',
-  'nexton',
-  'maxximum',
-  'dynamo-vitebsk',
-  'bmservice',
-  'artdetailing',
-  'sparkite',
-  'buzz',
-  'erin',
-  'vsenashi',
-  'vigbo',
-  'nordforge-industrial',
-  'meridian-ledger',
-  'harbor-health',
-  'oak-and-thread',
-  'clearroute-logistics',
-  'brightpath-academy',
-  'solara-grid',
-  'stagewire-events',
-  'apex-advisory',
-] as const
+import { getIndexedPortfolioSlugs } from './data'
+
+/** Внутренние страницы /portfolio/[slug] для sitemap.xml — только индексируемые кейсы */
+export const PORTFOLIO_SITEMAP_SLUGS = getIndexedPortfolioSlugs()

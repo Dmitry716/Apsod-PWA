@@ -2,8 +2,8 @@ import Link from 'next/link'
 
 const POINTS = [
   {
-    title: 'BY · RU · remote',
-    body: 'Хабы в Витебске, Минске и Москве — проекты ведём удалённо для клиентов по миру.',
+    title: 'Минск · Беларусь',
+    body: 'Разработка сайтов для бизнеса столицы и компаний по всей РБ — бриф, смета и сдача онлайн.',
   },
   {
     title: 'Привлечение клиентов',
@@ -19,7 +19,7 @@ const POINTS = [
   },
 ] as const
 
-/** Правая колонка hero: глобальная доставка вместо vanity-цифр */
+/** Правая колонка hero: Минск-first вместо «хабов» */
 export default function HomeGlobalDelivery() {
   return (
     <div className="relative apsod-hero-enter apsod-hero-enter-delay-4">
@@ -30,14 +30,13 @@ export default function HomeGlobalDelivery() {
 
       <div className="relative rounded-2xl border border-blue-100/80 dark:border-gray-700/60 bg-white/95 dark:bg-gray-800/90 backdrop-blur-sm shadow-xl p-6 md:p-7 max-md:p-5">
         <p className="text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-2">
-          Global delivery
+          Минск · Беларусь
         </p>
         <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2 leading-snug">
-          IT-команда для клиентов по всему миру
+          Веб-студия для бизнеса в Минске
         </h2>
         <p className="text-sm md:text-base text-gray-600 dark:text-gray-300 mb-5 leading-relaxed">
-          Привлекаем и обслуживаем бизнес удалённо: от стратегии и продукта до роста в поиске и
-          сопровождения.
+          От стратегии и продукта до роста в поиске и сопровождения — без конструкторов.
         </p>
 
         <ul className="space-y-4 mb-6">

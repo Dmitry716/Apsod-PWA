@@ -1,4 +1,4 @@
-/** 301 с адресов старого HTML-сайта (см. GSC Coverage 404) и сжатого гео-каталога. */
+/** 301 с адресов старого HTML-сайта (см. GSC Coverage 404) и свёрнутого гео-каталога. */
 export const legacyRedirects = [
   { source: '/privacy', destination: '/legal/privacy-policy', permanent: true },
   { source: '/home', destination: '/', permanent: true },
@@ -12,39 +12,19 @@ export const legacyRedirects = [
   { source: '/о нас', destination: '/about', permanent: true },
   { source: '/о%20нас', destination: '/about', permanent: true },
 
-  // РБ: сжатие гео (оставляем vitebsk + minsk)
-  { source: '/belarus/brest', destination: '/belarus', permanent: true },
-  { source: '/belarus/gomel', destination: '/belarus', permanent: true },
-  { source: '/belarus/grodno', destination: '/belarus', permanent: true },
-  { source: '/belarus/mogilev', destination: '/belarus', permanent: true },
-  { source: '/belarus/bobruisk', destination: '/belarus', permanent: true },
-  { source: '/belarus/baranovichi', destination: '/belarus', permanent: true },
-  { source: '/belarus/borisov', destination: '/belarus', permanent: true },
-  { source: '/belarus/pinsk', destination: '/belarus', permanent: true },
-  { source: '/belarus/orsha', destination: '/belarus', permanent: true },
-  { source: '/belarus/mozyr', destination: '/belarus', permanent: true },
-  { source: '/belarus/soligorsk', destination: '/belarus', permanent: true },
-  { source: '/belarus/lida', destination: '/belarus', permanent: true },
-  { source: '/belarus/polotsk', destination: '/belarus', permanent: true },
-
-  // РФ: сжатие гео (оставляем moscow)
-  { source: '/russia/khimki', destination: '/russia', permanent: true },
-  { source: '/russia/podolsk', destination: '/russia', permanent: true },
-  { source: '/russia/balashikha', destination: '/russia', permanent: true },
-  { source: '/russia/mytishchi', destination: '/russia', permanent: true },
-  { source: '/russia/odintsovo', destination: '/russia', permanent: true },
-  { source: '/russia/korolev', destination: '/russia', permanent: true },
-  { source: '/russia/domodedovo', destination: '/russia', permanent: true },
-  { source: '/russia/lyubertsy', destination: '/russia', permanent: true },
-  { source: '/russia/saint-petersburg', destination: '/russia', permanent: true },
-  { source: '/russia/novosibirsk', destination: '/russia', permanent: true },
-  { source: '/russia/ekaterinburg', destination: '/russia', permanent: true },
-  { source: '/russia/kazan', destination: '/russia', permanent: true },
-  { source: '/russia/nizhny-novgorod', destination: '/russia', permanent: true },
-  { source: '/russia/krasnodar', destination: '/russia', permanent: true },
-  { source: '/russia/rostov-on-don', destination: '/russia', permanent: true },
-  { source: '/russia/samara', destination: '/russia', permanent: true },
-  { source: '/russia/voronezh', destination: '/russia', permanent: true },
-  { source: '/russia/ufa', destination: '/russia', permanent: true },
-  { source: '/russia/krasnoyarsk', destination: '/russia', permanent: true },
+  // Гео-URL убраны: Минск-first на главной, без /minsk /vitebsk /belarus /russia в пути
+  { source: '/belarus', destination: '/', permanent: true },
+  { source: '/belarus/:path*', destination: '/', permanent: true },
+  { source: '/russia', destination: '/', permanent: true },
+  { source: '/russia/:path*', destination: '/', permanent: true },
+  {
+    source: '/services/web-development/vitebsk',
+    destination: '/services/web-development',
+    permanent: true,
+  },
+  {
+    source: '/services/web-development/minsk',
+    destination: '/services/web-development',
+    permanent: true,
+  },
 ]

@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { buildSnippetMetadata, COMPANY_ADDRESS_DISPLAY } from '../../lib/seo'
+import { buildSnippetMetadata, COMPANY, COMPANY_ADDRESS_DISPLAY } from '../../lib/seo'
 
 export const metadata = buildSnippetMetadata('/components/privacy', { noIndex: true })
 
@@ -67,10 +67,9 @@ export default function PrivacyPage() {
             <div className="bg-gray-50 dark:bg-gray-700 rounded-xl p-6 mb-6">
               <p className="text-gray-800 dark:text-white font-medium">Индивидуальный предприниматель Карелин Дмитрий Васильевич</p>
               <p className="text-gray-600 dark:text-gray-300 mt-2">УНП 391853923</p>
-              <p className="text-gray-600 dark:text-gray-300">Дата регистрации: 15.03.2018</p>
-              <p className="text-gray-600 dark:text-gray-300">Формат работы: {COMPANY_ADDRESS_DISPLAY}</p>
-              <p className="text-gray-600 dark:text-gray-300">Email: info@apsod.com</p>
-              <p className="text-gray-600 dark:text-gray-300">Тел.: +375 (29) 123-45-67</p>
+              <p className="text-gray-600 dark:text-gray-300">Офис: {COMPANY_ADDRESS_DISPLAY}</p>
+              <p className="text-gray-600 dark:text-gray-300">Email: {COMPANY.email}</p>
+              <p className="text-gray-600 dark:text-gray-300">Тел.: {COMPANY.phone}</p>
             </div>
 
             <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">

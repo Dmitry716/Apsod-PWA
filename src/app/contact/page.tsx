@@ -23,10 +23,10 @@ function ContactContent() {
       description: 'Ответим в течение 24 часов',
     },
     {
-      icon: '🌍',
-      title: 'Формат работы',
+      icon: '📍',
+      title: 'Адрес',
       value: COMPANY_ADDRESS_DISPLAY,
-      link: '',
+      link: 'https://yandex.by/maps/?text=Минск%2C%20ул.%20Куйбышева%2C%2035',
       description: COMPANY_REMOTE_NOTE,
     },
     {

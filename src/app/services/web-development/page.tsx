@@ -10,7 +10,6 @@ import {
   WEB_DEV_CASES,
   WEB_DEV_FEATURED_PACKAGES,
 } from '../../lib/web-dev-packages'
-import { BELARUS_CITIES } from '../../lib/belarus-cities'
 
 export const metadata = buildServiceMetadata('web-development')
 
@@ -41,13 +40,13 @@ export default function WebDevelopmentPage() {
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'Разработка сайтов и интернет-магазинов',
+    name: 'Разработка сайтов в Минске',
     description:
-      'Профессиональная разработка сайтов, интернет-магазинов и веб-приложений на Next.js, React, Node.js. Без конструкторов.',
+      'Разработка сайтов, интернет-магазинов и веб-приложений в Минске на Next.js, React, Node.js. Без конструкторов.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
     areaServed: [
+      { '@type': 'City', name: 'Minsk' },
       { '@type': 'Country', name: 'Belarus' },
-      { '@type': 'Country', name: 'Russia' },
     ],
     url: `${SITE_URL}/services/web-development`,
   }
@@ -61,13 +60,13 @@ export default function WebDevelopmentPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-3">
-              Уникальный код · без конструкторов
+              Минск · уникальный код · без конструкторов
             </p>
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-5">
-              Разработка сайтов, которые приносят заявки
+              Разработка сайтов в Минске
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Лендинг, корпоративный сайт или магазин на Next.js. Минск, Витебск, Москва и удалённо.
+              Лендинг, корпоративный сайт или магазин на Next.js для бизнеса Минска и Беларуси.
               Смета {formatDualPrice(8000)} — после короткого брифа.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
@@ -83,39 +82,6 @@ export default function WebDevelopmentPage() {
               >
                 Смотреть пакеты
               </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="pb-12">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <div className="rounded-2xl border border-blue-200 dark:border-blue-800 bg-blue-50/60 dark:bg-blue-950/30 p-6 md:p-8 text-center">
-            <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-3">
-              Разработка сайтов в Минске и Витебске
-            </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-5 max-w-2xl mx-auto">
-              Отдельные посадочные под ключ: пакеты, этапы оплаты и смета для бизнеса в Беларуси.
-            </p>
-            <div className="flex flex-wrap justify-center gap-3">
-              {BELARUS_CITIES.map((city) => (
-                <Link
-                  key={city.slug}
-                  href={`/services/web-development/${city.slug}`}
-                  className="px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
-                >
-                  Сайт {city.nameIn}
-                </Link>
-              ))}
-              {BELARUS_CITIES.map((city) => (
-                <Link
-                  key={`hub-${city.slug}`}
-                  href={`/belarus/${city.slug}`}
-                  className="px-5 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg font-medium hover:border-blue-500"
-                >
-                  Все услуги · {city.name}
-                </Link>
-              ))}
             </div>
           </div>
         </div>

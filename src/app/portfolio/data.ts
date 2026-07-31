@@ -589,6 +589,15 @@ export function getProjectBySlug(slug: string): PortfolioProject | undefined {
   )
 }
 
+/** Индексируем только кейсы с живым сайтом; остальное — демо/концепты */
+export function isIndexedPortfolioCase(project: PortfolioProject): boolean {
+  return Boolean(project.liveUrl)
+}
+
+export function getIndexedPortfolioSlugs(): string[] {
+  return PORTFOLIO_PROJECTS.filter(isIndexedPortfolioCase).map((p) => p.slug)
+}
+
 export function getAllPortfolioSlugs(): string[] {
   return PORTFOLIO_PROJECTS.map((p) => p.slug)
 }

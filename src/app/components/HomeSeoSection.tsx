@@ -2,21 +2,22 @@ import Link from 'next/link'
 import { HOMEPAGE_FAQ } from '../lib/homepage-faq'
 import { SITE_NAME } from '../lib/seo'
 
-const GEO_LINKS = [
-  { href: '/belarus/vitebsk', label: 'Создание сайтов в Витебске' },
-  { href: '/belarus/minsk', label: 'Разработка и продвижение сайтов в Минске' },
-  { href: '/russia/moscow', label: 'Разработка и продвижение сайтов в Москве' },
-  { href: '/belarus', label: 'Разработка и продвижение сайтов в Беларуси' },
-  { href: '/russia', label: 'Разработка и продвижение сайтов в России' },
-]
-
 const SERVICE_LINKS = [
-  { href: '/services/web-development', label: 'Уникальная веб-разработка' },
+  { href: '/services/web-development', label: 'Разработка сайтов в Минске' },
   { href: '/services/seo', label: 'SEO и аналитика' },
   { href: '/services/geo-promotion', label: 'GEO в нейросетях' },
-  { href: '/services/mobile-development', label: 'Безопасные мобильные приложения' },
+  { href: '/services/mobile-development', label: 'Мобильные приложения' },
   { href: '/services/pwa-development', label: 'PWA-разработка' },
   { href: '/services/technical-support', label: 'Поддержка и развитие' },
+]
+
+const PROOF_LINKS = [
+  { href: '/portfolio', label: 'Портфолио и кейсы' },
+  { href: '/pricing', label: 'Цены и пакеты' },
+  { href: '/ready-sites', label: 'Готовые сайты' },
+  { href: '/about', label: 'О компании' },
+  { href: '/contact', label: 'Заказать сайт' },
+  { href: '/blog', label: 'Блог' },
 ]
 
 export default function HomeSeoSection() {
@@ -25,24 +26,24 @@ export default function HomeSeoSection() {
       <section className="py-20 bg-gray-50 dark:bg-gray-900/50 max-md:py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-            {SITE_NAME} — IT-компания и веб-студия
+            {SITE_NAME} — разработка сайтов в Минске
           </h2>
           <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 space-y-4">
             <p>
-              <strong>{SITE_NAME}</strong> — IT-компания и веб-студия для бизнеса, которому нужна не
-              «страница на конструкторе», а digital-канал заявок: аналитика и стратегия, уникальный
-              дизайн, безопасная разработка, SEO в Яндексе и Google, интеграции и поддержка после
-              запуска.
+              <strong>{SITE_NAME}</strong> — IT-компания и веб-студия: разработка сайтов в Минске и
+              по Беларуси для бизнеса, которому нужна не «страница на конструкторе», а digital-канал
+              заявок. Аналитика и стратегия, уникальный дизайн, безопасная разработка, SEO в Яндексе
+              и Google, интеграции и поддержка после запуска.
             </p>
             <p>
-              Как веб-студия мы разрабатываем{' '}
+              Мы разрабатываем{' '}
               <strong>только индивидуальные сайты и приложения на уникальном коде</strong> (Next.js,
               React, Node.js и мобильный стек). С Tilda, Wix и другими конструкторами не работаем —
               такие решения не дают нужного уровня безопасности, гибкости и контроля.
             </p>
             <p>
-              География работы: <strong>Витебск</strong>, <strong>Минск</strong>, <strong>Москва</strong>{' '}
-              и удалённые проекты по миру. Начните с{' '}
+              Фокус — <strong>Минск</strong> и компании по всей Беларуси. Офис:{' '}
+              <strong>ул. Куйбышева, 35</strong>. Начните с{' '}
               <Link href="/contact" className="text-blue-600 dark:text-blue-400 hover:underline">
                 консультации
               </Link>
@@ -78,10 +79,10 @@ export default function HomeSeoSection() {
             </div>
             <div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                География
+                Клиентам
               </h3>
               <ul className="space-y-2">
-                {GEO_LINKS.map((link) => (
+                {PROOF_LINKS.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}

@@ -36,7 +36,7 @@ export const VITEBSK_CASES = [
 
 /** Факты «at a glance» для делового hero */
 export const VITEBSK_TRUST_FACTS = [
-  { value: 'ИП в Витебске', label: 'Локальный подрядчик по договору' },
+  { value: 'Офис в Минске', label: 'ул. Куйбышева, 35' },
   { value: '1 день', label: 'Смета после брифа' },
   { value: formatDualPrice(8000, { from: true }), label: 'Ориентир старта проекта' },
   { value: 'Без конструкторов', label: 'Только уникальный код' },
@@ -111,7 +111,7 @@ export function getVitebskSeoFaq(): { question: string; answer: string }[] {
     {
       question: 'Нужен ли офис в Витебске для заказа?',
       answer:
-        'APSOD зарегистрирован в Витебске. Бриф, смета и сдача — онлайн (Telegram, WhatsApp, звонок). Встречу при необходимости согласуем отдельно.',
+        'Офис APSOD — в Минске (ул. Куйбышева, 35). Бриф, смета и сдача — онлайн (Telegram, WhatsApp, звонок). Встречу при необходимости согласуем в офисе.',
     },
   ]
 }

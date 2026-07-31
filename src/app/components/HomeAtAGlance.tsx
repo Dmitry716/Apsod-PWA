@@ -4,12 +4,12 @@ const FACTS = [
     label: '15 лет в digital',
   },
   {
-    value: '3 хаба',
-    label: 'Витебск · Минск · Москва',
+    value: 'Минск',
+    label: 'Фокус рынка · Беларусь',
   },
   {
-    value: 'Remote',
-    label: 'Клиенты удалённо по миру',
+    value: 'Без конструкторов',
+    label: 'Только уникальный код',
   },
   {
     value: 'Full cycle',

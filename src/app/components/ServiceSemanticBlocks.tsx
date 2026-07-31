@@ -33,16 +33,10 @@ export default function ServiceSemanticBlocks({ service }: { service: ServiceKey
             Цены
           </Link>
           <Link
-            href={
-              service === 'seo'
-                ? '/belarus/minsk'
-                : service === 'mobile-development'
-                  ? '/russia/moscow'
-                  : '/belarus/vitebsk'
-            }
+            href="/services/web-development"
             className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-500"
           >
-            Гео-страницы
+            Разработка сайтов
           </Link>
         </div>
       </div>
