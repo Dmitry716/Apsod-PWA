@@ -199,7 +199,7 @@ export default function PushNotificationSubscribe({ compact = false }: PushNotif
     return (
       <div className="space-y-3">
         <p className="text-sm text-gray-300">
-          Получайте уведомления о новых статьях и акциях
+          Получайте уведомления о новых материалах и статусе заявок
         </p>
         {subscriptionStatus && (
           <div className={`text-xs ${subscriptionStatus.includes('✅') ? 'text-green-400' : 'text-red-400'}`}>

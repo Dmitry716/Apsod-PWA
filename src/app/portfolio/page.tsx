@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
@@ -136,16 +136,13 @@ export default function PortfolioPage() {
       <section className="relative pt-16 pb-16 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-96 h-96 bg-purple-200 dark:bg-purple-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+          <div className="absolute top-40 right-10 w-96 h-96 bg-cyan-200 dark:bg-cyan-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              {t(locale, 'portfolio.title').split(' ')[0]}{' '}
-              <span className="bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                {t(locale, 'portfolio.title').split(' ').slice(1).join(' ')}
-              </span>
+            <h1 className="font-display text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
+              {t(locale, 'portfolio.title')}
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
               {t(locale, 'portfolio.subtitle')}
@@ -155,30 +152,30 @@ export default function PortfolioPage() {
             <div className="flex flex-wrap gap-3 justify-center">
               <button
                 onClick={() => handleFilterChange('all')}
-                className={`px-6 py-2 rounded-full transition-all ${
+                className={`px-5 py-2 rounded-md transition-colors text-sm ${
                   activeFilter === 'all'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
+                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-slate-200 dark:border-slate-700 hover:border-slate-400'
                 }`}
               >
                 {t(locale, 'portfolio.filters.all')}
               </button>
               <button
                 onClick={() => handleFilterChange('web')}
-                className={`px-6 py-2 rounded-full transition-all ${
+                className={`px-5 py-2 rounded-md transition-colors text-sm ${
                   activeFilter === 'web'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
+                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-slate-200 dark:border-slate-700 hover:border-slate-400'
                 }`}
               >
                 {t(locale, 'portfolio.filters.web')}
               </button>
               <button
                 onClick={() => handleFilterChange('mobile')}
-                className={`px-6 py-2 rounded-full transition-all ${
+                className={`px-5 py-2 rounded-md transition-colors text-sm ${
                   activeFilter === 'mobile'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
+                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-slate-200 dark:border-slate-700 hover:border-slate-400'
                 }`}
               >
                 {t(locale, 'portfolio.filters.mobile')}
@@ -190,10 +187,10 @@ export default function PortfolioPage() {
               <div className="flex flex-wrap gap-3 justify-center">
                 <button
                   onClick={() => handleIndustryChange('all')}
-                  className={`px-6 py-2 rounded-full transition-all ${
+                  className={`px-5 py-2 rounded-md transition-colors text-sm ${
                     activeIndustry === 'all'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
+                      ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
+                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-slate-200 dark:border-slate-700 hover:border-slate-400'
                   }`}
                 >
                   {t(locale, 'portfolio.filters.industriesAll')}
@@ -202,10 +199,10 @@ export default function PortfolioPage() {
                   <button
                     key={industry}
                     onClick={() => handleIndustryChange(industry)}
-                    className={`px-6 py-2 rounded-full transition-all ${
+                    className={`px-5 py-2 rounded-md transition-colors text-sm ${
                       activeIndustry === industry
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
+                        ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
+                        : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-slate-200 dark:border-slate-700 hover:border-slate-400'
                     }`}
                   >
                     {industryLabel(industry)}
@@ -213,10 +210,10 @@ export default function PortfolioPage() {
                 ))}
                 <button
                   onClick={() => handleIndustryChange(OTHER_INDUSTRY_KEY)}
-                  className={`px-6 py-2 rounded-full transition-all ${
+                  className={`px-5 py-2 rounded-md transition-colors text-sm ${
                     activeIndustry === OTHER_INDUSTRY_KEY
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
+                      ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
+                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-slate-200 dark:border-slate-700 hover:border-slate-400'
                   }`}
                 >
                   {t(locale, 'portfolio.filters.industriesOther')}
@@ -263,9 +260,9 @@ export default function PortfolioPage() {
                   />
 
                   {imageErrors[project.id] ? (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-6xl transform group-hover:scale-110 transition-transform duration-500">
-                        {project.icon}
+                    <div className="absolute inset-0 flex items-center justify-center bg-slate-100 dark:bg-slate-900">
+                      <span className="font-display text-sm font-semibold tracking-[0.14em] uppercase text-slate-500 dark:text-slate-400">
+                        {project.category}
                       </span>
                     </div>
                   ) : null}
@@ -355,7 +352,7 @@ export default function PortfolioPage() {
       </section>
 
       {/* CTA секция */}
-      <section className="py-20 bg-linear-to-r from-blue-600 to-purple-600">
+      <section className="py-20 bg-slate-950">
         <div className="container mx-auto px-4 text-center">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               {t(locale, 'portfolio.cta.title')}
@@ -365,7 +362,7 @@ export default function PortfolioPage() {
             </p>
           <Link
               href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-xl"
+            className="inline-flex items-center px-8 py-4 bg-white text-slate-900 rounded-lg font-semibold text-lg hover:bg-slate-100 transition-colors"
           >
               {t(locale, 'portfolio.cta.button')}
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

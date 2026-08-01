@@ -1,41 +1,44 @@
-const FACTS = [
+const PILLARS = [
   {
-    value: 'с 2010',
-    label: '15 лет в digital',
+    title: 'Engineering',
+    label: 'Архитектура, код-ревью, QA и современный стек',
   },
   {
-    value: 'Минск',
-    label: 'Фокус рынка · Беларусь',
+    title: 'Delivery',
+    label: 'Прозрачные этапы от Discovery до релиза',
   },
   {
-    value: 'Без конструкторов',
-    label: 'Только уникальный код',
+    title: 'Security',
+    label: 'Доступ, интеграции, бэкапы и устойчивость',
   },
   {
-    value: 'Full cycle',
-    label: 'Продукт → SEO/GEO → поддержка',
+    title: 'Continuity',
+    label: 'Сопровождение, метрики и развитие продукта',
   },
 ] as const
 
-/** Компактная полоса фактов в духе «at a glance» — без vanity % */
+/** At a glance — в духе enterprise capability strip */
 export default function HomeAtAGlance() {
   return (
     <section
-      className="relative border-y border-slate-200/80 dark:border-gray-800 bg-white dark:bg-gray-950"
+      className="relative border-y border-slate-200 dark:border-slate-800 bg-white dark:bg-gray-950"
       aria-label="APSOD at a glance"
     >
-      <div className="container mx-auto px-4 py-10 md:py-12">
-        <p className="text-center text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-8">
+      <div className="container mx-auto px-4 py-14 md:py-16">
+        <p className="text-center text-xs font-medium tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400 mb-10">
           APSOD at a glance
         </p>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6">
-          {FACTS.map((fact) => (
-            <div key={fact.label} className="text-center lg:text-left lg:pl-4 lg:border-l lg:border-slate-200 dark:lg:border-gray-800 first:lg:border-l-0 first:lg:pl-0">
-              <div className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
-                {fact.value}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8">
+          {PILLARS.map((item) => (
+            <div
+              key={item.title}
+              className="text-center lg:text-left lg:pl-6 lg:border-l lg:border-slate-200 dark:lg:border-slate-800 first:lg:border-l-0 first:lg:pl-0"
+            >
+              <div className="font-display text-lg md:text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                {item.title}
               </div>
-              <div className="mt-1.5 text-sm text-slate-600 dark:text-slate-400 leading-snug">
-                {fact.label}
+              <div className="mt-2 text-sm text-slate-600 dark:text-slate-400 leading-snug">
+                {item.label}
               </div>
             </div>
           ))}

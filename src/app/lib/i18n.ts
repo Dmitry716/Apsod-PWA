@@ -21,7 +21,7 @@ const dictionary = {
 
     // Portfolio
     'portfolio.title': 'Наши проекты',
-    'portfolio.subtitle': 'Более 350 кейсов; ниже — избранные работы (полный архив не выложен)',
+    'portfolio.subtitle': 'Избранные проекты; расширенный архив — на консультации',
     'portfolio.filters.all': 'Все проекты',
     'portfolio.filters.web': 'Веб-сайты',
     'portfolio.filters.mobile': 'Мобильные приложения',
@@ -29,9 +29,9 @@ const dictionary = {
     'portfolio.filters.industriesOther': 'Прочие',
     'portfolio.found': 'Найдено проектов:',
     'portfolio.loadMore': 'Загрузить еще проекты',
-    'portfolio.cta.title': 'Хотите такой же проект?',
-    'portfolio.cta.subtitle': 'Расскажите нам о вашей идее, и мы воплотим её в жизнь',
-    'portfolio.cta.button': 'Обсудить проект',
+    'portfolio.cta.title': 'Обсудим задачу вашей компании',
+    'portfolio.cta.subtitle': 'Краткий бриф — предложение с этапами и зоной ответственности',
+    'portfolio.cta.button': 'Запросить консультацию',
 
     // Industries labels
     'industries.manufacturing': 'Производство',
@@ -110,7 +110,7 @@ const dictionary = {
 
     // Portfolio
     'portfolio.title': 'Our projects',
-    'portfolio.subtitle': '350+ completed projects; selected case studies shown below',
+    'portfolio.subtitle': 'Selected projects; full archive on consultation',
     'portfolio.filters.all': 'All projects',
     'portfolio.filters.web': 'Web sites',
     'portfolio.filters.mobile': 'Mobile apps',
@@ -118,9 +118,9 @@ const dictionary = {
     'portfolio.filters.industriesOther': 'Other',
     'portfolio.found': 'Projects found:',
     'portfolio.loadMore': 'Load more projects',
-    'portfolio.cta.title': 'Want a project like this?',
-    'portfolio.cta.subtitle': 'Tell us about your idea, and we will bring it to life',
-    'portfolio.cta.button': 'Discuss the project',
+    'portfolio.cta.title': 'Discuss your company’s brief',
+    'portfolio.cta.subtitle': 'A short brief — a proposal with stages and ownership',
+    'portfolio.cta.button': 'Request a consultation',
 
     // Industries labels
     'industries.manufacturing': 'Manufacturing',

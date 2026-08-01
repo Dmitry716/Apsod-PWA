@@ -19,7 +19,6 @@ export type PortfolioProject = {
   link: string
   color: string
   year: string
-  icon: string
   location: string
   /** Сайт выставлен на продажу как готовый продукт */
   forSale?: boolean
@@ -66,7 +65,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: 'https://ambadetail.by',
     color: 'from-orange-600 to-red-500',
     year: '2026',
-    icon: '🚘',
     location: 'Витебск',
   },
   {
@@ -92,7 +90,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: 'https://nexton.vip',
     color: 'from-violet-600 to-fuchsia-600',
     year: '2026',
-    icon: '💼',
     location: 'Полоцк',
   },
   {
@@ -118,7 +115,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: 'https://maxximum.by',
     color: 'from-green-600 to-emerald-500',
     year: '2024',
-    icon: '🏋️',
     location: 'Витебск',
   },
   {
@@ -144,7 +140,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: 'https://dynamovitebsk.by',
     color: 'from-blue-600 to-cyan-500',
     year: '2019',
-    icon: '🏒',
     location: 'Витебск',
   },
   {
@@ -170,7 +165,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: 'https://bmservice.by/',
     color: 'from-slate-700 to-gray-900',
     year: '2022',
-    icon: '🔧',
     location: 'Витебск',
   },
   {
@@ -196,7 +190,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: 'https://artdetailing.by/',
     color: 'from-rose-700 to-red-900',
     year: '2026',
-    icon: '✨',
     location: 'Витебск',
     forSale: true,
     readySiteSlug: 'detailing-studio',
@@ -223,7 +216,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/sparkite',
     color: 'from-purple-600 to-pink-500',
     year: '2024',
-    icon: '🧘',
     location: 'Нью-Йорк, США',
   },
   {
@@ -248,7 +240,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/buzz',
     color: 'from-yellow-500 to-orange-500',
     year: '2025',
-    icon: '🎉',
     location: 'США',
   },
   {
@@ -273,7 +264,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/erin',
     color: 'from-indigo-600 to-purple-500',
     year: '2023',
-    icon: '🎬',
     location: 'Лос-Анджелес, США',
   },
   {
@@ -298,7 +288,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/vsenashi',
     color: 'from-teal-500 to-green-500',
     year: '2025',
-    icon: '🌎',
     location: 'США',
   },
   {
@@ -323,7 +312,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/vigbo',
     color: 'from-pink-500 to-rose-500',
     year: '2024',
-    icon: '✨',
     location: 'Уэстон, Флорида, США',
   },
   {
@@ -348,7 +336,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/nordforge-industrial',
     color: 'from-slate-600 to-zinc-800',
     year: '2024',
-    icon: '🏭',
     location: 'Чикаго, США',
   },
   {
@@ -373,7 +360,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/meridian-ledger',
     color: 'from-indigo-800 to-blue-900',
     year: '2025',
-    icon: '💷',
     location: 'Лондон, Великобритания',
   },
   {
@@ -398,7 +384,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/harbor-health',
     color: 'from-teal-600 to-cyan-700',
     year: '2024',
-    icon: '🏥',
     location: 'Бостон, США',
   },
   {
@@ -423,7 +408,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/oak-and-thread',
     color: 'from-stone-600 to-amber-800',
     year: '2025',
-    icon: '🛍️',
     location: 'Манчестер, Великобритания',
   },
   {
@@ -448,7 +432,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/clearroute-logistics',
     color: 'from-orange-600 to-slate-800',
     year: '2023',
-    icon: '🚚',
     location: 'Даллас, США',
   },
   {
@@ -473,7 +456,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/brightpath-academy',
     color: 'from-indigo-600 to-violet-700',
     year: '2025',
-    icon: '🎓',
     location: 'Остин, США',
   },
   {
@@ -498,7 +480,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/solara-grid',
     color: 'from-emerald-600 to-sky-700',
     year: '2024',
-    icon: '☀️',
     location: 'Калифорния, США',
   },
   {
@@ -523,7 +504,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/stagewire-events',
     color: 'from-fuchsia-600 to-purple-800',
     year: '2025',
-    icon: '🎭',
     location: 'Лондон, Великобритания',
   },
   {
@@ -548,7 +528,6 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     link: '/portfolio/apex-advisory',
     color: 'from-gray-700 to-stone-900',
     year: '2023',
-    icon: '🧭',
     location: 'Нью-Йорк, США',
   },
 ]

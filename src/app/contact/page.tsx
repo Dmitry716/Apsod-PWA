@@ -9,7 +9,6 @@ import PushNotificationSubscribe from '../components/PushNotificationSubscribe'
 function ContactContent() {
   const contactInfo = [
     {
-      icon: '📍',
       title: 'Офис',
       value: COMPANY_ADDRESS_DISPLAY,
       link: 'https://yandex.by/maps/?text=Минск%2C%20ул.%20Куйбышева%2C%2035',
@@ -17,25 +16,22 @@ function ContactContent() {
       emphasize: true,
     },
     {
-      icon: '📞',
       title: 'Телефон',
       value: '+375 (44) 577-77-24',
       link: 'tel:+375445777724',
       description: 'Пн-Пт, 9:00 - 18:00',
     },
     {
-      icon: '✉️',
       title: 'Email',
       value: 'karelinseo@gmail.com',
       link: 'mailto:karelinseo@gmail.com',
-      description: 'Ответим в течение 24 часов',
+      description: 'Ответим в течение рабочего дня',
     },
     {
-      icon: '💬',
       title: 'Мессенджеры',
       value: '@Apsod_IT / WhatsApp',
       link: 'https://t.me/Apsod_IT',
-      description: 'Быстрый ответ в рабочие часы',
+      description: 'Ответ в рабочие часы',
     },
   ]
 
@@ -83,13 +79,11 @@ function ContactContent() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="font-display text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
-              Бриф за{' '}
-              <span className="text-blue-600 dark:text-blue-400">
-                1 минуту
-              </span>
+              Запросить{' '}
+              <span className="text-blue-700 dark:text-blue-400">консультацию</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Цель → бюджет → сроки → контакты. Офис в Минске: ул. Куйбышева, 35.
+              Цель, scope и контакты — подготовим предложение с этапами. Офис: ул. Куйбышева, 35.
             </p>
           </div>
         </div>
@@ -107,7 +101,6 @@ function ContactContent() {
                     : 'border-gray-100 dark:border-gray-700'
                 }`}
               >
-                <div className="text-3xl mb-3">{item.icon}</div>
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{item.title}</h3>
                 {item.link ? (
                   <a

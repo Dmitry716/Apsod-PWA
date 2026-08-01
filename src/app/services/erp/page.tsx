@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
@@ -10,32 +10,26 @@ export default function ERPPage() {
     {
       title: "Управление производством",
       description: "Планирование производственных циклов, контроль качества, учет материалов и готовой продукции.",
-      icon: "🏭"
     },
     {
       title: "Складской учет",
       description: "Учет товаров на складах, инвентаризация, резервирование, отгрузка и приемка.",
-      icon: "📦"
     },
     {
       title: "Управление закупками",
       description: "Автоматизация закупок, работа с поставщиками, контроль сроков и цен.",
-      icon: "🛒"
     },
     {
       title: "Финансовый учет",
       description: "Бухгалтерия, бюджетирование, управление денежными потоками, отчетность.",
-      icon: "💰"
     },
     {
       title: "Логистика",
       description: "Управление перевозками, маршрутами, отслеживание грузов, оптимизация затрат.",
-      icon: "🚚"
     },
     {
       title: "Аналитика и прогнозирование",
       description: "BI-отчеты, дашборды, прогнозирование спроса, анализ эффективности.",
-      icon: "📊"
     }
   ];
 
@@ -45,28 +39,24 @@ export default function ERPPage() {
       description: "Лидер на рынке СНГ для производственных и торговых предприятий.",
       features: ["Управление производством", "Бухгалтерия", "Зарплата и кадры", "CRM"],
       price: "индивидуально",
-      icon: "1С"
     },
     {
       name: "SAP",
       description: "Мировой стандарт для крупного бизнеса и корпораций.",
       features: ["SAP S/4HANA", "SAP Business One", "SAP Ariba", "SAP SuccessFactors"],
       price: "индивидуально",
-      icon: "💼"
     },
     {
       name: "Oracle ERP",
       description: "Облачная ERP для глобальных компаний с полным циклом управления.",
       features: ["Financials", "Procurement", "Project Management", "Analytics"],
       price: "индивидуально",
-      icon: "☁️"
     },
     {
       name: "Кастомная ERP",
       description: "Разрабатываем ERP с нуля под уникальные процессы вашего бизнеса.",
       features: ["Полная кастомизация", "Любые интеграции", "Масштабирование"],
       price: "индивидуально",
-      icon: "⚙️"
     }
   ];
 
@@ -109,7 +99,7 @@ export default function ERPPage() {
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
                 href="/contact"
-                className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg"
+                className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700"
               >
                 Обсудить внедрение ERP
               </Link>
@@ -139,14 +129,17 @@ export default function ERPPage() {
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
                 ERP позволяет управлять производством, складом, закупками, финансами, персоналом и логистикой в одной системе, исключая дублирование данных и повышая эффективность.
               </p>
-              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 mt-6">
-                <p className="text-blue-800 dark:text-blue-200 font-medium">
-                  📊 Внедрение ERP позволяет снизить операционные затраты на 15-25% и ускорить обработку заказов на 30%.
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 p-6 mt-6">
+                <p className="text-slate-700 dark:text-slate-200 font-medium">
+                  ERP объединяет производство, склад, финансы и логистику в одном контуре — меньше
+                  дублирования данных и ручных сверк.
                 </p>
               </div>
             </div>
-            <div className="bg-linear-to-br from-orange-400 to-red-500 rounded-2xl p-8 text-white">
-              <div className="text-7xl mb-4 text-center">⚙️📊</div>
+            <div className="bg-slate-900 rounded-2xl p-8 text-white">
+              <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-blue-300/80 mb-4 text-center">
+                ERP
+              </p>
               <h3 className="text-2xl font-bold text-center mb-4">Единое управление предприятием</h3>
               <p className="text-center text-white/90">
                 Производство, склад, финансы, логистика в одной системе
@@ -170,9 +163,8 @@ export default function ERPPage() {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all hover:-translate-y-1"
+                className="bg-white dark:bg-gray-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8 transition-colors"
               >
-                <div className="text-5xl mb-4">{feature.icon}</div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{feature.title}</h3>
                 <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
               </div>
@@ -195,15 +187,14 @@ export default function ERPPage() {
             {solutions.map((solution, index) => (
               <div
                 key={index}
-                className="bg-gray-50 dark:bg-gray-700 rounded-2xl p-6 hover:shadow-xl transition-all hover:-translate-y-1"
+                className="bg-gray-50 dark:bg-gray-700 rounded-2xl p-6 transition-colors"
               >
-                <div className="text-4xl mb-3">{solution.icon}</div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{solution.name}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{solution.description}</p>
                 <ul className="space-y-1 mb-3">
                   {solution.features.map((feature, idx) => (
                     <li key={idx} className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
-                      <span className="text-green-500">✓</span> {feature}
+                      <span className="h-px w-3 bg-slate-400 shrink-0" aria-hidden /> {feature}
                     </li>
                   ))}
                 </ul>
@@ -226,22 +217,18 @@ export default function ERPPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 text-center">
-              <div className="text-5xl mb-3">🏭</div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Производство</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">Управление производственными циклами, MES, контроль качества</p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 text-center">
-              <div className="text-5xl mb-3">📦</div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Торговля и склад</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">Складской учет, логистика, управление закупками</p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 text-center">
-              <div className="text-5xl mb-3">🏥</div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Медицина</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">Учет пациентов, медикаментов, оборудования</p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6 text-center">
-              <div className="text-5xl mb-3">🏦</div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Финансы</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">Бухгалтерия, бюджетирование, управленческий учет</p>
             </div>
@@ -250,19 +237,19 @@ export default function ERPPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-linear-to-r from-blue-600 to-purple-600">
+      <section className="py-20 bg-slate-950">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Нужна ERP для вашего бизнеса?
+            Обсудим ERP для компании
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Проведём аудит, подберём решение и внедрим ERP с нуля до запуска
+            Краткий бриф — предложение по аудиту, этапам внедрения и интеграциям
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-xl"
+            className="inline-flex items-center px-8 py-4 bg-white text-slate-900 rounded-lg font-semibold text-lg hover:bg-slate-100 transition-colors"
           >
-            Получить консультацию
+            Запросить консультацию
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
@@ -10,27 +10,22 @@ export default function TechnicalSupportPage() {
     {
       title: 'Обновление контента и правки',
       description: 'Добавление новостей, правка текстов, замена изображений и любые изменения на сайте по вашему запросу.',
-      icon: '✏️',
     },
     {
       title: 'Мониторинг доступности',
       description: 'Отслеживание работоспособности сайта, уведомления о сбоях и оперативное устранение проблем.',
-      icon: '📡',
     },
     {
       title: 'Резервное копирование',
       description: 'Регулярные бэкапы данных и кода, возможность восстановления при сбоях или ошибках.',
-      icon: '💾',
     },
     {
       title: 'Обновление зависимостей и безопасности',
       description: 'Актуализация npm-пакетов, Node.js, React/Next.js и серверных библиотек. Закрытие уязвимостей и стабильные релизы.',
-      icon: '🔄',
     },
     {
       title: 'Консультации и доработки',
       description: 'Консультации по развитию сайта, доработка функционала и интеграции по запросу.',
-      icon: '💬',
     },
   ]
 
@@ -90,7 +85,7 @@ export default function TechnicalSupportPage() {
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
                 href="/contact"
-                className="px-8 py-4 bg-slate-700 text-white rounded-lg font-semibold hover:bg-slate-800 transition-all transform hover:scale-105 shadow-lg"
+                className="px-8 py-4 bg-slate-700 text-white rounded-lg font-semibold hover:bg-slate-800"
               >
                 Заказать поддержку
               </Link>
@@ -120,7 +115,6 @@ export default function TechnicalSupportPage() {
                   key={index}
                   className="bg-gray-50 dark:bg-gray-700/50 rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all"
                 >
-                  <div className="text-5xl mb-4">{feature.icon}</div>
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{feature.title}</h3>
                   <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
                 </div>
@@ -163,19 +157,19 @@ export default function TechnicalSupportPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-linear-to-r from-slate-600 to-slate-800">
+      <section className="py-20 bg-slate-950">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Нужна поддержка вашего сайта?
+            Обсудим сопровождение продукта
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Оставьте заявку — подберём оптимальный тариф и режим сопровождения
+            Краткий бриф — предложение по тарифу, SLA и зоне ответственности
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-white text-slate-700 rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-xl"
+            className="inline-flex items-center px-8 py-4 bg-white text-slate-900 rounded-lg font-semibold text-lg hover:bg-slate-100 transition-colors"
           >
-            Связаться с нами
+            Запросить консультацию
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>

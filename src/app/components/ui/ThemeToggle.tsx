@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
@@ -11,9 +11,6 @@ export default function ThemeToggle() {
     setMounted(true);
   }, []);
 
-  // Просто отключаем ESLint для этой строки
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-
   if (!mounted) {
     return <div className="w-10 h-10 animate-pulse bg-gray-200 rounded-xl" />;
   }
@@ -21,7 +18,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-2.5 rounded-xl bg-linear-to-r from-blue-600 to-purple-600 text-white shadow-lg hover:opacity-90 hover:scale-105 transition-all duration-300"
+      className="p-2.5 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 shadow-sm hover:opacity-90 transition-colors"
       aria-label="Переключить тему"
     >
       {theme === "dark" ? (

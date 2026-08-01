@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SERP-сниппеты всех публичных страниц APSOD.
  * Title ≈ до 60–65 символов, description ≈ 140–160 (Яндекс/Google).
  */
@@ -19,7 +19,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/': {
     title: 'APSOD — разработка сайтов в Минске',
     description:
-      'Разработка сайтов в Минске на уникальном коде: лендинг, корпоративный, магазин. SEO и GEO. Смета за 1 день. Без Tilda и шаблонов.',
+      'Разработка сайтов в Минске на уникальном коде: лендинг, корпоративный, магазин. SEO и GEO. Смета за 1 день. Без шаблонных сборок.',
     absoluteTitle: true,
     keywords: [
       'разработка сайтов в Минске',
@@ -32,9 +32,9 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
     ],
   },
   '/about': {
-    title: 'О компании APSOD — IT и веб-студия в Минске',
+    title: 'О компании APSOD — software engineering в Минске',
     description:
-      'О компании APSOD: разработка сайтов в Минске и Беларуси, SEO, приложения. 15+ лет, 350+ кейсов. Без конструкторов.',
+      'APSOD: software engineering в Минске — сайты, приложения, SEO и GEO на собственном коде. Офис: ул. Куйбышева, 35.',
     absoluteTitle: true,
     keywords: [
       'IT компания',
@@ -61,7 +61,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/ready-sites': {
     title: 'Готовые сайты — разработка с нуля, SEO и GEO',
     description:
-      `Купить готовый сайт APSOD: уникальный код с нуля, ребренд, перенос на ваш домен, база SEO и GEO. Без конструкторов. От ${formatDualPrice(15000, { from: true })}.`,
+      `Купить готовый сайт APSOD: уникальный код с нуля, ребренд, перенос на ваш домен, база SEO и GEO. Собственный код. От ${formatDualPrice(15000, { from: true })}.`,
     absoluteTitle: true,
     keywords: [
       'готовые сайты',
@@ -72,9 +72,9 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
     ],
   },
   '/portfolio': {
-    title: 'Портфолио — кейсы разработки сайтов',
+    title: 'Кейсы APSOD — разработка сайтов и приложений',
     description:
-      'Реальные проекты APSOD: сайты и приложения для бизнеса. Amba Detail, NEXTON, Maxximum, Динамо-Витебск, BMservice, ArtDetailing и другие. Смотрите результаты.',
+      'Case studies APSOD: сайты и приложения для бизнеса. Amba Detail, NEXTON, Maxximum, Динамо-Витебск, BMservice, ArtDetailing.',
     keywords: ['портфолио APSOD', 'кейсы разработки сайтов', 'портфолио веб-студии'],
   },
   '/blog': {
@@ -84,9 +84,9 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
     keywords: ['блог веб-разработки', 'SEO статьи'],
   },
   '/services': {
-    title: 'Услуги веб-студии APSOD — Минск',
+    title: 'Услуги APSOD — software engineering в Минске',
     description:
-      'Услуги IT-компании и веб-студии в Минске: уникальный код, SEO, GEO, мобильные приложения, техподдержка. Без конструкторов.',
+      'Услуги APSOD в Минске: веб и мобильная разработка, SEO, GEO, CRM, ERP и сопровождение. Собственный код.',
     keywords: [
       'услуги веб-студии',
       'услуги IT компании',
@@ -97,7 +97,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/services/web-development': {
     title: 'Разработка сайтов в Минске — уникальный код',
     description:
-      'Создание сайта с нуля в Минске: лендинг, корпоративный сайт, интернет-магазин. Уникальный код Next.js. Смета после брифа. Без конструкторов.',
+      'Создание сайта с нуля в Минске: лендинг, корпоративный сайт, интернет-магазин. Уникальный код Next.js. Смета после брифа. Собственный код.',
     keywords: [
       'разработка сайтов в Минске',
       'разработка сайтов Минск',

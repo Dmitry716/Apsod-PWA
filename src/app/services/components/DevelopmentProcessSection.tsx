@@ -1,4 +1,4 @@
-import type { DevelopmentPhase } from '../lib/development-process'
+﻿import type { DevelopmentPhase } from '../lib/development-process'
 
 type Props = {
   title: string
@@ -33,7 +33,7 @@ export default function DevelopmentProcessSection({ title, subtitle, phases }: P
                   key={phase.step}
                   className="relative pl-16 md:pl-20"
                 >
-                  <div className="absolute left-0 md:left-2 top-1 w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-linear-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20">
+                  <div className="absolute left-0 md:left-2 top-1 w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-slate-900 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20">
                     {phase.step}
                   </div>
 

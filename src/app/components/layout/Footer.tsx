@@ -26,7 +26,7 @@ export default function Footer() {
   const companyLinks = [
     { href: "/pricing", label: isEn ? "Pricing" : "Цены" },
     { href: "/ready-sites", label: isEn ? "Ready sites" : "Готовые сайты" },
-    { href: "/portfolio", label: t(locale, "nav.portfolio") },
+    { href: "/portfolio", label: isEn ? "Case studies" : "Кейсы" },
     { href: "/about", label: t(locale, "nav.about") },
     { href: "/blog", label: t(locale, "nav.blog") },
     { href: "/contact", label: t(locale, "nav.contact") },
@@ -64,8 +64,8 @@ export default function Footer() {
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
               {isEn
-                ? "Web studio in Minsk: custom sites, apps, SEO and GEO. Office: Kuibysheva 35."
-                : "Веб-студия в Минске: сайты и приложения на уникальном коде, SEO и GEO. Офис: ул. Куйбышева, 35."}
+                ? "Software engineering in Minsk: custom products, SEO and GEO. Office: Kuibysheva 35."
+                : "Software engineering в Минске: продукты на собственном коде, SEO и GEO. Офис: ул. Куйбышева, 35."}
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <LanguageSwitcher />

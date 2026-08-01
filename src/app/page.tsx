@@ -23,21 +23,13 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <SeoJsonLd data={generateFAQSchema([...HOMEPAGE_FAQ])} />
 
-      <section className="hero-section relative pt-28 md:pt-32 pb-16 md:pb-20 overflow-hidden bg-linear-to-br from-slate-50 via-blue-50/70 to-cyan-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-slate-950">
+      <section className="hero-section relative pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden bg-white dark:bg-gray-950">
         <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden>
-          <div className="apsod-grid-fade opacity-60 dark:opacity-30" />
-          <div
-            className="apsod-mesh-blob w-[480px] h-[480px] bg-blue-400/20 dark:bg-blue-500/10 top-[-120px] left-[-80px]"
-            style={{ animationDelay: "0s" }}
-          />
-          <div
-            className="apsod-mesh-blob w-[380px] h-[380px] bg-cyan-300/15 dark:bg-cyan-500/10 bottom-[-80px] right-[-40px]"
-            style={{ animationDelay: "3s" }}
-          />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(37,99,235,0.06),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(59,130,246,0.08),transparent)]" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
             <HomeHeroCopy />
             <HomeGlobalDelivery />
           </div>
@@ -48,76 +40,54 @@ export default function Home() {
       <HomeAtAGlance />
       <HomeValueSections />
 
-      <section className="py-20 bg-white dark:bg-gray-800 max-md:py-12">
+      <section className="py-20 bg-white dark:bg-gray-950 max-md:py-14">
         <div className="container mx-auto px-4">
-          <Reveal className="text-center mb-12 max-md:mb-8">
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 max-md:text-3xl tracking-tight">
-              Три направления для роста
+          <Reveal className="max-w-2xl mb-12 max-md:mb-8">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+              Наши услуги
             </h2>
-            <div className="apsod-line-draw mx-auto mb-4" />
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto max-md:text-base">
-              Разработка сайтов в Минске, мобильные приложения и продвижение — ядро APSOD
+            <p className="text-lg text-slate-600 dark:text-slate-300 max-md:text-base">
+              Инженерные практики полного цикла: продукт, рост и сопровождение
             </p>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-md:gap-4 mb-10">
-            {featuredServices.map((service, index) => (
-              <Reveal
-                key={service.link}
-                stagger={(Math.min(index + 1, 5) as 1 | 2 | 3 | 4 | 5)}
-              >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden mb-10">
+            {featuredServices.map((service) => (
+              <Reveal key={service.link}>
                 <Link
                   href={service.link}
-                  className="apsod-card-lift group block h-full rounded-2xl p-8 border border-slate-200 dark:border-slate-700 bg-slate-50/80 dark:bg-gray-800/80 hover:border-blue-400 max-md:p-4"
+                  className="group block h-full bg-white dark:bg-gray-950 p-8 md:p-10 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors max-md:p-6"
                 >
-                  <div className="flex items-start gap-4">
-                    <span className="font-display text-sm font-bold text-blue-600 dark:text-blue-400 tabular-nums mt-1">
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <div>
-                      <h3 className="font-display text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                        {service.title}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-300 mb-3 max-md:text-sm">
-                        {service.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {service.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2.5 py-1 bg-white dark:bg-slate-900/60 text-xs rounded-md text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-600"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+                  <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed max-md:text-sm">
+                    {service.description}
+                  </p>
+                  <span className="text-sm font-medium text-slate-900 dark:text-slate-100 underline-offset-4 group-hover:underline">
+                    Подробнее
+                  </span>
                 </Link>
               </Reveal>
             ))}
           </div>
 
-          <Reveal className="text-center mb-4">
-            <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-4">
-              Также в контуре APSOD
-            </p>
-            <div className="flex flex-wrap justify-center gap-2 mb-6">
-              {moreServices.map((service) => (
-                <Link
-                  key={service.link}
-                  href={service.link}
-                  className="px-3 py-1.5 rounded-md text-sm border border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 hover:border-blue-400 hover:text-blue-600 transition-colors"
-                >
-                  {service.title}
-                </Link>
-              ))}
-            </div>
+          <Reveal className="flex flex-wrap items-center gap-x-6 gap-y-3">
+            <p className="text-sm text-slate-500 dark:text-slate-400">Также в контуре</p>
+            {moreServices.map((service) => (
+              <Link
+                key={service.link}
+                href={service.link}
+                className="text-sm text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white underline-offset-4 hover:underline"
+              >
+                {service.title}
+              </Link>
+            ))}
             <Link
               href="/services"
-              className="inline-flex text-blue-600 dark:text-blue-400 font-medium hover:underline"
+              className="text-sm font-medium text-slate-900 dark:text-white underline-offset-4 hover:underline ml-auto max-md:ml-0"
             >
-              Смотреть все услуги →
+              Все услуги →
             </Link>
           </Reveal>
         </div>
@@ -127,84 +97,54 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <Reveal className="flex justify-between items-end mb-12 max-md:flex-col max-md:items-start max-md:gap-4">
             <div>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 max-md:text-3xl tracking-tight">
-                Избранные проекты
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                Кейсы
               </h2>
-              <div className="apsod-line-draw mb-4" />
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-md:text-base">
-                Кейсы по Беларуси · студия в Минске
+              <p className="text-lg text-slate-600 dark:text-slate-300 max-md:text-base">
+                Избранные проекты · офис в Минске
               </p>
             </div>
             <Link
               href="/portfolio"
-              className="hidden md:flex items-center text-blue-600 dark:text-blue-400 font-medium hover:gap-3 transition-all"
+              className="hidden md:inline-flex text-sm font-medium text-slate-900 dark:text-white underline-offset-4 hover:underline"
             >
-              Все проекты
-              <svg
-                className="w-4 h-4 ml-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
+              Все кейсы →
             </Link>
           </Reveal>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-md:gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-md:gap-4">
             {getFeaturedPortfolioProjects().map((project, index) => (
               <Reveal
                 key={project.id}
                 stagger={(Math.min(index + 1, 5) as 1 | 2 | 3 | 4 | 5)}
               >
-                <div className="apsod-card-lift group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700">
-                  <div className="h-48 relative overflow-hidden">
+                <Link
+                  href={getCasePath(project)}
+                  className="group block h-full border border-slate-200 dark:border-slate-800 bg-white dark:bg-gray-950 overflow-hidden hover:border-slate-400 dark:hover:border-slate-600 transition-colors"
+                >
+                  <div className="h-48 relative overflow-hidden bg-slate-100 dark:bg-slate-900">
                     <img
                       src={project.image}
                       alt={project.title}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
                     />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/65 via-black/20 to-transparent" />
-                    <div className="absolute top-3 left-3">
-                      <span className="px-3 py-1 bg-white/90 text-gray-900 rounded-md text-xs font-semibold backdrop-blur-sm">
-                        {project.category}
-                      </span>
-                    </div>
-                    <div className={`absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r ${project.color}`} />
                   </div>
-                  <div className="p-8 max-md:p-4">
-                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-                      <span className="px-2.5 py-1 bg-slate-100 dark:bg-slate-900/50 text-slate-600 dark:text-slate-300 rounded-md text-xs">
-                        {project.type === "web" ? "Веб-сайт" : "Мобильное приложение"}
-                      </span>
-                      <span>·</span>
-                      <span>{project.location}</span>
-                    </div>
-                    <h3 className="font-display text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 transition-colors max-md:text-xl">
+                  <div className="p-7 max-md:p-5">
+                    <p className="text-xs font-medium tracking-[0.14em] uppercase text-slate-500 dark:text-slate-400 mb-3">
+                      Case study · {project.category}
+                    </p>
+                    <h3 className="font-display text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-300 mb-3 max-md:text-sm">
+                    <p className="text-slate-600 dark:text-slate-300 mb-4 text-sm md:text-base leading-relaxed">
                       {project.description}
                     </p>
-                    {project.results[0] ? (
-                      <p className="text-sm text-blue-700 dark:text-blue-300 mb-4">
-                        Результат: {project.results[0]}
-                      </p>
-                    ) : null}
-                    <Link
-                      href={getCasePath(project)}
-                      className="inline-flex text-blue-600 dark:text-blue-400 font-medium text-sm hover:underline"
-                    >
-                      Смотреть кейс →
-                    </Link>
+                    <span className="text-sm font-medium text-slate-900 dark:text-white underline-offset-4 group-hover:underline">
+                      Читать кейс
+                    </span>
                   </div>
-                </div>
+                </Link>
               </Reveal>
             ))}
           </div>
@@ -213,41 +153,34 @@ export default function Home() {
 
       <HomeLeadStrip />
 
-      <section className="relative py-16 bg-linear-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 max-md:py-10 overflow-hidden">
-        <div className="apsod-grid-fade opacity-40 dark:opacity-20" aria-hidden />
+      <section className="relative py-16 bg-slate-50 dark:bg-gray-900 max-md:py-12">
         <div className="container mx-auto px-4 relative z-10">
-          <Reveal className="text-center mb-10 max-md:mb-8">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 max-md:text-2xl tracking-tight">
-              Клиенты, которым доверяют результат
+          <Reveal className="max-w-2xl mb-10 max-md:mb-8">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+              Компании, с которыми мы работали
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto max-md:text-base">
-              Более 350 проектов. На сайте — избранные кейсы; полный архив покажем на консультации.
+            <p className="text-lg text-slate-600 dark:text-slate-300 max-md:text-base">
+              Избранные проекты на сайте; расширенный архив — на консультации.
             </p>
           </Reveal>
 
-          <Reveal className="flex flex-wrap justify-center gap-3 mb-10" stagger={2}>
+          <Reveal className="flex flex-wrap gap-x-8 gap-y-4 mb-10" stagger={2}>
             {['Amba Detail', 'NEXTON', 'Maxximum', 'Динамо-Витебск', 'BMservice', 'ArtDetailing'].map((name) => (
               <span
                 key={name}
-                className="px-4 py-2 rounded-md bg-white/90 dark:bg-gray-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-sm font-medium"
+                className="text-sm font-medium text-slate-700 dark:text-slate-300"
               >
                 {name}
               </span>
             ))}
           </Reveal>
 
-          <Reveal className="text-center" stagger={3}>
+          <Reveal stagger={3}>
             <Link
               href="/portfolio"
-              className="apsod-cta-primary inline-flex px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
+              className="inline-flex text-sm font-medium text-slate-900 dark:text-white underline-offset-4 hover:underline"
             >
-              <span>Смотреть портфолио</span>
-            </Link>
-            <Link
-              href="/pricing"
-              className="inline-flex ml-3 px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-500 transition-colors font-medium text-gray-800 dark:text-gray-200"
-            >
-              Цены и пакеты
+              Смотреть кейсы →
             </Link>
           </Reveal>
         </div>
@@ -324,18 +257,19 @@ export default function Home() {
 
       <HomeSeoSection />
 
-      <section className="py-20 bg-slate-950 text-white max-md:py-14">
-        <div className="container mx-auto px-4 text-center">
-          <Reveal>
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 tracking-tight">
-              Готовы обсудить проект в Минске?
+      <section className="py-20 bg-white dark:bg-gray-950 max-md:py-14 border-t border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4 tracking-tight text-slate-900 dark:text-white">
+              Обсудим задачу вашей компании
             </h2>
-            <p className="text-slate-300 max-w-xl mx-auto mb-8">
-              Расскажите задачу — подготовим смету за 1 рабочий день. Офис: г. Минск, ул. Куйбышева, 35.
+            <p className="text-slate-600 dark:text-slate-300 max-w-xl mb-8 leading-relaxed">
+              Краткий бриф — коммерческое предложение с этапами и зоной ответственности. Офис:
+              г. Минск, ул. Куйбышева, 35.
             </p>
             <Link
               href="/contact"
-              className="apsod-cta-primary inline-flex px-8 py-3.5 bg-blue-600 hover:bg-blue-500 rounded-lg font-semibold"
+              className="apsod-cta-primary inline-flex px-7 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 rounded-md text-sm font-semibold transition-colors"
             >
               <span>Связаться с нами</span>
             </Link>
@@ -350,30 +284,30 @@ const services = [
   {
     title: "Веб-разработка",
     description:
-      "Корпоративные сайты и интернет-магазины на уникальном коде: аналитика, архитектура, безопасность.",
-    tags: ["Next.js", "React", "TypeScript", "Без конструкторов"],
+      "Корпоративные сайты и магазины: Discovery, архитектура, инженерия и безопасность на собственном коде.",
+    tags: ["Next.js", "React", "TypeScript"],
     link: "/services/web-development",
     featured: true,
   },
   {
     title: "Мобильные приложения",
     description:
-      "Уникальные iOS и Android продукты с упором на безопасность и стабильность.",
-    tags: ["React Native", "Flutter", "Swift", "Kotlin"],
+      "iOS и Android продукты с упором на стабильность, безопасность и сопровождение после релиза.",
+    tags: ["React Native", "Flutter"],
     link: "/services/mobile-development",
     featured: true,
   },
   {
     title: "SEO и аналитика",
-    description: "Стратегия продвижения и измеримый рост в Яндексе и Google.",
-    tags: ["SEO", "Метрика", "Контент"],
+    description: "Стратегия продвижения и измеримый рост в Яндексе и Google для бизнеса в Минске.",
+    tags: ["SEO", "Аналитика"],
     link: "/services/seo",
     featured: true,
   },
   {
     title: "GEO продвижение",
-    description: "Видимость бренда в нейросетях: ChatGPT, Google AI, Алиса.",
-    tags: ["ChatGPT", "AI Overviews", "Алиса"],
+    description: "Видимость бренда в ответах нейросетей: структура контента, экспертность, мониторинг.",
+    tags: ["GEO", "AI"],
     link: "/services/geo-promotion",
     featured: true,
   },
@@ -400,14 +334,14 @@ const services = [
   },
   {
     title: "UI/UX дизайн",
-    description: "Интерфейсы и прототипы под конверсию.",
+    description: "Интерфейсы и прототипы под задачи продукта.",
     tags: [] as string[],
     link: "/services/ui-ux",
     featured: false,
   },
   {
     title: "PWA разработка",
-    description: "Сайт как приложение на телефоне.",
+    description: "Прогрессивные веб-приложения: установка, офлайн, push.",
     tags: [] as string[],
     link: "/services/pwa-development",
     featured: false,

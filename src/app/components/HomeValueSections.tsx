@@ -11,149 +11,78 @@ export default function HomeValueSections() {
 
   return (
     <>
-      <section className="relative py-16 md:py-24 bg-slate-950 text-white overflow-hidden">
-        <div className="apsod-mesh" aria-hidden>
-          <div
-            className="apsod-mesh-blob w-[420px] h-[420px] bg-blue-600/30 top-[-80px] left-[-60px]"
-            style={{ animationDelay: '0s' }}
-          />
-          <div
-            className="apsod-mesh-blob w-[360px] h-[360px] bg-indigo-500/25 bottom-[-100px] right-[-40px]"
-            style={{ animationDelay: '2s' }}
-          />
-        </div>
-        <div className="apsod-grid-fade opacity-40" aria-hidden />
-
-        <div className="container mx-auto px-4 relative z-10">
-          <Reveal className="max-w-3xl mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">{copy.principlesTitle}</h2>
-            <div className="apsod-line-draw mb-4" />
-            <p className="text-slate-300 text-lg">
+      <section className="py-16 md:py-24 bg-slate-50 dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <Reveal className="max-w-2xl mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+              {copy.principlesTitle}
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
               {locale === 'en'
-                ? 'Professionals who organize and run your digital channel — not only ship a page.'
-                : 'Профессионалы, которые организуют и настраивают ваш канал в интернете — а не только «отдают макет с кнопками».'}
+                ? 'An engineering partner for architecture, delivery and growth — not a one-off page handoff.'
+                : 'Инженерный партнёр по архитектуре, delivery и росту — а не разовая сдача страницы.'}
             </p>
           </Reveal>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-8 md:gap-10">
             {copy.principles.map((item, i) => (
               <Reveal key={item.title} stagger={(i + 1) as 1 | 2 | 3}>
-                <div className="apsod-card-lift h-full rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-md hover:bg-white/[0.08]">
-                  <div className="mb-4 h-1 w-10 rounded-full bg-gradient-to-r from-blue-400 to-cyan-300" />
-                  <h3 className="text-xl font-semibold mb-3 text-blue-200">{item.title}</h3>
-                  <p className="text-slate-300 text-sm leading-relaxed">{item.body}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-slate-50 dark:bg-gray-950">
-        <div className="container mx-auto px-4">
-          <Reveal className="max-w-3xl mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              {copy.vsBuildersTitle}
-            </h2>
-            <div className="apsod-line-draw mb-4" />
-            <p className="text-gray-600 dark:text-gray-300 text-lg">{copy.vsBuildersLead}</p>
-          </Reveal>
-
-          <Reveal>
-            <div className="overflow-x-auto rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm">
-              <table className="w-full min-w-[780px] text-left text-sm md:text-[15px]">
-                <thead>
-                  <tr className="border-b border-gray-200 dark:border-gray-700">
-                    <th className="px-3 py-4 md:px-5 font-semibold text-gray-500 dark:text-gray-400 w-[16%]">
-                      {locale === 'en' ? 'Aspect' : 'Параметр'}
-                    </th>
-                    <th className="px-3 py-4 md:px-5 font-semibold text-gray-500 dark:text-gray-400 w-[28%]">
-                      {copy.vsBuildersColBuilder}
-                    </th>
-                    <th className="px-3 py-4 md:px-5 font-semibold text-gray-500 dark:text-gray-400 w-[28%]">
-                      {copy.vsBuildersColCms}
-                    </th>
-                    <th className="px-3 py-4 md:px-5 font-semibold text-blue-700 dark:text-blue-300 bg-blue-50/80 dark:bg-blue-950/40 w-[28%]">
-                      {copy.vsBuildersColCustom}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {copy.vsBuildersRows.map((row) => (
-                    <tr
-                      key={row.aspect}
-                      className="border-b border-gray-100 dark:border-gray-800 last:border-0"
-                    >
-                      <td className="px-3 py-4 md:px-5 font-medium text-gray-900 dark:text-white align-top">
-                        {row.aspect}
-                      </td>
-                      <td className="px-3 py-4 md:px-5 text-gray-500 dark:text-gray-400 align-top">
-                        {row.builder}
-                      </td>
-                      <td className="px-3 py-4 md:px-5 text-gray-500 dark:text-gray-400 align-top">
-                        {row.cms}
-                      </td>
-                      <td className="px-3 py-4 md:px-5 text-gray-800 dark:text-gray-100 bg-blue-50/50 dark:bg-blue-950/20 align-top">
-                        {row.custom}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </Reveal>
-
-          <Reveal className="mt-6 max-w-3xl" stagger={2}>
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">{copy.vsBuildersNote}</p>
-            <Link
-              href="/contact"
-              className="apsod-cta-primary inline-flex px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
-            >
-              <span>{copy.vsBuildersCta}</span>
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24 bg-white dark:bg-gray-900">
-        <div className="container mx-auto px-4">
-          <Reveal className="max-w-3xl mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              {copy.lifecycleTitle}
-            </h2>
-            <div className="apsod-line-draw mb-4" />
-            <p className="text-gray-600 dark:text-gray-300 text-lg">{copy.lifecycleSubtitle}</p>
-          </Reveal>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {copy.lifecycle.map((item, i) => (
-              <Reveal key={item.step} stagger={Math.min(i + 1, 5) as 1 | 2 | 3 | 4 | 5}>
-                <div className="apsod-card-lift group h-full rounded-2xl border border-gray-200 dark:border-gray-700 bg-gradient-to-b from-gray-50 to-white dark:from-gray-800 dark:to-gray-900 p-5 relative overflow-hidden">
-                  <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <div className="text-xs font-semibold tracking-widest text-blue-600 dark:text-blue-400 mb-2">
-                    {item.step}
+                <div className="h-full">
+                  <div className="font-display text-xs text-slate-400 mb-3 tabular-nums">
+                    {String(i + 1).padStart(2, '0')}
                   </div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors">
+                  <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">{item.body}</p>
+                  <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                    {item.body}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-4">
+          <Reveal className="max-w-2xl mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+              {copy.lifecycleTitle}
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 text-lg">{copy.lifecycleSubtitle}</p>
+          </Reveal>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8">
+            {copy.lifecycle.map((item, i) => (
+              <Reveal key={item.step} stagger={Math.min(i + 1, 5) as 1 | 2 | 3 | 4 | 5}>
+                <div className="h-full">
+                  <div className="text-xs font-medium tracking-[0.14em] text-slate-400 mb-3">
+                    {item.step}
+                  </div>
+                  <h3 className="font-display font-semibold text-slate-900 dark:text-white mb-2 tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                    {item.body}
+                  </p>
                 </div>
               </Reveal>
             ))}
           </div>
 
-          <Reveal className="mt-10 flex flex-wrap gap-4" stagger={3}>
+          <Reveal className="mt-12 flex flex-wrap gap-4" stagger={3}>
             <Link
               href="/services"
-              className="apsod-cta-primary px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+              className="px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-md text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
             >
-              <span>{locale === 'en' ? 'All services' : 'Все услуги'}</span>
+              {locale === 'en' ? 'All services' : 'Все услуги'}
             </Link>
             <Link
-              href="/pricing"
-              className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg font-medium text-gray-800 dark:text-gray-100 hover:border-blue-500 hover:-translate-y-0.5 transition-all"
+              href="/contact"
+              className="px-6 py-3 border border-slate-300 dark:border-slate-600 rounded-md text-sm font-semibold text-slate-800 dark:text-slate-100 hover:border-slate-900 dark:hover:border-white transition-colors"
             >
-              {locale === 'en' ? 'Pricing' : 'Цены'}
+              {locale === 'en' ? 'Contact us' : 'Связаться с нами'}
             </Link>
           </Reveal>
         </div>

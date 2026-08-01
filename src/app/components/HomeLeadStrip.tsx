@@ -1,72 +1,68 @@
 import Link from 'next/link'
 import Reveal from './Reveal'
-import { formatDualPrice } from '../lib/currency'
 
-/** Lead с тремя явными путями: сайт / приложение / продвижение */
+const PATHS = [
+  {
+    href: '/contact?goal=corporate',
+    title: 'Разработка сайта',
+    desc: 'Лендинг · корпоративный · магазин',
+  },
+  {
+    href: '/contact?goal=mobile',
+    title: 'Мобильное приложение',
+    desc: 'iOS · Android · PWA',
+  },
+  {
+    href: '/contact?goal=seo',
+    title: 'Продвижение',
+    desc: 'SEO · GEO · рост заявок',
+  },
+] as const
+
+/** Следующий шаг — спокойный enterprise-блок */
 export default function HomeLeadStrip() {
   return (
-    <section className="py-14 md:py-16 bg-slate-950 text-white relative overflow-hidden">
-      <div className="apsod-mesh" aria-hidden>
-        <div className="apsod-mesh-blob w-[360px] h-[360px] bg-blue-600/25 top-[-80px] right-[-40px]" />
-      </div>
-      <div className="container mx-auto px-4 relative z-10">
-        <Reveal className="max-w-3xl mx-auto text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold mb-3">
-            Что нужно вашему бизнесу?
+    <section className="py-16 md:py-20 bg-white dark:bg-gray-950 border-y border-slate-200 dark:border-slate-800">
+      <div className="container mx-auto px-4">
+        <Reveal className="max-w-2xl mb-10">
+          <p className="text-xs font-medium tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400 mb-3">
+            Next step
+          </p>
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+            С чего начнём
           </h2>
-          <p className="text-slate-300 text-base md:text-lg">
-            Смета за 1 рабочий день. Ориентир: сайт {formatDualPrice(8000)}, продвижение — на
-            странице цен.
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+            Краткий бриф — коммерческое предложение с этапами, сроками и зоной ответственности.
           </p>
         </Reveal>
 
-        <Reveal className="grid sm:grid-cols-3 gap-3 max-w-3xl mx-auto mb-6" stagger={2}>
-          <Link
-            href="/contact?goal=corporate"
-            className="rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 px-4 py-4 text-center transition-colors"
-          >
-            <div className="text-2xl mb-1" aria-hidden>
-              🌐
-            </div>
-            <div className="font-semibold">Разработка сайта</div>
-            <div className="text-xs text-slate-400 mt-1">Лендинг · корп · магазин</div>
-          </Link>
-          <Link
-            href="/contact?goal=mobile"
-            className="rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 px-4 py-4 text-center transition-colors"
-          >
-            <div className="text-2xl mb-1" aria-hidden>
-              📱
-            </div>
-            <div className="font-semibold">Мобильное приложение</div>
-            <div className="text-xs text-slate-400 mt-1">iOS · Android · PWA</div>
-          </Link>
-          <Link
-            href="/contact?goal=seo"
-            className="rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 px-4 py-4 text-center transition-colors"
-          >
-            <div className="text-2xl mb-1" aria-hidden>
-              📈
-            </div>
-            <div className="font-semibold">Продвижение</div>
-            <div className="text-xs text-slate-400 mt-1">SEO · GEO · рост заявок</div>
-          </Link>
+        <Reveal className="grid sm:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden mb-8" stagger={2}>
+          {PATHS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="bg-white dark:bg-gray-950 px-6 py-6 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
+            >
+              <div className="font-display font-semibold text-slate-900 dark:text-white tracking-tight">
+                {item.title}
+              </div>
+              <div className="text-xs text-slate-500 dark:text-slate-400 mt-1.5">{item.desc}</div>
+            </Link>
+          ))}
         </Reveal>
 
-        <Reveal className="flex flex-wrap justify-center gap-3" stagger={3}>
-          <a
-            href="https://t.me/Apsod_IT"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex px-6 py-3 bg-blue-500 hover:bg-blue-400 rounded-lg font-semibold"
+        <Reveal className="flex flex-wrap gap-3" stagger={3}>
+          <Link
+            href="/contact"
+            className="inline-flex px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 rounded-md text-sm font-semibold transition-colors"
           >
-            Написать в Telegram
-          </a>
+            Связаться с нами
+          </Link>
           <Link
             href="/pricing"
-            className="inline-flex px-6 py-3 border border-white/25 hover:border-white/50 rounded-lg font-medium text-white/95"
+            className="inline-flex px-6 py-3 border border-slate-300 dark:border-slate-600 hover:border-slate-900 dark:hover:border-white rounded-md text-sm font-medium text-slate-800 dark:text-slate-100 transition-colors"
           >
-            Смотреть цены
+            Пакеты и условия
           </Link>
         </Reveal>
       </div>

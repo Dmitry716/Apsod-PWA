@@ -133,7 +133,7 @@ export default function PushPermissionBanner() {
                     id="push-modal-desc"
                     className="text-white/80 text-sm mt-1"
                   >
-                    Получайте новости о статьях, акциях и статусе заявок — не
+                    Получайте новости о материалах и статусе заявок — не
                     пропустите важное.
                   </p>
                 </div>

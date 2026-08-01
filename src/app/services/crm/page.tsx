@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
@@ -11,32 +11,26 @@ export default function CRMPage() {
     {
       title: "Автоматизация продаж",
       description: "Управляйте воронкой продаж, контролируйте сделки на каждом этапе, автоматизируйте рутинные задачи менеджеров.",
-      icon: "📊"
     },
     {
       title: "Управление клиентской базой",
       description: "Вся история взаимодействия с клиентами в одном месте: звонки, письма, встречи, документы.",
-      icon: "👥"
     },
     {
       title: "Интеграция с телефонией",
       description: "Звонки через CRM, запись разговоров, автоопределение клиента при входящем звонке.",
-      icon: "📞"
     },
     {
       title: "Email-маркетинг",
       description: "Создание email-рассылок, отслеживание открытий и кликов, автоматические триггерные письма.",
-      icon: "✉️"
     },
     {
       title: "Отчеты и аналитика",
       description: "Настраиваемые дашборды, отчеты по продажам, прогнозирование и анализ эффективности.",
-      icon: "📈"
     },
     {
       title: "Мобильный доступ",
       description: "Работайте с CRM из любой точки мира через мобильное приложение или адаптивную веб-версию.",
-      icon: "📱"
     }
   ];
 
@@ -46,28 +40,24 @@ export default function CRMPage() {
       description: "Самая популярная CRM в СНГ. Подходит для малого и среднего бизнеса.",
       features: ["Бесплатный тариф", "Воронка продаж", "Телефония", "Задачи и проекты"],
       price: formatDualPrice(0, { perMonth: true }),
-      icon: "🇷🇺"
     },
     {
       name: "AmoCRM",
       description: "Простая и понятная CRM для активных продаж. Фокус на воронке и сделках.",
       features: ["Воронка продаж", "Интеграция с WhatsApp", "Виджеты", "API"],
       price: formatDualPrice(50, { perMonth: true }),
-      icon: "🟢"
     },
     {
       name: "Salesforce",
       description: "Мировой лидер для крупного бизнеса. Максимальная кастомизация и масштабирование.",
       features: ["Sales Cloud", "Service Cloud", "Marketing Cloud", "AI-аналитика"],
       price: "индивидуально",
-      icon: "☁️"
     },
     {
       name: "Кастомная CRM",
       description: "Разрабатываем CRM с нуля под ваши уникальные бизнес-процессы.",
       features: ["Полная кастомизация", "Любые интеграции", "Ваша интеллектуальная собственность"],
       price: "индивидуально",
-      icon: "⚙️"
     }
   ];
 
@@ -110,7 +100,7 @@ export default function CRMPage() {
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
                 href="/contact"
-                className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg"
+                className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700"
               >
                 Обсудить внедрение CRM
               </Link>
@@ -138,19 +128,22 @@ export default function CRMPage() {
                 CRM (Customer Relationship Management) — это система управления взаимоотношениями с клиентами. Она помогает автоматизировать продажи, маркетинг и поддержку, собирая всю информацию о клиентах в одном месте.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
-                Внедрение CRM позволяет увеличить продажи на 20-30%, повысить лояльность клиентов и оптимизировать работу менеджеров.
+                Внедрение CRM помогает упорядочить продажи, маркетинг и поддержку: единая база
+                клиентов, история взаимодействий и понятные процессы для команды.
               </p>
-              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6 mt-6">
-                <p className="text-blue-800 dark:text-blue-200 font-medium">
-                  📊 Компании, внедрившие CRM, отмечают рост продаж в среднем на 29% и увеличение конверсии на 30%.
+              <div className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 p-6 mt-6">
+                <p className="text-slate-700 dark:text-slate-200 font-medium">
+                  Фокус внедрения — прозрачные сделки, меньше ручной рутины и измеримые этапы воронки.
                 </p>
               </div>
             </div>
-            <div className="bg-linear-to-br from-green-400 to-blue-500 rounded-2xl p-8 text-white">
-              <div className="text-7xl mb-4 text-center">🤝📊</div>
-              <h3 className="text-2xl font-bold text-center mb-4">Все клиенты под контролем</h3>
+            <div className="bg-slate-900 rounded-2xl p-8 text-white">
+              <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-blue-300/80 mb-4 text-center">
+                CRM
+              </p>
+              <h3 className="text-2xl font-bold text-center mb-4">Клиенты и процессы в одном контуре</h3>
               <p className="text-center text-white/90">
-                Единая база, история взаимодействий, автоматизация процессов
+                Единая база, история взаимодействий, автоматизация рутинных шагов
               </p>
             </div>
           </div>
@@ -171,9 +164,8 @@ export default function CRMPage() {
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all hover:-translate-y-1"
+                className="bg-white dark:bg-gray-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8 transition-colors"
               >
-                <div className="text-5xl mb-4">{feature.icon}</div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{feature.title}</h3>
                 <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
               </div>
@@ -196,15 +188,14 @@ export default function CRMPage() {
             {solutions.map((solution, index) => (
               <div
                 key={index}
-                className="bg-gray-50 dark:bg-gray-700 rounded-2xl p-6 hover:shadow-xl transition-all hover:-translate-y-1"
+                className="bg-gray-50 dark:bg-gray-700 rounded-2xl p-6 transition-colors"
               >
-                <div className="text-4xl mb-3">{solution.icon}</div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{solution.name}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{solution.description}</p>
                 <ul className="space-y-1 mb-3">
                   {solution.features.map((feature, idx) => (
                     <li key={idx} className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
-                      <span className="text-green-500">✓</span> {feature}
+                      <span className="h-px w-3 bg-slate-400 shrink-0" aria-hidden /> {feature}
                     </li>
                   ))}
                 </ul>
@@ -255,17 +246,17 @@ export default function CRMPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-linear-to-r from-blue-600 to-purple-600">
+      <section className="py-20 bg-slate-950">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Хотите автоматизировать продажи?
+            Обсудим внедрение CRM
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Расскажите о вашем бизнесе, и мы подберем оптимальную CRM
+            Краткий бриф — предложение по системе, этапам и интеграциям
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-xl"
+            className="inline-flex items-center px-8 py-4 bg-white text-slate-900 rounded-lg font-semibold text-lg hover:bg-slate-100 transition-colors"
           >
             Получить консультацию
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

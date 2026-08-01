@@ -18,7 +18,7 @@ export function NotificationSettings() {
               Получать уведомления
             </p>
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              О новых статьях, статусе заявок и акциях
+              О новых материалах и статусе заявок
             </p>
           </div>
           

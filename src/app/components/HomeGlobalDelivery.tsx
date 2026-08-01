@@ -7,59 +7,48 @@ const POINTS = [
     body: COMPANY_ADDRESS_DISPLAY,
   },
   {
-    title: 'Уникальный код',
-    body: 'Без Tilda, Wix и типовых шаблонов — полный контроль над продуктом.',
+    title: 'Полный цикл delivery',
+    body: 'Discovery, архитектура, разработка, QA, релиз и сопровождение.',
   },
   {
-    title: 'Заявки, не «визитка»',
-    body: 'Сайт, SEO и GEO как канал продаж — от стратегии до сопровождения.',
+    title: 'Рост после запуска',
+    body: 'SEO, GEO и развитие продукта по данным эксплуатации.',
   },
 ] as const
 
-/** Правая колонка hero: спокойный trust-блок под Минск */
+/** Правая колонка hero: спокойный engagement-блок в духе enterprise */
 export default function HomeGlobalDelivery() {
   return (
     <div className="relative apsod-hero-enter apsod-hero-enter-delay-4">
-      <div
-        className="absolute -inset-3 bg-gradient-to-br from-blue-500/10 to-cyan-400/5 rounded-3xl blur-2xl opacity-80"
-        aria-hidden
-      />
-
-      <div className="relative rounded-2xl border border-slate-200/80 dark:border-slate-700/70 bg-white/90 dark:bg-slate-900/80 backdrop-blur-sm p-6 md:p-8">
-        <p className="font-display text-xs font-semibold uppercase tracking-[0.18em] text-blue-600 dark:text-blue-400 mb-2">
-          Минск
+      <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-7 md:p-8">
+        <p className="text-xs font-medium tracking-[0.16em] uppercase text-slate-500 dark:text-slate-400 mb-3">
+          Engagement
         </p>
-        <h2 className="font-display text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-2 leading-snug tracking-tight">
-          Веб-студия для бизнеса столицы
+        <h2 className="font-display text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-3 leading-snug tracking-tight">
+          Инженерный партнёр по digital-продукту
         </h2>
-        <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
-          Индивидуальная разработка на современном стеке. Смета за 1 рабочий день после брифа.
+        <p className="text-sm text-slate-600 dark:text-slate-300 mb-7 leading-relaxed">
+          Фиксируем scope, этапы и критерии приёмки. Коммерческое предложение — после брифа.
         </p>
 
-        <ul className="space-y-5 mb-7">
+        <ul className="space-y-5 mb-8">
           {POINTS.map((point) => (
-            <li key={point.title} className="flex gap-3">
-              <span
-                className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600 dark:bg-blue-400"
-                aria-hidden
-              />
-              <div>
-                <div className="font-semibold text-gray-900 dark:text-white text-sm">
-                  {point.title}
-                </div>
-                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mt-0.5">
-                  {point.body}
-                </p>
+            <li key={point.title} className="border-t border-slate-100 dark:border-slate-800 pt-4 first:border-0 first:pt-0">
+              <div className="font-display font-semibold text-slate-900 dark:text-white text-sm tracking-tight">
+                {point.title}
               </div>
+              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mt-1">
+                {point.body}
+              </p>
             </li>
           ))}
         </ul>
 
         <Link
           href="/contact"
-          className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold text-sm hover:bg-blue-700 transition-colors"
+          className="inline-flex items-center justify-center w-full sm:w-auto px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-md text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
         >
-          Обсудить проект
+          Связаться с нами
         </Link>
       </div>
     </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -85,7 +85,7 @@ export default function BlogPage() {
                 className="group bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
               >
                 <Link href={`/blog/${post.slug}`}>
-                  <div className="h-48 bg-linear-to-br from-blue-400 to-purple-500 relative overflow-hidden">
+                  <div className="h-48 bg-slate-800 relative overflow-hidden">
                     <img
                       src={post.image}
                       alt={post.title}

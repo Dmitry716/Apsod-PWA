@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
@@ -140,19 +140,19 @@ export default function GeoPromotionPage() {
       {/* Hero */}
       <section className="relative pt-28 pb-16 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-violet-200 dark:bg-violet-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
+          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
           <div className="absolute top-40 right-10 w-96 h-96 bg-indigo-200 dark:bg-indigo-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 rounded-full mb-6 text-sm font-medium">
-              <span className="w-2 h-2 bg-violet-600 rounded-full animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full mb-6 text-sm font-medium">
+              <span className="w-2 h-2 bg-blue-600 rounded-full animate-pulse" />
               Generative Engine Optimization · AI-видимость бренда
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
               GEO-продвижение{' '}
-              <span className="text-violet-600 dark:text-violet-400">сайта и бренда</span>
+              <span className="text-blue-700 dark:text-blue-400">сайта и бренда</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
               Повышаем AI-видимость: чтобы бренд корректнее и чаще появлялся в ответах нейросетей —
@@ -161,13 +161,13 @@ export default function GeoPromotionPage() {
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
                 href="/contact"
-                className="px-8 py-4 bg-violet-600 text-white rounded-lg font-semibold hover:bg-violet-700 transition-all shadow-lg"
+                className="px-8 py-4 bg-slate-900 text-white rounded-lg font-semibold hover:bg-slate-800 transition-all shadow-lg"
               >
                 Получить коммерческое предложение
               </Link>
               <Link
                 href="/services/seo"
-                className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-lg font-semibold border-2 border-gray-200 dark:border-gray-700 hover:border-violet-600 hover:text-violet-600 transition-all"
+                className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-lg font-semibold border-2 border-gray-200 dark:border-gray-700 hover:border-slate-900 hover:text-slate-900 dark:hover:border-white dark:hover:text-white transition-all"
               >
                 Классическое SEO
               </Link>
@@ -180,7 +180,7 @@ export default function GeoPromotionPage() {
                 key={step.title}
                 className="rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 p-6 shadow-sm text-left"
               >
-                <div className="w-9 h-9 rounded-full bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 flex items-center justify-center font-bold mb-4">
+                <div className="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 flex items-center justify-center font-bold mb-4">
                   {i + 1}
                 </div>
                 <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{step.title}</h2>
@@ -206,7 +206,7 @@ export default function GeoPromotionPage() {
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
                 Это не замена{' '}
-                <Link href="/services/seo" className="text-violet-600 dark:text-violet-400 hover:underline">
+                <Link href="/services/seo" className="text-blue-700 dark:text-blue-400 hover:underline">
                   SEO-продвижения
                 </Link>
                 : SEO растит позиции в поиске, GEO — присутствие в ответах, рекомендациях и
@@ -216,18 +216,18 @@ export default function GeoPromotionPage() {
                 Набор AI-систем и языков подстраиваем под ваш рынок и сценарии запросов клиентов.
               </p>
             </div>
-            <div className="bg-linear-to-br from-violet-600 to-indigo-700 rounded-2xl p-8 text-white">
+            <div className="bg-slate-950 rounded-2xl p-8 text-white">
               <h3 className="text-2xl font-bold mb-6">Системы в фокусе</h3>
               <ul className="space-y-3">
                 {systems.map((name) => (
                   <li key={name} className="flex items-center gap-3 bg-white/10 rounded-lg px-4 py-3">
-                    <span className="w-2 h-2 rounded-full bg-violet-200 shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-blue-300 shrink-0" />
                     {name}
                   </li>
                 ))}
               </ul>
               <p className="text-white/80 text-sm mt-6">
-                Базово как у лидеров рынка GEO в нейросетях: поиск с AI-ответами + отдельные
+                Практика GEO в нейросетях: поиск с AI-ответами + отдельные
                 ассистенты. Список расширяем под задачу.
               </p>
             </div>
@@ -250,7 +250,7 @@ export default function GeoPromotionPage() {
                 key={item}
                 className="flex gap-3 bg-white dark:bg-gray-800 rounded-xl p-5 border border-gray-100 dark:border-gray-700"
               >
-                <span className="text-violet-600 dark:text-violet-400 font-bold shrink-0">✓</span>
+                <span className="text-blue-700 dark:text-blue-400 font-bold shrink-0">✓</span>
                 <span className="text-gray-700 dark:text-gray-200">{item}</span>
               </li>
             ))}
@@ -268,7 +268,7 @@ export default function GeoPromotionPage() {
             GEO начинается со стартовой настройки, затем переходит в регулярный цикл.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="rounded-2xl border border-violet-200 dark:border-violet-800 bg-violet-50/80 dark:bg-violet-950/30 p-8">
+            <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 p-8">
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">На старте</h3>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                 Проводим GEO-аудит, фиксируем точку ноль, собираем первичный промпт-сет, формируем
@@ -306,7 +306,7 @@ export default function GeoPromotionPage() {
                 className="flex flex-col rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-7 shadow-sm"
               >
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{t.name}</h3>
-                <p className="text-lg font-bold text-violet-600 dark:text-violet-400 leading-snug mt-2 mb-3">
+                <p className="text-lg font-bold text-blue-700 dark:text-blue-400 leading-snug mt-2 mb-3">
                   {t.price}
                 </p>
                 <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">
@@ -316,14 +316,14 @@ export default function GeoPromotionPage() {
                 <ul className="space-y-2.5 flex-1 mb-8">
                   {t.points.map((p) => (
                     <li key={p} className="flex gap-2 text-sm text-gray-600 dark:text-gray-300">
-                      <span className="text-violet-500 shrink-0">•</span>
+                      <span className="text-blue-600 shrink-0">•</span>
                       {p}
                     </li>
                   ))}
                 </ul>
                 <Link
                   href="/contact"
-                  className="block text-center px-4 py-3 rounded-lg bg-violet-600 text-white font-semibold hover:bg-violet-700 transition-colors"
+                  className="block text-center px-4 py-3 rounded-lg bg-slate-900 text-white font-semibold hover:bg-slate-800 transition-colors"
                 >
                   Обсудить тариф
                 </Link>
@@ -348,7 +348,7 @@ export default function GeoPromotionPage() {
             Как устроена аналитика AI-видимости — по шагам
           </p>
 
-          <div className="mb-12 rounded-2xl bg-violet-50 dark:bg-violet-950/30 border border-violet-100 dark:border-violet-900 p-8">
+          <div className="mb-12 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-700 p-8">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
               8 типов запросов в промпт-сете
             </h3>
@@ -400,7 +400,7 @@ export default function GeoPromotionPage() {
                 {' '}
                 {formatDualPrice(1200)}.
               </p>
-              <Link href="/contact" className="text-violet-600 dark:text-violet-400 text-sm font-medium hover:underline">
+              <Link href="/contact" className="text-blue-700 dark:text-blue-400 text-sm font-medium hover:underline">
                 Заказать аудит →
               </Link>
             </div>
@@ -410,7 +410,7 @@ export default function GeoPromotionPage() {
                 Стартовый срез, факт-матрица, карта промптов и источников, план на 6 месяцев —
                 если нужен план, а не сразу цикл.
               </p>
-              <Link href="/contact" className="text-violet-600 dark:text-violet-400 text-sm font-medium hover:underline">
+              <Link href="/contact" className="text-blue-700 dark:text-blue-400 text-sm font-medium hover:underline">
                 Обсудить стратегию →
               </Link>
             </div>
@@ -419,7 +419,7 @@ export default function GeoPromotionPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-linear-to-br from-violet-600 to-indigo-700">
+      <section className="py-20 bg-slate-950">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             У вас есть деловой запрос? Давайте обсудим
@@ -429,7 +429,7 @@ export default function GeoPromotionPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-white text-violet-700 rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-xl"
+            className="inline-flex items-center px-8 py-4 bg-white text-slate-900 rounded-lg font-semibold text-lg transition-colors"
           >
             Оставить заявку
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -66,7 +66,7 @@ const AUDIENCE = [
   'Сайт есть, но мало заявок из органики',
   'Запускаете новый сайт и сразу закладываете SEO',
   'Нужен рост в Яндексе и Google по Минску и Беларуси',
-  'Готовы к системной работе 2–4+ месяца, а не к «волшебной кнопке»',
+  'Готовы к системной работе 2–4+ месяца, а не к разовым «быстрым позициям»',
 ]
 
 export default function SEOPage() {
@@ -279,7 +279,7 @@ export default function SEOPage() {
         </div>
       </section>
 
-      <section className="py-14 bg-linear-to-br from-blue-700 to-indigo-700 text-white">
+      <section className="py-14 bg-slate-950 text-white">
         <div className="container mx-auto px-4 text-center max-w-2xl">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">Нужен план по SEO?</h2>
           <p className="text-white/90 mb-6">

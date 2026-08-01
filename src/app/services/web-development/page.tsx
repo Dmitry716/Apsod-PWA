@@ -14,15 +14,15 @@ import {
 export const metadata = buildServiceMetadata('web-development')
 
 const FOR_WHOM = [
-  'Нужен сайт как канал заявок, а не «визитка на конструкторе»',
+  'Нужен сайт как канал заявок, а не разовая визитка',
   'Важны скорость, безопасность и контроль над кодом',
   'Планируете SEO / GEO и интеграции с CRM или оплатой',
   'Готовы к индивидуальному дизайну и осознанным срокам',
 ]
 
 const NOT_FOR = [
-  'Нужен сайт «за выходные» на Tilda / Wix',
-  'Достаточно типовой темы WordPress без кастомизации',
+  'Нужен быстрый шаблонный запуск без кастомизации',
+  'Достаточно готовой темы без инженерной доработки',
 ]
 
 const STACK = [
@@ -59,26 +59,26 @@ export default function WebDevelopmentPage() {
       <section className="relative pt-16 pb-16 overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-3">
-              Минск · уникальный код · без конструкторов
+            <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-3">
+              Минск · собственный код · полный цикл
             </p>
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-5">
+            <h1 className="font-display text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-5 tracking-tight">
               Разработка сайтов в Минске
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8">
               Лендинг, корпоративный сайт или магазин на Next.js для бизнеса Минска и Беларуси.
-              Смета {formatDualPrice(8000)} — после короткого брифа.
+              Ориентир {formatDualPrice(8000)} — после короткого брифа.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
               <Link
                 href="/contact?goal=corporate"
-                className="px-7 py-3.5 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700"
+                className="px-7 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-semibold hover:bg-slate-800 dark:hover:bg-slate-100"
               >
-                Обсудить проект
+                Запросить консультацию
               </Link>
               <Link
                 href="#packages"
-                className="px-7 py-3.5 border border-gray-300 dark:border-gray-600 rounded-lg font-medium hover:border-blue-500"
+                className="px-7 py-3.5 border border-gray-300 dark:border-gray-600 rounded-lg font-medium hover:border-slate-900 dark:hover:border-white"
               >
                 Смотреть пакеты
               </Link>

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import ServiceSemanticBlocks from '../../components/ServiceSemanticBlocks'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
@@ -12,12 +12,10 @@ export default function MobileDevelopmentPage() {
   const technologies = [
     {
       category: 'Кроссплатформенная разработка',
-      icon: '🔄',
       description: 'Одна кодовая база для iOS и Android — быстрый выход на рынок и экономия ресурсов',
       stacks: [
         {
           name: 'React Native',
-          logo: '⚛️',
           description: 'Фреймворк от Meta для создания нативных мобильных приложений на JavaScript/TypeScript',
           features: ['Hot Reload', 'Native компоненты', 'Reanimated', 'Hermes engine'],
           useCases: ['Бизнес-приложения', 'Социальные сети', 'Маркетплейсы', 'Стартапы'],
@@ -26,7 +24,6 @@ export default function MobileDevelopmentPage() {
         },
         {
           name: 'Flutter',
-          logo: '🦋',
           description: 'UI-фреймворк от Google с собственной графической библиотекой для красивого интерфейса',
           features: ['Hot Reload', 'Material You', 'Cupertino', 'Высокая производительность'],
           useCases: ['MVP', 'Приложения с кастомным дизайном', 'Финтех'],
@@ -37,12 +34,10 @@ export default function MobileDevelopmentPage() {
     },
     {
       category: 'Нативная iOS разработка',
-      icon: '🍎',
       description: 'Максимальная производительность и полный доступ к возможностям Apple экосистемы',
       stacks: [
         {
           name: 'Swift',
-          logo: '🕊️',
           description: 'Современный язык программирования от Apple для создания приложений под iOS, iPadOS, macOS',
           features: ['Protocol-Oriented', 'Value Types', 'Concurrency', 'SwiftUI'],
           useCases: ['iOS приложения', 'macOS приложения', 'watchOS приложения'],
@@ -53,12 +48,10 @@ export default function MobileDevelopmentPage() {
     },
     {
       category: 'Нативная Android разработка',
-      icon: '🤖',
       description: 'Максимальная оптимизация под устройства Android и доступ ко всем функциям системы',
       stacks: [
         {
           name: 'Kotlin',
-          logo: '🎯',
           description: 'Современный язык программирования для Android разработки от JetBrains',
           features: ['Null safety', 'Coroutines', 'Data classes', 'Compose'],
           useCases: ['Android приложения', 'Google Play', 'Автомобили Android Auto'],
@@ -69,12 +62,10 @@ export default function MobileDevelopmentPage() {
     },
     {
       category: 'Бэкенд для мобильных приложений',
-      icon: '☁️',
       description: 'Серверная часть для обеспечения работы мобильных приложений',
       stacks: [
         {
           name: 'Firebase',
-          logo: '🔥',
           description: 'Платформа Google для быстрого создания бэкенда мобильных приложений',
           features: ['Realtime Database', 'Authentication', 'Cloud Functions', 'Push'],
           useCases: ['Стартапы', 'MVP', 'Приложения с real-time'],
@@ -83,7 +74,6 @@ export default function MobileDevelopmentPage() {
         },
         {
           name: 'Node.js',
-          logo: '🟢',
           description: 'Гибкое серверное решение для кастомной логики приложений',
           features: ['REST API', 'GraphQL', 'WebSockets', 'JWT'],
           useCases: ['Кастомные решения', 'Микросервисы', 'Real-time приложения'],
@@ -129,7 +119,7 @@ export default function MobileDevelopmentPage() {
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
                 href="/contact"
-                className="px-8 py-4 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg"
+                className="px-8 py-4 bg-slate-950 text-white rounded-lg font-semibold hover:bg-slate-800"
               >
                 Обсудить приложение
               </Link>
@@ -157,7 +147,6 @@ export default function MobileDevelopmentPage() {
         <section key={idx} className="py-16 even:bg-white dark:even:bg-gray-800">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
-              <div className="text-5xl mb-4">{category.icon}</div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
                 {category.category}
               </h2>
@@ -170,12 +159,12 @@ export default function MobileDevelopmentPage() {
               {category.stacks.map((stack, stackIdx) => (
                 <div
                   key={stackIdx}
-                  className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden border border-gray-100 dark:border-gray-700"
+                  className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-colors overflow-hidden border border-gray-100 dark:border-gray-700"
                 >
                   <div className="p-6">
                     <div className="flex items-start gap-4 mb-4">
-                      <div className="text-4xl bg-blue-50 dark:bg-blue-900/20 w-16 h-16 rounded-xl flex items-center justify-center shrink-0">
-                        {stack.logo}
+                      <div className="font-display text-xs text-slate-400 tabular-nums mt-1 shrink-0">
+                        {String(stackIdx + 1).padStart(2, '0')}
                       </div>
                       <div>
                         <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
@@ -245,17 +234,17 @@ export default function MobileDevelopmentPage() {
       {/* CTA */}
       <section className="py-20">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            Есть идея приложения?
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
+            Обсудим мобильный продукт
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            Расскажите нам о вашей идее, и мы подберем оптимальную технологию
+            Краткий бриф — предложение по стеку, этапам и зоне ответственности
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-xl"
+            className="inline-flex items-center px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-semibold text-lg hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
           >
-            Обсудить проект
+            Запросить консультацию
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>

@@ -35,15 +35,14 @@ export default function HomeDeviceShowcase() {
   const phone = SHOWCASE.find((s) => s.src === '/devices/showcase-iphone.png')
 
   return (
-    <section className="relative py-14 md:py-20 overflow-hidden bg-gradient-to-b from-slate-100 via-white to-slate-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-900">
+    <section className="relative py-14 md:py-20 overflow-hidden bg-white dark:bg-gray-950">
       <div className="container mx-auto px-4 relative z-10">
-        <Reveal className="text-center max-w-2xl mx-auto mb-10 md:mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-            Сайты и приложения в работе
+        <Reveal className="mb-10 md:mb-14">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+            Продукты в среде
           </h2>
-          <div className="apsod-line-draw mx-auto mb-4" />
-          <p className="text-gray-600 dark:text-gray-300 text-base md:text-lg">
-            Так выглядят digital-продукты APSOD на реальных устройствах — монитор, MacBook и iPhone.
+          <p className="text-slate-600 dark:text-slate-300 text-base md:text-lg max-w-2xl">
+            Так выглядят digital-продукты APSOD на реальных устройствах.
           </p>
         </Reveal>
 
@@ -66,15 +65,15 @@ export default function HomeDeviceShowcase() {
         <Reveal className="mt-10 flex flex-wrap justify-center gap-3" stagger={4}>
           <Link
             href="/portfolio"
-            className="inline-flex px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 text-sm"
+            className="inline-flex px-5 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-medium hover:bg-slate-800 dark:hover:bg-slate-100 text-sm"
           >
-            Смотреть портфолио
+            Смотреть проекты
           </Link>
           <Link
             href="/contact?goal=corporate"
-            className="inline-flex px-5 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg font-medium text-gray-800 dark:text-gray-100 hover:border-blue-500 text-sm"
+            className="inline-flex px-5 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg font-medium text-gray-800 dark:text-gray-100 hover:border-slate-900 dark:hover:border-white text-sm"
           >
-            Обсудить свой продукт
+            Запросить консультацию
           </Link>
         </Reveal>
       </div>

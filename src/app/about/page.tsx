@@ -1,121 +1,96 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { buildSnippetMetadata } from '../lib/seo'
+import { buildSnippetMetadata, COMPANY_ADDRESS_DISPLAY } from '../lib/seo'
 import PageBreadcrumbs from '../components/PageBreadcrumbs'
 import HomeAtAGlance from '../components/HomeAtAGlance'
 
 export const metadata = buildSnippetMetadata('/about')
 
 export default function AboutPage() {
-  const deliveryPoints = [
+  const approach = [
     {
       title: 'Офис в Минске',
-      body: 'г. Минск, ул. Куйбышева, 35. Встречи по договорённости — бриф, договор, сдача.',
+      body: `${COMPANY_ADDRESS_DISPLAY}. Встречи по договорённости — бриф, договор, сдача.`,
     },
     {
-      title: 'Привлечение клиентов',
-      body: 'Сайт, приложение, SEO и GEO — как канал заявок и продаж, а не «сайт ради сайта».',
+      title: 'Инженерный delivery',
+      body: 'Discovery, архитектура, разработка, QA и релиз — в одной цепочке ответственности.',
     },
     {
-      title: 'Сопровождение',
-      body: 'Поддержка и развитие после запуска: метрики, обновления, доработки по данным.',
+      title: 'Рост после запуска',
+      body: 'SEO, GEO, метрики и сопровождение: продукт развивается по данным эксплуатации.',
     },
     {
-      title: 'Только уникальный код',
-      body: 'Без конструкторов и типовых шаблонов — полный контроль над продуктом и безопасностью.',
+      title: 'Собственный код',
+      body: 'Индивидуальная разработка без шаблонных сборок — полный контроль над продуктом.',
     },
   ]
 
   const industries = [
     {
-      title: 'Экономика и финансы',
-      icon: '📊',
-      description: 'Корпоративные сайты, кабинеты и дашборды для финансового и B2B-сектора.',
-      color: 'from-emerald-500 to-teal-500',
-      projects: 'Направление',
-      features: ['Корпоративные сайты', 'Личные кабинеты', 'Аналитика', 'Интеграции']
+      title: 'Финансы и B2B',
+      description: 'Корпоративные сайты, кабинеты и дашборды для финансового и делового сектора.',
     },
     {
-      title: 'Медицина и здравоохранение',
-      icon: '🏥',
+      title: 'Медицина',
       description: 'Сайты клиник, запись на приём, лендинги услуг и сопровождение проектов.',
-      color: 'from-blue-500 to-cyan-500',
-      projects: 'Направление',
-      features: ['Сайты клиник', 'Онлайн-запись', 'Лендинги услуг', 'SEO']
     },
     {
       title: 'Спорт и образование',
-      icon: '🏋️',
-      description: 'Сайты школ и спортивных организаций: расписание, тренеры, новости — как у Maxximum и Динамо-Витебск.',
-      color: 'from-green-500 to-lime-500',
-      projects: 'Кейсы РБ',
-      features: ['Расписание', 'Блог', 'Запись', 'Мобильная вёрстка']
+      description:
+        'Сайты школ и спортивных организаций: расписание, тренеры, новости — кейсы Maxximum и Динамо-Витебск.',
     },
     {
-      title: 'Автосервис и ритейл услуг',
-      icon: '🔧',
-      description: 'Сайты автосервисов и услуг населению: каталог услуг, прайс, онлайн-запись — Amba Detail, NEXTON, BMservice, ArtDetailing.',
-      color: 'from-orange-500 to-amber-500',
-      projects: 'Кейсы РБ',
-      features: ['Услуги и прайс', 'Онлайн-запись', 'SEO', 'Скорость']
-    }
+      title: 'Автосервис и услуги',
+      description:
+        'Каталог услуг, прайс, онлайн-запись — Amba Detail, NEXTON, BMservice, ArtDetailing.',
+    },
   ]
 
   const expertise = [
     {
       title: 'Веб-разработка',
-      items: ['Корпоративные сайты', 'Интернет-магазины', 'Веб-порталы', 'SPA приложения', 'PWA'],
-      icon: '🌐',
-      color: 'from-blue-500 to-indigo-500'
+      items: ['Корпоративные сайты', 'Интернет-магазины', 'Порталы', 'SPA', 'PWA'],
     },
     {
-      title: 'Мобильные приложения',
-      items: ['iOS', 'Android', 'React Native', 'Flutter', 'Кроссплатформенные'],
-      icon: '📱',
-      color: 'from-purple-500 to-pink-500'
+      title: 'Мобильные продукты',
+      items: ['iOS', 'Android', 'React Native', 'Flutter', 'Кроссплатформа'],
     },
     {
-      title: 'CRM системы',
-      items: ['Битрикс24', 'AmoCRM', 'Кастомные CRM', 'Интеграции с сайтом'],
-      icon: '🤝',
-      color: 'from-green-500 to-emerald-500'
+      title: 'CRM и интеграции',
+      items: ['Битрикс24', 'AmoCRM', 'Кастомные CRM', 'API'],
     },
     {
       title: 'ERP и учёт',
       items: ['1С интеграция', 'Кастомный учёт', 'Склад', 'Отчёты'],
-      icon: '⚙️',
-      color: 'from-orange-500 to-red-500'
-    }
+    },
   ]
 
   const values = [
     {
       title: 'Качество',
-      description: 'Мы не сдаем проекты, пока они не пройдут все этапы тестирования и не будут идеально работать.',
-      icon: '✨'
+      description:
+        'Сдаём продукт после этапов тестирования и проверки сценариев — не раньше, чем он стабильно работает.',
     },
-  {
-    title: 'Надежность',
-    description:
-      '15 лет в digital и ответственность за результат: от договорённостей на старте до поддержки после запуска.',
-    icon: '🔒'
-  },
-  {
-    title: 'Уникальность',
-    description:
-      'Только индивидуальная разработка. Конструкторы и типовые шаблоны сознательно исключены.',
-    icon: '💡'
-  },
-  {
-    title: 'Прозрачность',
-    description:
-      'Открыты на каждом этапе: аналитика, прототипы, спринты, приёмка и отчётность по развитию.',
-    icon: '🔍'
-  }
+    {
+      title: 'Надёжность',
+      description:
+        'Ответственность за результат: от договорённостей на старте до поддержки в эксплуатации.',
+    },
+    {
+      title: 'Владение продуктом',
+      description:
+        'Только индивидуальная разработка. Конструкторы и типовые шаблоны сознательно исключены.',
+    },
+    {
+      title: 'Прозрачность',
+      description:
+        'Открыты на каждом этапе: аналитика, прототипы, спринты, приёмка и отчётность по развитию.',
+    },
   ]
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-white dark:bg-gray-950">
       <PageBreadcrumbs
         items={[
           { name: 'Главная', path: '/' },
@@ -123,191 +98,150 @@ export default function AboutPage() {
         ]}
       />
 
-      {/* Hero секция */}
-      <section className="relative pt-16 pb-20 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-96 h-96 bg-cyan-200 dark:bg-cyan-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-          <div className="absolute bottom-20 left-1/2 w-96 h-96 bg-blue-100 dark:bg-indigo-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <p className="font-display text-sm font-semibold tracking-[0.2em] uppercase text-blue-600 dark:text-blue-400 mb-4">
-              APSOD
+      <section className="pt-10 pb-16 md:pb-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mb-10">
+            <p className="text-xs font-medium tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400 mb-4">
+              Company
             </p>
-            <h1 className="font-display text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
-              Веб-студия в{' '}
-              <span className="text-blue-600 dark:text-blue-400">Минске</span>
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight leading-tight">
+              Software engineering компания в Минске
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-              APSOD — разработка сайтов и приложений на уникальном коде для бизнеса Минска и
-              Беларуси. Аналитика, SEO, GEO и сопровождение после запуска. Офис:{' '}
-              ул. Куйбышева, 35.
+            <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+              APSOD проектирует и выпускает сайты, приложения и digital-контуры для бизнеса:
+              исследование, инженерия, безопасность, SEO и сопровождение. Офис: ул. Куйбышева, 35.
             </p>
+          </div>
 
-            <div className="relative mx-auto max-w-5xl mb-10 overflow-hidden rounded-2xl aspect-[16/9] bg-gray-200 dark:bg-gray-700 shadow-xl ring-1 ring-black/5 dark:ring-white/10">
-              <Image
-                src="/about/office-team.jpg"
-                alt="Команда APSOD в современном офисе: Apple Studio Display, Mac mini M4 Pro и iPhone 17 Pro Max на рабочих столах"
-                fill
-                priority
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 1024px"
-              />
-            </div>
+          <div className="relative w-full max-w-5xl overflow-hidden rounded-xl aspect-[16/9] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 mb-12">
+            <Image
+              src="/about/office-team.jpg"
+              alt="Офис APSOD: рабочие места с мониторами и техникой"
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 1024px"
+            />
+          </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-10 text-left max-w-3xl mx-auto">
-              {deliveryPoints.map((point) => (
-                <div
-                  key={point.title}
-                  className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/60 p-5"
-                >
-                  <div className="font-semibold text-gray-900 dark:text-white mb-1.5">
-                    {point.title}
-                  </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                    {point.body}
-                  </p>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden max-w-4xl">
+            {approach.map((point) => (
+              <div
+                key={point.title}
+                className="bg-white dark:bg-gray-950 p-6 md:p-7"
+              >
+                <h2 className="font-display font-semibold text-slate-900 dark:text-white mb-2 tracking-tight">
+                  {point.title}
+                </h2>
+                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                  {point.body}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       <HomeAtAGlance />
 
-      {/* Миссия */}
-      <section className="py-20 bg-white dark:bg-gray-800">
+      <section className="py-16 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-              Наша миссия
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+              Подход
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-              Создавать технологии, которые реально работают и приносят пользу бизнесу. Мы объединяем 15-летнюю экспертизу в разработке с пониманием специфики разных отраслей, чтобы предлагать решения, которые действительно решают задачи клиентов.
+            <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+              Строим digital как инфраструктуру бизнеса: сначала смысл и метрики, затем архитектура
+              и инженерия, затем рост и сопровождение. Продукт остаётся под контролем заказчика.
             </p>
-            <div className="w-24 h-1 bg-linear-to-r from-blue-600 to-cyan-500 mx-auto"></div>
           </div>
         </div>
       </section>
 
-      {/* Экспертиза */}
-      <section className="py-20">
+      <section className="py-16 md:py-20 bg-slate-50 dark:bg-gray-900 border-y border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Наша экспертиза
+          <div className="max-w-2xl mb-10">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+              Экспертиза
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Мы работаем на всех популярных платформах и технологиях
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Практики, на которых строится delivery APSOD
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {expertise.map((item, idx) => (
-              <div
-                key={idx}
-                className="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-              >
-                <div className={`absolute inset-0 bg-linear-to-br ${item.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-                <div className="p-6">
-                  <div className="text-4xl mb-4 transform group-hover:scale-110 transition-transform">
-                    {item.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                    {item.title}
-                  </h3>
-                  <ul className="space-y-2">
-                    {item.items.map((feature, i) => (
-                      <li key={i} className="text-gray-600 dark:text-gray-300 text-sm flex items-center gap-2">
-                        <span className="w-1 h-1 bg-blue-400 rounded-full"></span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+            {expertise.map((item) => (
+              <div key={item.title}>
+                <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                  {item.title}
+                </h3>
+                <ul className="space-y-2">
+                  {item.items.map((feature) => (
+                    <li
+                      key={feature}
+                      className="text-slate-600 dark:text-slate-400 text-sm flex items-center gap-2"
+                    >
+                      <span className="h-px w-3 bg-slate-400 shrink-0" aria-hidden />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Отрасли */}
-      <section className="py-20 bg-white dark:bg-gray-800">
+      <section className="py-16 md:py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Отраслевая экспертиза
+          <div className="max-w-2xl mb-10">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+              Industries
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Мы работаем с разными секторами экономики, создавая решения под их уникальные задачи
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Отрасли, в которых мы запускаем и сопровождаем digital-продукты
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {industries.map((industry, idx) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+            {industries.map((industry) => (
               <div
-                key={idx}
-                className="group relative bg-gray-50 dark:bg-gray-700 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+                key={industry.title}
+                className="bg-white dark:bg-gray-950 p-7 md:p-8"
               >
-                <div className={`absolute inset-0 bg-linear-to-br ${industry.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-                <div className="p-8">
-                  <div className="flex items-start justify-between mb-4">
-                    <span className="text-5xl">{industry.icon}</span>
-                    <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 text-sm rounded-full">
-                      {industry.projects}
-                    </span>
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                    {industry.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4">
-                    {industry.description}
-                  </p>
-                  <div className="grid grid-cols-2 gap-2">
-                    {industry.features.map((feature, i) => (
-                      <div key={i} className="flex items-center gap-1 text-sm text-gray-500 dark:text-gray-400">
-                        <svg className="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        {feature}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                  {industry.title}
+                </h3>
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                  {industry.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Ценности */}
-      <section className="py-20">
+      <section className="py-16 md:py-20 bg-slate-50 dark:bg-gray-900 border-y border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Наши ценности
+          <div className="max-w-2xl mb-10">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+              Принципы
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Принципы, которые мы не нарушаем уже 15 лет
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              На чём строится каждый engagement
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             {values.map((value, idx) => (
-              <div
-                key={idx}
-                className="text-center group"
-              >
-                <div className="w-20 h-20 mx-auto bg-linear-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-lg">
-                  <span className="text-3xl">{value.icon}</span>
+              <div key={value.title}>
+                <div className="font-display text-xs text-slate-400 mb-3 tabular-nums">
+                  {String(idx + 1).padStart(2, '0')}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
                   {value.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300">
+                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
                   {value.description}
                 </p>
               </div>
@@ -316,24 +250,30 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 bg-linear-to-r from-blue-600 to-purple-600">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Готовы к сотрудничеству?
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Присоединяйтесь к 350+ компаниям, которые доверили нам свои проекты
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-xl"
-          >
-            Обсудить проект
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </Link>
+      <section className="py-16 md:py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+              Обсудим задачу вашей компании
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
+              Краткий бриф — коммерческое предложение с этапами, сроками и зоной ответственности.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="/contact"
+                className="inline-flex px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-md text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
+              >
+                Связаться с нами
+              </Link>
+              <Link
+                href="/services"
+                className="inline-flex px-6 py-3 border border-slate-300 dark:border-slate-600 rounded-md text-sm font-medium text-slate-800 dark:text-slate-100 hover:border-slate-900 dark:hover:border-white transition-colors"
+              >
+                Смотреть услуги
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>

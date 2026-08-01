@@ -1,4 +1,4 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
@@ -10,32 +10,26 @@ export default function UIUXPage() {
     {
       title: "UX-исследования",
       description: "Анализ целевой аудитории, CJM, глубинное интервью, юзабилити-тестирование",
-      icon: "🔍"
     },
     {
       title: "Прототипирование",
       description: "Создание интерактивных прототипов для тестирования гипотез и согласования с заказчиком",
-      icon: "📐"
     },
     {
       title: "UI-дизайн",
       description: "Разработка визуального стиля: цветовые схемы, типографика, иконки, иллюстрации",
-      icon: "🎨"
     },
     {
       title: "Дизайн-системы",
       description: "Создание библиотек компонентов для масштабирования и единого стиля",
-      icon: "🧩"
     },
     {
       title: "Адаптивный дизайн",
       description: "Дизайн для всех устройств: десктоп, планшеты, мобильные телефоны",
-      icon: "📱"
     },
     {
       title: "Анимация интерфейсов",
       description: "Микро-анимации, переходы, интерактивные элементы для оживления интерфейса",
-      icon: "✨"
     }
   ];
 
@@ -43,22 +37,18 @@ export default function UIUXPage() {
     {
       step: "Исследование",
       description: "Изучаем бизнес-цели, целевую аудиторию, анализируем конкурентов",
-      icon: "📊"
     },
     {
       step: "Прототипирование",
       description: "Создаем структуру и логику интерфейса, утверждаем с заказчиком",
-      icon: "📝"
     },
     {
       step: "Визуальный дизайн",
       description: "Разрабатываем стиль, отрисовываем все экраны и состояния",
-      icon: "🎨"
     },
     {
       step: "Передача в разработку",
       description: "Готовим макеты, спецификации и ресурсы для разработчиков",
-      icon: "⚙️"
     }
   ];
 
@@ -101,7 +91,7 @@ export default function UIUXPage() {
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
                 href="/contact"
-                className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg"
+                className="px-8 py-4 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700"
               >
                 Заказать дизайн
               </Link>
@@ -135,11 +125,13 @@ export default function UIUXPage() {
                 Вместе UI и UX создают продукт, которым приятно пользоваться и который решает задачи бизнеса.
               </p>
             </div>
-            <div className="bg-linear-to-br from-pink-400 to-purple-500 rounded-2xl p-8 text-white">
-              <div className="text-7xl mb-4 text-center">🎨✨</div>
-              <h3 className="text-2xl font-bold text-center mb-4">Красиво и удобно</h3>
+            <div className="bg-slate-900 rounded-2xl p-8 text-white">
+              <p className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-blue-300/80 mb-4 text-center">
+                UI / UX
+              </p>
+              <h3 className="text-2xl font-bold text-center mb-4">Ясный интерфейс под задачи бизнеса</h3>
               <p className="text-center text-white/90">
-                Дизайн, который нравится пользователям и повышает продажи
+                Дизайн-система и сценарии, которые помогают пользователю дойти до целевого действия
               </p>
             </div>
           </div>
@@ -160,9 +152,8 @@ export default function UIUXPage() {
             {services.map((service, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all hover:-translate-y-1"
+                className="bg-white dark:bg-gray-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-8 transition-colors"
               >
-                <div className="text-5xl mb-4">{service.icon}</div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{service.title}</h3>
                 <p className="text-gray-600 dark:text-gray-300">{service.description}</p>
               </div>
@@ -180,9 +171,9 @@ export default function UIUXPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {process.map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="w-20 h-20 bg-linear-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center text-3xl font-bold text-white mx-auto mb-4">
-                  {step.icon}
+              <div key={index} className="text-left">
+                <div className="font-display text-xs text-slate-400 mb-3 tabular-nums">
+                  {String(index + 1).padStart(2, '0')}
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{step.step}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300">{step.description}</p>
@@ -201,17 +192,14 @@ export default function UIUXPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6">
-              <div className="text-4xl mb-3">💰</div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Рост конверсии</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-300">Хороший дизайн повышает конверсию до 200% за счет понятного интерфейса и удобства использования.</p>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Понятный интерфейс снижает трение в сценариях и помогает пользователю дойти до целевого действия.</p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6">
-              <div className="text-4xl mb-3">❤️</div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Лояльность</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">Пользователи возвращаются к продуктам, которыми приятно пользоваться.</p>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-6">
-              <div className="text-4xl mb-3">🏆</div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Преимущество</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">Выделяйтесь среди конкурентов современным и качественным дизайном.</p>
             </div>
@@ -220,19 +208,19 @@ export default function UIUXPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-linear-to-r from-blue-600 to-purple-600">
+      <section className="py-20 bg-slate-950">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Хотите крутой дизайн?
+            Обсудим дизайн продукта
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Расскажите о вашем проекте, и мы создадим дизайн, который понравится пользователям
+            Краткий бриф — предложение по исследованию, интерфейсу и дизайн-системе
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold text-lg hover:scale-105 transition-transform shadow-xl"
+            className="inline-flex items-center px-8 py-4 bg-white text-slate-900 rounded-lg font-semibold text-lg hover:bg-slate-100 transition-colors"
           >
-            Обсудить проект
+            Запросить консультацию
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>

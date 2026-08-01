@@ -50,7 +50,7 @@ function companyPostalAddress() {
 }
 
 export const SITE_DESCRIPTION =
-  'APSOD — разработка сайтов в Минске на уникальном коде, SEO и GEO. Лендинг, корпоративный сайт, магазин. Без конструкторов. Смета за 1 день.'
+  'APSOD — digital engineering в Минске: сайты и приложения на уникальном коде, SEO и GEO. Без конструкторов. Офис: ул. Куйбышева, 35.'
 
 export const SITE_OG_IMAGE = '/og-image.jpg'
 export const DEFAULT_OG_IMAGE_URL = `${SITE_URL}${SITE_OG_IMAGE}`

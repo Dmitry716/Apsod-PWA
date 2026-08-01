@@ -22,12 +22,10 @@ export default function Header() {
 
   const navLinks = [
     { href: "/services", label: t(locale, 'nav.services') },
+    { href: "/portfolio", label: locale === 'en' ? 'Case studies' : 'Кейсы' },
     { href: "/pricing", label: locale === 'en' ? 'Pricing' : 'Цены' },
-    { href: "/ready-sites", label: locale === 'en' ? 'Ready sites' : 'Готовые сайты' },
     { href: "/about", label: t(locale, 'nav.about') },
-    { href: "/portfolio", label: t(locale, 'nav.portfolio') },
-    { href: "/blog", label: t(locale, 'nav.blog') },
-    { href: "/contact", label: t(locale, 'nav.contact') },
+    { href: "/blog", label: locale === 'en' ? 'Insights' : 'Блог' },
   ];
 
   return (
@@ -51,32 +49,33 @@ export default function Header() {
           {/* Логотип */}
           <Link
             href="/"
+            className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white"
             style={{
-              fontSize: "2rem",
-              fontWeight: "bold",
-              background: "linear-gradient(to right, #2563eb, #0891b2)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
               letterSpacing: "-0.03em",
-              fontFamily: "var(--font-display), var(--font-sans), system-ui, sans-serif",
             }}
           >
             APSOD
           </Link>
 
           {/* Десктопное меню */}
-          <nav className="hidden lg:flex items-center gap-5 xl:gap-6" aria-label="Основная навигация">
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-7" aria-label="Основная навигация">
             {navLinks.map((link) => {
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors whitespace-nowrap"
+                  className="text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white transition-colors whitespace-nowrap"
                 >
                   {link.label}
                 </Link>
               );
             })}
+            <Link
+              href="/contact"
+              className="ml-1 px-4 py-2 rounded-md text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
+            >
+              {locale === 'en' ? 'Contact us' : 'Связаться'}
+            </Link>
           </nav>
 
           <div className="flex items-center space-x-4">
@@ -121,6 +120,20 @@ export default function Header() {
                   {link.label}
                 </Link>
               ))}
+              <Link
+                href="/contact"
+                onClick={() => setIsMenuOpen(false)}
+                className="block p-3 mt-1 rounded-md bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-center font-semibold"
+              >
+                {locale === 'en' ? 'Contact us' : 'Связаться'}
+              </Link>
+              <Link
+                href="/ready-sites"
+                onClick={() => setIsMenuOpen(false)}
+                className="block p-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
+              >
+                {locale === 'en' ? 'Ready sites' : 'Готовые сайты'}
+              </Link>
             </nav>
           </div>
         )}

@@ -10,7 +10,6 @@ export interface BlogPost {
   categorySlug: string;
   tags: string[];
   image: string;
-  icon: string;
 }
 
 export const blogPosts: BlogPost[] = [
@@ -65,7 +64,6 @@ export const blogPosts: BlogPost[] = [
     categorySlug: 'business',
     tags: ['сайт для бизнеса', 'корпоративный сайт', 'доверие клиентов', 'цифровой имидж'],
     image: '/blog/site-face.jpg',
-    icon: '🏢'
   },
   {
     slug: 'preimushestva-saita-v-sovremennom-mire',
@@ -113,7 +111,6 @@ export const blogPosts: BlogPost[] = [
     categorySlug: 'business',
     tags: ['преимущества сайта', 'бизнес онлайн', 'цифровой маркетинг', 'SEO'],
     image: '/blog/business-advantages.jpg',
-    icon: '📈'
   },
   {
     slug: 'sait-protiv-sotssetey',
@@ -153,7 +150,6 @@ export const blogPosts: BlogPost[] = [
     categorySlug: 'business',
     tags: ['сайт vs соцсети', 'социальные сети', 'бизнес стратегия', 'цифровой маркетинг'],
     image: '/blog/site-vs-social.jpg',
-    icon: '⚖️'
   },
   
   // Категория: PWA и технологии
@@ -202,7 +198,6 @@ export const blogPosts: BlogPost[] = [
     categorySlug: 'pwa',
     tags: ['PWA', 'санкции', 'импортозамещение', 'мобильные приложения', 'РФ', 'РБ'],
     image: '/blog/pwa-sanctions.jpg',
-    icon: '📲'
   },
   {
     slug: 'kogda-vybrat-pwa-a-kogda-native',
@@ -265,7 +260,6 @@ export const blogPosts: BlogPost[] = [
     categorySlug: 'pwa',
     tags: ['PWA', 'нативные приложения', 'сравнение', 'выбор технологии', 'мобильная разработка'],
     image: '/blog/pwa-vs-native.jpg',
-    icon: '⚔️'
   },
   
   // Категория: SEO и маркетинг
@@ -348,7 +342,6 @@ export const blogPosts: BlogPost[] = [
     categorySlug: 'seo',
     tags: ['SEO', 'контекстная реклама', 'бюджет', 'маркетинг', 'продвижение'],
     image: '/blog/seo-vs-ads.jpg',
-    icon: '📊'
   },
   {
     slug: '15-prichin-seo-luchshe-reklamy',
@@ -416,7 +409,6 @@ export const blogPosts: BlogPost[] = [
     categorySlug: 'seo',
     tags: ['SEO', 'органический трафик', 'реклама', 'маркетинг', 'эффективность'],
     image: '/blog/seo-advantages.jpg',
-    icon: '📈'
   },
   {
     slug: 'seo-dlya-prodvizheniya-analiz',
@@ -467,7 +459,6 @@ export const blogPosts: BlogPost[] = [
     categorySlug: 'seo',
     tags: ['SEO', 'продажи', 'маркетинг', 'аналитика', 'конверсия'],
     image: '/blog/seo-sales.jpg',
-    icon: '💰'
   },
   
   // Категория: Поддержка и развитие
@@ -547,6 +538,5 @@ export const blogPosts: BlogPost[] = [
     categorySlug: 'support',
     tags: ['техническая поддержка', 'обслуживание сайта', 'безопасность', 'стабильность'],
     image: '/blog/site-support.jpg',
-    icon: '🔧'
   }
 ];
