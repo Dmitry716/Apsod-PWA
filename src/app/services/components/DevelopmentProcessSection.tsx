@@ -23,7 +23,7 @@ export default function DevelopmentProcessSection({ title, subtitle, phases }: P
         <div className="max-w-4xl mx-auto">
           <div className="relative">
             <div
-              className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-linear-to-b from-blue-500 via-purple-500 to-blue-500 opacity-30"
+              className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-linear-to-b from-slate-300 via-blue-500/50 to-slate-300 dark:from-slate-700 dark:via-blue-500/40 dark:to-slate-700 opacity-60"
               aria-hidden
             />
 

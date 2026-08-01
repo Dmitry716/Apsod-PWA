@@ -1,4 +1,6 @@
+import Image from 'next/image'
 import Link from 'next/link'
+import Reveal from '../../components/Reveal'
 import ServiceSemanticBlocks from '../../components/ServiceSemanticBlocks'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
@@ -9,9 +11,25 @@ import { DUAL_CURRENCY_NOTE, formatDualPrice } from '../../lib/currency'
 import {
   WEB_DEV_CASES,
   WEB_DEV_FEATURED_PACKAGES,
+  WEB_DEV_SITE_TYPES,
 } from '../../lib/web-dev-packages'
 
 export const metadata = buildServiceMetadata('web-development')
+
+const OUTCOMES = [
+  {
+    title: 'Канал заявок',
+    body: 'Структура, CTA и аналитика под коммерческие цели — не визитка «для галочки».',
+  },
+  {
+    title: 'Собственный код',
+    body: 'Next.js / React без конструкторов: полный контроль над скоростью, SEO и развитием.',
+  },
+  {
+    title: 'Готовность к росту',
+    body: 'Базовая SEO-разметка, интеграции с CRM и оплатой, понятный путь к сопровождению.',
+  },
+]
 
 const FOR_WHOM = [
   'Нужен сайт как канал заявок, а не разовая визитка',
@@ -52,115 +70,216 @@ export default function WebDevelopmentPage() {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-white dark:bg-gray-950">
       <ServiceBreadcrumbs service="web-development" />
       <SeoJsonLd data={serviceSchema} />
 
-      <section className="relative pt-16 pb-16 overflow-hidden">
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-3">
-              Собственный код · полный цикл
+      {/* Full-bleed hero */}
+      <section className="relative min-h-[min(88vh,820px)] flex items-end overflow-hidden bg-slate-950 text-white">
+        <div className="absolute inset-0" aria-hidden>
+          <Image
+            src="/devices/showcase-macbook.png"
+            alt=""
+            fill
+            priority
+            className="object-cover object-center opacity-50"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/75 to-slate-950/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/50 to-transparent" />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10 pb-16 md:pb-24 pt-28">
+          <Reveal className="max-w-2xl">
+            <p className="text-xs font-medium tracking-[0.18em] uppercase text-slate-300 mb-4">
+              APSOD · собственный код
             </p>
-            <h1 className="font-display text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-5 tracking-tight">
+            <h1 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-[1.08] mb-5">
               Разработка сайтов
             </h1>
-            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Лендинг, корпоративный сайт или магазин на Next.js для бизнеса.
-              Ориентир {formatDualPrice(8000)} — после короткого брифа.
+            <p className="text-lg md:text-xl text-slate-300 mb-8 leading-relaxed max-w-xl">
+              Лендинг, корпоративный сайт или магазин на Next.js — под заявки, SEO и дальнейший
+              рост. Ориентир {formatDualPrice(8000)} после короткого брифа.
             </p>
-            <div className="flex flex-wrap gap-3 justify-center">
+            <div className="flex flex-wrap gap-3">
               <Link
                 href="/contact?goal=corporate"
-                className="px-7 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-semibold hover:bg-slate-800 dark:hover:bg-slate-100"
+                className="apsod-btn-solid px-7 py-3.5 rounded-md font-semibold text-sm"
               >
                 Запросить консультацию
               </Link>
               <Link
                 href="#packages"
-                className="px-7 py-3.5 border border-gray-300 dark:border-gray-600 rounded-lg font-medium hover:border-slate-900 dark:hover:border-white"
+                className="px-7 py-3.5 border border-white/30 rounded-md font-medium text-sm text-white hover:border-white transition-colors"
               >
                 Смотреть пакеты
               </Link>
             </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* What we build */}
+      <section className="py-16 md:py-20 border-b border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="max-w-2xl mb-10">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+              Что разрабатываем
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
+              От посадочной под рекламу до интернет-магазина полного цикла — один инженерный контур.
+            </p>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-8">
+            {WEB_DEV_SITE_TYPES.map((type, i) => (
+              <Reveal key={type.id} stagger={(Math.min(i + 1, 4) as 1 | 2 | 3 | 4)}>
+                <p className="text-xs font-medium tracking-[0.14em] uppercase text-slate-400 mb-2">
+                  0{i + 1}
+                </p>
+                <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  {type.title}
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  {type.body}
+                </p>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="pb-16">
+      {/* Outcomes */}
+      <section className="py-16 md:py-20 bg-slate-50 dark:bg-gray-900/40">
+        <div className="container mx-auto px-4">
+          <Reveal className="max-w-2xl mb-10">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+              Зачем заказывать у APSOD
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 text-lg leading-relaxed">
+              Сайт как продукт: Discovery, инженерия и готовность к продвижению — в одной
+              ответственности.
+            </p>
+          </Reveal>
+          <div className="grid md:grid-cols-3 gap-10 md:gap-12 max-w-5xl">
+            {OUTCOMES.map((item, i) => (
+              <Reveal key={item.title} stagger={(Math.min(i + 1, 3) as 1 | 2 | 3)}>
+                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{item.body}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Fit */}
+      <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 max-w-5xl">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">Кому подходит</h2>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+          <Reveal className="mb-10 max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+              Кому подходит
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Честно про формат работы — чтобы не тратить время на несовпадение ожиданий.
+            </p>
+          </Reveal>
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+            <Reveal>
+              <h3 className="text-sm font-medium tracking-[0.14em] uppercase text-slate-500 mb-4">
+                Да
+              </h3>
+              <ul className="space-y-3 text-slate-700 dark:text-slate-200">
                 {FOR_WHOM.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <span className="text-green-500 shrink-0">✓</span>
+                  <li key={item} className="flex gap-3 leading-relaxed">
+                    <span className="text-slate-900 dark:text-white shrink-0 font-medium" aria-hidden>
+                      —
+                    </span>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
-            </div>
-            <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">Кому не подходит</h2>
-              <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+            </Reveal>
+            <Reveal stagger={2}>
+              <h3 className="text-sm font-medium tracking-[0.14em] uppercase text-slate-500 mb-4">
+                Нет
+              </h3>
+              <ul className="space-y-3 text-slate-600 dark:text-slate-400">
                 {NOT_FOR.map((item) => (
-                  <li key={item} className="flex gap-2">
-                    <span className="text-rose-400 shrink-0">×</span>
+                  <li key={item} className="flex gap-3 leading-relaxed">
+                    <span className="shrink-0" aria-hidden>
+                      —
+                    </span>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      <section id="packages" className="py-16 bg-white dark:bg-gray-800 scroll-mt-28">
+      {/* Packages */}
+      <section
+        id="packages"
+        className="py-16 md:py-20 bg-slate-50 dark:bg-gray-900/40 scroll-mt-28 border-y border-slate-200 dark:border-slate-800"
+      >
         <div className="container mx-auto px-4 max-w-5xl">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+          <Reveal className="text-center mb-12 max-w-2xl mx-auto">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
               Пакеты и что входит
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
               Ориентиры стоимости. Точная смета — после брифа. {DUAL_CURRENCY_NOTE}
             </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-5 mb-8">
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden mb-8">
             {WEB_DEV_FEATURED_PACKAGES.map((pkg) => (
               <div
                 key={pkg.title}
-                className={`rounded-2xl border p-6 flex flex-col ${
-                  pkg.highlight
-                    ? 'border-blue-500 ring-1 ring-blue-500/30 bg-blue-50/40 dark:bg-blue-950/20'
-                    : 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/40'
+                className={`flex flex-col p-6 md:p-8 bg-white dark:bg-gray-950 ${
+                  pkg.highlight ? 'ring-1 ring-inset ring-slate-900/10 dark:ring-white/10' : ''
                 }`}
               >
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{pkg.title}</h3>
-                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{pkg.byn}</p>
-                <p className="text-sm text-gray-500 mb-1">{pkg.rub}</p>
-                <p className="text-sm text-gray-500 mb-4">Срок: {pkg.term}</p>
-                <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300 mb-6 flex-1">
+                {pkg.highlight && (
+                  <p className="text-xs font-medium tracking-[0.14em] uppercase text-slate-500 mb-3">
+                    Частый выбор
+                  </p>
+                )}
+                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-1">
+                  {pkg.title}
+                </h3>
+                <p className="text-2xl font-bold text-slate-900 dark:text-white">{pkg.byn}</p>
+                <p className="text-sm text-slate-500 mb-1">{pkg.rub}</p>
+                <p className="text-sm text-slate-500 mb-5">Срок: {pkg.term}</p>
+                <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300 mb-8 flex-1">
                   {pkg.items.map((item) => (
-                    <li key={item}>• {item}</li>
+                    <li key={item} className="flex gap-2">
+                      <span className="text-slate-400 shrink-0" aria-hidden>
+                        ·
+                      </span>
+                      <span>{item}</span>
+                    </li>
                   ))}
                 </ul>
                 <Link
                   href={`/contact?goal=${pkg.goal}&budget=${pkg.budget}`}
-                  className="inline-block w-full text-center px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
+                  className="apsod-btn-solid inline-block w-full text-center px-4 py-2.5 rounded-md text-sm font-medium"
                 >
                   Получить смету
                 </Link>
               </div>
             ))}
           </div>
-          <p className="text-center text-sm text-gray-500">
+
+          <p className="text-center text-sm text-slate-500">
             Нужен сложный продукт или кабинет?{' '}
-            <Link href="/contact?goal=complex" className="text-blue-600 hover:underline">
+            <Link href="/contact?goal=complex" className="text-slate-900 dark:text-white underline-offset-4 hover:underline">
               Обсудим индивидуально
             </Link>
             {' · '}
-            <Link href="/pricing" className="text-blue-600 hover:underline">
+            <Link href="/pricing" className="text-slate-900 dark:text-white underline-offset-4 hover:underline">
               Все цены
             </Link>
           </p>
@@ -175,74 +294,95 @@ export default function WebDevelopmentPage() {
         phases={WEB_DEVELOPMENT_PROCESS.slice(0, 5)}
       />
 
-      <section className="py-14 bg-white dark:bg-gray-800">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
-            Стек
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-6 text-sm md:text-base">
-            Современный продуктовый стек — скорость, SEO из коробки и контроль над кодом.
-          </p>
-          <div className="flex flex-wrap justify-center gap-2">
-            {STACK.map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-gray-700 text-sm text-gray-700 dark:text-gray-200"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16">
+      {/* Cases with imagery */}
+      <section className="py-16 md:py-20 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-4 max-w-5xl">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-            Примеры работ
-          </h2>
-          <div className="grid md:grid-cols-3 gap-4 mb-8">
-            {WEB_DEV_CASES.slice(0, 3).map((c) => (
-              <Link
-                key={c.href}
-                href={c.href}
-                className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 hover:border-blue-400 transition-colors"
-              >
-                <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{c.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">{c.result}</p>
-              </Link>
+          <Reveal className="mb-10 max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+              Примеры работ
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Сайты и PWA, которые ведут к заявке — не к «красивой картинке».
+            </p>
+          </Reveal>
+          <div className="grid md:grid-cols-3 gap-6 mb-10">
+            {WEB_DEV_CASES.slice(0, 3).map((c, i) => (
+              <Reveal key={c.href} stagger={(Math.min(i + 1, 3) as 1 | 2 | 3)}>
+                <Link href={c.href} className="group block">
+                  <div className="relative aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-900 mb-4">
+                    <Image
+                      src={c.image}
+                      alt={c.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                    />
+                  </div>
+                  <h3 className="font-display font-bold text-slate-900 dark:text-white mb-1 group-hover:underline underline-offset-4">
+                    {c.title}
+                  </h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    {c.result}
+                  </p>
+                </Link>
+              </Reveal>
             ))}
           </div>
-          <div className="text-center">
-            <Link href="/portfolio" className="text-blue-600 dark:text-blue-400 font-medium hover:underline">
-              Смотреть портфолио →
+          <Reveal>
+            <Link
+              href="/portfolio"
+              className="apsod-btn-solid inline-flex px-5 py-2.5 rounded-md font-medium text-sm"
+            >
+              Смотреть портфолио
             </Link>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      <section className="py-14 bg-slate-950 text-white">
+      {/* Stack */}
+      <section className="py-14 border-t border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <Reveal className="text-center">
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+              Стек
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+              Современный продуктовый стек — скорость, SEO из коробки и контроль над кодом.
+            </p>
+            <p className="text-slate-700 dark:text-slate-200 text-sm md:text-base tracking-wide">
+              {STACK.join(' · ')}
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-16 md:py-20 bg-slate-950 text-white">
         <div className="container mx-auto px-4 text-center max-w-2xl">
-          <h2 className="text-2xl md:text-3xl font-bold mb-3">Готовы обсудить сайт?</h2>
-          <p className="text-slate-300 mb-6">
-            Короткий бриф — смета за 1 рабочий день. Можно сразу в Telegram.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link
-              href="/contact"
-              className="px-6 py-3 bg-blue-500 hover:bg-blue-400 rounded-lg font-semibold"
-            >
-              Оставить заявку
-            </Link>
-            <a
-              href="https://t.me/Apsod_IT"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3 border border-white/25 rounded-lg font-medium"
-            >
-              Telegram
-            </a>
-          </div>
+          <Reveal>
+            <h2 className="font-display text-2xl md:text-3xl font-bold mb-3 tracking-tight">
+              Готовы обсудить сайт?
+            </h2>
+            <p className="text-slate-300 mb-8 leading-relaxed">
+              Короткий бриф — смета за 1 рабочий день. Можно сразу в Telegram.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link
+                href="/contact"
+                className="apsod-btn-solid px-6 py-3 rounded-md font-semibold text-sm"
+              >
+                Оставить заявку
+              </Link>
+              <a
+                href="https://t.me/Apsod_IT"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 border border-white/25 rounded-md font-medium text-sm hover:border-white transition-colors"
+              >
+                Telegram
+              </a>
+            </div>
+          </Reveal>
         </div>
       </section>
 

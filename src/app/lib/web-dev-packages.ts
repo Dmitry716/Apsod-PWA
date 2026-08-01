@@ -151,21 +151,25 @@ export const WEB_DEV_CASES = [
     title: 'Amba Detail',
     result: 'Единая витрина услуг и цен вместо разрозненных сообщений',
     href: '/portfolio/amba-detail',
+    image: '/portfolio/amba.png',
   },
   {
     title: 'NEXTON',
     result: 'PWA автосервиса: app-like интерфейс, услуги для двух городов',
     href: '/portfolio/nexton',
+    image: '/portfolio/nexton.png',
   },
   {
     title: 'Maxximum',
     result: 'Запись на пробные занятия с сайта спортивного центра',
     href: '/portfolio/maxximum',
+    image: '/portfolio/maxximum.jpg',
   },
   {
     title: 'ArtDetailing',
-    result: 'PWA детейлинг-студии на ASP.NET Core 10: запись и SEO',
+    result: 'PWA детейлинг-студии: запись и SEO под заявки',
     href: '/portfolio/artdetailing',
+    image: '/portfolio/artdetailing.png',
   },
 ] as const
 
