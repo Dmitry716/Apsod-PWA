@@ -84,8 +84,8 @@
     /* position и top задаются в JS для сохранения scrollY */
   }
 
-  /* Header */
-  header {
+  /* Site chrome header only — не применять к <header> внутри статей */
+  header.apsod-site-header {
     position: fixed;
     top: 0;
     left: 0;
@@ -99,12 +99,12 @@
   }
 
   /* Не красим solid-CTA: цвет задаёт .apsod-btn-solid / Tailwind */
-  header a:not(.apsod-btn-solid) {
+  header.apsod-site-header a:not(.apsod-btn-solid) {
     color: var(--text-secondary);
     transition: color 0.2s;
   }
 
-  header a:not(.apsod-btn-solid):hover {
+  header.apsod-site-header a:not(.apsod-btn-solid):hover {
     color: var(--primary-color);
   }
 

@@ -30,6 +30,7 @@ export default function Header() {
 
   return (
     <header
+      className="apsod-site-header"
       style={{
         position: "fixed",
         top: 0,

@@ -95,7 +95,7 @@ export default async function BlogPostPage({ params }: Props) {
 
       <article className="pb-16 md:pb-24">
         <div className="container mx-auto px-4 max-w-3xl">
-          <header className="mb-10 md:mb-12">
+          <div className="mb-10 md:mb-12">
             <h1 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-slate-900 dark:text-white tracking-tight leading-[1.2] mb-5">
               {post.title}
             </h1>
@@ -106,7 +106,7 @@ export default async function BlogPostPage({ params }: Props) {
               <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
               {post.category}
             </p>
-          </header>
+          </div>
 
           <div className="relative aspect-[16/9] mb-10 md:mb-12 overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
             <img
