@@ -108,19 +108,20 @@ export default function ServiceLanding({ content }: Props) {
 
       <section className="py-16 md:py-24 bg-slate-50 dark:bg-gray-900/40 border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 items-end justify-items-center">
+          <div className="grid gap-6 md:gap-8 md:grid-cols-3 items-stretch">
             {content.screens.map((screen, i) => {
               const isPhone = screen.device === 'iphone' || screen.device === 'samsung'
               return (
                 <Reveal
                   key={`${screen.src}-${i}`}
                   stagger={(Math.min(i + 1, 3) as 1 | 2 | 3)}
-                  className={isPhone ? 'w-full max-w-[240px]' : 'w-full max-w-md'}
+                  className={isPhone ? 'flex justify-center' : 'w-full'}
                 >
                   <DeviceMockup
                     device={screen.device}
                     screenSrc={screen.src}
                     screenAlt={screen.alt}
+                    className={isPhone ? 'max-w-[220px]' : 'max-w-none'}
                   />
                 </Reveal>
               )
@@ -158,8 +159,8 @@ export default function ServiceLanding({ content }: Props) {
       />
 
       <section className="py-16 md:py-24 bg-white dark:bg-gray-950 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
-          <Reveal className="flex items-end justify-between gap-6 mb-10 md:mb-14">
+        <div className="container mx-auto px-4 mb-10 md:mb-14">
+          <Reveal className="flex items-end justify-between gap-6">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
               Кейсы
             </h2>
@@ -170,31 +171,58 @@ export default function ServiceLanding({ content }: Props) {
               Все проекты
             </Link>
           </Reveal>
-          <div className="grid md:grid-cols-3 gap-3 md:gap-4">
-            {content.cases.map((item, index) => (
-              <Reveal key={item.href} stagger={(Math.min(index + 1, 3) as 1 | 2 | 3)}>
+        </div>
+
+        <div className="border-y border-slate-200 dark:border-slate-800">
+          {content.cases.map((item, index) => {
+            const odd = index % 2 === 1
+            return (
+              <Reveal key={item.href}>
                 <Link
                   href={item.href}
-                  className="apsod-media-frame group block relative aspect-[4/5] overflow-hidden bg-slate-200 dark:bg-slate-900"
+                  className="apsod-case-row group grid lg:grid-cols-12 border-b border-slate-200 dark:border-slate-800 last:border-b-0"
                 >
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    className="object-cover object-top transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-6">
-                    <h3 className="font-display text-xl font-bold text-white tracking-tight mb-2">
+                  <div
+                    className={`lg:col-span-8 relative min-h-[220px] md:min-h-[320px] lg:min-h-[380px] overflow-hidden bg-slate-100 dark:bg-slate-900 ${
+                      odd ? 'lg:order-2' : ''
+                    }`}
+                  >
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      className="object-contain object-center p-3 md:p-5 transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
+                      sizes="(max-width: 1024px) 100vw, 66vw"
+                    />
+                  </div>
+                  <div
+                    className={`lg:col-span-4 flex flex-col justify-end p-8 md:p-12 lg:p-14 bg-white dark:bg-gray-950 ${
+                      odd ? 'lg:order-1' : ''
+                    }`}
+                  >
+                    <p className="text-[11px] tracking-[0.22em] uppercase text-slate-400 mb-4">
+                      {String(index + 1).padStart(2, '0')}
+                    </p>
+                    <h3 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-4 group-hover:translate-x-1 transition-transform duration-500">
                       {item.title}
                     </h3>
-                    <p className="text-sm text-slate-300 leading-snug">{item.result}</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                      {item.result}
+                    </p>
+                    <span className="inline-flex items-center gap-2 text-sm font-medium text-slate-900 dark:text-white">
+                      Открыть
+                      <span
+                        className="transition-transform duration-500 group-hover:translate-x-1"
+                        aria-hidden
+                      >
+                        →
+                      </span>
+                    </span>
                   </div>
                 </Link>
               </Reveal>
-            ))}
-          </div>
+            )
+          })}
         </div>
       </section>
 

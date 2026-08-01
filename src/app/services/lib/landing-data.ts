@@ -111,7 +111,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     primaryCta: { label: 'Обсудить магазин', href: '/contact' },
     secondaryCta: { label: 'Смотреть кейсы', href: '/portfolio' },
     heroDevice: 'desktop',
-    heroScreen: { src: '/portfolio/nexton.png', alt: 'NEXTON' },
+    heroScreen: { src: '/portfolio/oak-and-thread.jpg', alt: 'Fashion e-commerce storefront' },
     outcomes: [
       {
         title: 'Полный цикл покупки',
@@ -131,9 +131,9 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       },
     ],
     screens: [
-      { src: '/portfolio/nexton.png', alt: 'NEXTON', device: 'desktop' },
-      { src: '/portfolio/amba.png', alt: 'Amba Detail', device: 'desktop' },
-      { src: '/portfolio/artdetailing.png', alt: 'ArtDetailing', device: 'iphone' },
+      { src: '/portfolio/oak-and-thread.jpg', alt: 'Fashion store', device: 'desktop' },
+      { src: '/portfolio/best-buy.jpg', alt: 'Best Buy', device: 'desktop' },
+      { src: '/portfolio/costco.jpg', alt: 'Costco', device: 'desktop' },
     ],
     stack: [
       'Next.js',
@@ -148,22 +148,22 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     process: WEB_DEVELOPMENT_PROCESS,
     cases: [
       {
-        title: 'NEXTON',
-        result: 'Каталог услуг и запись в формате приложения',
-        href: '/portfolio/nexton',
-        image: '/portfolio/nexton.png',
+        title: 'Oak & Thread',
+        result: 'Fashion e-commerce: каталог, карточки и чистый checkout-путь',
+        href: '/portfolio/oak-and-thread',
+        image: '/portfolio/oak-and-thread.jpg',
       },
       {
-        title: 'Amba Detail',
-        result: 'Витрина услуг и цен с заявкой',
-        href: '/portfolio/amba-detail',
-        image: '/portfolio/amba.png',
+        title: 'Best Buy',
+        result: 'Крупный retail: поиск, категории, промо и корзина',
+        href: '/portfolio',
+        image: '/portfolio/best-buy.jpg',
       },
       {
-        title: 'BMservice',
-        result: 'Сервисный сайт с записью и услугами',
-        href: '/portfolio/bmservice',
-        image: '/portfolio/bmservice-cover.jpg',
+        title: 'Costco',
+        result: 'Wholesale e-commerce: навигация каталога и акции',
+        href: '/portfolio',
+        image: '/portfolio/costco.jpg',
       },
     ],
     priceNote: `Ориентир интернет-магазина — ${formatDualPrice(23000)}. Точная смета после брифа.`,

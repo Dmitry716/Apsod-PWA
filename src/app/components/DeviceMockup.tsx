@@ -11,10 +11,7 @@ type Props = {
   screenPosition?: string
 }
 
-/**
- * CSS device chrome + UI screenshot.
- * Avoids padded PNG frames that break percentage insets.
- */
+/** CSS device chrome + UI screenshot — clean bezel, no floating stand scraps */
 export default function DeviceMockup({
   device,
   screenSrc,
@@ -25,22 +22,26 @@ export default function DeviceMockup({
 }: Props) {
   if (device === 'desktop') {
     return (
-      <div className={`relative mx-auto w-full max-w-xl ${className}`}>
-        <div className="rounded-[1.1rem] bg-slate-800 p-[0.55rem] shadow-[0_30px_60px_rgba(0,0,0,0.45)] ring-1 ring-white/10">
-          <div className="relative aspect-[16/10] overflow-hidden rounded-[0.65rem] bg-slate-950">
+      <div className={`relative mx-auto w-full ${className}`}>
+        <div className="overflow-hidden rounded-xl bg-slate-900 shadow-[0_24px_48px_rgba(0,0,0,0.4)] ring-1 ring-white/10">
+          <div className="flex items-center gap-1.5 border-b border-white/10 bg-slate-800/90 px-3 py-2.5">
+            <span className="h-2 w-2 rounded-full bg-slate-600" />
+            <span className="h-2 w-2 rounded-full bg-slate-600" />
+            <span className="h-2 w-2 rounded-full bg-slate-600" />
+            <span className="ml-2 h-5 flex-1 rounded bg-slate-950/60" />
+          </div>
+          <div className="relative aspect-[16/10] bg-slate-950">
             <Image
               src={screenSrc}
               alt={screenAlt}
               fill
               priority={priority}
-              className="object-cover"
+              className="object-cover object-top"
               style={{ objectPosition: screenPosition }}
               sizes="(max-width: 768px) 92vw, 560px"
             />
           </div>
         </div>
-        <div className="mx-auto mt-2 h-3 w-[28%] rounded-b-md bg-slate-700" />
-        <div className="mx-auto mt-1 h-1.5 w-[42%] rounded-full bg-slate-600/80" />
       </div>
     )
   }
@@ -81,7 +82,6 @@ export default function DeviceMockup({
         </div>
       </div>
 
-      {/* side buttons */}
       {isIphone ? (
         <>
           <span className="absolute left-[-2px] top-[18%] h-7 w-[2px] rounded-l bg-slate-400" aria-hidden />
