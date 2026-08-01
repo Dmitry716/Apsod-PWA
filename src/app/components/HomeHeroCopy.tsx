@@ -12,11 +12,11 @@ export default function HomeHeroCopy() {
 
   return (
     <div className="max-w-2xl">
-      <p className="apsod-hero-enter apsod-hero-enter-delay-1 font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white mb-8">
-        APSOD
+      <p className="apsod-hero-enter apsod-hero-enter-delay-1 text-xs font-medium tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400 mb-6">
+        {copy.badge}
       </p>
 
-      <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display text-2xl md:text-3xl lg:text-[2.15rem] font-semibold text-slate-800 dark:text-slate-100 mb-5 leading-[1.25] tracking-tight max-md:text-[1.45rem]">
+      <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-slate-900 dark:text-white mb-6 leading-[1.2] tracking-tight max-md:text-[1.65rem]">
         {copy.heroTitle}
       </h1>
 

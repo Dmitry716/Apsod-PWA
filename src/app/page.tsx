@@ -210,33 +210,34 @@ export default function Home() {
             </Link>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden">
+          <div className="flex flex-wrap">
             {blogPosts.slice(0, 3).map((post, index) => (
               <Reveal
                 key={post.slug}
                 stagger={(Math.min(index + 1, 5) as 1 | 2 | 3 | 4 | 5)}
+                className="w-full md:w-1/3"
               >
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="group block h-full bg-white dark:bg-gray-950 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors"
+                  className="group h-full flex flex-col-reverse bg-slate-100 dark:bg-slate-900/80"
                 >
-                  <div className="h-40 overflow-hidden bg-slate-100 dark:bg-slate-900">
+                  <div className="relative h-44 overflow-hidden bg-slate-200 dark:bg-slate-800">
                     <img
                       src={post.image}
-                      alt={post.title}
+                      alt=""
                       loading="lazy"
-                      className="w-full h-full object-cover"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
-                  <div className="p-6">
-                    <p className="text-xs tracking-wide uppercase text-slate-500 dark:text-slate-400 mb-2">
-                      {post.category} · {post.date}
-                    </p>
-                    <h3 className="font-display font-bold text-slate-900 dark:text-white group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors line-clamp-2 mb-2 tracking-tight">
+                  <div className="p-6 md:p-7 flex flex-col flex-1">
+                    <h3 className="font-display font-bold text-slate-900 dark:text-white tracking-tight leading-snug mb-3 group-hover:underline decoration-1 underline-offset-4 line-clamp-2">
                       {post.title}
                     </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed mb-4 flex-1">
                       {post.excerpt}
+                    </p>
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                      {post.date}
                     </p>
                   </div>
                 </Link>

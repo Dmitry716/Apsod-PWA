@@ -19,12 +19,12 @@ export default function BlogPage() {
     { slug: 'support', name: t(locale, 'blog.categories.support'), count: blogPosts.filter(p => p.categorySlug === 'support').length },
   ];
 
-  const filteredPosts = activeCategory === 'all' 
-    ? blogPosts 
+  const filteredPosts = activeCategory === 'all'
+    ? blogPosts
     : blogPosts.filter(post => post.categorySlug === activeCategory);
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-white dark:bg-gray-950">
       <PageBreadcrumbs
         items={[
           { name: 'Главная', path: '/' },
@@ -32,103 +32,151 @@ export default function BlogPage() {
         ]}
       />
 
-      {/* Hero секция */}
-      <section className="relative pt-16 pb-16 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-96 h-96 bg-purple-200 dark:bg-purple-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              {t(locale, 'blog.title')}{' '}
-              <span className="text-blue-600 dark:text-blue-400">
-                APSOD
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              {t(locale, 'blog.subtitle')}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Категории */}
-      <section className="py-8">
+      <section className="pt-10 pb-8 md:pb-10">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap gap-3 justify-center">
+          <h1 className="font-display text-4xl md:text-5xl lg:text-[3.25rem] font-bold text-slate-900 dark:text-white tracking-tight mb-4">
+            {locale === 'en' ? 'Insights' : 'Блог'}
+          </h1>
+          <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed mb-8">
+            {t(locale, 'blog.subtitle')}
+          </p>
+
+          <div className="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-800 pb-6">
             {categories.map((cat) => (
               <button
                 key={cat.slug}
+                type="button"
                 onClick={() => setActiveCategory(cat.slug)}
-                className={`px-6 py-2 rounded-full transition-all ${
+                className={`px-4 py-2 text-sm transition-colors rounded-md border ${
                   activeCategory === cat.slug
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    ? 'apsod-btn-solid border-transparent'
+                    : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-900'
                 }`}
               >
-                {cat.name} ({cat.count})
+                {cat.name}
+                <span className="ml-1.5 text-xs opacity-60">{cat.count}</span>
               </button>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Сетка статей */}
-      <section className="py-16">
+      <section className="pb-20 md:pb-24">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPosts.map((post) => (
-              <article
-                key={post.slug}
-                className="group bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-              >
-                <Link href={`/blog/${post.slug}`}>
-                  <div className="h-48 bg-slate-800 relative overflow-hidden">
+          <div className="flex flex-wrap">
+            {filteredPosts.map((post, index) => {
+              const pos = index + 1
+              const isFeaturedWide = pos % 4 === 1
+              const isFeaturedAlt = pos % 8 === 1
+              const isOverlay = pos % 8 === 7
+
+              if (isFeaturedWide) {
+                return (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    className={`group w-full flex flex-col md:flex-row ${
+                      isFeaturedAlt ? 'md:flex-row' : 'md:flex-row-reverse'
+                    } ${
+                      isFeaturedAlt
+                        ? 'bg-slate-950 dark:bg-slate-900'
+                        : 'bg-slate-900 dark:bg-slate-800'
+                    }`}
+                  >
+                    <div className="md:w-1/2 p-8 md:p-12 lg:p-14 flex flex-col justify-between min-h-[280px]">
+                      <div>
+                        <p className="text-sm font-medium text-white/70 mb-4">
+                          {post.category}
+                        </p>
+                        <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-snug group-hover:underline decoration-1 underline-offset-4">
+                          {post.title}
+                        </h2>
+                        <p className="mt-5 text-sm md:text-base text-white/70 leading-relaxed line-clamp-3 max-w-lg">
+                          {post.excerpt}
+                        </p>
+                      </div>
+                      <p className="mt-8 text-sm font-medium text-white/60">
+                        {post.date}
+                        <span className="mx-2">·</span>
+                        {post.readTime} {locale === 'en' ? 'min read' : 'мин'}
+                      </p>
+                    </div>
+                    <div className="md:w-1/2 relative min-h-[240px] md:min-h-[360px] overflow-hidden bg-slate-800">
+                      <img
+                        src={post.image}
+                        alt=""
+                        loading={index < 2 ? 'eager' : 'lazy'}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                  </Link>
+                )
+              }
+
+              if (isOverlay) {
+                return (
+                  <Link
+                    key={post.slug}
+                    href={`/blog/${post.slug}`}
+                    className="group relative w-full md:w-1/3 min-h-[340px] overflow-hidden flex flex-col justify-end"
+                  >
                     <img
                       src={post.image}
-                      alt={post.title}
+                      alt=""
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="absolute inset-0 w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-black/10" />
-                    <div className="absolute top-3 left-3">
-                      <span className="px-3 py-1 bg-white/90 text-gray-900 rounded-full text-xs font-semibold">
-                        {post.category}
-                      </span>
+                    <div className="absolute inset-0 bg-slate-950/70" />
+                    <div className="relative z-10 p-8 md:p-9">
+                      <h2 className="font-display text-xl font-bold text-white tracking-tight leading-snug mb-4 group-hover:underline decoration-1 underline-offset-4">
+                        {post.title}
+                      </h2>
+                      <p className="text-sm text-white/65 line-clamp-2 mb-6 leading-relaxed">
+                        {post.excerpt}
+                      </p>
+                      <p className="text-sm font-medium text-white/55">{post.date}</p>
                     </div>
+                  </Link>
+                )
+              }
+
+              return (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group w-full md:w-1/3 flex flex-col-reverse bg-slate-100 dark:bg-slate-900/80"
+                >
+                  <div className="relative min-h-[220px] md:min-h-[260px] overflow-hidden bg-slate-200 dark:bg-slate-800">
+                    <img
+                      src={post.image}
+                      alt=""
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
                   </div>
-                  <div className="p-6">
-                    <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 mb-3">
-                      <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full">
-                        {post.category}
-                      </span>
-                      <span>•</span>
-                      <span>{post.date}</span>
-                    </div>
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
+                  <div className="p-8 md:p-9 flex flex-col flex-1">
+                    <h2 className="font-display text-xl md:text-[1.35rem] font-bold text-slate-900 dark:text-white tracking-tight leading-snug mb-4 group-hover:underline decoration-1 underline-offset-4">
                       {post.title}
                     </h2>
-                    <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed mb-6 flex-1">
                       {post.excerpt}
                     </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-500 dark:text-gray-400">
-                        {post.readTime} мин чтения
-                      </span>
-                      <span className="text-blue-600 dark:text-blue-400 font-medium group-hover:gap-3 transition-all inline-flex items-center">
-                        {t(locale, 'blog.read')}
-                        <svg className="w-4 h-4 ml-2 group-hover:ml-3 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </span>
-                    </div>
+                    <p className="text-sm font-medium text-slate-500 dark:text-slate-400 pt-2">
+                      {post.date}
+                      <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
+                      {post.category}
+                    </p>
                   </div>
                 </Link>
-              </article>
-            ))}
+              )
+            })}
           </div>
+
+          {filteredPosts.length === 0 && (
+            <p className="text-slate-500 dark:text-slate-400 py-16 text-center">
+              {locale === 'en' ? 'No articles in this category.' : 'В этой категории пока нет статей.'}
+            </p>
+          )}
         </div>
       </section>
     </div>
