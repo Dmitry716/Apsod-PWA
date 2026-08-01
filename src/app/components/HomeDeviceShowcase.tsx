@@ -6,21 +6,27 @@ import SectionAtmosphere from './SectionAtmosphere'
 const SHOWCASE = [
   {
     src: '/devices/showcase-monitor.png',
-    alt: 'Проект на Studio Display',
+    alt: 'Интерфейс проекта на Studio Display',
     href: '/portfolio/amba-detail',
     className: 'col-span-12 md:col-span-7 aspect-[16/10]',
   },
   {
     src: '/devices/showcase-iphone.png',
-    alt: 'Проект на iPhone',
+    alt: 'Мобильный интерфейс проекта',
     href: '/portfolio/artdetailing',
     className: 'col-span-12 md:col-span-5 aspect-[4/5] md:aspect-auto md:min-h-full',
   },
   {
-    src: '/devices/showcase-macbook.png',
-    alt: 'Проект на MacBook',
-    href: '/portfolio/maxximum',
-    className: 'col-span-12 aspect-[21/9] md:aspect-[24/9]',
+    src: '/portfolio/amba.png',
+    alt: 'Amba Detail',
+    href: '/portfolio/amba-detail',
+    className: 'col-span-12 md:col-span-6 aspect-[16/10]',
+  },
+  {
+    src: '/portfolio/nexton.png',
+    alt: 'NEXTON',
+    href: '/portfolio/nexton',
+    className: 'col-span-12 md:col-span-6 aspect-[16/10]',
   },
 ] as const
 
@@ -40,19 +46,19 @@ export default function HomeDeviceShowcase() {
           {SHOWCASE.map((item, i) => (
             <Reveal
               key={item.src}
-              stagger={(Math.min(i + 1, 3) as 1 | 2 | 3)}
+              stagger={(Math.min(i + 1, 4) as 1 | 2 | 3 | 4)}
               className={item.className}
             >
               <Link
                 href={item.href}
-                className="apsod-media-frame group relative block h-full min-h-[240px] md:min-h-[320px] overflow-hidden bg-slate-200/80 dark:bg-slate-900"
+                className="apsod-media-frame group relative block h-full min-h-[220px] md:min-h-[300px] overflow-hidden bg-slate-200/80 dark:bg-slate-900"
               >
                 <Image
                   src={item.src}
                   alt={item.alt}
                   fill
-                  className="object-cover object-center transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-                  sizes="(max-width: 768px) 100vw, 70vw"
+                  className="object-cover object-top transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+                  sizes="(max-width: 768px) 100vw, 55vw"
                   priority={i === 0}
                 />
               </Link>

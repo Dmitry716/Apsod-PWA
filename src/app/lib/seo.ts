@@ -55,7 +55,7 @@ export const SITE_DESCRIPTION =
 export const SITE_OG_IMAGE = '/og-image.jpg'
 export const DEFAULT_OG_IMAGE_URL = `${SITE_URL}${SITE_OG_IMAGE}`
 
-/** Ключевые запросы: Минск-first */
+/** Ключевые запросы: только Минск */
 export const MAIN_KEYWORDS = [
   'разработка сайтов в Минске',
   'разработка сайтов Минск',
@@ -71,9 +71,10 @@ export const MAIN_KEYWORDS = [
   'стоимость сайта',
   'PWA разработка',
   'техническая поддержка сайтов',
-  'разработка сайтов Беларусь',
-  'создание сайтов Беларусь',
 ]
+
+/** areaServed в JSON-LD — Минск, без РФ/Беларуси как гео-оффера */
+export const COMPANY_AREA_SERVED = [{ '@type': 'City' as const, name: 'Minsk' }]
 
 export const SERVICE_PATHS = [
   'web-development',
@@ -309,10 +310,7 @@ export function generateOrganizationSchema() {
     email: COMPANY.email,
     telephone: COMPANY.phone,
     address: companyPostalAddress(),
-    areaServed: [
-      { '@type': 'City', name: 'Minsk' },
-      { '@type': 'Country', name: 'Belarus' },
-    ],
+    areaServed: COMPANY_AREA_SERVED,
     sameAs: [
       COMPANY.telegramUrl,
       'https://www.facebook.com/share/1GuC7K2jZ1/?mibextid=wwXIfr',
@@ -381,10 +379,7 @@ export function generateLocalBusinessSchema() {
       latitude: COMPANY.geo.lat,
       longitude: COMPANY.geo.lng,
     },
-    areaServed: [
-      { '@type': 'City', name: 'Minsk' },
-      { '@type': 'Country', name: 'Belarus' },
-    ],
+    areaServed: COMPANY_AREA_SERVED,
     openingHours: COMPANY.openingHours,
     knowsAbout: [
       'Web Development',
@@ -434,10 +429,7 @@ export function generateServiceSchema(options: {
     name: options.name,
     description: options.description,
     provider: { '@id': getOrganizationId() },
-    areaServed: [
-      { '@type': 'Country', name: 'Belarus' },
-      { '@type': 'Country', name: 'Russia' },
-    ],
+    areaServed: COMPANY_AREA_SERVED,
     url: buildCanonical(options.path),
   }
 }
@@ -465,7 +457,16 @@ export function generateCityLandingSchema(options: {
       name: serviceLabel,
       areaServed: [
         { '@type': 'City', name: options.cityName },
-        { '@type': 'Country', name: options.countryName ?? (options.countryPath === 'russia' ? 'Russia' : 'Belarus') },
+        ...(options.cityName === 'Минск' || options.citySlug === 'minsk'
+          ? []
+          : [
+              {
+                '@type': 'Country' as const,
+                name:
+                  options.countryName ??
+                  (options.countryPath === 'russia' ? 'Russia' : 'Belarus'),
+              },
+            ]),
       ],
       provider: { '@id': getOrganizationId() },
     },
@@ -520,9 +521,9 @@ export function generateCreativeWorkSchema(options: {
 export function generateContactPageSchema() {
   return {
     '@type': 'ContactPage',
-    name: `Контакты — ${SITE_NAME}`,
+    name: `Контакты APSOD в Минске`,
     url: buildCanonical('/contact'),
-    description: 'Связаться с APSOD: бриф, разработка сайтов, SEO. Офис в Минске, ул. Куйбышева, 35.',
+    description: 'Связаться с APSOD в Минске: бриф, разработка сайтов, SEO. Офис: ул. Куйбышева, 35.',
     mainEntity: { '@id': getOrganizationId() },
     isPartOf: { '@id': getWebSiteId() },
   }

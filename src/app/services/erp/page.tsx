@@ -66,7 +66,7 @@ export default function ERPPage() {
     name: 'ERP системы — управление предприятием',
     description: 'Разработка и внедрение ERP для управления производством, складом, финансами и логистикой.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    areaServed: { '@type': 'Country', name: 'Belarus' },
+    areaServed: { '@type': 'City', name: 'Minsk' },
     url: `${SITE_URL}/services/erp`,
   }
 

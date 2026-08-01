@@ -58,7 +58,7 @@ export default function UIUXPage() {
     name: 'UI/UX дизайн',
     description: 'Профессиональный UI/UX дизайн сайтов и мобильных приложений. Прототипирование, дизайн-системы, юзабилити.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    areaServed: { '@type': 'Country', name: 'Belarus' },
+    areaServed: { '@type': 'City', name: 'Minsk' },
     url: `${SITE_URL}/services/ui-ux`,
   }
 

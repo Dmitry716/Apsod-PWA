@@ -100,7 +100,7 @@ export default function PWADevelopmentPage() {
     name: 'PWA разработка',
     description: 'Разработка прогрессивных веб-приложений: установка на устройство, работа офлайн, push-уведомления.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    areaServed: { '@type': 'Country', name: 'Belarus' },
+    areaServed: { '@type': 'City', name: 'Minsk' },
     url: `${SITE_URL}/services/pwa-development`,
   }
 

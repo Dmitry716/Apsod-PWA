@@ -67,7 +67,7 @@ export default function CRMPage() {
     name: 'CRM системы — разработка и внедрение',
     description: 'Разработка и внедрение CRM для автоматизации продаж и управления клиентами. Битрикс24, AmoCRM, Salesforce.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    areaServed: { '@type': 'Country', name: 'Belarus' },
+    areaServed: { '@type': 'City', name: 'Minsk' },
     url: `${SITE_URL}/services/crm`,
   }
 

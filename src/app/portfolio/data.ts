@@ -30,10 +30,10 @@ export type PortfolioProject = {
 export const PORTFOLIO_PRIORITY_LINKS = [
   'https://ambadetail.by',
   'https://nexton.vip',
-  'https://maxximum.by',
-  'https://dynamovitebsk.by',
-  'https://bmservice.by',
   'https://artdetailing.by',
+  'https://bmservice.by',
+  'https://dynamovitebsk.by',
+  'https://maxximum.by',
 ] as const
 
 function normalizePortfolioLink(link: string): string {

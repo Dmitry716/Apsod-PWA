@@ -106,7 +106,7 @@ export default function PricingPage() {
           Цены на разработку сайтов и digital
         </h1>
         <p className="text-lg text-slate-600 dark:text-slate-300 mb-3 max-w-3xl leading-relaxed">
-          Ориентиры стоимости для бизнеса в Беларуси и России. Точная смета — после короткого брифа.
+          Ориентиры стоимости для бизнеса в Минске. Точная смета — после короткого брифа.
           Цены зависят от объёма дизайна, интеграций и сроков.
         </p>
         <p className="text-sm text-slate-500 dark:text-slate-400 mb-12 max-w-3xl">{DUAL_CURRENCY_NOTE}</p>

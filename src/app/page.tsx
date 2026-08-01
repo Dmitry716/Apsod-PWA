@@ -4,12 +4,10 @@ import { buildSnippetMetadata, generateFAQSchema } from './lib/seo'
 import { HOMEPAGE_FAQ } from './lib/homepage-faq'
 import SeoJsonLd from './components/SeoJsonLd'
 import HomeSeoSection from './components/HomeSeoSection'
-import HomeHeroCopy from './components/HomeHeroCopy'
-import HomeHeroStage from './components/HomeHeroStage'
+import HomeHero from './components/HomeHero'
 import HomeFeaturedWork from './components/HomeFeaturedWork'
 import HomeDeviceShowcase from './components/HomeDeviceShowcase'
 import HomeCapabilityIndex from './components/HomeCapabilityIndex'
-import HomeValueSections from './components/HomeValueSections'
 import VisualMarquee from './components/VisualMarquee'
 import Reveal from './components/Reveal'
 import SectionAtmosphere from './components/SectionAtmosphere'
@@ -21,31 +19,12 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SeoJsonLd data={generateFAQSchema([...HOMEPAGE_FAQ])} />
 
-      {/* Cinematic brand hero — craft first */}
-      <section className="relative min-h-[min(100svh,920px)] flex items-center overflow-hidden bg-slate-950 text-white">
-        <div className="absolute inset-0" aria-hidden>
-          <div
-            className="absolute inset-0 bg-cover bg-center opacity-30 apsod-ken-burns"
-            style={{ backgroundImage: "url('/about/office-team.jpg')" }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/85 to-slate-950" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-slate-950/40" />
-        </div>
-        <SectionAtmosphere tone="dark" />
-
-        <div className="container mx-auto px-4 relative z-10 py-28 md:py-32">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <HomeHeroCopy />
-            <HomeHeroStage />
-          </div>
-        </div>
-      </section>
+      <HomeHero />
 
       <HomeDeviceShowcase />
       <VisualMarquee title="В работе" />
       <HomeFeaturedWork />
       <HomeCapabilityIndex />
-      <HomeValueSections />
 
       <section className="py-20 md:py-28 bg-slate-50 dark:bg-gray-900/40 border-y border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">

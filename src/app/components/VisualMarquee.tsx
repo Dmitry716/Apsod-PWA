@@ -4,13 +4,13 @@ import Link from 'next/link'
 const BAND = [
   {
     src: '/devices/showcase-monitor.png',
-    alt: 'Проект APSOD на Studio Display',
+    alt: 'Проект на Studio Display',
     href: '/portfolio/amba-detail',
   },
   {
-    src: '/devices/showcase-macbook.png',
-    alt: 'Проект APSOD на MacBook',
-    href: '/portfolio/maxximum',
+    src: '/portfolio/amba.png',
+    alt: 'Amba Detail',
+    href: '/portfolio/amba-detail',
   },
   {
     src: '/portfolio/nexton.png',
@@ -23,14 +23,14 @@ const BAND = [
     href: '/portfolio/artdetailing',
   },
   {
-    src: '/portfolio/amba.png',
-    alt: 'Amba Detail',
-    href: '/portfolio/amba-detail',
+    src: '/devices/showcase-iphone.png',
+    alt: 'Проект на iPhone',
+    href: '/portfolio/artdetailing',
   },
   {
-    src: '/devices/showcase-iphone.png',
-    alt: 'Проект APSOD на iPhone',
-    href: '/portfolio/artdetailing',
+    src: '/portfolio/bmservice-cover.jpg',
+    alt: 'BMservice',
+    href: '/portfolio/bmservice',
   },
 ] as const
 
@@ -59,7 +59,7 @@ export default function VisualMarquee({ title = 'В работе' }: { title?: s
                   src={item.src}
                   alt={item.alt}
                   fill
-                  className="object-contain object-center"
+                  className="object-contain object-top"
                   sizes="460px"
                 />
               </div>

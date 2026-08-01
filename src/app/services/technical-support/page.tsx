@@ -54,7 +54,7 @@ export default function TechnicalSupportPage() {
     name: 'Техническая поддержка сайтов',
     description: 'Техподдержка сайтов на современном JavaScript-стеке: React, Next.js, Node.js, MongoDB, PostgreSQL. Обновление контента, мониторинг, резервное копирование и доработки.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    areaServed: { '@type': 'Country', name: 'Belarus' },
+    areaServed: { '@type': 'City', name: 'Minsk' },
     url: `${SITE_URL}/services/technical-support`,
   }
 

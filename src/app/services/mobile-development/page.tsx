@@ -90,7 +90,7 @@ export default function MobileDevelopmentPage() {
     name: 'Разработка мобильных приложений',
     description: 'Разработка нативных и кроссплатформенных мобильных приложений для iOS и Android. React Native, Flutter, Swift, Kotlin.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    areaServed: { '@type': 'Country', name: 'Belarus' },
+    areaServed: { '@type': 'City', name: 'Minsk' },
     url: `${SITE_URL}/services/mobile-development`,
   }
 

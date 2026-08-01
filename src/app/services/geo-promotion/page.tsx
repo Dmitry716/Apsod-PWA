@@ -125,10 +125,7 @@ export default function GeoPromotionPage() {
     description:
       'GEO (Generative Engine Optimization): повышение AI-видимости бренда в ChatGPT, Google AI Overviews, Алисе и других нейросетях. Аудит, факт-матрица, доработка контента, ежемесячный мониторинг.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    areaServed: [
-      { '@type': 'Country', name: 'Belarus' },
-      { '@type': 'Country', name: 'Russia' },
-    ],
+    areaServed: [{ '@type': 'City', name: 'Minsk' }],
     url: `${SITE_URL}/services/geo-promotion`,
   }
 

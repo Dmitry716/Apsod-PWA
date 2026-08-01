@@ -77,10 +77,7 @@ export default function SEOPage() {
     description:
       'SEO продвижение в Яндексе и Google: аудит, семантика, техника, контент.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    areaServed: [
-      { '@type': 'Country', name: 'Belarus' },
-      { '@type': 'Country', name: 'Russia' },
-    ],
+    areaServed: [{ '@type': 'City', name: 'Minsk' }],
     url: `${SITE_URL}/services/seo`,
   }
 

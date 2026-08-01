@@ -64,10 +64,7 @@ export default function WebDevelopmentPage() {
     description:
       'Разработка сайтов, интернет-магазинов и веб-приложений на Next.js, React, Node.js.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    areaServed: [
-      { '@type': 'City', name: 'Minsk' },
-      { '@type': 'Country', name: 'Belarus' },
-    ],
+    areaServed: [{ '@type': 'City', name: 'Minsk' }],
     url: `${SITE_URL}/services/web-development`,
   }
 
