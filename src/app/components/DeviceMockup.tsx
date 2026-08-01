@@ -50,14 +50,14 @@ export default function DeviceMockup({
 
   return (
     <div className={`relative mx-auto w-full max-w-[300px] ${className}`}>
+      {/* Match app-screen assets (2:3) so UI text is never side-cropped */}
       <div
-        className={`relative aspect-[9/19.5] shadow-[0_30px_60px_rgba(0,0,0,0.5)] ${
+        className={`relative aspect-[2/3] shadow-[0_30px_60px_rgba(0,0,0,0.5)] ${
           isIphone
             ? 'rounded-[2.75rem] bg-gradient-to-b from-slate-200 via-slate-300 to-slate-500 p-[10px]'
             : 'rounded-[2.2rem] bg-gradient-to-b from-slate-600 via-slate-800 to-slate-950 p-[9px]'
         }`}
       >
-        {/* Portrait app screens (2:3) cover the tall bezel without letterboxing */}
         <div
           className={`relative h-full w-full overflow-hidden bg-slate-950 ${
             isIphone ? 'rounded-[2.15rem]' : 'rounded-[1.7rem]'
@@ -68,7 +68,7 @@ export default function DeviceMockup({
             alt={screenAlt}
             fill
             priority={priority}
-            className="object-cover object-top"
+            className="object-contain object-top"
             sizes="(max-width: 768px) 70vw, 300px"
           />
 
