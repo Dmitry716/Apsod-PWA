@@ -75,7 +75,7 @@ export default function ServiceLanding({ content }: Props) {
             <div
               className={`apsod-hero-enter apsod-hero-enter-delay-3 w-full ${
                 phoneHero
-                  ? 'max-w-[280px] sm:max-w-[300px] mx-auto lg:mx-0 lg:justify-self-end'
+                  ? 'max-w-[260px] sm:max-w-[280px] mx-auto lg:mx-0 lg:justify-self-end'
                   : 'max-w-2xl mx-auto lg:max-w-none lg:justify-self-stretch'
               }`}
             >
@@ -125,7 +125,7 @@ export default function ServiceLanding({ content }: Props) {
                 <Reveal
                   key={`${screen.src}-${i}`}
                   stagger={(Math.min(i + 1, 3) as 1 | 2 | 3)}
-                  className={isPhone ? 'w-full max-w-[260px]' : 'w-full'}
+                  className={isPhone ? 'w-full max-w-[240px]' : 'w-full'}
                 >
                   <DeviceMockup
                     device={screen.device}

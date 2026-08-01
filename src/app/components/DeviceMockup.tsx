@@ -11,7 +11,7 @@ type Props = {
   screenPosition?: string
 }
 
-/** CSS device chrome + UI screenshot — clean bezel, no floating stand scraps */
+/** CSS device chrome + UI screenshot — aspect matches assets so UI is never cropped */
 export default function DeviceMockup({
   device,
   screenSrc,
@@ -36,7 +36,7 @@ export default function DeviceMockup({
               alt={screenAlt}
               fill
               priority={priority}
-              className="object-cover object-top"
+              className="object-contain object-top"
               style={{ objectPosition: screenPosition }}
               sizes="(max-width: 768px) 92vw, 560px"
             />
@@ -49,18 +49,18 @@ export default function DeviceMockup({
   const isIphone = device === 'iphone'
 
   return (
-    <div className={`relative mx-auto w-full max-w-[300px] ${className}`}>
-      {/* Match app-screen assets (2:3) so UI text is never side-cropped */}
+    <div className={`relative mx-auto w-full max-w-[280px] ${className}`}>
       <div
-        className={`relative aspect-[2/3] shadow-[0_30px_60px_rgba(0,0,0,0.5)] ${
+        className={`shadow-[0_30px_60px_rgba(0,0,0,0.5)] ${
           isIphone
-            ? 'rounded-[2.75rem] bg-gradient-to-b from-slate-200 via-slate-300 to-slate-500 p-[10px]'
-            : 'rounded-[2.2rem] bg-gradient-to-b from-slate-600 via-slate-800 to-slate-950 p-[9px]'
+            ? 'rounded-[2.6rem] bg-gradient-to-b from-slate-200 via-slate-300 to-slate-500 p-[8px]'
+            : 'rounded-[2rem] bg-gradient-to-b from-slate-600 via-slate-800 to-slate-950 p-[7px]'
         }`}
       >
+        {/* Aspect on the screen itself (matches 1024×1536 app-screens) */}
         <div
-          className={`relative h-full w-full overflow-hidden bg-slate-950 ${
-            isIphone ? 'rounded-[2.15rem]' : 'rounded-[1.7rem]'
+          className={`relative aspect-[2/3] overflow-hidden bg-black ${
+            isIphone ? 'rounded-[2.05rem]' : 'rounded-[1.55rem]'
           }`}
         >
           <Image
@@ -68,18 +68,18 @@ export default function DeviceMockup({
             alt={screenAlt}
             fill
             priority={priority}
-            className="object-contain object-top"
-            sizes="(max-width: 768px) 70vw, 300px"
+            className="object-cover object-top"
+            sizes="(max-width: 768px) 70vw, 280px"
           />
 
           {isIphone ? (
             <div
-              className="pointer-events-none absolute left-1/2 top-2 z-20 h-[22px] w-[90px] -translate-x-1/2 rounded-full bg-black"
+              className="pointer-events-none absolute left-1/2 top-[6px] z-20 h-[16px] w-[72px] -translate-x-1/2 rounded-full bg-black/90"
               aria-hidden
             />
           ) : (
             <div
-              className="pointer-events-none absolute left-1/2 top-2.5 z-20 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-slate-900 ring-1 ring-slate-600"
+              className="pointer-events-none absolute left-1/2 top-2 z-20 h-2 w-2 -translate-x-1/2 rounded-full bg-slate-900 ring-1 ring-slate-600"
               aria-hidden
             />
           )}
@@ -88,15 +88,15 @@ export default function DeviceMockup({
 
       {isIphone ? (
         <>
-          <span className="absolute left-[-2px] top-[18%] h-7 w-[2px] rounded-l bg-slate-400" aria-hidden />
-          <span className="absolute left-[-2px] top-[26%] h-12 w-[2px] rounded-l bg-slate-400" aria-hidden />
-          <span className="absolute left-[-2px] top-[36%] h-12 w-[2px] rounded-l bg-slate-400" aria-hidden />
-          <span className="absolute right-[-2px] top-[28%] h-16 w-[2px] rounded-r bg-slate-400" aria-hidden />
+          <span className="absolute left-[-2px] top-[18%] h-6 w-[2px] rounded-l bg-slate-400" aria-hidden />
+          <span className="absolute left-[-2px] top-[26%] h-10 w-[2px] rounded-l bg-slate-400" aria-hidden />
+          <span className="absolute left-[-2px] top-[36%] h-10 w-[2px] rounded-l bg-slate-400" aria-hidden />
+          <span className="absolute right-[-2px] top-[28%] h-14 w-[2px] rounded-r bg-slate-400" aria-hidden />
         </>
       ) : (
         <>
-          <span className="absolute right-[-2px] top-[22%] h-10 w-[2px] rounded-r bg-slate-700" aria-hidden />
-          <span className="absolute right-[-2px] top-[32%] h-14 w-[2px] rounded-r bg-slate-700" aria-hidden />
+          <span className="absolute right-[-2px] top-[22%] h-9 w-[2px] rounded-r bg-slate-700" aria-hidden />
+          <span className="absolute right-[-2px] top-[32%] h-12 w-[2px] rounded-r bg-slate-700" aria-hidden />
         </>
       )}
     </div>

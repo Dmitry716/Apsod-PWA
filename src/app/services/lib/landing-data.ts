@@ -132,8 +132,8 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     ],
     screens: [
       { src: '/portfolio/oak-and-thread.jpg', alt: 'Fashion store', device: 'desktop' },
-      { src: '/portfolio/best-buy.jpg', alt: 'Best Buy', device: 'desktop' },
-      { src: '/portfolio/costco.jpg', alt: 'Costco', device: 'desktop' },
+      { src: '/portfolio/best-buy.jpg', alt: 'Best Buy storefront', device: 'desktop' },
+      { src: '/portfolio/costco.jpg', alt: 'Costco storefront', device: 'desktop' },
     ],
     stack: [
       'Next.js',
@@ -144,7 +144,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       'CRM',
     ],
     processTitle: 'Как запускаем магазин',
-    processSubtitle: 'От ассортимента и сценариев покупки до оплаты и публикация.',
+    processSubtitle: 'От ассортимента и сценариев покупки до оплаты и публикации.',
     process: WEB_DEVELOPMENT_PROCESS,
     cases: [
       {
@@ -238,7 +238,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     primaryCta: { label: 'Начать Discovery', href: '/contact' },
     secondaryCta: { label: 'Все мобильные', href: '/services/mobile-development' },
     heroDevice: 'samsung',
-    heroScreen: { src: '/devices/app-screens/services.png', alt: 'Экран услуг приложения' },
+    heroScreen: { src: '/devices/app-screens/home.png', alt: 'Главный экран приложения' },
     outcomes: [
       {
         title: 'Google Play ready',
@@ -254,8 +254,8 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       },
     ],
     screens: [
-      { src: '/devices/app-screens/services.png', alt: 'Список услуг', device: 'samsung' },
       { src: '/devices/app-screens/home.png', alt: 'Главный экран', device: 'samsung' },
+      { src: '/devices/app-screens/services.png', alt: 'Список услуг', device: 'samsung' },
       { src: '/devices/app-screens/booking.png', alt: 'Запись', device: 'samsung' },
     ],
     stack: ['Kotlin', 'Jetpack Compose', 'React Native', 'TypeScript', 'Firebase', 'Node.js'],

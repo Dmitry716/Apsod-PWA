@@ -22,7 +22,7 @@ const PLATFORMS = [
     body: 'Kotlin, Jetpack Compose и React Native. Google Play и широкий парк устройств — включая Samsung Galaxy S26.',
     href: '/services/android-apps',
     device: 'samsung' as const,
-    screen: '/devices/app-screens/services.png',
+    screen: '/devices/app-screens/home.png',
     cta: 'Android подробнее',
   },
 ]
