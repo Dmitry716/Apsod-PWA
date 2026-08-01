@@ -3,7 +3,14 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { blogPosts } from '../data/posts'
 import SeoJsonLd from '../../components/SeoJsonLd'
-import { buildPageMetadata, generateArticleSchema, generateBreadcrumbSchema } from '../../lib/seo'
+import BlogShare from '../../components/BlogShare'
+import {
+  buildPageMetadata,
+  generateArticleSchema,
+  generateBreadcrumbSchema,
+  SITE_NAME,
+  SITE_URL,
+} from '../../lib/seo'
 import { blogPostSnippet } from '../../lib/page-snippets'
 import { cookies } from 'next/headers'
 import { normalizeLocale, t } from '../../lib/i18n'
@@ -13,9 +20,9 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const post = blogPosts.find(p => p.slug === slug);
-  
+  const { slug } = await params
+  const post = blogPosts.find((p) => p.slug === slug)
+
   if (!post) {
     return {
       title: 'Статья не найдена',
@@ -35,26 +42,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params;
-  const post = blogPosts.find(p => p.slug === slug);
+  const { slug } = await params
+  const post = blogPosts.find((p) => p.slug === slug)
   const cookieStore = await cookies()
   const cookieLang = cookieStore.get('lang')?.value ?? null
   const locale = normalizeLocale(cookieLang)
 
   if (!post) {
-    notFound();
+    notFound()
   }
 
-  // Похожие статьи (из той же категории, исключая текущую)
   const relatedPosts = blogPosts
-    .filter(p => p.categorySlug === post.categorySlug && p.slug !== post.slug)
-    .slice(0, 3);
+    .filter((p) => p.categorySlug === post.categorySlug && p.slug !== post.slug)
+    .slice(0, 3)
+
+  const articleUrl = `${SITE_URL}/blog/${post.slug}`
 
   const articleSchema = generateArticleSchema({
     title: post.title,
     description: post.excerpt,
     slug: post.slug,
-    author: post.author,
+    author: SITE_NAME,
     date: post.date,
     image: post.image,
   })
@@ -65,134 +73,99 @@ export default async function BlogPostPage({ params }: Props) {
   ])
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-white dark:bg-gray-950">
       <SeoJsonLd data={[articleSchema, breadcrumbSchema]} />
-      {/* Хлебные крошки с правильными отступами */}
-      <div className="container mx-auto px-4 pt-24 md:pt-32">
-        <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 overflow-x-auto pb-2">
-          <Link href="/" className="hover:text-blue-600 whitespace-nowrap">{t(locale, 'blog.breadcrumb.home')}</Link>
-          <span className="whitespace-nowrap">/</span>
-          <Link href="/blog" className="hover:text-blue-600 whitespace-nowrap">{t(locale, 'blog.breadcrumb.blog')}</Link>
-          <span className="whitespace-nowrap">/</span>
-          <span className="text-gray-700 dark:text-gray-300 truncate">{post.title}</span>
-        </div>
+
+      <div className="container mx-auto px-4 pt-10 md:pt-12">
+        <nav
+          className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 overflow-x-auto pb-2 mb-10"
+          aria-label="Breadcrumb"
+        >
+          <Link href="/" className="hover:text-slate-900 dark:hover:text-white whitespace-nowrap">
+            {t(locale, 'blog.breadcrumb.home')}
+          </Link>
+          <span aria-hidden>/</span>
+          <Link href="/blog" className="hover:text-slate-900 dark:hover:text-white whitespace-nowrap">
+            {t(locale, 'blog.breadcrumb.blog')}
+          </Link>
+          <span aria-hidden>/</span>
+          <span className="text-slate-700 dark:text-slate-300 truncate">{post.title}</span>
+        </nav>
       </div>
 
-      {/* Статья с правильными отступами для мобильных */}
-      <article className="py-8 md:py-12">
-        <div className="container mx-auto px-4 max-w-4xl">
-          
-          {/* Заголовок и мета-информация */}
-          <div className="mb-6 md:mb-8">
-            <div className="flex flex-wrap items-center gap-2 md:gap-3 mb-4">
-              <span className="px-3 py-1 md:px-4 md:py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-xs md:text-sm font-medium">
-                {post.category}
-              </span>
-              <span className="text-gray-500 dark:text-gray-400 text-xs md:text-sm">•</span>
-              <span className="text-gray-500 dark:text-gray-400 text-xs md:text-sm">{post.date}</span>
-            </div>
-            
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
+      <article className="pb-16 md:pb-24">
+        <div className="container mx-auto px-4 max-w-3xl">
+          <header className="mb-10 md:mb-12">
+            <h1 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-slate-900 dark:text-white tracking-tight leading-[1.2] mb-5">
               {post.title}
             </h1>
-            
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-linear-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-base md:text-xl font-bold shrink-0">
-                  {post.author[0]}
-                </div>
-                <div>
-                  <p className="font-medium text-gray-900 dark:text-white text-sm md:text-base">{post.author}</p>
-                  <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">{post.readTime} мин чтения</p>
-                </div>
-              </div>
-              
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map(tag => (
-                  <span key={tag} className="px-2 py-1 md:px-3 md:py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full text-xs">
-                    #{tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+              {post.date}
+              <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
+              {post.readTime} {locale === 'en' ? 'min read' : 'мин чтения'}
+              <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
+              {post.category}
+            </p>
+          </header>
 
-          {/* Изображение статьи */}
-          <div className="h-48 md:h-64 lg:h-96 rounded-xl md:rounded-2xl mb-6 md:mb-8 overflow-hidden bg-gray-100 dark:bg-gray-800 relative">
+          <div className="relative aspect-[16/9] mb-10 md:mb-12 overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
             <img
               src={post.image}
               alt={post.title}
-              className="w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover"
               loading="eager"
             />
-            <div className="absolute inset-0 bg-linear-to-t from-black/55 via-black/15 to-transparent" />
-            <div className="absolute top-4 left-4">
-              <span className="px-3 py-1 bg-white/90 text-gray-900 rounded-full text-xs md:text-sm font-semibold">
-                {post.category}
-              </span>
-            </div>
           </div>
 
-          {/* Контент статьи с адаптивными размерами текста */}
-          <div 
-            className="prose prose-sm md:prose-base lg:prose-lg dark:prose-invert max-w-none mb-8 md:mb-12 px-2 md:px-0"
-            style={{ 
-              color: 'var(--text-primary)',
-              backgroundColor: 'transparent'
-            }}
+          <div
+            className="prose prose-slate dark:prose-invert max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:text-slate-900 dark:prose-a:text-white prose-a:underline-offset-4 mb-12"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
-          {/* Навигация по статье */}
-          <div className="flex justify-between items-center pt-6 md:pt-8 border-t border-gray-200 dark:border-gray-700">
+          <BlogShare url={articleUrl} title={post.title} locale={locale === 'en' ? 'en' : 'ru'} />
+
+          <div className="mt-10 pt-8 border-t border-slate-200 dark:border-slate-800">
             <Link
               href="/blog"
-              className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium hover:gap-3 transition-all group text-sm md:text-base"
+              className="inline-flex items-center text-sm font-medium text-slate-900 dark:text-white underline-offset-4 hover:underline"
             >
-              <svg className="w-3 h-3 md:w-4 md:h-4 mr-1 md:mr-2 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              {t(locale, 'blog.backToBlog')}
+              ← {t(locale, 'blog.backToBlog')}
             </Link>
           </div>
 
-          {/* Похожие статьи с адаптивной сеткой */}
           {relatedPosts.length > 0 && (
-            <div className="mt-12 md:mt-16">
-              <h2 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6">
+            <section className="mt-16 md:mt-20">
+              <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
                 {t(locale, 'blog.relatedTitle')}
               </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                {relatedPosts.map(related => (
+              <div className="flex flex-wrap -mx-0">
+                {relatedPosts.map((related) => (
                   <Link
                     key={related.slug}
                     href={`/blog/${related.slug}`}
-                    className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all hover:-translate-y-1"
+                    className="group w-full sm:w-1/2 lg:w-1/3 flex flex-col-reverse bg-slate-100 dark:bg-slate-900/80 sm:border-r sm:border-b border-white dark:border-gray-950 last:border-r-0"
                   >
-                    <div className="h-24 sm:h-28 md:h-32 bg-gray-100 dark:bg-gray-700 overflow-hidden relative">
+                    <div className="relative h-36 overflow-hidden bg-slate-200 dark:bg-slate-800">
                       <img
                         src={related.image}
-                        alt={related.title}
+                        alt=""
                         loading="lazy"
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/45 to-transparent pointer-events-none" />
                     </div>
-                    <div className="p-3 md:p-4">
-                      <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors text-sm md:text-base line-clamp-2">
+                    <div className="p-6">
+                      <h3 className="font-display font-bold text-slate-900 dark:text-white tracking-tight leading-snug line-clamp-2 group-hover:underline decoration-1 underline-offset-4">
                         {related.title}
                       </h3>
-                      <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mt-1 md:mt-2">
-                        {related.readTime} мин чтения
-                      </p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-3">{related.date}</p>
                     </div>
                   </Link>
                 ))}
               </div>
-            </div>
+            </section>
           )}
         </div>
       </article>
     </div>
-  );
+  )
 }
