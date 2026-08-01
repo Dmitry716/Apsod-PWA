@@ -31,29 +31,31 @@ export default function ServiceLanding({ content }: Props) {
       <ServiceBreadcrumbs service={content.slug} />
       <SeoJsonLd data={serviceSchema} />
 
-      <section className="relative min-h-[min(92vh,920px)] flex items-center overflow-hidden bg-slate-950 text-white">
+      <section className="relative overflow-hidden bg-slate-950 text-white">
         <SectionAtmosphere tone="dark" grid={false} />
-        <div className="container mx-auto px-4 relative z-10 py-24 md:py-28">
+        <div className="container mx-auto px-4 relative z-10 py-20 md:py-24 lg:py-28">
           <div
-            className={`grid gap-12 lg:gap-16 items-center ${
-              phoneHero ? 'lg:grid-cols-[1.05fr_0.95fr]' : 'lg:grid-cols-2'
+            className={`grid gap-10 lg:gap-14 items-center ${
+              phoneHero ? 'lg:grid-cols-[1fr_auto]' : 'lg:grid-cols-2'
             }`}
           >
-            <div className="max-w-xl">
-              <p className="apsod-hero-enter apsod-hero-enter-delay-1 text-[11px] font-medium tracking-[0.22em] uppercase text-slate-400 mb-5">
+            <div className="max-w-xl lg:max-w-none">
+              <p className="apsod-hero-enter apsod-hero-enter-delay-1 text-[11px] font-medium tracking-[0.22em] uppercase text-slate-400 mb-6">
                 {content.eyebrow}
               </p>
-              <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-bold tracking-tight leading-[1.08] mb-5">
+              <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-bold tracking-tight leading-[1.08] mb-6">
                 {content.title}
               </h1>
-              <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-base md:text-lg text-slate-300 leading-relaxed mb-8 max-w-md">
+              <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-base md:text-lg text-slate-300 leading-relaxed mb-5 max-w-lg">
                 {content.lead}
               </p>
               {content.priceNote ? (
-                <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-sm text-slate-400 mb-8">
+                <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-sm text-slate-400 mb-9 max-w-lg">
                   {content.priceNote}
                 </p>
-              ) : null}
+              ) : (
+                <div className="mb-9" />
+              )}
               <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3">
                 <Link
                   href={content.primaryCta.href}
@@ -71,8 +73,10 @@ export default function ServiceLanding({ content }: Props) {
             </div>
 
             <div
-              className={`apsod-hero-enter apsod-hero-enter-delay-3 ${
-                phoneHero ? 'max-w-[280px] sm:max-w-[320px] mx-auto lg:ml-auto lg:mr-8' : 'w-full max-w-xl mx-auto lg:max-w-none'
+              className={`apsod-hero-enter apsod-hero-enter-delay-3 w-full ${
+                phoneHero
+                  ? 'max-w-[280px] sm:max-w-[300px] mx-auto lg:mx-0 lg:justify-self-end'
+                  : 'max-w-2xl mx-auto lg:max-w-none lg:justify-self-stretch'
               }`}
             >
               <DeviceMockup
