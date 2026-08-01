@@ -138,20 +138,24 @@ export default async function BlogPostPage({ params }: Props) {
               ← {t(locale, 'blog.backToBlog')}
             </Link>
           </div>
+        </div>
 
-          {relatedPosts.length > 0 && (
-            <section className="mt-16 md:mt-20">
-              <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
+        {relatedPosts.length > 0 && (
+          <section className="mt-16 md:mt-20">
+            <div className="container mx-auto px-4 mb-6 md:mb-8">
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
                 {t(locale, 'blog.relatedTitle')}
               </h2>
+            </div>
+            <div className="container mx-auto px-4">
               <div className="flex flex-wrap">
                 {relatedPosts.map((related) => (
                   <Link
                     key={related.slug}
                     href={`/blog/${related.slug}`}
-                    className="group w-full sm:w-1/2 lg:w-1/3 flex flex-col-reverse bg-slate-100 dark:bg-slate-900/80"
+                    className="group w-full md:w-1/3 flex flex-col-reverse bg-slate-100 dark:bg-slate-900/80"
                   >
-                    <div className="relative h-36 overflow-hidden bg-slate-200 dark:bg-slate-800">
+                    <div className="relative min-h-[220px] md:min-h-[260px] overflow-hidden bg-slate-200 dark:bg-slate-800">
                       <img
                         src={related.image}
                         alt=""
@@ -159,18 +163,25 @@ export default async function BlogPostPage({ params }: Props) {
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     </div>
-                    <div className="p-6">
-                      <h3 className="font-display font-bold text-slate-900 dark:text-white tracking-tight leading-snug line-clamp-2 group-hover:underline decoration-1 underline-offset-4">
+                    <div className="p-8 md:p-9 flex flex-col flex-1">
+                      <h3 className="font-display text-xl md:text-[1.35rem] font-bold text-slate-900 dark:text-white tracking-tight leading-snug mb-4 group-hover:underline decoration-1 underline-offset-4">
                         {related.title}
                       </h3>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-3">{related.date}</p>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-3 leading-relaxed mb-6 flex-1">
+                        {related.excerpt}
+                      </p>
+                      <p className="text-sm font-medium text-slate-500 dark:text-slate-400 pt-2">
+                        {related.date}
+                        <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
+                        {related.category}
+                      </p>
                     </div>
                   </Link>
                 ))}
               </div>
-            </section>
-          )}
-        </div>
+            </div>
+          </section>
+        )}
       </article>
     </div>
   )
