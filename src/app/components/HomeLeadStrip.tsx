@@ -54,7 +54,7 @@ export default function HomeLeadStrip() {
         <Reveal className="flex flex-wrap gap-3" stagger={3}>
           <Link
             href="/contact"
-            className="inline-flex px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 rounded-md text-sm font-semibold transition-colors"
+            className="apsod-btn-solid inline-flex px-6 py-3 rounded-md text-sm font-semibold transition-colors"
           >
             Связаться с нами
           </Link>

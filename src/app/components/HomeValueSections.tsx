@@ -74,7 +74,7 @@ export default function HomeValueSections() {
           <Reveal className="mt-12 flex flex-wrap gap-4" stagger={3}>
             <Link
               href="/services"
-              className="px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-md text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
+              className="apsod-btn-solid px-6 py-3 rounded-md text-sm font-semibold transition-colors"
             >
               {locale === 'en' ? 'All services' : 'Все услуги'}
             </Link>

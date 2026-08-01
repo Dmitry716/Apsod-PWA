@@ -32,7 +32,7 @@ export default function HomeHeroCopy() {
       <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3 mb-10">
         <Link
           href="/contact"
-          className="apsod-cta-primary px-7 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-md text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
+          className="apsod-btn-solid apsod-cta-primary px-7 py-3 rounded-md text-sm font-semibold transition-colors"
         >
           <span>{copy.ctaPrimary}</span>
         </Link>

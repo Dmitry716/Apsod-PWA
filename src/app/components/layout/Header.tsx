@@ -72,7 +72,7 @@ export default function Header() {
             })}
             <Link
               href="/contact"
-              className="ml-1 px-4 py-2 rounded-md text-sm font-semibold bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
+              className="apsod-btn-solid ml-1 px-4 py-2 rounded-md text-sm font-semibold transition-colors"
             >
               {locale === 'en' ? 'Contact us' : 'Связаться'}
             </Link>
@@ -115,7 +115,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className="block p-3 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
+                  className="block p-3 text-slate-800 dark:text-slate-100 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
                 >
                   {link.label}
                 </Link>
@@ -123,7 +123,7 @@ export default function Header() {
               <Link
                 href="/contact"
                 onClick={() => setIsMenuOpen(false)}
-                className="block p-3 mt-1 rounded-md bg-slate-900 text-white dark:bg-white dark:text-slate-900 text-center font-semibold"
+                className="apsod-btn-solid block p-3 mt-1 rounded-md text-center font-semibold"
               >
                 {locale === 'en' ? 'Contact us' : 'Связаться'}
               </Link>

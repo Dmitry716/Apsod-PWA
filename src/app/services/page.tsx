@@ -176,17 +176,17 @@ export default function ServicesPage() {
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{group.subtitle}</p>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+              <div className="grid sm:grid-cols-2 gap-4">
                 {group.items.map((item) => (
                   <Link
                     key={item.link}
                     href={item.link}
-                    className="group block bg-white dark:bg-gray-950 p-7 md:p-8 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
+                    className="group block rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-950 p-7 md:p-8 hover:border-slate-400 dark:hover:border-slate-500 transition-colors"
                   >
                     <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">
                       {item.title}
                     </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 leading-relaxed">
+                    <p className="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
                       {item.description}
                     </p>
                     <span className="text-sm font-medium text-slate-900 dark:text-white underline-offset-4 group-hover:underline">
