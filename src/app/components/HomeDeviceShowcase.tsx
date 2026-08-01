@@ -5,8 +5,8 @@ import SectionAtmosphere from './SectionAtmosphere'
 
 const SHOWCASE = [
   {
-    src: '/devices/showcase-monitor.png',
-    alt: 'Интерфейс проекта на Studio Display',
+    src: '/portfolio/amba.png',
+    alt: 'Amba Detail',
     href: '/portfolio/amba-detail',
     className: 'col-span-12 md:col-span-7 aspect-[16/10]',
   },
@@ -17,15 +17,15 @@ const SHOWCASE = [
     className: 'col-span-12 md:col-span-5 aspect-[4/5] md:aspect-auto md:min-h-full',
   },
   {
-    src: '/portfolio/amba.png',
-    alt: 'Amba Detail',
-    href: '/portfolio/amba-detail',
-    className: 'col-span-12 md:col-span-6 aspect-[16/10]',
-  },
-  {
     src: '/portfolio/nexton.png',
     alt: 'NEXTON',
     href: '/portfolio/nexton',
+    className: 'col-span-12 md:col-span-6 aspect-[16/10]',
+  },
+  {
+    src: '/portfolio/artdetailing.png',
+    alt: 'ArtDetailing',
+    href: '/portfolio/artdetailing',
     className: 'col-span-12 md:col-span-6 aspect-[16/10]',
   },
 ] as const

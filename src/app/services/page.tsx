@@ -30,14 +30,32 @@ const GROUPS: {
       {
         title: 'Веб-разработка',
         description:
-          'Корпоративные сайты, лендинги и магазины: исследование, архитектура, разработка и безопасность.',
+          'Корпоративные сайты и лендинги: исследование, архитектура, собственный код и запуск.',
         link: '/services/web-development',
+      },
+      {
+        title: 'Интернет-магазин',
+        description:
+          'Каталог, корзина, оплата, доставка и админка — витрина продаж на уникальном коде.',
+        link: '/services/ecommerce',
       },
       {
         title: 'Мобильные приложения',
         description:
-          'iOS, Android и кроссплатформа: от MVP до публикации и сопровождения после релиза.',
+          'Хабы iOS и Android: от MVP до публикации в App Store и Google Play.',
         link: '/services/mobile-development',
+      },
+      {
+        title: 'Приложения для iOS',
+        description:
+          'Swift / React Native под iPhone 17 Pro Max и экосистему Apple.',
+        link: '/services/ios-apps',
+      },
+      {
+        title: 'Приложения для Android',
+        description:
+          'Kotlin / React Native под Google Play и устройства Samsung-класса.',
+        link: '/services/android-apps',
       },
       {
         title: 'PWA',

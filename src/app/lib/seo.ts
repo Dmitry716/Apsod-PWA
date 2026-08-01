@@ -78,7 +78,10 @@ export const COMPANY_AREA_SERVED = [{ '@type': 'City' as const, name: 'Minsk' }]
 
 export const SERVICE_PATHS = [
   'web-development',
+  'ecommerce',
   'mobile-development',
+  'ios-apps',
+  'android-apps',
   'pwa-development',
   'seo',
   'geo-promotion',
@@ -137,9 +140,12 @@ const DEFAULT_INDEX_ROBOTS = {
 /** Приоритеты страниц услуг в sitemap.xml */
 export const SERVICE_SITEMAP_PRIORITY: Partial<Record<ServicePath, number>> = {
   'web-development': 0.92,
+  ecommerce: 0.915,
   seo: 0.91,
   'geo-promotion': 0.9,
   'mobile-development': 0.89,
+  'ios-apps': 0.885,
+  'android-apps': 0.885,
   'pwa-development': 0.88,
   'technical-support': 0.87,
   'ui-ux': 0.86,
@@ -581,10 +587,25 @@ export const SERVICE_SEO: Record<
     description: serviceSnippet('web-development').description,
     keywords: [...(serviceSnippet('web-development').keywords ?? [])],
   },
+  ecommerce: {
+    title: serviceSnippet('ecommerce').title,
+    description: serviceSnippet('ecommerce').description,
+    keywords: [...(serviceSnippet('ecommerce').keywords ?? [])],
+  },
   'mobile-development': {
     title: serviceSnippet('mobile-development').title,
     description: serviceSnippet('mobile-development').description,
     keywords: [...(serviceSnippet('mobile-development').keywords ?? [])],
+  },
+  'ios-apps': {
+    title: serviceSnippet('ios-apps').title,
+    description: serviceSnippet('ios-apps').description,
+    keywords: [...(serviceSnippet('ios-apps').keywords ?? [])],
+  },
+  'android-apps': {
+    title: serviceSnippet('android-apps').title,
+    description: serviceSnippet('android-apps').description,
+    keywords: [...(serviceSnippet('android-apps').keywords ?? [])],
   },
   'pwa-development': {
     title: serviceSnippet('pwa-development').title,

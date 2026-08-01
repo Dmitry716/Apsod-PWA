@@ -17,9 +17,11 @@ export default function Footer() {
 
   const serviceLinks = [
     { href: "/services/web-development", label: isEn ? "Web development" : "Разработка сайтов" },
+    { href: "/services/ecommerce", label: isEn ? "Online stores" : "Интернет-магазины" },
+    { href: "/services/ios-apps", label: isEn ? "iOS apps" : "Приложения iOS" },
+    { href: "/services/android-apps", label: isEn ? "Android apps" : "Приложения Android" },
     { href: "/services/seo", label: isEn ? "SEO" : "SEO-продвижение" },
     { href: "/services/geo-promotion", label: isEn ? "GEO in AI" : "GEO в нейросетях" },
-    { href: "/services/mobile-development", label: isEn ? "Mobile apps" : "Мобильные приложения" },
     { href: "/services", label: isEn ? "All services" : "Все услуги" },
   ];
 

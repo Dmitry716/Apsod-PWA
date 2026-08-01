@@ -1,29 +1,17 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { useLocale } from '../lib/useLocale'
+import HomeHeroCodeCanvas from './HomeHeroCodeCanvas'
 
-/** Full-bleed craft hero — product frame first, no brand megatype, no sports mockup */
+/** Full-bleed craft hero — live code atmosphere, no client mockups */
 export default function HomeHero() {
   const { locale } = useLocale()
   const isEn = locale === 'en'
 
   return (
     <section className="relative min-h-[min(100svh,900px)] flex items-center overflow-hidden bg-slate-950 text-white">
-      <div className="absolute inset-0" aria-hidden>
-        <Image
-          src="/devices/showcase-monitor.png"
-          alt=""
-          fill
-          priority
-          className="object-cover object-[center_28%] scale-[1.02] apsod-ken-burns"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-slate-950/55" />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/70 to-slate-950/25" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40" />
-      </div>
+      <HomeHeroCodeCanvas />
 
       <div className="container mx-auto px-4 relative z-10 py-28 md:py-32">
         <div className="max-w-xl">

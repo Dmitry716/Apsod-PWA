@@ -329,6 +329,63 @@
   will-change: transform;
 }
 
+/* —— Hero live code canvas —— */
+.apsod-code-hero-grid {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 80% 70% at 70% 45%, black 20%, transparent 75%);
+}
+
+.apsod-code-hero-glow {
+  animation: apsod-code-glow 10s ease-in-out infinite alternate;
+}
+
+@keyframes apsod-code-glow {
+  from {
+    opacity: 0.55;
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.08) translate(-2%, 3%);
+  }
+}
+
+.apsod-code-hero-ghost {
+  animation: apsod-code-drift 28s ease-in-out infinite alternate;
+  transform: rotate(-2deg);
+}
+
+@keyframes apsod-code-drift {
+  from {
+    transform: rotate(-2deg) translateY(0);
+  }
+  to {
+    transform: rotate(-1.2deg) translateY(-18px);
+  }
+}
+
+.apsod-code-hero-panel {
+  animation: apsod-fade-in 1.1s ease both;
+}
+
+.apsod-code-caret {
+  animation: apsod-code-caret 1s steps(1) infinite;
+}
+
+@keyframes apsod-code-caret {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
 .apsod-media-frame {
   position: relative;
   overflow: hidden;
@@ -412,7 +469,10 @@
   .apsod-device-float,
   .apsod-ken-burns,
   .apsod-marquee,
-  .apsod-hero-line {
+  .apsod-hero-line,
+  .apsod-code-hero-glow,
+  .apsod-code-hero-ghost,
+  .apsod-code-caret {
     animation: none !important;
     transition: none !important;
   }

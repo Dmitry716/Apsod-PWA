@@ -2,10 +2,10 @@ import ServiceLanding from '../components/ServiceLanding'
 import { getServiceLanding } from '../lib/landing-data'
 import { buildServiceMetadata } from '../../lib/seo'
 
-export const metadata = buildServiceMetadata('web-development')
+export const metadata = buildServiceMetadata('android-apps')
 
-export default function WebDevelopmentPage() {
-  const content = getServiceLanding('web-development')
+export default function AndroidAppsPage() {
+  const content = getServiceLanding('android-apps')
   if (!content) return null
   return <ServiceLanding content={content} />
 }

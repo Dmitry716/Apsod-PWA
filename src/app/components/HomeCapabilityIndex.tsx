@@ -3,7 +3,7 @@ import Reveal from './Reveal'
 
 const CAPABILITIES = [
   { title: 'Корпоративные сайты', href: '/services/web-development' },
-  { title: 'Интернет-магазины', href: '/services/web-development#packages' },
+  { title: 'Интернет-магазины', href: '/services/ecommerce' },
   { title: 'Мобильные приложения', href: '/services/mobile-development' },
   { title: 'PWA и кабинеты', href: '/services/pwa-development' },
   { title: 'SEO и GEO', href: '/services/seo' },

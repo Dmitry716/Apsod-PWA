@@ -1,257 +1,138 @@
 ﻿import Link from 'next/link'
+import DeviceMockup from '../../components/DeviceMockup'
+import Reveal from '../../components/Reveal'
+import SectionAtmosphere from '../../components/SectionAtmosphere'
 import SeoJsonLd from '../../components/SeoJsonLd'
-import ServiceSemanticBlocks from '../../components/ServiceSemanticBlocks'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
-import DevelopmentProcessSection from '../components/DevelopmentProcessSection'
-import { MOBILE_DEVELOPMENT_PROCESS } from '../lib/development-process'
-import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
+import { COMPANY_AREA_SERVED, SITE_URL, buildServiceMetadata } from '../../lib/seo'
 
 export const metadata = buildServiceMetadata('mobile-development')
 
-export default function MobileDevelopmentPage() {
-  const technologies = [
-    {
-      category: 'Кроссплатформенная разработка',
-      description: 'Одна кодовая база для iOS и Android — быстрый выход на рынок и экономия ресурсов',
-      stacks: [
-        {
-          name: 'React Native',
-          description: 'Фреймворк от Meta для создания нативных мобильных приложений на JavaScript/TypeScript',
-          features: ['Hot Reload', 'Native компоненты', 'Reanimated', 'Hermes engine'],
-          useCases: ['Бизнес-приложения', 'Социальные сети', 'Маркетплейсы', 'Стартапы'],
-          pros: ['Огромное сообщество', 'Быстрая разработка', 'Интеграция с React'],
-          cons: ['Медленнее на сложных анимациях']
-        },
-        {
-          name: 'Flutter',
-          description: 'UI-фреймворк от Google с собственной графической библиотекой для красивого интерфейса',
-          features: ['Hot Reload', 'Material You', 'Cupertino', 'Высокая производительность'],
-          useCases: ['MVP', 'Приложения с кастомным дизайном', 'Финтех'],
-          pros: ['Высокая производительность', 'Единый дизайн', 'Отличная документация'],
-          cons: ['Большой размер приложения']
-        }
-      ]
-    },
-    {
-      category: 'Нативная iOS разработка',
-      description: 'Максимальная производительность и полный доступ к возможностям Apple экосистемы',
-      stacks: [
-        {
-          name: 'Swift',
-          description: 'Современный язык программирования от Apple для создания приложений под iOS, iPadOS, macOS',
-          features: ['Protocol-Oriented', 'Value Types', 'Concurrency', 'SwiftUI'],
-          useCases: ['iOS приложения', 'macOS приложения', 'watchOS приложения'],
-          pros: ['Безопасность типов', 'Высокая производительность', 'Современный синтаксис'],
-          cons: ['Только для Apple платформ']
-        }
-      ]
-    },
-    {
-      category: 'Нативная Android разработка',
-      description: 'Максимальная оптимизация под устройства Android и доступ ко всем функциям системы',
-      stacks: [
-        {
-          name: 'Kotlin',
-          description: 'Современный язык программирования для Android разработки от JetBrains',
-          features: ['Null safety', 'Coroutines', 'Data classes', 'Compose'],
-          useCases: ['Android приложения', 'Google Play', 'Автомобили Android Auto'],
-          pros: ['Лаконичность', 'Безопасность', 'Coroutines'],
-          cons: ['Медленнее Java в некоторых задачах']
-        }
-      ]
-    },
-    {
-      category: 'Бэкенд для мобильных приложений',
-      description: 'Серверная часть для обеспечения работы мобильных приложений',
-      stacks: [
-        {
-          name: 'Firebase',
-          description: 'Платформа Google для быстрого создания бэкенда мобильных приложений',
-          features: ['Realtime Database', 'Authentication', 'Cloud Functions', 'Push'],
-          useCases: ['Стартапы', 'MVP', 'Приложения с real-time'],
-          pros: ['Быстрый старт', 'Масштабирование', 'Множество сервисов'],
-          cons: ['Привязка к Google']
-        },
-        {
-          name: 'Node.js',
-          description: 'Гибкое серверное решение для кастомной логики приложений',
-          features: ['REST API', 'GraphQL', 'WebSockets', 'JWT'],
-          useCases: ['Кастомные решения', 'Микросервисы', 'Real-time приложения'],
-          pros: ['Гибкость', 'JavaScript/TypeScript', 'Огромное сообщество'],
-          cons: ['Требуется разработка']
-        }
-      ]
-    }
-  ]
+const PLATFORMS = [
+  {
+    title: 'iOS',
+    body: 'Swift, SwiftUI и React Native. Продукт под App Store на iPhone 17 Pro Max и всей линейке Apple.',
+    href: '/services/ios-apps',
+    device: 'iphone' as const,
+    screen: '/devices/app-screens/home.png',
+    cta: 'iOS подробнее',
+  },
+  {
+    title: 'Android',
+    body: 'Kotlin, Jetpack Compose и React Native. Google Play и широкий парк устройств — включая Samsung Galaxy S26.',
+    href: '/services/android-apps',
+    device: 'samsung' as const,
+    screen: '/devices/app-screens/services.png',
+    cta: 'Android подробнее',
+  },
+]
 
+export default function MobileDevelopmentPage() {
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: 'Разработка мобильных приложений',
-    description: 'Разработка нативных и кроссплатформенных мобильных приложений для iOS и Android. React Native, Flutter, Swift, Kotlin.',
+    description:
+      'Разработка мобильных приложений iOS и Android в Минске. React Native, Flutter, Swift, Kotlin.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
-    areaServed: { '@type': 'City', name: 'Minsk' },
+    areaServed: COMPANY_AREA_SERVED,
     url: `${SITE_URL}/services/mobile-development`,
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-white dark:bg-gray-950">
       <ServiceBreadcrumbs service="mobile-development" />
       <SeoJsonLd data={serviceSchema} />
-      {/* Hero секция */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-96 h-96 bg-purple-200 dark:bg-purple-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6">
-              Разработка{' '}
-              <span className="bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                мобильных приложений
-              </span>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Создание мобильного приложения iOS и Android — от MVP до публикации в сторах
+      <section className="relative min-h-[min(88vh,820px)] flex items-center overflow-hidden bg-slate-950 text-white">
+        <SectionAtmosphere tone="dark" grid={false} />
+        <div className="container mx-auto px-4 relative z-10 py-24 md:py-28">
+          <div className="max-w-2xl">
+            <p className="apsod-hero-enter apsod-hero-enter-delay-1 text-[11px] font-medium tracking-[0.22em] uppercase text-slate-400 mb-5">
+              Мобильная разработка
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
+            <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-bold tracking-tight leading-[1.08] mb-5">
+              Приложения для iOS и Android
+            </h1>
+            <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-base md:text-lg text-slate-300 leading-relaxed mb-9 max-w-lg">
+              Натив или кроссплатформа — от MVP до релиза в сторах. Выберите платформу или закажите обе.
+            </p>
+            <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3">
+              <Link
+                href="/services/ios-apps"
+                className="apsod-btn-solid apsod-cta-primary px-7 py-3.5 rounded-md text-sm font-semibold"
+              >
+                <span>iOS</span>
+              </Link>
+              <Link
+                href="/services/android-apps"
+                className="px-7 py-3.5 rounded-md text-sm font-semibold border border-white/30 text-white hover:border-white transition-colors"
+              >
+                Android
+              </Link>
               <Link
                 href="/contact"
-                className="px-8 py-4 bg-slate-950 text-white rounded-lg font-semibold hover:bg-slate-800"
+                className="px-7 py-3.5 rounded-md text-sm font-semibold text-slate-300 hover:text-white transition-colors"
               >
-                Обсудить приложение
-              </Link>
-              <Link
-                href="/portfolio"
-                className="px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-white rounded-lg font-semibold border-2 border-gray-200 dark:border-gray-700 hover:border-blue-600 hover:text-blue-600 transition-all"
-              >
-                Наши работы
+                Начать проект →
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <ServiceSemanticBlocks service="mobile-development" />
+      <section className="py-16 md:py-24 border-b border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="mb-12 md:mb-16">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+              Платформы
+            </h2>
+          </Reveal>
 
-      <DevelopmentProcessSection
-        title="Как мы создаём мобильные приложения"
-        subtitle="Профессиональный процесс разработки: анализ, экспертиза, проектирование, дизайн, Agile, QA, релиз в сторах и post-launch поддержка"
-        phases={MOBILE_DEVELOPMENT_PROCESS}
-      />
-
-      {/* Технологические стеки */}
-      {technologies.map((category, idx) => (
-        <section key={idx} className="py-16 even:bg-white dark:even:bg-gray-800">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-                {category.category}
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                {category.description}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {category.stacks.map((stack, stackIdx) => (
-                <div
-                  key={stackIdx}
-                  className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-colors overflow-hidden border border-gray-100 dark:border-gray-700"
-                >
-                  <div className="p-6">
-                    <div className="flex items-start gap-4 mb-4">
-                      <div className="font-display text-xs text-slate-400 tabular-nums mt-1 shrink-0">
-                        {String(stackIdx + 1).padStart(2, '0')}
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
-                          {stack.name}
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-300 text-sm">
-                          {stack.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Ключевые возможности:
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {stack.features.map((feature, i) => (
-                          <span key={i} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded-full text-gray-600 dark:text-gray-300">
-                            {feature}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Для чего используем:
-                      </h4>
-                      <div className="flex flex-wrap gap-2">
-                        {stack.useCases.map((useCase, i) => (
-                          <span key={i} className="px-2 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-xs rounded-full">
-                            {useCase}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Плюсы:
-                      </h4>
-                      <ul className="text-sm text-gray-600 dark:text-gray-300 list-disc list-inside space-y-1">
-                        {stack.pros.map((pro, i) => (
-                          <li key={i}>{pro}</li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="mb-4">
-                      <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Минусы:
-                      </h4>
-                      <ul className="text-sm text-gray-600 dark:text-gray-300 list-disc list-inside space-y-1">
-                        {stack.cons.map((con, i) => (
-                          <li key={i}>{con}</li>
-                        ))}
-                      </ul>
-                    </div>
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
+            {PLATFORMS.map((item, index) => (
+              <Reveal key={item.href} stagger={(Math.min(index + 1, 2) as 1 | 2)}>
+                <Link href={item.href} className="group grid sm:grid-cols-[200px_1fr] gap-8 items-center">
+                  <div className="max-w-[180px] mx-auto sm:mx-0">
+                    <DeviceMockup device={item.device} screenSrc={item.screen} screenAlt={item.title} />
                   </div>
-                </div>
-              ))}
-            </div>
+                  <div>
+                    <h3 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-3 group-hover:translate-x-1 transition-transform duration-500">
+                      {item.title}
+                    </h3>
+                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-5">{item.body}</p>
+                    <span className="inline-flex items-center gap-2 text-sm font-medium text-slate-900 dark:text-white">
+                      {item.cta}
+                      <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-1">
+                        →
+                      </span>
+                    </span>
+                  </div>
+                </Link>
+              </Reveal>
+            ))}
           </div>
-        </section>
-      ))}
-
-      {/* CTA */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
-            Обсудим мобильный продукт
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            Краткий бриф — предложение по стеку, этапам и зоне ответственности
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-semibold text-lg hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
-          >
-            Запросить консультацию
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </Link>
         </div>
       </section>
-          <ServiceFaqBlock service="mobile-development" />
-</div>
+
+      <ServiceFaqBlock service="mobile-development" />
+
+      <section className="relative py-20 md:py-28 overflow-hidden bg-slate-950 text-white">
+        <SectionAtmosphere tone="dark" grid={false} />
+        <div className="container mx-auto px-4 relative z-10 text-center max-w-2xl">
+          <Reveal>
+            <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight mb-8">
+              Обсудим приложение
+            </h2>
+            <Link
+              href="/contact"
+              className="apsod-btn-solid apsod-cta-primary inline-flex px-10 py-4 rounded-md text-sm font-semibold"
+            >
+              <span>Начать Discovery</span>
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+    </div>
   )
 }

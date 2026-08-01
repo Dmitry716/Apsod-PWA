@@ -3,11 +3,6 @@ import Link from 'next/link'
 
 const BAND = [
   {
-    src: '/devices/showcase-monitor.png',
-    alt: 'Проект на Studio Display',
-    href: '/portfolio/amba-detail',
-  },
-  {
     src: '/portfolio/amba.png',
     alt: 'Amba Detail',
     href: '/portfolio/amba-detail',
