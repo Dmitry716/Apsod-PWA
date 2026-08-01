@@ -73,49 +73,55 @@ export default async function BlogPostPage({ params }: Props) {
   ])
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-white dark:bg-gray-950 overflow-x-hidden">
       <SeoJsonLd data={[articleSchema, breadcrumbSchema]} />
 
-      <div className="container mx-auto px-4 pt-10 md:pt-12">
-        <nav
-          className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 overflow-x-auto pb-2 mb-10"
-          aria-label="Breadcrumb"
-        >
-          <Link href="/" className="hover:text-slate-900 dark:hover:text-white whitespace-nowrap">
-            {t(locale, 'blog.breadcrumb.home')}
-          </Link>
-          <span aria-hidden>/</span>
-          <Link href="/blog" className="hover:text-slate-900 dark:hover:text-white whitespace-nowrap">
-            {t(locale, 'blog.breadcrumb.blog')}
-          </Link>
-          <span aria-hidden>/</span>
-          <span className="text-slate-700 dark:text-slate-300 truncate">{post.title}</span>
-        </nav>
-      </div>
-
       <article className="pb-16 md:pb-24">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <div className="mb-10 md:mb-12">
-            <h1 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-slate-900 dark:text-white tracking-tight leading-[1.2] mb-5">
+        {/* Full-bleed hero — на всю ширину, текст по центру как у Itransition */}
+        <section className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen -mt-16 md:-mt-20 min-h-[420px] md:min-h-[520px] lg:min-h-[580px] flex items-center justify-center overflow-hidden bg-slate-950">
+          <img
+            src={post.image}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+            loading="eager"
+          />
+          <div
+            className="absolute inset-0 bg-slate-950/55"
+            aria-hidden
+          />
+          <div className="relative z-10 w-full max-w-4xl mx-auto px-6 pt-24 md:pt-28 pb-16 md:pb-20 text-center">
+            <h1 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold text-white tracking-tight leading-[1.15] text-balance">
               {post.title}
             </h1>
-            <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+            <p className="mt-6 md:mt-8 text-sm md:text-base font-medium text-white/85">
               {post.date}
-              <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
-              {post.readTime} {locale === 'en' ? 'min read' : 'мин чтения'}
-              <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
-              {post.category}
             </p>
           </div>
+        </section>
 
-          <div className="relative aspect-[16/9] mb-10 md:mb-12 overflow-hidden bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
-            <img
-              src={post.image}
-              alt={post.title}
-              className="absolute inset-0 w-full h-full object-cover"
-              loading="eager"
-            />
-          </div>
+        <div className="container mx-auto px-4 pt-6 md:pt-8">
+          <nav
+            className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 overflow-x-auto pb-2 mb-10 md:mb-12"
+            aria-label="Breadcrumb"
+          >
+            <Link href="/" className="hover:text-slate-900 dark:hover:text-white whitespace-nowrap">
+              {t(locale, 'blog.breadcrumb.home')}
+            </Link>
+            <span aria-hidden>/</span>
+            <Link href="/blog" className="hover:text-slate-900 dark:hover:text-white whitespace-nowrap">
+              {t(locale, 'blog.breadcrumb.blog')}
+            </Link>
+            <span aria-hidden>/</span>
+            <span className="text-slate-700 dark:text-slate-300 truncate">{post.title}</span>
+          </nav>
+        </div>
+
+        <div className="container mx-auto px-4 max-w-3xl">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-8">
+            {post.readTime} {locale === 'en' ? 'min read' : 'мин чтения'}
+            <span className="mx-2 text-slate-300 dark:text-slate-600">·</span>
+            {post.category}
+          </p>
 
           <div
             className="prose prose-slate dark:prose-invert max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:text-slate-900 dark:prose-a:text-white prose-a:underline-offset-4 mb-12"
@@ -138,12 +144,12 @@ export default async function BlogPostPage({ params }: Props) {
               <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
                 {t(locale, 'blog.relatedTitle')}
               </h2>
-              <div className="flex flex-wrap -mx-0">
+              <div className="flex flex-wrap">
                 {relatedPosts.map((related) => (
                   <Link
                     key={related.slug}
                     href={`/blog/${related.slug}`}
-                    className="group w-full sm:w-1/2 lg:w-1/3 flex flex-col-reverse bg-slate-100 dark:bg-slate-900/80 sm:border-r sm:border-b border-white dark:border-gray-950 last:border-r-0"
+                    className="group w-full sm:w-1/2 lg:w-1/3 flex flex-col-reverse bg-slate-100 dark:bg-slate-900/80"
                   >
                     <div className="relative h-36 overflow-hidden bg-slate-200 dark:bg-slate-800">
                       <img
