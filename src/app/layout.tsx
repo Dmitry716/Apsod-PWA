@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Source_Sans_3, Manrope } from "next/font/google";
 import { cookies } from "next/headers";
 import { Providers } from "./providers";
 import Header from "./components/layout/Header";
@@ -28,7 +28,10 @@ import "./globals.css";
 import "./hero-animations.css";
 import "./premium-motion.css";
 
-const inter = Inter({ subsets: ["latin", "cyrillic"], variable: "--font-sans" });
+const sourceSans = Source_Sans_3({
+  subsets: ["latin", "cyrillic"],
+  variable: "--font-sans",
+});
 const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
   variable: "--font-display",
@@ -123,8 +126,8 @@ export default async function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#2563eb" />
-        <meta name="msapplication-TileColor" content="#2563eb" />
+        <meta name="theme-color" content="#0f172a" />
+        <meta name="msapplication-TileColor" content="#0f172a" />
         <meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
         <meta name="author" content={SITE_NAME} />
         <meta name="geo.region" content="BY-HM" />
@@ -140,14 +143,14 @@ export default async function RootLayout({
           ])}
         />
       </head>
-      <body className={`${inter.variable} ${manrope.variable} ${inter.className}`}>
+      <body className={`${sourceSans.variable} ${manrope.variable} ${sourceSans.className}`}>
         <GoogleAnalytics />
         <YandexMetrika />
         <Providers>
           <Header />
           <PushPermissionBanner />
           <CookieConsent />
-          <main className="pt-20 md:pt-24 min-h-screen">{children}</main>
+          <main className="pt-16 md:pt-20 min-h-screen">{children}</main>
           <Footer />
           <ChatWidget />
         </Providers>

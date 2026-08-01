@@ -88,91 +88,117 @@ export default function PricingPage() {
   ]
 
   return (
-    <div className="container mx-auto px-4 py-16 max-w-5xl">
+    <div className="min-h-screen bg-white dark:bg-gray-950">
       <SeoJsonLd data={schemas} />
-      <PageBreadcrumbs
-        items={[
-          { name: 'Главная', path: '/' },
-          { name: 'Цены', path: '/pricing' },
-        ]}
-        className="text-sm text-gray-500 mb-8"
-      />
+      <div className="container mx-auto px-4 pt-10 pb-20 max-w-5xl">
+        <PageBreadcrumbs
+          items={[
+            { name: 'Главная', path: '/' },
+            { name: 'Цены', path: '/pricing' },
+          ]}
+          className="text-sm text-slate-500 mb-8"
+        />
 
-      <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        Цены на разработку сайтов и digital
-      </h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-3 max-w-3xl">
-        Ориентиры стоимости для бизнеса в Беларуси и России. Точная смета — после короткого брифа.
-        Цены не фиксированы жёстко: зависят от объёма дизайна, интеграций и сроков.
-      </p>
-      <p className="text-sm text-gray-500 dark:text-gray-400 mb-10 max-w-3xl">{DUAL_CURRENCY_NOTE}</p>
+        <p className="text-xs font-medium tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400 mb-4">
+          Пакеты и условия
+        </p>
+        <h1 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+          Цены на разработку сайтов и digital
+        </h1>
+        <p className="text-lg text-slate-600 dark:text-slate-300 mb-3 max-w-3xl leading-relaxed">
+          Ориентиры стоимости для бизнеса в Беларуси и России. Точная смета — после короткого брифа.
+          Цены зависят от объёма дизайна, интеграций и сроков.
+        </p>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-12 max-w-3xl">{DUAL_CURRENCY_NOTE}</p>
 
-      <div className="grid md:grid-cols-3 gap-6 mb-14">
-        {PACKAGES.map((pkg) => (
-          <div
-            key={pkg.title}
-            className={`rounded-2xl border p-6 bg-white dark:bg-gray-800 ${
-              pkg.highlight
-                ? 'border-blue-500 ring-1 ring-blue-500/30'
-                : 'border-gray-200 dark:border-gray-700'
-            }`}
-          >
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-              {pkg.title}
-            </h2>
-            <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">{pkg.byn}</p>
-            <p className="text-sm text-gray-500 mb-1">{pkg.rub}</p>
-            <p className="text-sm text-gray-500 mb-4">Срок: {pkg.term}</p>
-            <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300 mb-6">
-              {pkg.items.map((item) => (
-                <li key={item}>• {item}</li>
-              ))}
-            </ul>
-            <Link
-              href={`/contact?goal=${pkg.goal}&budget=${pkg.budget}`}
-              className="inline-block w-full text-center px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium"
+        <div className="grid md:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden mb-16">
+          {PACKAGES.map((pkg) => (
+            <div
+              key={pkg.title}
+              className={`bg-white dark:bg-gray-950 p-7 flex flex-col ${
+                pkg.highlight ? 'ring-1 ring-inset ring-slate-900 dark:ring-white' : ''
+              }`}
             >
-              Получить смету
+              {pkg.highlight ? (
+                <p className="text-[11px] font-medium tracking-[0.14em] uppercase text-slate-500 dark:text-slate-400 mb-3">
+                  Часто выбирают
+                </p>
+              ) : (
+                <div className="h-5 mb-3" aria-hidden />
+              )}
+              <h2 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                {pkg.title}
+              </h2>
+              <p className="font-display text-2xl font-bold text-slate-900 dark:text-white">{pkg.byn}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{pkg.rub}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Срок: {pkg.term}</p>
+              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300 mb-8 flex-1">
+                {pkg.items.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="h-px w-3 bg-slate-400 shrink-0 mt-2.5" aria-hidden />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href={`/contact?goal=${pkg.goal}&budget=${pkg.budget}`}
+                className="apsod-btn-solid inline-flex justify-center w-full px-4 py-2.5 rounded-md text-sm font-semibold transition-colors"
+              >
+                Получить смету
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
+          Другие услуги
+        </h2>
+        <div className="grid sm:grid-cols-2 gap-4 mb-14">
+          {EXTRA.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="p-6 border border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 bg-white dark:bg-gray-950 transition-colors"
+            >
+              <h3 className="font-display font-semibold text-slate-900 dark:text-white mb-2 tracking-tight">
+                {item.title}
+              </h3>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{item.desc}</p>
             </Link>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
 
-      <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-        Другие услуги
-      </h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-        {EXTRA.map((item) => (
+        <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+          Как формируется цена
+        </h2>
+        <ul className="space-y-3 text-slate-600 dark:text-slate-300 mb-14 max-w-2xl">
+          {[
+            'Бриф: цель, аудитория, география',
+            'Оценка объёма: дизайн, страницы, интеграции',
+            'Смета в белорусских и российских рублях и сроки в коммерческом предложении',
+            'Договор, этапы оплаты, запуск',
+          ].map((line) => (
+            <li key={line} className="flex gap-3 text-sm md:text-base">
+              <span className="h-px w-4 bg-slate-400 shrink-0 mt-3" aria-hidden />
+              {line}
+            </li>
+          ))}
+        </ul>
+
+        <div className="border-t border-slate-200 dark:border-slate-800 pt-12">
+          <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+            Нужна смета под ваш проект?
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 mb-6 max-w-xl leading-relaxed">
+            Ответим в течение рабочего дня — обычно быстрее.
+          </p>
           <Link
-            key={item.href}
-            href={item.href}
-            className="p-5 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-blue-500 bg-white dark:bg-gray-800"
+            href="/contact"
+            className="apsod-btn-solid inline-flex px-6 py-3 rounded-md text-sm font-semibold transition-colors"
           >
-            <h3 className="font-semibold text-gray-900 dark:text-white mb-2">{item.title}</h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">{item.desc}</p>
+            Оставить заявку
           </Link>
-        ))}
-      </div>
-
-      <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-        Как формируется цена
-      </h2>
-      <ul className="list-disc pl-5 space-y-2 text-gray-600 dark:text-gray-300 mb-10">
-        <li>Бриф: цель, аудитория, география</li>
-        <li>Оценка объёма: дизайн, страницы, интеграции</li>
-        <li>Смета в белорусских и российских рублях и сроки в коммерческом предложении</li>
-        <li>Договор, этапы оплаты, запуск</li>
-      </ul>
-
-      <div className="rounded-2xl bg-blue-600 text-white p-8 text-center">
-        <h2 className="text-2xl font-bold mb-3">Нужна смета под ваш проект?</h2>
-        <p className="mb-6 text-blue-100">Ответим в течение рабочего дня — обычно быстрее.</p>
-        <Link
-          href="/contact"
-          className="inline-block px-6 py-3 bg-white text-blue-700 rounded-lg font-semibold hover:bg-blue-50"
-        >
-          Оставить заявку
-        </Link>
+        </div>
       </div>
     </div>
   )

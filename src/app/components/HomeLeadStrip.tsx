@@ -26,7 +26,7 @@ export default function HomeLeadStrip() {
       <div className="container mx-auto px-4">
         <Reveal className="max-w-2xl mb-10">
           <p className="text-xs font-medium tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400 mb-3">
-            Next step
+            Следующий шаг
           </p>
           <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
             С чего начнём

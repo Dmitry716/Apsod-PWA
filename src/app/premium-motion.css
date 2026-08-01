@@ -136,8 +136,8 @@
   overflow: hidden;
   isolation: isolate;
   transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .apsod-cta-primary::before {
@@ -146,19 +146,23 @@
   inset: 0;
   background: linear-gradient(
     110deg,
-    transparent 25%,
-    rgba(255, 255, 255, 0.28) 45%,
-    transparent 65%
+    transparent 30%,
+    rgba(255, 255, 255, 0.12) 48%,
+    transparent 66%
   );
   background-size: 200% 100%;
-  animation: apsod-shimmer 3.2s ease-in-out infinite;
+  animation: apsod-shimmer 4.5s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
 }
 
 .apsod-cta-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+}
+
+.dark .apsod-cta-primary:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
 }
 
 .apsod-cta-primary > * {
@@ -168,22 +172,17 @@
 
 .apsod-card-lift {
   transition:
-    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.35s ease,
-    border-color 0.35s ease;
+    border-color 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .apsod-card-lift:hover {
-  transform: translateY(-6px);
-  box-shadow:
-    0 18px 40px rgba(15, 23, 42, 0.12),
-    0 0 0 1px rgba(37, 99, 235, 0.2);
+  transform: none;
+  box-shadow: none;
 }
 
 .dark .apsod-card-lift:hover {
-  box-shadow:
-    0 18px 40px rgba(0, 0, 0, 0.45),
-    0 0 0 1px rgba(96, 165, 250, 0.35);
+  box-shadow: none;
 }
 
 .apsod-stat-card {
@@ -289,9 +288,9 @@
 }
 
 .apsod-line-draw {
-  height: 2px;
+  height: 1px;
   width: 0;
-  background: linear-gradient(90deg, #2563eb, #6366f1);
+  background: #94a3b8;
   transition: width 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
 }
 

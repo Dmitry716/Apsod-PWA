@@ -102,7 +102,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mb-10">
             <p className="text-xs font-medium tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400 mb-4">
-              Company
+              Компания
             </p>
             <h1 className="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight leading-tight">
               Software engineering компания в Минске
@@ -113,7 +113,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="relative w-full max-w-5xl overflow-hidden rounded-xl aspect-[16/9] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 mb-12">
+          <div className="relative w-full max-w-5xl overflow-hidden aspect-[16/9] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 mb-12">
             <Image
               src="/about/office-team.jpg"
               alt="Офис APSOD: рабочие места с мониторами и техникой"
@@ -196,7 +196,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mb-10">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
-              Industries
+              Отрасли
             </h2>
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
               Отрасли, в которых мы запускаем и сопровождаем digital-продукты
@@ -262,7 +262,7 @@ export default function AboutPage() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/contact"
-                className="inline-flex px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-md text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
+                className="apsod-btn-solid inline-flex px-6 py-3 rounded-md text-sm font-semibold transition-colors"
               >
                 Связаться с нами
               </Link>

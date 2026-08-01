@@ -43,11 +43,11 @@ export default function Footer() {
       className="relative overflow-hidden bg-slate-950 text-white"
     >
       <div
-        className="pointer-events-none absolute inset-0 opacity-40"
+        className="pointer-events-none absolute inset-0 opacity-30"
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(ellipse 60% 50% at 10% 0%, rgba(37,99,235,0.25), transparent), radial-gradient(ellipse 50% 40% at 90% 100%, rgba(8,145,178,0.15), transparent)",
+            "radial-gradient(ellipse 50% 40% at 0% 0%, rgba(30,64,175,0.18), transparent)",
         }}
       />
 
@@ -57,10 +57,10 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-4 space-y-5">
             <Link
               href="/"
-              className="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 rounded"
+              className="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 rounded"
               aria-label="APSOD — на главную"
             >
-              <span className="text-2xl font-bold tracking-tight text-white">APSOD</span>
+              <span className="font-display text-2xl font-bold tracking-tight text-white">APSOD</span>
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
               {isEn

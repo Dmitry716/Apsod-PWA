@@ -23,13 +23,18 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-gray-900">
       <SeoJsonLd data={generateFAQSchema([...HOMEPAGE_FAQ])} />
 
-      <section className="hero-section relative pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden bg-white dark:bg-gray-950">
+      <section className="hero-section relative pt-28 md:pt-36 pb-16 md:pb-24 overflow-hidden bg-slate-50 dark:bg-gray-950">
         <div className="absolute inset-0 z-0 pointer-events-none" aria-hidden>
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(37,99,235,0.06),transparent)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(59,130,246,0.08),transparent)]" />
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-[0.07] dark:opacity-[0.12]"
+            style={{ backgroundImage: "url('/about/office-team.jpg')" }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-50/90 via-slate-50/95 to-slate-50 dark:from-gray-950/90 dark:via-gray-950/95 dark:to-gray-950" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_70%_0%,rgba(30,64,175,0.05),transparent)] dark:bg-[radial-gradient(ellipse_70%_45%_at_70%_0%,rgba(59,130,246,0.06),transparent)]" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-16 items-start">
             <HomeHeroCopy />
             <HomeGlobalDelivery />
           </div>
@@ -58,7 +63,7 @@ export default function Home() {
                   href={service.link}
                   className="group block h-full bg-white dark:bg-gray-950 p-8 md:p-10 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors max-md:p-6"
                 >
-                  <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">
+                  <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-slate-600 dark:text-slate-300 mb-4 leading-relaxed max-md:text-sm">
@@ -132,9 +137,9 @@ export default function Home() {
                   </div>
                   <div className="p-7 max-md:p-5">
                     <p className="text-xs font-medium tracking-[0.14em] uppercase text-slate-500 dark:text-slate-400 mb-3">
-                      Case study · {project.category}
+                      Кейс · {project.category}
                     </p>
-                    <h3 className="font-display text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">
+                    <h3 className="font-display text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
                       {project.title}
                     </h3>
                     <p className="text-slate-600 dark:text-slate-300 mb-4 text-sm md:text-base leading-relaxed">
@@ -164,11 +169,11 @@ export default function Home() {
             </p>
           </Reveal>
 
-          <Reveal className="flex flex-wrap gap-x-8 gap-y-4 mb-10" stagger={2}>
+          <Reveal className="flex flex-wrap gap-x-10 gap-y-5 mb-10" stagger={2}>
             {['Amba Detail', 'NEXTON', 'Maxximum', 'Динамо-Витебск', 'BMservice', 'ArtDetailing'].map((name) => (
               <span
                 key={name}
-                className="text-sm font-medium text-slate-700 dark:text-slate-300"
+                className="font-display text-base md:text-lg font-semibold tracking-tight text-slate-800 dark:text-slate-200"
               >
                 {name}
               </span>
@@ -190,36 +195,22 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <Reveal className="flex justify-between items-end mb-12 max-md:flex-col max-md:items-start max-md:gap-4">
             <div>
-              <h2 className="font-display text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 max-md:text-3xl tracking-tight">
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
                 Блог
               </h2>
-              <div className="apsod-line-draw mb-4" />
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-md:text-base">
+              <p className="text-lg text-slate-600 dark:text-slate-300 max-md:text-base">
                 Материалы о разработке и продвижении
               </p>
             </div>
             <Link
               href="/blog"
-              className="hidden md:flex items-center text-blue-600 dark:text-blue-400 font-medium hover:gap-3 transition-all"
+              className="hidden md:inline-flex text-sm font-medium text-slate-900 dark:text-white underline-offset-4 hover:underline"
             >
-              Все статьи
-              <svg
-                className="w-4 h-4 ml-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
+              Все статьи →
             </Link>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden">
             {blogPosts.slice(0, 3).map((post, index) => (
               <Reveal
                 key={post.slug}
@@ -227,24 +218,24 @@ export default function Home() {
               >
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="apsod-card-lift group block h-full rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden bg-white dark:bg-gray-800"
+                  className="group block h-full bg-white dark:bg-gray-950 hover:bg-slate-50 dark:hover:bg-slate-900/60 transition-colors"
                 >
-                  <div className="h-40 overflow-hidden">
+                  <div className="h-40 overflow-hidden bg-slate-100 dark:bg-slate-900">
                     <img
                       src={post.image}
                       alt={post.title}
                       loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="p-5">
-                    <p className="text-xs text-slate-500 mb-2">
+                  <div className="p-6">
+                    <p className="text-xs tracking-wide uppercase text-slate-500 dark:text-slate-400 mb-2">
                       {post.category} · {post.date}
                     </p>
-                    <h3 className="font-display font-bold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors line-clamp-2 mb-2">
+                    <h3 className="font-display font-bold text-slate-900 dark:text-white group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors line-clamp-2 mb-2 tracking-tight">
                       {post.title}
                     </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
+                    <p className="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed">
                       {post.excerpt}
                     </p>
                   </div>
@@ -269,7 +260,7 @@ export default function Home() {
             </p>
             <Link
               href="/contact"
-              className="apsod-cta-primary inline-flex px-7 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-100 rounded-md text-sm font-semibold transition-colors"
+              className="apsod-btn-solid apsod-cta-primary inline-flex px-7 py-3 rounded-md text-sm font-semibold transition-colors"
             >
               <span>Связаться с нами</span>
             </Link>

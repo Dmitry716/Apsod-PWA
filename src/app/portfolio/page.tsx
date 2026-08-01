@@ -124,7 +124,7 @@ export default function PortfolioPage() {
   }, [activeFilter, activeIndustry, industryOrder, sortedProjects])
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-white dark:bg-gray-950">
       <PageBreadcrumbs
         items={[
           { name: 'Главная', path: '/' },
@@ -132,116 +132,97 @@ export default function PortfolioPage() {
         ]}
       />
 
-      {/* Hero секция */}
-      <section className="relative pt-16 pb-16 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-          <div className="absolute top-40 right-10 w-96 h-96 bg-cyan-200 dark:bg-cyan-900/20 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="font-display text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 tracking-tight">
+      <section className="relative pt-10 pb-12">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl">
+            <p className="text-xs font-medium tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400 mb-4">
+              Кейсы
+            </p>
+            <h1 className="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
               {t(locale, 'portfolio.title')}
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl leading-relaxed">
               {t(locale, 'portfolio.subtitle')}
             </p>
-            
-            {/* Фильтры */}
-            <div className="flex flex-wrap gap-3 justify-center">
+
+            <div className="flex flex-wrap gap-2 mb-4">
+              {(
+                [
+                  { key: 'all', label: t(locale, 'portfolio.filters.all') },
+                  { key: 'web', label: t(locale, 'portfolio.filters.web') },
+                  { key: 'mobile', label: t(locale, 'portfolio.filters.mobile') },
+                ] as const
+              ).map((f) => (
+                <button
+                  key={f.key}
+                  type="button"
+                  onClick={() => handleFilterChange(f.key)}
+                  className={`px-4 py-2 rounded-md transition-colors text-sm border ${
+                    activeFilter === f.key
+                      ? 'apsod-btn-solid border-transparent'
+                      : 'bg-transparent text-slate-700 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500'
+                  }`}
+                >
+                  {f.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-2 mb-4">
               <button
-                onClick={() => handleFilterChange('all')}
-                className={`px-5 py-2 rounded-md transition-colors text-sm ${
-                  activeFilter === 'all'
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-slate-200 dark:border-slate-700 hover:border-slate-400'
+                type="button"
+                onClick={() => handleIndustryChange('all')}
+                className={`px-3 py-1.5 rounded-md transition-colors text-xs border ${
+                  activeIndustry === 'all'
+                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 border-transparent'
+                    : 'bg-transparent text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-400'
                 }`}
               >
-                {t(locale, 'portfolio.filters.all')}
+                {t(locale, 'portfolio.filters.industriesAll')}
               </button>
+              {industryOrder.map((industry) => (
+                <button
+                  key={industry}
+                  type="button"
+                  onClick={() => handleIndustryChange(industry)}
+                  className={`px-3 py-1.5 rounded-md transition-colors text-xs border ${
+                    activeIndustry === industry
+                      ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 border-transparent'
+                      : 'bg-transparent text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-400'
+                  }`}
+                >
+                  {industryLabel(industry)}
+                </button>
+              ))}
               <button
-                onClick={() => handleFilterChange('web')}
-                className={`px-5 py-2 rounded-md transition-colors text-sm ${
-                  activeFilter === 'web'
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-slate-200 dark:border-slate-700 hover:border-slate-400'
+                type="button"
+                onClick={() => handleIndustryChange(OTHER_INDUSTRY_KEY)}
+                className={`px-3 py-1.5 rounded-md transition-colors text-xs border ${
+                  activeIndustry === OTHER_INDUSTRY_KEY
+                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 border-transparent'
+                    : 'bg-transparent text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-slate-400'
                 }`}
               >
-                {t(locale, 'portfolio.filters.web')}
-              </button>
-              <button
-                onClick={() => handleFilterChange('mobile')}
-                className={`px-5 py-2 rounded-md transition-colors text-sm ${
-                  activeFilter === 'mobile'
-                    ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-slate-200 dark:border-slate-700 hover:border-slate-400'
-                }`}
-              >
-                {t(locale, 'portfolio.filters.mobile')}
+                {t(locale, 'portfolio.filters.industriesOther')}
               </button>
             </div>
 
-            {/* Фильтр по отраслям */}
-            <div className="mt-6">
-              <div className="flex flex-wrap gap-3 justify-center">
-                <button
-                  onClick={() => handleIndustryChange('all')}
-                  className={`px-5 py-2 rounded-md transition-colors text-sm ${
-                    activeIndustry === 'all'
-                      ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
-                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-slate-200 dark:border-slate-700 hover:border-slate-400'
-                  }`}
-                >
-                  {t(locale, 'portfolio.filters.industriesAll')}
-                </button>
-                {industryOrder.map((industry) => (
-                  <button
-                    key={industry}
-                    onClick={() => handleIndustryChange(industry)}
-                    className={`px-5 py-2 rounded-md transition-colors text-sm ${
-                      activeIndustry === industry
-                        ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
-                        : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-slate-200 dark:border-slate-700 hover:border-slate-400'
-                    }`}
-                  >
-                    {industryLabel(industry)}
-                  </button>
-                ))}
-                <button
-                  onClick={() => handleIndustryChange(OTHER_INDUSTRY_KEY)}
-                  className={`px-5 py-2 rounded-md transition-colors text-sm ${
-                    activeIndustry === OTHER_INDUSTRY_KEY
-                      ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
-                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-slate-200 dark:border-slate-700 hover:border-slate-400'
-                  }`}
-                >
-                  {t(locale, 'portfolio.filters.industriesOther')}
-                </button>
-              </div>
-            </div>
-
-            {/* Счетчик проектов */}
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
+            <p className="text-sm text-slate-500 dark:text-slate-400">
               {t(locale, 'portfolio.found')} {filteredProjects.length}
             </p>
           </div>
         </div>
       </section>
 
-      {/* Сетка портфолио */}
-      <section className="py-16">
+      <section className="pb-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredProjects.map((project) => (
-              <div
+              <article
                 key={project.id}
-                className="group relative bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+                className="group border border-slate-200 dark:border-slate-800 bg-white dark:bg-gray-950 overflow-hidden hover:border-slate-400 dark:hover:border-slate-600 transition-colors"
               >
-                <div className={`absolute inset-0 bg-linear-to-br ${project.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none`} aria-hidden />
-                
-                {/* Превью главной страницы сайта */}
-                <div className="h-48 bg-linear-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800 relative overflow-hidden pointer-events-none">
+                <div className="h-48 relative overflow-hidden bg-slate-100 dark:bg-slate-900">
                   {!imageErrors[project.id] ? (
                     <img
                       src={project.image}
@@ -250,85 +231,54 @@ export default function PortfolioPage() {
                       className="w-full h-full object-cover"
                       onError={() => setImageErrors((prev) => ({ ...prev, [project.id]: true }))}
                     />
-                  ) : null}
-
-                  <div
-                    className={`absolute inset-0 bg-linear-to-br ${project.color} ${
-                      imageErrors[project.id] ? 'opacity-20' : 'opacity-10'
-                    } pointer-events-none`}
-                    aria-hidden
-                  />
-
-                  {imageErrors[project.id] ? (
-                    <div className="absolute inset-0 flex items-center justify-center bg-slate-100 dark:bg-slate-900">
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
                       <span className="font-display text-sm font-semibold tracking-[0.14em] uppercase text-slate-500 dark:text-slate-400">
                         {project.category}
                       </span>
                     </div>
-                  ) : null}
+                  )}
                   {project.forSale ? (
-                    <span className="absolute top-3 left-3 z-10 rounded-md bg-blue-600 text-white text-xs font-semibold px-2.5 py-1">
+                    <span className="absolute top-3 left-3 z-10 rounded-md bg-slate-900 text-white text-xs font-semibold px-2.5 py-1 dark:bg-white dark:text-slate-900">
                       В продаже
                     </span>
                   ) : null}
                 </div>
 
-                {/* Контент — выше оверлея, ссылки кликабельны */}
-                <div className="relative z-10 p-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
-                        {project.category}
-                      </span>
-                      <h2 className="text-xl font-bold text-gray-900 dark:text-white mt-1 group-hover:text-blue-600 transition-colors">
-                        {project.title}
-                      </h2>
-                    </div>
-                    <span className="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-sm rounded-full text-gray-600 dark:text-gray-300">
-                      {project.year}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-2 mb-4 text-gray-500 dark:text-gray-400">
-                    <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span className="text-sm">{project.location}</span>
-                  </div>
-
-                  <p className="text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
+                <div className="p-6 md:p-7">
+                  <p className="text-xs font-medium tracking-[0.14em] uppercase text-slate-500 dark:text-slate-400 mb-2">
+                    {project.category} · {project.year}
+                  </p>
+                  <h2 className="font-display text-xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
+                    {project.title}
+                  </h2>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mb-3">{project.location}</p>
+                  <p className="text-slate-600 dark:text-slate-300 mb-3 line-clamp-2 text-sm leading-relaxed">
                     {project.description}
                   </p>
                   {project.results[0] ? (
-                    <p className="text-sm text-blue-700 dark:text-blue-300 mb-4 line-clamp-2">
+                    <p className="text-sm text-slate-700 dark:text-slate-200 mb-4 line-clamp-2">
                       Результат: {project.results[0]}
                     </p>
                   ) : null}
 
-                  {/* Теги */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map((tag, idx) => (
-                      <span key={idx} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-xs rounded-full text-gray-600 dark:text-gray-300">
-                        {tag}
-                      </span>
+                  <div className="flex flex-wrap gap-x-2 gap-y-1 mb-5 text-xs text-slate-500 dark:text-slate-400">
+                    {project.tags.map((tag) => (
+                      <span key={tag}>{tag}</span>
                     ))}
                   </div>
 
                   <div className="flex flex-wrap items-center gap-4">
                     <Link
                       href={getCasePath(project)}
-                      className="inline-flex items-center text-blue-600 dark:text-blue-400 font-medium group-hover:gap-3 transition-all cursor-pointer hover:underline"
+                      className="text-sm font-medium text-slate-900 dark:text-white underline-offset-4 hover:underline"
                     >
                       Смотреть кейс
-                      <svg className="w-4 h-4 ml-2 group-hover:ml-3 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
                     </Link>
                     {project.forSale && project.readySiteSlug ? (
                       <Link
                         href={`/ready-sites/${project.readySiteSlug}`}
-                        className="inline-flex items-center text-sm font-semibold text-rose-600 dark:text-rose-400 hover:underline"
+                        className="text-sm font-medium text-slate-700 dark:text-slate-300 underline-offset-4 hover:underline"
                       >
                         Купить сайт
                       </Link>
@@ -338,37 +288,35 @@ export default function PortfolioPage() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600"
+                        className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                       >
                         Сайт ↗
                       </a>
                     ) : null}
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA секция */}
-      <section className="py-20 bg-slate-950">
-        <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+      <section className="py-16 md:py-20 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
               {t(locale, 'portfolio.cta.title')}
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            <p className="text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
               {t(locale, 'portfolio.cta.subtitle')}
             </p>
-          <Link
+            <Link
               href="/contact"
-            className="inline-flex items-center px-8 py-4 bg-white text-slate-900 rounded-lg font-semibold text-lg hover:bg-slate-100 transition-colors"
-          >
+              className="apsod-btn-solid inline-flex px-7 py-3 rounded-md text-sm font-semibold transition-colors"
+            >
               {t(locale, 'portfolio.cta.button')}
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </Link>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

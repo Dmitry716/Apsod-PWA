@@ -139,7 +139,7 @@ export default function ServicesPage() {
             <div className="flex flex-wrap gap-3 mb-10">
               <Link
                 href="/contact"
-                className="px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-md text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
+                className="apsod-btn-solid px-6 py-3 rounded-md text-sm font-semibold transition-colors"
               >
                 Связаться с нами
               </Link>
@@ -183,7 +183,7 @@ export default function ServicesPage() {
                     href={item.link}
                     className="group block rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-950 p-7 md:p-8 hover:border-slate-400 dark:hover:border-slate-500 transition-colors"
                   >
-                    <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">
+                    <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
                       {item.title}
                     </h3>
                     <p className="text-sm text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
@@ -243,7 +243,7 @@ export default function ServicesPage() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/contact"
-                className="px-6 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-md text-sm font-semibold hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors"
+                className="apsod-btn-solid px-6 py-3 rounded-md text-sm font-semibold transition-colors"
               >
                 Связаться с нами
               </Link>

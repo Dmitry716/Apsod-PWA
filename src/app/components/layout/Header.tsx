@@ -36,20 +36,20 @@ export default function Header() {
         left: 0,
         width: "100%",
         backgroundColor: isScrolled ? "var(--header-bg)" : "transparent",
-        backdropFilter: isScrolled ? "blur(12px)" : "none",
-        WebkitBackdropFilter: isScrolled ? "blur(12px)" : "none",
-        boxShadow: isScrolled ? "0 4px 30px rgba(0, 0, 0, 0.1)" : "none",
-        borderBottom: isScrolled ? "1px solid var(--border-color)" : "none",
+        backdropFilter: isScrolled ? "blur(14px)" : "none",
+        WebkitBackdropFilter: isScrolled ? "blur(14px)" : "none",
+        boxShadow: "none",
+        borderBottom: isScrolled ? "1px solid var(--border-color)" : "1px solid transparent",
         zIndex: 50,
-        transition: "all 0.3s ease",
+        transition: "background-color 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease",
       }}
     >
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-20 md:h-24">
+        <div className="flex justify-between items-center h-16 md:h-20">
           {/* Логотип */}
           <Link
             href="/"
-            className="font-display text-2xl font-bold tracking-tight text-slate-900 dark:text-white"
+            className="font-display text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white"
             style={{
               letterSpacing: "-0.03em",
             }}
@@ -105,9 +105,9 @@ export default function Header() {
         {/* Мобильное меню */}
         {isMenuOpen && (
           <div className="lg:hidden py-4">
-            <nav className="bg-gray-100 dark:bg-gray-800 rounded-lg p-2" aria-label="Мобильная навигация">
-              <div className="px-3 py-2 text-xs text-gray-600 dark:text-gray-300 flex justify-between items-center">
-                <span className="font-semibold">{t(locale, 'header.menu')}</span>
+            <nav className="border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-950 p-2" aria-label="Мобильная навигация">
+              <div className="px-3 py-2 text-xs text-slate-500 dark:text-slate-400 flex justify-between items-center">
+                <span className="font-semibold tracking-wide uppercase">{t(locale, 'header.menu')}</span>
                 <LanguageSwitcher compact onChange={() => setIsMenuOpen(false)} />
               </div>
               {navLinks.map((link) => (
@@ -115,7 +115,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className="block p-3 text-slate-800 dark:text-slate-100 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
+                  className="block p-3 text-slate-800 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-md"
                 >
                   {link.label}
                 </Link>
@@ -130,7 +130,7 @@ export default function Header() {
               <Link
                 href="/ready-sites"
                 onClick={() => setIsMenuOpen(false)}
-                className="block p-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
+                className="block p-3 text-sm text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900 rounded-md"
               >
                 {locale === 'en' ? 'Ready sites' : 'Готовые сайты'}
               </Link>
