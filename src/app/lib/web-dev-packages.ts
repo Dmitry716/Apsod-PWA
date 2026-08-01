@@ -131,13 +131,13 @@ export const WEB_DEV_SITE_TYPES = [
 export const WEB_DEV_PAYMENT_STAGES = [
   {
     step: '01',
-    title: 'Discovery и ТЗ',
+    title: 'Исследование и ТЗ',
     body: 'Бриф, цели, структура, смета и договор.',
   },
   {
     step: '02',
     title: 'Дизайн и прототип',
-    body: 'UX/UI, согласование макетов и ключевых экранов.',
+    body: 'Интерфейсы, согласование макетов и ключевых экранов.',
   },
   {
     step: '03',
@@ -149,7 +149,7 @@ export const WEB_DEV_PAYMENT_STAGES = [
 export const WEB_DEV_CASES = [
   {
     title: 'Amba Detail',
-    result: 'Единая витрина услуг и цен вместо разрозненных сообщений',
+    result: 'Единая витрина услуг и цен с понятным путём к заявке',
     href: '/portfolio/amba-detail',
     image: '/portfolio/amba.png',
   },

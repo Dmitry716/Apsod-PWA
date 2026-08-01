@@ -14,7 +14,7 @@ export default function AboutPage() {
     },
     {
       title: 'Инженерный delivery',
-      body: 'Discovery, архитектура, разработка, QA и релиз — в одной цепочке ответственности.',
+      body: 'Исследование, архитектура, разработка, проверка и релиз — в одной цепочке ответственности.',
     },
     {
       title: 'Рост после запуска',
@@ -22,7 +22,7 @@ export default function AboutPage() {
     },
     {
       title: 'Собственный код',
-      body: 'Индивидуальная разработка без шаблонных сборок — полный контроль над продуктом.',
+      body: 'Индивидуальная разработка на собственном коде — полный контроль над продуктом.',
     },
   ]
 
@@ -80,7 +80,7 @@ export default function AboutPage() {
     {
       title: 'Владение продуктом',
       description:
-        'Только индивидуальная разработка. Конструкторы и типовые шаблоны сознательно исключены.',
+        'Индивидуальная разработка на собственном коде — полный контроль над продуктом.',
     },
     {
       title: 'Прозрачность',
@@ -105,7 +105,7 @@ export default function AboutPage() {
               Компания
             </p>
             <h1 className="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight leading-tight">
-              Software engineering компания
+              Инженерная компания
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
               APSOD проектирует и выпускает сайты, приложения и digital-контуры для бизнеса:

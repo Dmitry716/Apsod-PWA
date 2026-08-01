@@ -30,7 +30,7 @@ const GROUPS: {
       {
         title: 'Веб-разработка',
         description:
-          'Корпоративные сайты, лендинги и магазины: Discovery, архитектура, инженерия и безопасность.',
+          'Корпоративные сайты, лендинги и магазины: исследование, архитектура, разработка и безопасность.',
         link: '/services/web-development',
       },
       {
@@ -127,14 +127,14 @@ export default function ServicesPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <p className="text-xs font-medium tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400 mb-4">
-              Software engineering
+              Инженерия продуктов
             </p>
             <h1 className="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight">
               Наши услуги
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 leading-relaxed max-w-2xl">
               Полный цикл: сделать продукт, привести клиентов из поиска и нейросетей, сопровождать
-              рост. Собственный код — без шаблонных сборок.
+              рост. Собственный код и полный цикл работ.
             </p>
             <div className="flex flex-wrap gap-3 mb-10">
               <Link

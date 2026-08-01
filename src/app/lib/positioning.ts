@@ -2,12 +2,10 @@
 
 export const POSITIONING = {
   ru: {
-    badge: 'Software engineering',
+    badge: 'Инженерия продуктов',
     /** Одна фраза в духе enterprise (как у крупных engineering-компаний) */
-    heroTitle:
-      'Мы проектируем и выпускаем digital-продукты для бизнеса — от стратегии до сопровождения',
-    heroLead:
-      'Сайты, приложения и digital-контуры на собственном коде: исследование, инженерия, безопасность, SEO и поддержка в эксплуатации.',
+    heroTitle: 'Цифровые продукты для бизнеса',
+    heroLead: 'Сайты и приложения на собственном коде — от исследования до сопровождения.',
     heroTopics: [
       { label: 'Веб-разработка', href: '/services/web-development' },
       { label: 'Мобильные продукты', href: '/services/mobile-development' },
@@ -21,7 +19,7 @@ export const POSITIONING = {
       'Инженерные практики полного цикла: продукт, рост и сопровождение в одной логике delivery',
     lifecycleTitle: 'Как мы работаем',
     lifecycleSubtitle:
-      'Прозрачный delivery: сначала смысл и метрики, затем продукт и безопасность, затем рост и поддержка',
+      'Сначала смысл и метрики, затем продукт и безопасность, затем рост и поддержка',
     principlesTitle: 'Подход APSOD',
     principles: [
       {
@@ -30,7 +28,7 @@ export const POSITIONING = {
       },
       {
         title: 'Собственная разработка',
-        body: 'Индивидуальная архитектура и дизайн под бизнес. Конструкторы и типовые темы не используем.',
+        body: 'Индивидуальная архитектура и дизайн под задачи бизнеса на собственном коде.',
       },
       {
         title: 'Качество в эксплуатации',
@@ -40,17 +38,17 @@ export const POSITIONING = {
     lifecycle: [
       {
         step: '01',
-        title: 'Discovery и стратегия',
-        body: 'Цели бизнеса, аудитория, конкуренты, KPI, границы scope и структура будущего продукта.',
+        title: 'Исследование и стратегия',
+        body: 'Цели бизнеса, аудитория, конкуренты, KPI, границы проекта и структура будущего продукта.',
       },
       {
         step: '02',
-        title: 'Архитектура и UX/UI',
+        title: 'Архитектура и дизайн',
         body: 'Прототипы, дизайн-система, сценарии пользователя, технические требования и интеграции.',
       },
       {
         step: '03',
-        title: 'Инженерия и QA',
+        title: 'Разработка и проверка',
         body: 'Собственный код, интеграции, тестирование, производительность и устойчивость к нагрузкам.',
       },
       {
@@ -67,10 +65,8 @@ export const POSITIONING = {
   },
   en: {
     badge: 'Software engineering',
-    heroTitle:
-      'We design and ship digital products for business — from strategy to ongoing support',
-    heroLead:
-      'Websites, apps and digital systems on custom code: research, engineering, security, SEO and production support.',
+    heroTitle: 'Digital products for business',
+    heroLead: 'Custom-code websites and apps — from Discovery to ongoing support.',
     heroTopics: [
       { label: 'Web development', href: '/services/web-development' },
       { label: 'Mobile products', href: '/services/mobile-development' },
@@ -93,7 +89,7 @@ export const POSITIONING = {
       },
       {
         title: 'Custom development',
-        body: 'Architecture and design built for your business. We do not use page builders or stock themes.',
+        body: 'Architecture and design built for your business on custom code.',
       },
       {
         title: 'Quality in production',

@@ -407,8 +407,7 @@ export default function GeoPromotionPage() {
             <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
               <h3 className="font-bold text-gray-900 dark:text-white mb-2">GEO-стратегия</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                Стартовый срез, факт-матрица, карта промптов и источников, план на 6 месяцев —
-                если нужен план, а не сразу цикл.
+                Стартовый срез, факт-матрица, карта промптов и источников, план на 6 месяцев.
               </p>
               <Link href="/contact" className="text-blue-700 dark:text-blue-400 text-sm font-medium hover:underline">
                 Обсудить стратегию →

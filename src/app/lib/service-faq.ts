@@ -19,7 +19,7 @@ export const SERVICE_FAQS: Record<
     {
       question: 'На чём вы разрабатываете сайты?',
       answer:
-        'Next.js, React, TypeScript, Node.js. Это даёт скорость, SEO из коробки и удобное сопровождение. Конструкторы и типовые CMS-сборки не используем.',
+        'Next.js, React, TypeScript, Node.js — скорость, SEO и удобное сопровождение.',
     },
     {
       question: 'Делаете ли интернет-магазины полного цикла?',

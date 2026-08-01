@@ -298,6 +298,109 @@
   width: 5rem;
 }
 
+@keyframes apsod-line-expand {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 5rem;
+    opacity: 1;
+  }
+}
+
+.apsod-hero-line {
+  height: 1px;
+  width: 0;
+  animation: apsod-line-expand 1s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+
+@keyframes apsod-ken-burns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.08) translate(-1.5%, -1%);
+  }
+}
+
+.apsod-ken-burns {
+  animation: apsod-ken-burns 22s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.apsod-media-frame {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.apsod-media-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(15, 23, 42, 0.35) 0%,
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.apsod-media-frame:hover::after {
+  opacity: 1;
+}
+
+.apsod-media-zoom {
+  transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.group:hover .apsod-media-zoom,
+.apsod-media-frame:hover .apsod-media-zoom {
+  transform: scale(1.06);
+}
+
+.apsod-marquee {
+  display: flex;
+  width: max-content;
+  animation: apsod-marquee 42s linear infinite;
+}
+
+.apsod-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes apsod-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.apsod-glow-ring {
+  box-shadow:
+    0 0 0 1px rgba(148, 163, 184, 0.25),
+    0 24px 60px -20px rgba(15, 23, 42, 0.45);
+}
+
+.apsod-case-row {
+  transition: background-color 0.4s ease;
+}
+
+.apsod-case-row:hover {
+  background-color: rgba(248, 250, 252, 0.6);
+}
+
+.dark .apsod-case-row:hover {
+  background-color: rgba(15, 23, 42, 0.35);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .apsod-reveal,
   .apsod-hero-enter,
@@ -306,7 +409,10 @@
   .apsod-badge-pulse::after,
   .apsod-messenger-fab,
   .apsod-messenger-fab::after,
-  .apsod-device-float {
+  .apsod-device-float,
+  .apsod-ken-burns,
+  .apsod-marquee,
+  .apsod-hero-line {
     animation: none !important;
     transition: none !important;
   }
@@ -320,8 +426,19 @@
     opacity: 1;
   }
 
+  .apsod-hero-line,
+  .apsod-reveal .apsod-line-draw {
+    width: 5rem;
+    opacity: 1;
+  }
+
   .apsod-cta-primary:hover,
   .apsod-card-lift:hover {
+    transform: none;
+  }
+
+  .group:hover .apsod-media-zoom,
+  .apsod-media-frame:hover .apsod-media-zoom {
     transform: none;
   }
 }
