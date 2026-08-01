@@ -57,7 +57,7 @@ export default function DeviceMockup({
             : 'rounded-[2.2rem] bg-gradient-to-b from-slate-600 via-slate-800 to-slate-950 p-[9px]'
         }`}
       >
-        {/* Screen: contain so UI never clips left/right */}
+        {/* Portrait app screens (2:3) cover the tall bezel without letterboxing */}
         <div
           className={`relative h-full w-full overflow-hidden bg-slate-950 ${
             isIphone ? 'rounded-[2.15rem]' : 'rounded-[1.7rem]'
@@ -68,7 +68,7 @@ export default function DeviceMockup({
             alt={screenAlt}
             fill
             priority={priority}
-            className="object-contain object-top"
+            className="object-cover object-top"
             sizes="(max-width: 768px) 70vw, 300px"
           />
 
