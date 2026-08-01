@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import { HOMEPAGE_FAQ } from '../lib/homepage-faq'
-import { SITE_NAME } from '../lib/seo'
+import { COMPANY_ADDRESS_DISPLAY, SITE_NAME } from '../lib/seo'
 
 const SERVICE_LINKS = [
-  { href: '/services/web-development', label: 'Разработка сайтов в Минске' },
+  { href: '/services/web-development', label: 'Разработка сайтов' },
   { href: '/services/seo', label: 'SEO и аналитика' },
   { href: '/services/geo-promotion', label: 'GEO в нейросетях' },
   { href: '/services/mobile-development', label: 'Мобильные приложения' },
@@ -26,14 +26,14 @@ export default function HomeSeoSection() {
       <section className="py-20 bg-gray-50 dark:bg-gray-900/50 max-md:py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-            {SITE_NAME} — разработка сайтов в Минске
+            {SITE_NAME} — разработка сайтов и digital-продуктов
           </h2>
           <div className="prose prose-lg dark:prose-invert max-w-none text-gray-600 dark:text-gray-300 space-y-4">
             <p>
-              <strong>{SITE_NAME}</strong> — IT-компания полного цикла: разработка сайтов в Минске
-              и по Беларуси для бизнеса, которому нужен не «сайт на конструкторе», а digital-канал
+              <strong>{SITE_NAME}</strong> — IT-компания полного цикла: сайты, приложения, SEO и
+              сопровождение для бизнеса, которому нужен не «сайт на конструкторе», а digital-канал
               заявок. Discovery и стратегия, архитектура, безопасная инженерия, SEO в Яндексе и
-              Google, интеграции и сопровождение после запуска.
+              Google, интеграции и поддержка после запуска.
             </p>
             <p>
               Мы разрабатываем{' '}
@@ -42,8 +42,7 @@ export default function HomeSeoSection() {
               нужен контроль над архитектурой, безопасностью и развитием продукта.
             </p>
             <p>
-              Фокус — <strong>Минск</strong> и компании по всей Беларуси. Офис:{' '}
-              <strong>ул. Куйбышева, 35</strong>. Начните с{' '}
+              Офис: <strong>{COMPANY_ADDRESS_DISPLAY}</strong>. Начните с{' '}
               <Link href="/contact" className="text-blue-600 dark:text-blue-400 hover:underline">
                 консультации
               </Link>

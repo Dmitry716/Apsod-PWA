@@ -127,7 +127,7 @@ export default function ServicesPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl">
             <p className="text-xs font-medium tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400 mb-4">
-              Software engineering · Минск
+              Software engineering
             </p>
             <h1 className="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight">
               Наши услуги

@@ -106,7 +106,7 @@ export default function Home() {
                 Кейсы
               </h2>
               <p className="text-lg text-slate-600 dark:text-slate-300 max-md:text-base">
-                Избранные проекты · офис в Минске
+                Избранные проекты
               </p>
             </div>
             <Link
@@ -291,7 +291,7 @@ const services = [
   },
   {
     title: "SEO и аналитика",
-    description: "Стратегия продвижения и измеримый рост в Яндексе и Google для бизнеса в Минске.",
+    description: "Стратегия продвижения и измеримый рост в Яндексе и Google.",
     tags: ["SEO", "Аналитика"],
     link: "/services/seo",
     featured: true,

@@ -9,7 +9,7 @@ export const metadata = buildSnippetMetadata('/about')
 export default function AboutPage() {
   const approach = [
     {
-      title: 'Офис в Минске',
+      title: 'Офис',
       body: `${COMPANY_ADDRESS_DISPLAY}. Встречи по договорённости — бриф, договор, сдача.`,
     },
     {
@@ -105,11 +105,12 @@ export default function AboutPage() {
               Компания
             </p>
             <h1 className="font-display text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-5 tracking-tight leading-tight">
-              Software engineering компания в Минске
+              Software engineering компания
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
               APSOD проектирует и выпускает сайты, приложения и digital-контуры для бизнеса:
-              исследование, инженерия, безопасность, SEO и сопровождение. Офис: ул. Куйбышева, 35.
+              исследование, инженерия, безопасность, SEO и сопровождение. Офис:{' '}
+              {COMPANY_ADDRESS_DISPLAY}.
             </p>
           </div>
 

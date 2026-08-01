@@ -40,9 +40,9 @@ export default function WebDevelopmentPage() {
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'Разработка сайтов в Минске',
+    name: 'Разработка сайтов',
     description:
-      'Разработка сайтов, интернет-магазинов и веб-приложений в Минске на Next.js, React, Node.js. Без конструкторов.',
+      'Разработка сайтов, интернет-магазинов и веб-приложений на Next.js, React, Node.js. Без конструкторов.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
     areaServed: [
       { '@type': 'City', name: 'Minsk' },
@@ -60,13 +60,13 @@ export default function WebDevelopmentPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-3">
-              Минск · собственный код · полный цикл
+              Собственный код · полный цикл
             </p>
             <h1 className="font-display text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-5 tracking-tight">
-              Разработка сайтов в Минске
+              Разработка сайтов
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8">
-              Лендинг, корпоративный сайт или магазин на Next.js для бизнеса Минска и Беларуси.
+              Лендинг, корпоративный сайт или магазин на Next.js для бизнеса.
               Ориентир {formatDualPrice(8000)} — после короткого брифа.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">

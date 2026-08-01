@@ -2,7 +2,7 @@
 
 export const POSITIONING = {
   ru: {
-    badge: 'Software engineering · Минск',
+    badge: 'Software engineering',
     /** Одна фраза в духе enterprise (как у крупных engineering-компаний) */
     heroTitle:
       'Мы проектируем и выпускаем digital-продукты для бизнеса — от стратегии до сопровождения',
@@ -66,7 +66,7 @@ export const POSITIONING = {
     ],
   },
   en: {
-    badge: 'Software engineering · Minsk',
+    badge: 'Software engineering',
     heroTitle:
       'We design and ship digital products for business — from strategy to ongoing support',
     heroLead:

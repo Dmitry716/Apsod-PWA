@@ -64,8 +64,8 @@ export default function Footer() {
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
               {isEn
-                ? "Software engineering in Minsk: custom products, SEO and GEO. Office: Kuibysheva 35."
-                : "Software engineering в Минске: продукты на собственном коде, SEO и GEO. Офис: ул. Куйбышева, 35."}
+                ? "Software engineering: custom products, SEO and GEO. Office: Kuibysheva 35, Minsk."
+                : "Software engineering: продукты на собственном коде, SEO и GEO. Офис: г. Минск, ул. Куйбышева, 35."}
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <LanguageSwitcher />

@@ -3,7 +3,7 @@ import { COMPANY_ADDRESS_DISPLAY } from '../lib/seo'
 
 const POINTS = [
   {
-    title: 'Офис в Минске',
+    title: 'Офис',
     body: COMPANY_ADDRESS_DISPLAY,
   },
   {

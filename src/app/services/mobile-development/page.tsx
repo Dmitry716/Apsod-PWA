@@ -114,7 +114,7 @@ export default function MobileDevelopmentPage() {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Создание мобильного приложения iOS и Android: Москва, Минск, Беларусь и удалённо
+              Создание мобильного приложения iOS и Android — от MVP до публикации в сторах
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
