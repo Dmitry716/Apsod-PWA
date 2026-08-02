@@ -11,15 +11,15 @@ type Props = {
   screenPosition?: string
 }
 
-/** Photorealistic iPhone 17 Pro Max frame PNG + app screenshot inset */
-const IPHONE_FRAME = '/devices/iphone-17-pro-max.png'
-/** Screen rect inside 1024×1536 frame asset (measured) */
+/** Transparent PNG of real iPhone frame only (no studio background) */
+const IPHONE_FRAME = '/devices/iphone-17-pro-max-frame.png'
+/** Display hole inside cropped frame (631×1285) */
 const IPHONE_SCREEN = {
-  left: '19.53%',
-  top: '10.29%',
-  width: '58.11%',
-  height: '82.1%',
-  radius: '11.5%',
+  left: '2.85%',
+  top: '1.4%',
+  width: '94.29%',
+  height: '97.2%',
+  radius: '12%',
 }
 
 export default function DeviceMockup({
@@ -59,21 +59,11 @@ export default function DeviceMockup({
   if (device === 'iphone') {
     return (
       <div className={`relative mx-auto w-full ${className}`}>
-        <div className="relative aspect-[2/3] w-full">
-          {/* Real device photo */}
-          <Image
-            src={IPHONE_FRAME}
-            alt=""
-            fill
-            priority={priority}
-            className="object-contain object-center select-none"
-            sizes="(max-width: 640px) 50vw, 220px"
-            aria-hidden
-          />
-
-          {/* App UI sits exactly on the black display */}
+        {/* Frame aspect matches cropped asset 631×1285 */}
+        <div className="relative w-full" style={{ aspectRatio: '631 / 1285' }}>
+          {/* App screenshot behind the frame hole */}
           <div
-            className="absolute z-10 overflow-hidden"
+            className="absolute z-0 overflow-hidden bg-black"
             style={{
               left: IPHONE_SCREEN.left,
               top: IPHONE_SCREEN.top,
@@ -88,20 +78,25 @@ export default function DeviceMockup({
               fill
               priority={priority}
               className="object-cover object-top"
-              sizes="(max-width: 640px) 40vw, 160px"
-            />
-            {/* Dynamic Island */}
-            <div
-              className="pointer-events-none absolute left-1/2 top-[1.6%] z-20 h-[3.1%] w-[36%] -translate-x-1/2 rounded-full bg-black"
-              aria-hidden
+              sizes="(max-width: 640px) 42vw, 180px"
             />
           </div>
+
+          {/* Original hardware frame only — transparent PNG, no studio background */}
+          <Image
+            src={IPHONE_FRAME}
+            alt=""
+            fill
+            priority={priority}
+            className="pointer-events-none z-10 object-contain object-center select-none"
+            sizes="(max-width: 640px) 48vw, 200px"
+            aria-hidden
+          />
         </div>
       </div>
     )
   }
 
-  /* Samsung — keep CSS chrome until we have a photo frame */
   return (
     <div className={`relative mx-auto w-full ${className}`}>
       <div className="relative w-full rounded-[2rem] bg-gradient-to-b from-slate-600 via-slate-800 to-slate-950 p-[7px] shadow-[0_28px_56px_rgba(0,0,0,0.45)]">
