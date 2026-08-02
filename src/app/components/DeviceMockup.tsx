@@ -57,7 +57,7 @@ export default function DeviceMockup({
 
     return (
       <div className={`relative mx-auto w-full ${className}`}>
-        <div className="relative w-full" style={{ aspectRatio: '1198 / 2108' }}>
+        <div className="relative w-full" style={{ aspectRatio: '629 / 1283' }}>
           <Image
             src={mockupSrc}
             alt={screenAlt}
