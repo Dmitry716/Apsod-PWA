@@ -159,10 +159,13 @@ export default function ServiceLanding({ content }: Props) {
 
       <section className="py-16 md:py-20 border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">
-          <Reveal className="mb-8">
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+          <Reveal className="mb-8 max-w-2xl">
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
               Стек
             </h2>
+            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Технологии под задачу продукта — без привязки к одному фреймворку.
+            </p>
           </Reveal>
           <Reveal>
             <ul className="flex flex-wrap gap-2 md:gap-3">

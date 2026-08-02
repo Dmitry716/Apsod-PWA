@@ -8,6 +8,7 @@ import HomeHero from './components/HomeHero'
 import HomeFeaturedWork from './components/HomeFeaturedWork'
 import HomeDeviceShowcase from './components/HomeDeviceShowcase'
 import HomeCapabilityIndex from './components/HomeCapabilityIndex'
+import TechStackSection from './components/TechStackSection'
 import VisualMarquee from './components/VisualMarquee'
 import Reveal from './components/Reveal'
 import SectionAtmosphere from './components/SectionAtmosphere'
@@ -25,6 +26,7 @@ export default function Home() {
       <VisualMarquee title="В работе" />
       <HomeFeaturedWork />
       <HomeCapabilityIndex />
+      <TechStackSection title="С чем работаем" />
 
       <section className="py-20 md:py-28 bg-slate-50 dark:bg-gray-900/40 border-y border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">

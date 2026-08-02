@@ -6,7 +6,7 @@ const CODE_LINES = [
   'export async function craftProduct() {',
   '  const brief = await discover({',
   "    goals: ['leads', 'speed', 'seo'],",
-  "    stack: ['Next.js', 'TypeScript'],",
+  "    stack: ['Next.js', 'Angular', 'ASP.NET Core'],",
   '  })',
   '',
   '  const system = design(brief)',

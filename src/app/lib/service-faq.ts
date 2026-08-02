@@ -19,7 +19,7 @@ export const SERVICE_FAQS: Record<
     {
       question: 'На чём вы разрабатываете сайты?',
       answer:
-        'Next.js, React, TypeScript, Node.js — скорость, SEO и удобное сопровождение.',
+        'Подбираем стек под задачу: Next.js / React, Angular, Vue, Svelte, ASP.NET Core / C#, TypeScript, Node.js. Скорость, SEO и удобное сопровождение.',
     },
     {
       question: 'Делаете ли интернет-магазины полного цикла?',
@@ -154,6 +154,11 @@ export const SERVICE_FAQS: Record<
       question: 'Что входит в техподдержку?',
       answer:
         'Обновления, мониторинг, бэкапы, мелкие доработки и срочные правки по договору.',
+    },
+    {
+      question: 'Какие стеки вы сопровождаете?',
+      answer:
+        'React / Next.js, Angular, Vue / Nuxt, Svelte, ASP.NET Core / C#, Node.js, NestJS, PostgreSQL, SQL Server, MongoDB.',
     },
   ],
   'ui-ux': [

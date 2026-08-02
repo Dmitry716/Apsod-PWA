@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { buildSnippetMetadata, COMPANY_ADDRESS_DISPLAY } from '../lib/seo'
 import PageBreadcrumbs from '../components/PageBreadcrumbs'
 import HomeAtAGlance from '../components/HomeAtAGlance'
+import TechStackSection from '../components/TechStackSection'
 
 export const metadata = buildSnippetMetadata('/about')
 
@@ -50,11 +51,16 @@ export default function AboutPage() {
   const expertise = [
     {
       title: 'Веб-разработка',
-      items: ['Корпоративные сайты', 'Интернет-магазины', 'Порталы', 'SPA', 'PWA'],
+      items: [
+        'Next.js / React',
+        'Angular / Vue / Svelte',
+        'ASP.NET Core / C#',
+        'Интернет-магазины и PWA',
+      ],
     },
     {
       title: 'Мобильные продукты',
-      items: ['iOS', 'Android', 'React Native', 'Flutter', 'Кроссплатформа'],
+      items: ['iOS / Swift', 'Android / Kotlin', 'React Native', 'Flutter'],
     },
     {
       title: 'CRM и интеграции',
@@ -192,6 +198,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <TechStackSection title="Технологический стек" />
 
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4">

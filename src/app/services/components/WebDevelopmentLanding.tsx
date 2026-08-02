@@ -11,6 +11,7 @@ import {
   WEB_DEV_FEATURED_PACKAGES,
   WEB_DEV_SITE_TYPES,
 } from '../../lib/web-dev-packages'
+import { WEB_STACK_CHIPS } from '../../lib/tech-stack'
 import { WEB_DEVELOPMENT_PROCESS } from '../lib/development-process'
 import DevelopmentProcessSection from './DevelopmentProcessSection'
 
@@ -21,7 +22,7 @@ const OUTCOMES = [
   },
   {
     title: 'Собственный код',
-    body: 'Next.js / React: скорость, SEO и полный контроль над развитием без конструкторов.',
+    body: 'Next.js, Angular, Vue, Svelte или ASP.NET Core — стек под задачу, скорость, SEO и контроль без конструкторов.',
   },
   {
     title: 'SEO с первого дня',
@@ -40,8 +41,6 @@ const TRUST = [
   'Сроки 2–8 недель',
 ] as const
 
-const STACK = ['Next.js', 'React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Tailwind CSS'] as const
-
 const FEATURED_CASES = WEB_DEV_CASES.filter((c) =>
   ['Amba Detail', 'NEXTON', 'ArtDetailing'].includes(c.title)
 )
@@ -52,7 +51,7 @@ export default function WebDevelopmentLanding() {
     '@type': 'Service',
     name: 'Разработка сайтов',
     description:
-      'Разработка сайтов в Минске: лендинг, корпоративный сайт, каталог и интернет-магазин на Next.js и React.',
+      'Разработка сайтов в Минске: лендинг, корпоративный сайт, каталог и интернет-магазин на Next.js, Angular, Vue, Svelte и ASP.NET Core.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
     areaServed: COMPANY_AREA_SERVED,
     url: `${SITE_URL}/services/web-development`,
@@ -334,14 +333,17 @@ export default function WebDevelopmentLanding() {
       {/* Stack */}
       <section className="py-14 md:py-16 border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">
-          <Reveal className="mb-6">
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+          <Reveal className="mb-4 max-w-2xl">
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
               Стек
             </h2>
+            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Современные фреймворки 2026 года — выбираем под продукт, сроки и команду заказчика.
+            </p>
           </Reveal>
           <Reveal>
             <ul className="flex flex-wrap gap-2 md:gap-3">
-              {STACK.map((item) => (
+              {WEB_STACK_CHIPS.map((item) => (
                 <li
                   key={item}
                   className="apsod-surface-hover px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-950 cursor-default"

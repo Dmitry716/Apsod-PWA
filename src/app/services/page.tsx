@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import SeoJsonLd from '../components/SeoJsonLd'
 import PageBreadcrumbs from '../components/PageBreadcrumbs'
+import TechStackSection from '../components/TechStackSection'
 import {
   buildSnippetMetadata,
   generateItemListSchema,
@@ -217,6 +218,8 @@ export default function ServicesPage() {
           ))}
         </div>
       </section>
+
+      <TechStackSection title="Технологии в delivery" />
 
       <section className="py-14 border-y border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-gray-900">
         <div className="container mx-auto px-4">

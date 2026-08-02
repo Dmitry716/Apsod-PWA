@@ -106,7 +106,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/services/web-development': {
     title: 'Разработка сайтов в Минске — уникальный код',
     description:
-      'Разработка сайтов в Минске: лендинг от 8 000 Б̶, корпоративный от 15 000 Б̶. Next.js, SEO, смета после брифа.',
+      'Разработка сайтов в Минске: лендинг от 8 000 Б̶, корпоративный от 15 000 Б̶. Next.js, Angular, Vue, ASP.NET Core. SEO, смета после брифа.',
     keywords: [
       'разработка сайтов в Минске',
       'разработка сайтов Минск',
@@ -185,7 +185,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/services/technical-support': {
     title: 'Техподдержка сайтов в Минске',
     description:
-      'Сопровождение сайтов в Минске на Next.js и Node.js: обновления, мониторинг, бэкапы, доработки. Договор и SLA.',
+      'Сопровождение сайтов в Минске: Next.js, Angular, Vue, ASP.NET Core, Node.js — обновления, мониторинг, бэкапы, доработки. Договор и SLA.',
     keywords: [
       'техническая поддержка сайтов Минск',
       'сопровождение сайта Минск',

@@ -6,6 +6,7 @@ import {
 } from './development-process'
 import { formatDualPrice } from '../../lib/currency'
 import type { ServicePath } from '../../lib/seo'
+import { ECOMMERCE_STACK_CHIPS, WEB_STACK_CHIPS } from '../../lib/tech-stack'
 
 export type ServiceLandingCase = {
   title: string
@@ -46,7 +47,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     slug: 'web-development',
     schemaName: 'Разработка сайтов',
     schemaDescription:
-      'Разработка сайтов в Минске: лендинг, корпоративный сайт, каталог на Next.js и React.',
+      'Разработка сайтов в Минске: лендинг, корпоративный сайт, каталог на Next.js, Angular, Vue и ASP.NET Core.',
     eyebrow: 'Веб-разработка',
     title: 'Разработка сайтов любой сложности',
     lead: 'Лендинг, корпоративный сайт или каталог — проектируем, собираем на собственном коде и запускаем как продукт.',
@@ -61,7 +62,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       },
       {
         title: 'Собственный код',
-        body: 'Next.js / React: скорость, SEO и контроль над развитием.',
+        body: 'Next.js, Angular, Vue, Svelte или ASP.NET Core — стек под задачу и развитие.',
       },
       {
         title: 'Готовность к росту',
@@ -73,7 +74,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       { src: '/portfolio/harbor-health.jpg', alt: 'Medical clinic', device: 'desktop' },
       { src: '/portfolio/oak-and-thread.jpg', alt: 'Fashion storefront', device: 'desktop' },
     ],
-    stack: ['Next.js', 'React', 'TypeScript', 'Node.js', 'PostgreSQL', 'Tailwind CSS'],
+    stack: [...WEB_STACK_CHIPS],
     processTitle: 'Как создаём сайт',
     processSubtitle: 'От брифа до запуска — прозрачные этапы и артефакты.',
     process: WEB_DEVELOPMENT_PROCESS,
@@ -143,14 +144,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       { src: '/portfolio/best-buy-wide.jpg', alt: 'Best Buy storefront', device: 'desktop' },
       { src: '/portfolio/costco-wide.jpg', alt: 'Costco storefront', device: 'desktop' },
     ],
-    stack: [
-      'Next.js',
-      'Node.js',
-      'PostgreSQL',
-      'Оплата / эквайринг',
-      'Доставка API',
-      'CRM',
-    ],
+    stack: [...ECOMMERCE_STACK_CHIPS],
     processTitle: 'Как запускаем магазин',
     processSubtitle: 'От ассортимента и сценариев покупки до оплаты и публикации.',
     process: WEB_DEVELOPMENT_PROCESS,
