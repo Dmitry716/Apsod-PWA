@@ -11,15 +11,11 @@ type Props = {
   screenPosition?: string
 }
 
-/** Transparent PNG of real iPhone frame only (no studio background) */
-const IPHONE_FRAME = '/devices/iphone-17-pro-max-frame.png'
-/** Display hole inside cropped frame (631×1285) */
-const IPHONE_SCREEN = {
-  left: '2.85%',
-  top: '1.4%',
-  width: '94.29%',
-  height: '97.2%',
-  radius: '12%',
+/** Pre-composited photorealistic iPhone mockups (frame + screen, no studio bg) */
+const IPHONE_MOCKUPS: Record<string, string> = {
+  '/devices/app-screens/home.png': '/devices/mockups/iphone-home.png',
+  '/devices/app-screens/services.png': '/devices/mockups/iphone-services.png',
+  '/devices/app-screens/booking.png': '/devices/mockups/iphone-booking.png',
 }
 
 export default function DeviceMockup({
@@ -57,40 +53,18 @@ export default function DeviceMockup({
   }
 
   if (device === 'iphone') {
+    const mockupSrc = IPHONE_MOCKUPS[screenSrc] ?? '/devices/mockups/iphone-home.png'
+
     return (
       <div className={`relative mx-auto w-full ${className}`}>
-        {/* Frame aspect matches cropped asset 631×1285 */}
         <div className="relative w-full" style={{ aspectRatio: '631 / 1285' }}>
-          {/* App screenshot behind the frame hole */}
-          <div
-            className="absolute z-0 overflow-hidden bg-black"
-            style={{
-              left: IPHONE_SCREEN.left,
-              top: IPHONE_SCREEN.top,
-              width: IPHONE_SCREEN.width,
-              height: IPHONE_SCREEN.height,
-              borderRadius: IPHONE_SCREEN.radius,
-            }}
-          >
-            <Image
-              src={screenSrc}
-              alt={screenAlt}
-              fill
-              priority={priority}
-              className="object-cover object-top"
-              sizes="(max-width: 640px) 42vw, 180px"
-            />
-          </div>
-
-          {/* Original hardware frame only — transparent PNG, no studio background */}
           <Image
-            src={IPHONE_FRAME}
-            alt=""
+            src={mockupSrc}
+            alt={screenAlt}
             fill
             priority={priority}
-            className="pointer-events-none z-10 object-contain object-center select-none"
+            className="object-contain object-center drop-shadow-[0_20px_36px_rgba(0,0,0,0.4)]"
             sizes="(max-width: 640px) 48vw, 200px"
-            aria-hidden
           />
         </div>
       </div>
