@@ -232,7 +232,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
         image: '/portfolio/amba.png',
       },
     ],
-    priceNote: 'Смета после Discovery. MVP для одной платформы — от нескольких тысяч бел. руб.',
+    priceNote: `Ориентир MVP — ${formatDualPrice(12000)}. Смета после Discovery.`,
   },
 
   'android-apps': {
@@ -290,7 +290,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
         image: '/portfolio/amba.png',
       },
     ],
-    priceNote: 'Смета после Discovery. MVP для одной платформы — от нескольких тысяч бел. руб.',
+    priceNote: `Ориентир MVP — ${formatDualPrice(12000)}. Смета после Discovery.`,
   },
 }
 

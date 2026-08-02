@@ -127,7 +127,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/services/ios-apps': {
     title: 'Разработка приложений для iOS в Минске',
     description:
-      'Мобильные приложения для iPhone в Минске: Swift, SwiftUI, React Native. Публикация в App Store. Смета после Discovery.',
+      'Мобильные приложения для iPhone в Минске: Swift, SwiftUI, React Native. Публикация в App Store. MVP от 12 000 Б̶.',
     keywords: [
       'разработка приложений iOS Минск',
       'создание приложения для iPhone',
@@ -137,7 +137,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/services/android-apps': {
     title: 'Разработка приложений для Android в Минске',
     description:
-      'Мобильные приложения для Android в Минске: Kotlin, Jetpack Compose, React Native. Google Play. Смета после Discovery.',
+      'Мобильные приложения для Android в Минске: Kotlin, Jetpack Compose, React Native. Google Play. MVP от 12 000 Б̶.',
     keywords: [
       'разработка приложений Android Минск',
       'создание приложения для Android',
@@ -170,7 +170,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/services/mobile-development': {
     title: 'Разработка мобильных приложений в Минске',
     description:
-      'Создание мобильного приложения iOS и Android в Минске. React Native, Flutter. Смета после Discovery.',
+      'Создание мобильного приложения iOS и Android в Минске. React Native, Flutter. MVP от 12 000 Б̶. Смета после Discovery.',
     keywords: [
       'разработка мобильных приложений Минск',
       'создание мобильного приложения Минск',

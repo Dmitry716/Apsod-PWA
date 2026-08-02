@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { IMaskInput } from 'react-imask'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { formatDualPrice } from '../lib/currency'
+import { MOBILE_APP_PACKAGES } from '../lib/mobile-app-packages'
 import { getReadySiteBySlug } from '../ready-sites/data'
 
 const GOALS = [
@@ -52,7 +53,7 @@ const GOALS = [
   },
 ] as const
 
-const BUDGETS = [
+const WEB_BUDGETS = [
   { value: 'ready-15k', label: formatDualPrice(15000, { from: false }), hint: 'готовый сайт' },
   { value: 'landing-8k', label: formatDualPrice(8000), hint: 'лендинг' },
   { value: 'corporate-15k', label: formatDualPrice(15000), hint: 'корп. сайт' },
@@ -60,6 +61,20 @@ const BUDGETS = [
   { value: 'complex', label: formatDualPrice(30000, { plus: true }), hint: 'сложный продукт' },
   { value: 'negotiable', label: 'Пока не знаю', hint: 'нужна смета' },
 ] as const
+
+const MOBILE_BUDGETS = [
+  ...MOBILE_APP_PACKAGES.map((pkg) => ({
+    value: pkg.budget,
+    label: pkg.byn,
+    hint: pkg.title,
+  })),
+  { value: 'negotiable', label: 'Пока не знаю', hint: 'нужна смета' },
+]
+
+const ALL_BUDGET_VALUES = new Set([
+  ...WEB_BUDGETS.map((b) => b.value),
+  ...MOBILE_BUDGETS.map((b) => b.value),
+])
 
 const TIMELINES = [
   { value: 'urgent', label: 'Срочно', hint: 'до 2 недель' },
@@ -146,7 +161,7 @@ export default function ContactLeadQuiz() {
         ...prev,
         goal: matchedGoal?.value || (readySite ? 'ready-site' : prev.goal),
         service: matchedGoal?.service || service || (readySite ? 'web' : prev.service),
-        budget: BUDGETS.some((b) => b.value === budget)
+        budget: ALL_BUDGET_VALUES.has(budget)
           ? budget
           : readySite
             ? defaultReadyBudget
@@ -165,6 +180,11 @@ export default function ContactLeadQuiz() {
     return COUNTRIES.find((c) => c.code === formData.phoneCountry)?.mask || '(00) 000-00-00'
   }, [formData.phoneCountry])
 
+  const budgetOptions = useMemo(() => {
+    if (formData.goal === 'mobile') return MOBILE_BUDGETS
+    return WEB_BUDGETS
+  }, [formData.goal])
+
   const progress = ((step + 1) / STEPS.length) * 100
 
   const canContinue = () => {
@@ -176,11 +196,17 @@ export default function ContactLeadQuiz() {
 
   const selectGoal = (value: string) => {
     const g = GOALS.find((item) => item.value === value)
-    setFormData((prev) => ({
-      ...prev,
-      goal: value,
-      service: g?.service || prev.service,
-    }))
+    setFormData((prev) => {
+      const nextService = g?.service || prev.service
+      const options = value === 'mobile' ? MOBILE_BUDGETS : WEB_BUDGETS
+      const budgetStillValid = options.some((b) => b.value === prev.budget)
+      return {
+        ...prev,
+        goal: value,
+        service: nextService,
+        budget: budgetStillValid ? prev.budget : '',
+      }
+    })
   }
 
   const sendLeadNotification = async () => {
@@ -376,7 +402,7 @@ export default function ContactLeadQuiz() {
               Совпадает с пакетами на странице цен. Точная смета — после брифа.
             </p>
             <div className="grid sm:grid-cols-2 gap-3">
-              {BUDGETS.map((budget) => {
+              {budgetOptions.map((budget) => {
                 const active = formData.budget === budget.value
                 return (
                   <button

@@ -4,6 +4,8 @@ import Reveal from '../../components/Reveal'
 import SectionAtmosphere from '../../components/SectionAtmosphere'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
+import { DUAL_CURRENCY_NOTE } from '../../lib/currency'
+import { MOBILE_APP_PACKAGES } from '../../lib/mobile-app-packages'
 import { COMPANY_AREA_SERVED, SITE_URL, buildServiceMetadata } from '../../lib/seo'
 
 export const metadata = buildServiceMetadata('mobile-development')
@@ -120,6 +122,60 @@ export default function MobileDevelopmentPage() {
         </div>
       </section>
 
+      <section className="py-16 md:py-24 bg-slate-50 dark:bg-gray-900/40 border-b border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="mb-4 max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+              Ориентиры стоимости
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Точная смета — после Discovery. Цифры ниже помогают сориентироваться по объёму.
+            </p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">{DUAL_CURRENCY_NOTE}</p>
+          </Reveal>
+
+          <div className="mt-10 grid md:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden">
+            {MOBILE_APP_PACKAGES.map((pkg, index) => (
+              <Reveal
+                key={pkg.id}
+                stagger={(Math.min(index + 1, 3) as 1 | 2 | 3)}
+                className={`bg-white dark:bg-gray-950 p-7 flex flex-col h-full ${
+                  pkg.highlight ? 'ring-1 ring-inset ring-slate-900 dark:ring-white' : ''
+                }`}
+              >
+                {pkg.highlight ? (
+                  <p className="text-[11px] font-medium tracking-[0.14em] uppercase text-slate-500 dark:text-slate-400 mb-3">
+                    Часто выбирают
+                  </p>
+                ) : (
+                  <div className="h-5 mb-3" aria-hidden />
+                )}
+                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                  {pkg.title}
+                </h3>
+                <p className="font-display text-2xl font-bold text-slate-900 dark:text-white">{pkg.byn}</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{pkg.rub}</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Срок: {pkg.term}</p>
+                <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300 mb-8 flex-1">
+                  {pkg.items.map((item) => (
+                    <li key={item} className="flex gap-2">
+                      <span className="h-px w-3 bg-slate-400 shrink-0 mt-2.5" aria-hidden />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={`/contact?goal=${pkg.goal}&budget=${pkg.budget}`}
+                  className="apsod-btn-solid inline-flex justify-center w-full px-4 py-2.5 rounded-md text-sm font-semibold transition-colors"
+                >
+                  Получить смету
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <ServiceFaqBlock service="mobile-development" />
 
       <section className="relative py-20 md:py-28 overflow-hidden bg-slate-950 text-white">
@@ -130,7 +186,7 @@ export default function MobileDevelopmentPage() {
               Обсудим приложение
             </h2>
             <Link
-              href="/contact"
+              href="/contact?goal=mobile"
               className="apsod-btn-solid apsod-cta-primary inline-flex px-10 py-4 rounded-md text-sm font-semibold"
             >
               <span>Начать Discovery</span>

@@ -102,8 +102,7 @@ export const SERVICE_FAQS: Record<
     },
     {
       question: 'Сколько стоит создание мобильного приложения?',
-      answer:
-        'Смета после Discovery. MVP для одной платформы обычно начинается от нескольких тысяч бел. руб. / десятков–сотен тыс. рос. руб.',
+      answer: `Ориентир MVP для одной платформы — ${formatDualPrice(12000)}. Кроссплатформа (React Native) — ${formatDualPrice(18000)}, продукт на две платформы — ${formatDualPrice(25000)}. Точная смета после Discovery.`,
     },
     {
       question: 'Можно ли заказать мобильное приложение удалённо?',
@@ -124,8 +123,7 @@ export const SERVICE_FAQS: Record<
     },
     {
       question: 'Сколько стоит приложение для iPhone?',
-      answer:
-        'Смета после Discovery. Зависит от числа экранов, офлайна, push и бэкенда.',
+      answer: `Ориентир MVP — ${formatDualPrice(12000)}. Зависит от числа экранов, офлайна, push и бэкенда. Точная смета после Discovery.`,
     },
   ],
   'android-apps': [
@@ -141,8 +139,7 @@ export const SERVICE_FAQS: Record<
     },
     {
       question: 'Сколько стоит приложение для Android?',
-      answer:
-        'Смета после Discovery. Учитываем парк устройств, версии ОС и интеграции.',
+      answer: `Ориентир MVP — ${formatDualPrice(12000)}. Учитываем парк устройств, версии ОС и интеграции. Точная смета после Discovery.`,
     },
   ],
   'pwa-development': [

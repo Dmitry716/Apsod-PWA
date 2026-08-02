@@ -7,6 +7,7 @@ import SeoJsonLd from '../components/SeoJsonLd'
 import PageBreadcrumbs from '../components/PageBreadcrumbs'
 import { HOMEPAGE_FAQ } from '../lib/homepage-faq'
 import { DUAL_CURRENCY_NOTE, dualPriceLines, formatDualPrice } from '../lib/currency'
+import { MOBILE_APP_ENTRY_BYN, MOBILE_APP_PACKAGES } from '../lib/mobile-app-packages'
 
 export const metadata = buildSnippetMetadata('/pricing')
 
@@ -68,7 +69,7 @@ const EXTRA = [
   },
   {
     title: 'Мобильное приложение',
-    desc: 'iOS / Android / React Native — смета после Discovery. MVP обычно от нескольких тысяч Б̶ / десятков–сотен тыс. ₽.',
+    desc: `iOS / Android / React Native — ориентир MVP ${formatDualPrice(MOBILE_APP_ENTRY_BYN)}. Точная смета после Discovery.`,
     href: '/services/mobile-development',
   },
   {
@@ -129,6 +130,51 @@ export default function PricingPage() {
               <h2 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
                 {pkg.title}
               </h2>
+              <p className="font-display text-2xl font-bold text-slate-900 dark:text-white">{pkg.byn}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{pkg.rub}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Срок: {pkg.term}</p>
+              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300 mb-8 flex-1">
+                {pkg.items.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <span className="h-px w-3 bg-slate-400 shrink-0 mt-2.5" aria-hidden />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href={`/contact?goal=${pkg.goal}&budget=${pkg.budget}`}
+                className="apsod-btn-solid inline-flex justify-center w-full px-4 py-2.5 rounded-md text-sm font-semibold transition-colors"
+              >
+                Получить смету
+              </Link>
+            </div>
+          ))}
+        </div>
+
+        <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+          Мобильные приложения
+        </h2>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-2xl leading-relaxed">
+          Ориентиры для iOS, Android и React Native. Точная смета — после Discovery.
+        </p>
+        <div className="grid md:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden mb-16">
+          {MOBILE_APP_PACKAGES.map((pkg) => (
+            <div
+              key={pkg.id}
+              className={`bg-white dark:bg-gray-950 p-7 flex flex-col ${
+                pkg.highlight ? 'ring-1 ring-inset ring-slate-900 dark:ring-white' : ''
+              }`}
+            >
+              {pkg.highlight ? (
+                <p className="text-[11px] font-medium tracking-[0.14em] uppercase text-slate-500 dark:text-slate-400 mb-3">
+                  Часто выбирают
+                </p>
+              ) : (
+                <div className="h-5 mb-3" aria-hidden />
+              )}
+              <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+                {pkg.title}
+              </h3>
               <p className="font-display text-2xl font-bold text-slate-900 dark:text-white">{pkg.byn}</p>
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{pkg.rub}</p>
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Срок: {pkg.term}</p>
