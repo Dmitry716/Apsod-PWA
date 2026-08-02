@@ -57,7 +57,7 @@ export default function HomeDeviceShowcase() {
                   src={item.src}
                   alt={item.alt}
                   fill
-                  className="object-cover object-top transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
+                  className="object-contain object-center p-3 md:p-4 transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
                   sizes="(max-width: 768px) 100vw, 55vw"
                   priority={i === 0}
                 />
