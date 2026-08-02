@@ -140,8 +140,8 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     ],
     screens: [
       { src: '/portfolio/oak-and-thread.jpg', alt: 'Fashion store', device: 'desktop' },
-      { src: '/portfolio/best-buy.jpg', alt: 'Best Buy storefront', device: 'desktop' },
-      { src: '/portfolio/costco.jpg', alt: 'Costco storefront', device: 'desktop' },
+      { src: '/portfolio/best-buy-wide.jpg', alt: 'Best Buy storefront', device: 'desktop' },
+      { src: '/portfolio/costco-wide.jpg', alt: 'Costco storefront', device: 'desktop' },
     ],
     stack: [
       'Next.js',
@@ -165,13 +165,13 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
         title: 'Best Buy',
         result: 'Крупный retail: поиск, категории, промо и корзина',
         href: '/portfolio',
-        image: '/portfolio/best-buy.jpg',
+        image: '/portfolio/best-buy-wide.jpg',
       },
       {
         title: 'Costco',
         result: 'Wholesale e-commerce: навигация каталога и акции',
         href: '/portfolio',
-        image: '/portfolio/costco.jpg',
+        image: '/portfolio/costco-wide.jpg',
       },
     ],
     priceNote: `Ориентир интернет-магазина — ${formatDualPrice(23000)}. Точная смета после брифа.`,

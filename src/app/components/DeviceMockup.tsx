@@ -36,7 +36,7 @@ export default function DeviceMockup({
               alt={screenAlt}
               fill
               priority={priority}
-              className="object-contain object-top"
+              className="object-cover object-top"
               style={{ objectPosition: screenPosition }}
               sizes="(max-width: 768px) 92vw, 560px"
             />
