@@ -31,8 +31,6 @@ export type ServiceLandingContent = {
   secondaryCta: { label: string; href: string }
   heroDevice: DeviceKind
   heroScreen: { src: string; alt: string }
-  /** Optional photo mockup (e.g. hands holding iPhones) instead of CSS device chrome */
-  heroVisual?: { src: string; alt: string }
   outcomes: { title: string; body: string }[]
   screens: ServiceLandingScreen[]
   stack: string[]
@@ -191,10 +189,6 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     secondaryCta: { label: 'Все мобильные', href: '/services/mobile-development' },
     heroDevice: 'iphone',
     heroScreen: { src: '/devices/app-screens/home.png', alt: 'Главный экран приложения' },
-    heroVisual: {
-      src: '/devices/ios-hands-mockup.png',
-      alt: 'Приложение на iPhone 17 Pro Max и iPhone 17 Pro',
-    },
     outcomes: [
       {
         title: 'App Store ready',
