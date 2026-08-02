@@ -1,11 +1,8 @@
-import ServiceLanding from '../components/ServiceLanding'
-import { getServiceLanding } from '../lib/landing-data'
+import WebDevelopmentLanding from '../components/WebDevelopmentLanding'
 import { buildServiceMetadata } from '../../lib/seo'
 
 export const metadata = buildServiceMetadata('web-development')
 
 export default function WebDevelopmentPage() {
-  const content = getServiceLanding('web-development')
-  if (!content) return null
-  return <ServiceLanding content={content} />
+  return <WebDevelopmentLanding />
 }
