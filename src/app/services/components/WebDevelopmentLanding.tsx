@@ -11,9 +11,10 @@ import {
   WEB_DEV_FEATURED_PACKAGES,
   WEB_DEV_SITE_TYPES,
 } from '../../lib/web-dev-packages'
-import { WEB_STACK_CHIPS } from '../../lib/tech-stack'
+import { WEB_STACK } from '../../lib/tech-stack'
 import { WEB_DEVELOPMENT_PROCESS } from '../lib/development-process'
 import DevelopmentProcessSection from './DevelopmentProcessSection'
+import { TechStackChips } from '../../components/TechStackSection'
 
 const OUTCOMES = [
   {
@@ -342,16 +343,7 @@ export default function WebDevelopmentLanding() {
             </p>
           </Reveal>
           <Reveal>
-            <ul className="flex flex-wrap gap-2 md:gap-3">
-              {WEB_STACK_CHIPS.map((item) => (
-                <li
-                  key={item}
-                  className="apsod-surface-hover px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-950 cursor-default"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <TechStackChips items={WEB_STACK} />
           </Reveal>
         </div>
       </section>

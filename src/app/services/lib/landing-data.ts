@@ -6,7 +6,13 @@ import {
 } from './development-process'
 import { formatDualPrice } from '../../lib/currency'
 import type { ServicePath } from '../../lib/seo'
-import { ECOMMERCE_STACK_CHIPS, WEB_STACK_CHIPS } from '../../lib/tech-stack'
+import {
+  ANDROID_STACK,
+  ECOMMERCE_STACK,
+  IOS_STACK,
+  WEB_STACK,
+  type TechItem,
+} from '../../lib/tech-stack'
 
 export type ServiceLandingCase = {
   title: string
@@ -34,7 +40,7 @@ export type ServiceLandingContent = {
   heroScreen: { src: string; alt: string }
   outcomes: { title: string; body: string }[]
   screens: ServiceLandingScreen[]
-  stack: string[]
+  stack: TechItem[]
   processTitle: string
   processSubtitle: string
   process: DevelopmentPhase[]
@@ -74,7 +80,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       { src: '/portfolio/harbor-health.jpg', alt: 'Medical clinic', device: 'desktop' },
       { src: '/portfolio/oak-and-thread.jpg', alt: 'Fashion storefront', device: 'desktop' },
     ],
-    stack: [...WEB_STACK_CHIPS],
+    stack: WEB_STACK,
     processTitle: 'Как создаём сайт',
     processSubtitle: 'От брифа до запуска — прозрачные этапы и артефакты.',
     process: WEB_DEVELOPMENT_PROCESS,
@@ -144,7 +150,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       { src: '/portfolio/best-buy-wide.jpg', alt: 'Best Buy storefront', device: 'desktop' },
       { src: '/portfolio/costco-wide.jpg', alt: 'Costco storefront', device: 'desktop' },
     ],
-    stack: [...ECOMMERCE_STACK_CHIPS],
+    stack: ECOMMERCE_STACK,
     processTitle: 'Как запускаем магазин',
     processSubtitle: 'От ассортимента и сценариев покупки до оплаты и публикации.',
     process: WEB_DEVELOPMENT_PROCESS,
@@ -202,7 +208,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       { src: '/devices/app-screens/services.png', alt: 'Список услуг', device: 'iphone' },
       { src: '/devices/app-screens/booking.png', alt: 'Запись', device: 'iphone' },
     ],
-    stack: ['Swift', 'SwiftUI', 'React Native', 'TypeScript', 'Firebase', 'Node.js'],
+    stack: IOS_STACK,
     processTitle: 'Как делаем iOS-приложение',
     processSubtitle: 'От Discovery и прототипа до релиза в App Store.',
     process: MOBILE_DEVELOPMENT_PROCESS,
@@ -260,7 +266,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       { src: '/devices/app-screens/services.png', alt: 'Список услуг', device: 'samsung' },
       { src: '/devices/app-screens/booking.png', alt: 'Запись', device: 'samsung' },
     ],
-    stack: ['Kotlin', 'Jetpack Compose', 'React Native', 'TypeScript', 'Firebase', 'Node.js'],
+    stack: ANDROID_STACK,
     processTitle: 'Как делаем Android-приложение',
     processSubtitle: 'От Discovery и прототипа до релиза в Google Play.',
     process: MOBILE_DEVELOPMENT_PROCESS,

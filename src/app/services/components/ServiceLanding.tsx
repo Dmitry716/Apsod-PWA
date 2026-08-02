@@ -8,6 +8,7 @@ import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { COMPANY_AREA_SERVED, SITE_URL } from '../../lib/seo'
 import DevelopmentProcessSection from './DevelopmentProcessSection'
+import { TechStackChips } from '../../components/TechStackSection'
 import type { ServiceLandingContent } from '../lib/landing-data'
 
 type Props = {
@@ -168,16 +169,7 @@ export default function ServiceLanding({ content }: Props) {
             </p>
           </Reveal>
           <Reveal>
-            <ul className="flex flex-wrap gap-2 md:gap-3">
-              {content.stack.map((item) => (
-                <li
-                  key={item}
-                  className="apsod-surface-hover px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-950 cursor-default"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
+            <TechStackChips items={content.stack} />
           </Reveal>
         </div>
       </section>

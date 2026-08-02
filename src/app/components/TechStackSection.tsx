@@ -1,11 +1,30 @@
 import Reveal from './Reveal'
-import { TECH_STACK_CATEGORIES, type TechStackCategory } from '../lib/tech-stack'
+import TechBrandIcon from './TechBrandIcon'
+import { TECH_STACK_CATEGORIES, type TechItem, type TechStackCategory } from '../lib/tech-stack'
 
 type Props = {
   title?: string
   subtitle?: string
   categories?: TechStackCategory[]
   className?: string
+}
+
+function TechTile({ item }: { item: TechItem }) {
+  return (
+    <li
+      className="apsod-tech-tile group relative flex items-center gap-3 bg-white dark:bg-gray-950 px-4 py-3.5"
+      style={{ ['--tech-accent' as string]: item.accent }}
+    >
+      <span className="apsod-tech-tile__icon flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/70 text-slate-700 dark:text-slate-200">
+        <TechBrandIcon id={item.icon} className="h-5 w-5" title={item.name} />
+      </span>
+      <span className="min-w-0">
+        <span className="block font-display text-sm font-semibold tracking-tight text-slate-900 dark:text-white truncate">
+          {item.name}
+        </span>
+      </span>
+    </li>
+  )
 }
 
 export default function TechStackSection({
@@ -29,23 +48,20 @@ export default function TechStackSection({
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{subtitle}</p>
         </Reveal>
 
-        <div className="grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 md:grid-cols-2 lg:grid-cols-3">
+        <div className="space-y-8 md:space-y-10">
           {categories.map((category) => (
-            <Reveal
-              key={category.id}
-              className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 md:p-7"
-            >
-              <h3 className="font-display text-sm font-semibold tracking-tight text-slate-900 dark:text-white mb-4">
-                {category.title}
-              </h3>
-              <ul className="flex flex-wrap gap-2">
+            <Reveal key={category.id}>
+              <div className="flex items-end justify-between gap-4 mb-3">
+                <h3 className="font-display text-sm md:text-base font-semibold tracking-tight text-slate-900 dark:text-white">
+                  {category.title}
+                </h3>
+                <span className="text-[11px] tracking-[0.14em] uppercase text-slate-400">
+                  {String(category.items.length).padStart(2, '0')}
+                </span>
+              </div>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
                 {category.items.map((item) => (
-                  <li
-                    key={item}
-                    className="px-3 py-1.5 text-sm font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60"
-                  >
-                    {item}
-                  </li>
+                  <TechTile key={item.id} item={item} />
                 ))}
               </ul>
             </Reveal>
@@ -53,5 +69,23 @@ export default function TechStackSection({
         </div>
       </div>
     </section>
+  )
+}
+
+type ChipsProps = {
+  items: readonly TechItem[]
+  className?: string
+}
+
+/** Compact icon chips for service landings. */
+export function TechStackChips({ items, className = '' }: ChipsProps) {
+  return (
+    <ul
+      className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 ${className}`}
+    >
+      {items.map((item) => (
+        <TechTile key={item.id} item={item} />
+      ))}
+    </ul>
   )
 }

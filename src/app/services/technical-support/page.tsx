@@ -1,5 +1,6 @@
 ﻿import Link from 'next/link'
 import SeoJsonLd from '../../components/SeoJsonLd'
+import TechStackSection from '../../components/TechStackSection'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 import { SUPPORT_STACK_CATEGORIES } from '../../lib/tech-stack'
@@ -23,7 +24,7 @@ export default function TechnicalSupportPage() {
     {
       title: 'Обновление зависимостей и безопасности',
       description:
-        'Актуализация пакетов и фреймворков: React/Next.js, Angular, Vue, Svelte, ASP.NET Core, Node.js. Закрытие уязвимостей и стабильные релизы.',
+        'Актуализация пакетов и фреймворков: React JS, Next.js, Angular, Vue.js, Svelte, ASP.NET Core, Node.js. Закрытие уязвимостей и стабильные релизы.',
     },
     {
       title: 'Консультации и доработки',
@@ -31,14 +32,12 @@ export default function TechnicalSupportPage() {
     },
   ]
 
-  const supportedStacks = SUPPORT_STACK_CATEGORIES
-
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: 'Техническая поддержка сайтов',
     description:
-      'Техподдержка сайтов на современном стеке: React, Next.js, Angular, Vue, Svelte, ASP.NET Core, Node.js, PostgreSQL. Обновление контента, мониторинг, резервное копирование и доработки.',
+      'Техподдержка сайтов на современном стеке: React JS, Next.js, Angular, Vue.js, Svelte, ASP.NET Core, Node.js, PostgreSQL. Обновление контента, мониторинг, резервное копирование и доработки.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
     areaServed: { '@type': 'City', name: 'Minsk' },
     url: `${SITE_URL}/services/technical-support`,
@@ -66,7 +65,7 @@ export default function TechnicalSupportPage() {
               <span className="text-slate-600 dark:text-slate-400">поддержка сайтов</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-              Сопровождение сайтов на React, Next.js, Angular, Vue, Svelte, ASP.NET Core и Node.js
+              Сопровождение сайтов на React JS, Next.js, Angular, Vue.js, Svelte, ASP.NET Core и Node.js
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
@@ -110,38 +109,11 @@ export default function TechnicalSupportPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 text-center">
-              Поддерживаемые технологии
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-10 text-center max-w-2xl mx-auto">
-              Работаем с популярными фреймворками 2026 года — JS/TS, .NET и современными базами данных.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {supportedStacks.map((stack) => (
-                <div
-                  key={stack.id}
-                  className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6"
-                >
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">{stack.title}</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {stack.items.map((item) => (
-                      <span
-                        key={item}
-                        className="px-3 py-1.5 bg-slate-100 dark:bg-slate-700/50 text-slate-700 dark:text-slate-200 rounded-full text-sm font-medium"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <TechStackSection
+        title="Поддерживаемые технологии"
+        subtitle="Работаем с популярными фреймворками 2026 года — JS/TS, .NET и современными базами данных."
+        categories={SUPPORT_STACK_CATEGORIES}
+      />
 
       <section className="py-20 bg-slate-950">
         <div className="container mx-auto px-4 text-center">

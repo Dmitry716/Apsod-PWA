@@ -526,6 +526,47 @@
   box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.55);
 }
 
+/* Tech stack tiles */
+.apsod-tech-tile {
+  transition:
+    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease;
+}
+
+.apsod-tech-tile__icon {
+  transition:
+    color 0.35s ease,
+    border-color 0.35s ease,
+    background-color 0.35s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease;
+}
+
+.apsod-tech-tile:hover {
+  z-index: 1;
+  background-color: rgba(248, 250, 252, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px -22px rgba(15, 23, 42, 0.4);
+}
+
+.dark .apsod-tech-tile:hover {
+  background-color: rgba(15, 23, 42, 0.72);
+  box-shadow: 0 16px 36px -20px rgba(0, 0, 0, 0.55);
+}
+
+.apsod-tech-tile:hover .apsod-tech-tile__icon {
+  color: var(--tech-accent, currentColor);
+  border-color: color-mix(in srgb, var(--tech-accent, #94a3b8) 45%, transparent);
+  background-color: color-mix(in srgb, var(--tech-accent, #94a3b8) 14%, transparent);
+  transform: scale(1.06);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--tech-accent, #94a3b8) 25%, transparent);
+}
+
+.dark .apsod-tech-tile:hover .apsod-tech-tile__icon {
+  color: color-mix(in srgb, var(--tech-accent, #94a3b8) 58%, #f8fafc);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .apsod-reveal,
   .apsod-hero-enter,
@@ -540,9 +581,19 @@
   .apsod-hero-line,
   .apsod-code-hero-glow,
   .apsod-code-hero-ghost,
-  .apsod-code-caret {
+  .apsod-code-caret,
+  .apsod-tech-tile,
+  .apsod-tech-tile__icon {
     animation: none !important;
     transition: none !important;
+  }
+
+  .apsod-tech-tile:hover {
+    transform: none;
+  }
+
+  .apsod-tech-tile:hover .apsod-tech-tile__icon {
+    transform: none;
   }
 
   .apsod-reveal {
