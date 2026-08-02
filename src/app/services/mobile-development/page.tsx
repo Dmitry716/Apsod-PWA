@@ -89,15 +89,18 @@ export default function MobileDevelopmentPage() {
             </h2>
           </Reveal>
 
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
+          <div className="grid gap-12 lg:grid-cols-2 lg:gap-14">
             {PLATFORMS.map((item, index) => (
-              <Reveal key={item.href} stagger={(Math.min(index + 1, 2) as 1 | 2)}>
-                <Link href={item.href} className="group grid sm:grid-cols-[160px_1fr] gap-8 items-center">
-                  <div className="max-w-[150px] mx-auto sm:mx-0">
+              <Reveal key={item.href} stagger={(Math.min(index + 1, 2) as 1 | 2)} className="h-full">
+                <Link
+                  href={item.href}
+                  className="group flex h-full flex-col items-center gap-6 sm:flex-row sm:items-center sm:gap-8"
+                >
+                  <div className="w-[min(42vw,160px)] sm:w-[min(28vw,170px)] lg:w-[160px] shrink-0">
                     <DeviceMockup device={item.device} screenSrc={item.screen} screenAlt={item.title} />
                   </div>
-                  <div>
-                    <h3 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-3 group-hover:translate-x-1 transition-transform duration-500">
+                  <div className="min-w-0 flex-1 text-center sm:text-left">
+                    <h3 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-3 group-hover:translate-x-1 transition-transform duration-500 sm:group-hover:translate-x-1">
                       {item.title}
                     </h3>
                     <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-5">{item.body}</p>
