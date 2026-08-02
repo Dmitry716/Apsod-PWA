@@ -62,7 +62,7 @@ export default function HomeLeadStrip() {
             href="/pricing"
             className="inline-flex px-6 py-3 border border-slate-300 dark:border-slate-600 hover:border-slate-900 dark:hover:border-white rounded-md text-sm font-medium text-slate-800 dark:text-slate-100 transition-colors"
           >
-            Пакеты и условия
+            Стоимость и условия
           </Link>
         </Reveal>
       </div>

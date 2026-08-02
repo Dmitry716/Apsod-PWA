@@ -165,7 +165,7 @@ export default function ServicesPage() {
                 href="/pricing"
                 className="px-6 py-3 border border-slate-300 dark:border-slate-600 rounded-md text-sm font-medium text-slate-800 dark:text-slate-100 hover:border-slate-900 dark:hover:border-white transition-colors"
               >
-                Пакеты и условия
+                Стоимость и условия
               </Link>
             </div>
             <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm border-t border-slate-200 dark:border-slate-800 pt-6">

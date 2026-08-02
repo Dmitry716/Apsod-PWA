@@ -71,7 +71,7 @@ export default function WebDevelopmentLanding() {
       <SeoJsonLd data={serviceSchema} />
 
       {/* Hero — full-bleed composition */}
-      <section className="relative min-h-[min(100svh,880px)] flex items-end overflow-hidden bg-slate-950 text-white">
+      <section className="relative min-h-[min(72svh,640px)] flex items-end overflow-hidden bg-slate-950 text-white">
         <div className="absolute inset-0" aria-hidden>
           <Image
             src="/portfolio/amba.png"
@@ -85,9 +85,9 @@ export default function WebDevelopmentLanding() {
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/55 to-transparent" />
         </div>
 
-        <div className="container mx-auto px-4 relative z-10 pb-16 md:pb-24 pt-28 md:pt-36">
-          <p className="apsod-hero-enter apsod-hero-enter-delay-1 font-display text-[clamp(2.75rem,10vw,6rem)] font-bold tracking-[-0.04em] leading-none mb-8">
-            APSOD
+        <div className="container mx-auto px-4 relative z-10 pb-12 md:pb-16 pt-20 md:pt-24">
+          <p className="apsod-hero-enter apsod-hero-enter-delay-1 text-[11px] font-medium tracking-[0.22em] uppercase text-slate-400 mb-5">
+            Веб-разработка
           </p>
           <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display text-[clamp(1.85rem,4.5vw,3.25rem)] font-bold tracking-tight leading-[1.1] mb-5 max-w-2xl">
             Разработка сайтов в Минске
@@ -95,7 +95,7 @@ export default function WebDevelopmentLanding() {
           <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-base md:text-lg text-slate-300 leading-relaxed mb-4 max-w-lg">
             Лендинг, корпоративный сайт или каталог — проектируем и собираем на собственном коде, запускаем как продукт.
           </p>
-          <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-sm text-slate-400 mb-9 max-w-lg">
+          <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-sm text-slate-400 mb-8 max-w-lg">
             Ориентир: лендинг — {formatDualPrice(8000)}, корпоративный — {formatDualPrice(15000)}.
           </p>
           <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3">
@@ -185,10 +185,10 @@ export default function WebDevelopmentLanding() {
                   {type.body}
                 </p>
                 <Link
-                  href="#packages"
+                  href="#pricing"
                   className="text-sm font-medium text-slate-900 dark:text-white underline-offset-4 hover:underline"
                 >
-                  К пакетам →
+                  К стоимости →
                 </Link>
               </Reveal>
             ))}
@@ -196,15 +196,15 @@ export default function WebDevelopmentLanding() {
         </div>
       </section>
 
-      {/* Packages */}
+      {/* Pricing */}
       <section
-        id="packages"
+        id="pricing"
         className="py-16 md:py-24 border-b border-slate-200 dark:border-slate-800 scroll-mt-24"
       >
         <div className="container mx-auto px-4">
           <Reveal className="mb-4 max-w-2xl">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-              Пакеты и ориентиры
+              Стоимость и ориентиры
             </h2>
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
               Точная смета — после короткого брифа. Цифры ниже помогают сориентироваться.

@@ -101,7 +101,7 @@ export default function PricingPage() {
         />
 
         <p className="text-xs font-medium tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400 mb-4">
-          Пакеты и условия
+          Стоимость и условия
         </p>
         <h1 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
           Цены на разработку сайтов и digital

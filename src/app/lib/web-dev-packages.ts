@@ -100,7 +100,7 @@ export const WEB_DEV_PACKAGES: WebDevPackage[] = [
   ),
 ]
 
-/** Пакеты для сетки на /services/web-development (без отдельной карточки каталога) */
+/** Ориентиры стоимости для сетки на /services/web-development (без отдельной карточки каталога) */
 export const WEB_DEV_FEATURED_PACKAGES = WEB_DEV_PACKAGES.filter(
   (p) => p.id === 'landing' || p.id === 'corporate' || p.id === 'shop'
 )

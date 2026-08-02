@@ -399,7 +399,7 @@ export default function ContactLeadQuiz() {
               Ориентир по бюджету
             </h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-              Совпадает с пакетами на странице цен. Точная смета — после брифа.
+              Совпадает со стоимостью на странице цен. Точная смета — после брифа.
             </p>
             <div className="grid sm:grid-cols-2 gap-3">
               {budgetOptions.map((budget) => {
