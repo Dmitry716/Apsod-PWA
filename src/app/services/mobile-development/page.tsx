@@ -92,8 +92,8 @@ export default function MobileDevelopmentPage() {
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
             {PLATFORMS.map((item, index) => (
               <Reveal key={item.href} stagger={(Math.min(index + 1, 2) as 1 | 2)}>
-                <Link href={item.href} className="group grid sm:grid-cols-[200px_1fr] gap-8 items-center">
-                  <div className="max-w-[180px] mx-auto sm:mx-0">
+                <Link href={item.href} className="group grid sm:grid-cols-[160px_1fr] gap-8 items-center">
+                  <div className="max-w-[150px] mx-auto sm:mx-0">
                     <DeviceMockup device={item.device} screenSrc={item.screen} screenAlt={item.title} />
                   </div>
                   <div>
