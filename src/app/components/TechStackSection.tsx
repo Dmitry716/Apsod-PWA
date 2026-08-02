@@ -59,7 +59,7 @@ export default function TechStackSection({
                   {String(category.items.length).padStart(2, '0')}
                 </span>
               </div>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
+              <ul className="apsod-tech-grid grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
                 {category.items.map((item) => (
                   <TechTile key={item.id} item={item} />
                 ))}
@@ -81,7 +81,7 @@ type ChipsProps = {
 export function TechStackChips({ items, className = '' }: ChipsProps) {
   return (
     <ul
-      className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 ${className}`}
+      className={`apsod-tech-grid apsod-tech-grid--chips grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 ${className}`}
     >
       {items.map((item) => (
         <TechTile key={item.id} item={item} />

@@ -567,6 +567,15 @@
   color: color-mix(in srgb, var(--tech-accent, #94a3b8) 58%, #f8fafc);
 }
 
+/* auto-fit collapses empty tracks so incomplete rows don't show holes */
+.apsod-tech-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11.5rem), 1fr));
+}
+
+.apsod-tech-grid--chips {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10.5rem), 1fr));
+}
+
 @media (prefers-reduced-motion: reduce) {
   .apsod-reveal,
   .apsod-hero-enter,
