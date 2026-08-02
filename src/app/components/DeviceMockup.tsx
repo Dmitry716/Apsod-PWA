@@ -11,11 +11,17 @@ type Props = {
   screenPosition?: string
 }
 
-/** Pre-composited photorealistic iPhone mockups (frame + screen, no studio bg) */
+/** Pre-composited photorealistic phone mockups (frame + screen, no studio bg) */
 const IPHONE_MOCKUPS: Record<string, string> = {
   '/devices/app-screens/home.png': '/devices/mockups/iphone-home.png',
   '/devices/app-screens/services.png': '/devices/mockups/iphone-services.png',
   '/devices/app-screens/booking.png': '/devices/mockups/iphone-booking.png',
+}
+
+const SAMSUNG_MOCKUPS: Record<string, string> = {
+  '/devices/app-screens/home.png': '/devices/mockups/samsung-home.png',
+  '/devices/app-screens/services.png': '/devices/mockups/samsung-services.png',
+  '/devices/app-screens/booking.png': '/devices/mockups/samsung-booking.png',
 }
 
 export default function DeviceMockup({
@@ -71,23 +77,19 @@ export default function DeviceMockup({
     )
   }
 
+  const mockupSrc = SAMSUNG_MOCKUPS[screenSrc] ?? '/devices/mockups/samsung-home.png'
+
   return (
     <div className={`relative mx-auto w-full ${className}`}>
-      <div className="relative w-full rounded-[2rem] bg-gradient-to-b from-slate-600 via-slate-800 to-slate-950 p-[7px] shadow-[0_28px_56px_rgba(0,0,0,0.45)]">
-        <div className="relative aspect-[9/19.5] w-full overflow-hidden rounded-[1.55rem] bg-black">
-          <Image
-            src={screenSrc}
-            alt={screenAlt}
-            fill
-            priority={priority}
-            className="object-cover object-top"
-            sizes="(max-width: 640px) 45vw, 220px"
-          />
-          <div
-            className="pointer-events-none absolute left-1/2 top-[2.2%] z-20 h-[9px] w-[9px] -translate-x-1/2 rounded-full bg-slate-950 ring-1 ring-slate-600"
-            aria-hidden
-          />
-        </div>
+      <div className="relative w-full" style={{ aspectRatio: '615 / 1000' }}>
+        <Image
+          src={mockupSrc}
+          alt={screenAlt}
+          fill
+          priority={priority}
+          className="object-contain object-center"
+          sizes="(max-width: 640px) 48vw, 200px"
+        />
       </div>
     </div>
   )

@@ -2,32 +2,32 @@ const sharp = require('sharp')
 const fs = require('fs')
 const path = require('path')
 
-const original = 'c:/Users/karel/apsod-pwa/public/devices/iphone-17-pro-max.png'
-const frameOut = 'c:/Users/karel/apsod-pwa/public/devices/iphone-17-pro-max-frame.png'
-const outDir = 'c:/Users/karel/apsod-pwa/public/devices/mockups'
-const screensDir = 'c:/Users/karel/apsod-pwa/public/devices/app-screens'
-const jobs = [
-  {
-    src: path.join(screensDir, 'home-portrait.png'),
-    screenOut: path.join(screensDir, 'home.png'),
-    mockOut: path.join(outDir, 'iphone-home.png'),
-  },
-  {
-    src: path.join(screensDir, 'services-portrait.png'),
-    screenOut: path.join(screensDir, 'services.png'),
-    mockOut: path.join(outDir, 'iphone-services.png'),
-  },
-  {
-    src: path.join(screensDir, 'booking-portrait.png'),
-    screenOut: path.join(screensDir, 'booking.png'),
-    mockOut: path.join(outDir, 'iphone-booking.png'),
-  },
-]
+const root = path.join(__dirname, '..')
+const original = path.join(root, 'public/devices/samsung-s26.png')
+const frameOut = path.join(root, 'public/devices/samsung-s26-frame.png')
+const outDir = path.join(root, 'public/devices/mockups')
+const screensDir = path.join(root, 'public/devices/app-screens')
+
+fs.mkdirSync(outDir, { recursive: true })
+
+const SCREEN_NAMES = ['home', 'services', 'booking']
 
 function isStudioBg(r, g, b) {
-  const nearGray = Math.abs(r - g) < 18 && Math.abs(g - b) < 18 && Math.abs(r - b) < 18
-  const lum = (r + g + b) / 3
-  return nearGray && lum >= 85 && lum <= 252
+  return r > 245 && g > 245 && b > 245
+}
+
+async function prepareScreen(name, holeW, holeH) {
+  const src = path.join(screensDir, `${name}-portrait.png`)
+  const BLACK = { r: 0, g: 0, b: 0, alpha: 1 }
+  const meta = await sharp(src).metadata()
+  // Safe pad so titles/nav survive fill into tall glass
+  const padY = Math.round(meta.height * (name === 'home' ? 0.02 : 0.055))
+  const padX = Math.round(meta.width * 0.035)
+  const padded = await sharp(src)
+    .extend({ top: padY, bottom: padY, left: padX, right: padX, background: BLACK })
+    .png()
+    .toBuffer()
+  return sharp(padded).resize(holeW * 2, holeH * 2, { fit: 'fill' }).png().toBuffer()
 }
 
 async function main() {
@@ -35,7 +35,6 @@ async function main() {
   const { width, height, channels } = info
   const px = Buffer.from(data)
 
-  // 1) Remove studio background
   const visited = new Uint8Array(width * height)
   const stack = []
   const tryPush = (x, y) => {
@@ -67,7 +66,6 @@ async function main() {
     tryPush(x, y - 1)
   }
 
-  // 2) Crop to phone
   let minX = width
   let minY = height
   let maxX = 0
@@ -89,7 +87,6 @@ async function main() {
   const cw = maxX - minX + 1
   const ch = maxY - minY + 1
 
-  // 3) Find black display + island region
   let sMinX = cw
   let sMinY = ch
   let sMaxX = 0
@@ -98,7 +95,7 @@ async function main() {
     for (let x = minX; x <= maxX; x++) {
       const o = (y * width + x) * channels
       if (px[o + 3] < 200) continue
-      if (px[o] <= 28 && px[o + 1] <= 28 && px[o + 2] <= 28) {
+      if (px[o] <= 30 && px[o + 1] <= 30 && px[o + 2] <= 30) {
         const lx = x - minX
         const ly = y - minY
         if (lx < sMinX) sMinX = lx
@@ -110,25 +107,23 @@ async function main() {
   }
 
   const phoneW = cw
-  const phoneH = ch
   const cx = phoneW / 2
-  const islandTop = sMinY + (sMaxY - sMinY) * 0.012
-  const islandBottom = sMinY + (sMaxY - sMinY) * 0.055
-  const islandLeft = cx - phoneW * 0.155
-  const islandRight = cx + phoneW * 0.155
-  const bezelKeep = Math.max(5, Math.round(phoneW * 0.022))
+  const camTop = sMinY + (sMaxY - sMinY) * 0.01
+  const camBottom = sMinY + (sMaxY - sMinY) * 0.042
+  const camLeft = cx - phoneW * 0.028
+  const camRight = cx + phoneW * 0.028
+  const bezelKeep = Math.max(3, Math.round(phoneW * 0.014))
 
-  // 4) Punch screen hole but keep bezel ring + Dynamic Island
   for (let y = minY; y <= maxY; y++) {
     for (let x = minX; x <= maxX; x++) {
       const o = (y * width + x) * channels
       if (px[o + 3] < 40) continue
-      if (!(px[o] <= 28 && px[o + 1] <= 28 && px[o + 2] <= 28)) continue
+      if (!(px[o] <= 30 && px[o + 1] <= 30 && px[o + 2] <= 30)) continue
       const lx = x - minX
       const ly = y - minY
       if (lx < sMinX + bezelKeep || lx > sMaxX - bezelKeep) continue
       if (ly < sMinY + bezelKeep || ly > sMaxY - bezelKeep) continue
-      if (lx >= islandLeft && lx <= islandRight && ly >= islandTop && ly <= islandBottom) continue
+      if (lx >= camLeft && lx <= camRight && ly >= camTop && ly <= camBottom) continue
       px[o + 3] = 0
     }
   }
@@ -139,7 +134,7 @@ async function main() {
     width: sMaxX - sMinX + 1 - bezelKeep * 2,
     height: sMaxY - sMinY + 1 - bezelKeep * 2,
   }
-  const radius = Math.round(Math.min(hole.width, hole.height) * 0.11)
+  const radius = Math.round(Math.min(hole.width, hole.height) * 0.07)
 
   await sharp(px, { raw: { width, height, channels } })
     .extract({ left: minX, top: minY, width: cw, height: ch })
@@ -151,27 +146,25 @@ async function main() {
   const maskSvg = Buffer.from(
     `<svg width="${hole.width}" height="${hole.height}"><rect width="${hole.width}" height="${hole.height}" rx="${radius}" ry="${radius}" fill="#fff"/></svg>`
   )
+  const punchR = Math.max(4, Math.round(hole.width * 0.032))
+  const punchCy = Math.round(hole.height * 0.026)
+  const punchSvg = Buffer.from(
+    `<svg width="${hole.width}" height="${hole.height}"><circle cx="${hole.width / 2}" cy="${punchCy}" r="${punchR}" fill="#050505"/></svg>`
+  )
 
-  for (const job of jobs) {
-    const BLACK = { r: 0, g: 0, b: 0, alpha: 1 }
-    const name = path.basename(job.src).replace('-portrait.png', '')
-    const meta = await sharp(job.src).metadata()
-    const padY = Math.round(meta.height * (name === 'home' ? 0.02 : 0.055))
-    const padX = Math.round(meta.width * 0.035)
-    const padded = await sharp(job.src)
-      .extend({ top: padY, bottom: padY, left: padX, right: padX, background: BLACK })
-      .png()
-      .toBuffer()
-    const prepared = await sharp(padded)
-      .resize(hole.width * 2, hole.height * 2, { fit: 'fill' })
-      .png()
-      .toBuffer()
+  for (const name of SCREEN_NAMES) {
+    const prepared = await prepareScreen(name, hole.width, hole.height)
+    const screenOut = path.join(screensDir, `${name}.png`)
+    const mockOut = path.join(outDir, `samsung-${name}.png`)
 
-    await sharp(prepared).png().toFile(job.screenOut)
+    await sharp(prepared).png().toFile(screenOut)
 
     const fitted = await sharp(prepared)
-      .resize(hole.width, hole.height, { fit: 'fill' })
-      .composite([{ input: maskSvg, blend: 'dest-in' }])
+      .resize(hole.width, hole.height, { fit: 'cover', position: 'centre' })
+      .composite([
+        { input: maskSvg, blend: 'dest-in' },
+        { input: punchSvg, blend: 'over' },
+      ])
       .png()
       .toBuffer()
 
@@ -183,9 +176,9 @@ async function main() {
         { input: frameOut, left: 0, top: 0 },
       ])
       .png()
-      .toFile(job.mockOut)
+      .toFile(mockOut)
 
-    console.log('wrote', path.basename(job.mockOut))
+    console.log('wrote', path.basename(mockOut))
   }
 }
 
