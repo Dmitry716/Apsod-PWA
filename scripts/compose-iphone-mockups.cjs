@@ -12,17 +12,17 @@ fs.mkdirSync(outDir, { recursive: true })
 
 const jobs = [
   {
-    src: path.join(assets, 'screen-home-916.png'),
+    src: path.join(assets, 'screen-home-safe.png'),
     screenOut: path.join(screensDir, 'home.png'),
     mockOut: path.join(outDir, 'iphone-home.png'),
   },
   {
-    src: path.join(assets, 'screen-services-916.png'),
+    src: path.join(assets, 'screen-services-safe.png'),
     screenOut: path.join(screensDir, 'services.png'),
     mockOut: path.join(outDir, 'iphone-services.png'),
   },
   {
-    src: path.join(assets, 'screen-booking-916.png'),
+    src: path.join(assets, 'screen-booking-safe.png'),
     screenOut: path.join(screensDir, 'booking.png'),
     mockOut: path.join(outDir, 'iphone-booking.png'),
   },
@@ -160,12 +160,11 @@ async function main() {
     // Keep source screens as 9:16 assets
     await sharp(job.src).png().toFile(job.screenOut)
 
-    // contain = no text crop; black fills unused phone height
+    // cover fills the display; screens have side safe-margins so text survives
     const fitted = await sharp(job.src)
       .resize(hole.width, hole.height, {
-        fit: 'contain',
-        position: 'centre',
-        background: { r: 0, g: 0, b: 0, alpha: 1 },
+        fit: 'cover',
+        position: 'top',
       })
       .composite([{ input: maskSvg, blend: 'dest-in' }])
       .png()

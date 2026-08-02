@@ -94,16 +94,18 @@ export default function MobileDevelopmentPage() {
               <Reveal key={item.href} stagger={(Math.min(index + 1, 2) as 1 | 2)} className="h-full">
                 <Link
                   href={item.href}
-                  className="group flex h-full flex-col items-center gap-6 sm:flex-row sm:items-center sm:gap-8"
+                  className="group grid h-full grid-cols-1 gap-6 sm:grid-cols-[132px_minmax(0,1fr)] sm:gap-8 sm:items-center"
                 >
-                  <div className="w-[min(40vw,150px)] sm:w-[140px] lg:w-[150px] shrink-0">
+                  <div className="mx-auto w-[132px] shrink-0 sm:mx-0">
                     <DeviceMockup device={item.device} screenSrc={item.screen} screenAlt={item.title} />
                   </div>
-                  <div className="min-w-0 flex-1 text-center sm:text-left">
+                  <div className="min-w-0 text-center sm:text-left">
                     <h3 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-3 group-hover:translate-x-1 transition-transform duration-500">
                       {item.title}
                     </h3>
-                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-5">{item.body}</p>
+                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-5 text-pretty">
+                      {item.body}
+                    </p>
                     <span className="inline-flex items-center gap-2 text-sm font-medium text-slate-900 dark:text-white">
                       {item.cta}
                       <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-1">
