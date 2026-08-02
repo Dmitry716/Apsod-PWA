@@ -50,7 +50,7 @@ export default function Header() {
           {/* Логотип */}
           <Link
             href="/"
-            className="font-display text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white"
+            className="font-display text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white transition-opacity duration-300 hover:opacity-80"
             style={{
               letterSpacing: "-0.03em",
             }}
@@ -65,7 +65,7 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white transition-colors whitespace-nowrap"
+                  className="apsod-nav-link text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white whitespace-nowrap"
                 >
                   {link.label}
                 </Link>

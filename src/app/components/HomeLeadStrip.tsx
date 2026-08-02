@@ -41,7 +41,7 @@ export default function HomeLeadStrip() {
             <Link
               key={item.href}
               href={item.href}
-              className="bg-white dark:bg-gray-950 px-6 py-6 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
+              className="apsod-surface-hover bg-white dark:bg-gray-950 px-6 py-6"
             >
               <div className="font-display font-semibold text-slate-900 dark:text-white tracking-tight">
                 {item.title}

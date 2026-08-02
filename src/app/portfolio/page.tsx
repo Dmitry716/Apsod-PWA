@@ -220,7 +220,7 @@ export default function PortfolioPage() {
             {filteredProjects.map((project) => (
               <article
                 key={project.id}
-                className="group border border-slate-200 dark:border-slate-800 bg-white dark:bg-gray-950 overflow-hidden hover:border-slate-400 dark:hover:border-slate-600 transition-colors"
+                className="apsod-price-card group border border-slate-200 dark:border-slate-800 bg-white dark:bg-gray-950 overflow-hidden hover:border-slate-400 dark:hover:border-slate-600"
               >
                 <div className="h-48 relative overflow-hidden bg-slate-100 dark:bg-slate-900">
                   {!imageErrors[project.id] ? (

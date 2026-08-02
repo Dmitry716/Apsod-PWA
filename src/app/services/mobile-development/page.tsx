@@ -139,7 +139,7 @@ export default function MobileDevelopmentPage() {
               <Reveal
                 key={pkg.id}
                 stagger={(Math.min(index + 1, 3) as 1 | 2 | 3)}
-                className={`bg-white dark:bg-gray-950 p-7 flex flex-col h-full ${
+                className={`apsod-price-card bg-white dark:bg-gray-950 p-7 flex flex-col h-full ${
                   pkg.highlight ? 'ring-1 ring-inset ring-slate-900 dark:ring-white' : ''
                 }`}
               >

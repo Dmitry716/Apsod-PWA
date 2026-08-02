@@ -134,9 +134,9 @@ export default function WebDevelopmentLanding() {
       </section>
 
       {/* What you get */}
-      <section className="py-16 md:py-24 border-b border-slate-200 dark:border-slate-800">
+      <section className="py-14 md:py-20 border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">
-          <Reveal className="mb-10 md:mb-14 max-w-2xl">
+          <Reveal className="mb-8 md:mb-10 max-w-2xl">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
               Что получите
             </h2>
@@ -146,7 +146,10 @@ export default function WebDevelopmentLanding() {
           </Reveal>
           <div className="grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 md:grid-cols-2">
             {OUTCOMES.map((item) => (
-              <Reveal key={item.title} className="bg-white dark:bg-gray-950 p-6 md:p-8 min-h-[140px]">
+              <Reveal
+                key={item.title}
+                className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 md:p-8 min-h-[120px]"
+              >
                 <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-3 tracking-tight">
                   {item.title}
                 </h3>
@@ -158,9 +161,9 @@ export default function WebDevelopmentLanding() {
       </section>
 
       {/* Site types */}
-      <section className="py-16 md:py-24 bg-slate-50 dark:bg-gray-900/40 border-b border-slate-200 dark:border-slate-800">
+      <section className="py-14 md:py-20 bg-slate-50 dark:bg-gray-900/40 border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">
-          <Reveal className="mb-10 md:mb-14 max-w-2xl">
+          <Reveal className="mb-8 md:mb-10 max-w-2xl">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
               Какой сайт нужен
             </h2>
@@ -173,7 +176,7 @@ export default function WebDevelopmentLanding() {
               <Reveal
                 key={type.id}
                 stagger={(Math.min(index + 1, 4) as 1 | 2 | 3 | 4)}
-                className="bg-white dark:bg-gray-950 p-6 md:p-7"
+                className="apsod-surface-hover group bg-white dark:bg-gray-950 p-6 md:p-7"
               >
                 <p className="text-[11px] tracking-[0.18em] uppercase text-slate-400 mb-3">
                   {String(index + 1).padStart(2, '0')}
@@ -186,9 +189,10 @@ export default function WebDevelopmentLanding() {
                 </p>
                 <Link
                   href="#pricing"
-                  className="text-sm font-medium text-slate-900 dark:text-white underline-offset-4 hover:underline"
+                  className="apsod-link-nudge text-sm font-medium text-slate-900 dark:text-white"
                 >
-                  К стоимости →
+                  К стоимости
+                  <span aria-hidden>→</span>
                 </Link>
               </Reveal>
             ))}
@@ -199,7 +203,7 @@ export default function WebDevelopmentLanding() {
       {/* Pricing */}
       <section
         id="pricing"
-        className="py-16 md:py-24 border-b border-slate-200 dark:border-slate-800 scroll-mt-24"
+        className="py-14 md:py-20 border-b border-slate-200 dark:border-slate-800 scroll-mt-24"
       >
         <div className="container mx-auto px-4">
           <Reveal className="mb-4 max-w-2xl">
@@ -212,11 +216,11 @@ export default function WebDevelopmentLanding() {
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">{DUAL_CURRENCY_NOTE}</p>
           </Reveal>
 
-          <div className="mt-10 grid md:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden">
+          <div className="mt-8 grid md:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden">
             {WEB_DEV_FEATURED_PACKAGES.map((pkg) => (
               <Reveal
                 key={pkg.id}
-                className={`bg-white dark:bg-gray-950 p-7 flex flex-col h-full ${
+                className={`apsod-price-card bg-white dark:bg-gray-950 p-7 flex flex-col h-full ${
                   pkg.highlight ? 'ring-1 ring-inset ring-slate-900 dark:ring-white' : ''
                 }`}
               >
@@ -256,18 +260,19 @@ export default function WebDevelopmentLanding() {
       {/* Cases */}
       <section
         id="cases"
-        className="py-16 md:py-24 bg-white dark:bg-gray-950 border-b border-slate-200 dark:border-slate-800 scroll-mt-24"
+        className="py-14 md:py-20 bg-white dark:bg-gray-950 border-b border-slate-200 dark:border-slate-800 scroll-mt-24"
       >
-        <div className="container mx-auto px-4 mb-10 md:mb-14">
+        <div className="container mx-auto px-4 mb-8 md:mb-10">
           <Reveal className="flex items-end justify-between gap-6">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
               Кейсы
             </h2>
             <Link
               href="/portfolio"
-              className="text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors underline-offset-4 hover:underline shrink-0"
+              className="apsod-link-nudge text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white"
             >
               Все проекты
+              <span aria-hidden>→</span>
             </Link>
           </Reveal>
         </div>
@@ -308,14 +313,9 @@ export default function WebDevelopmentLanding() {
                     <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                       {item.result}
                     </p>
-                    <span className="inline-flex items-center gap-2 text-sm font-medium text-slate-900 dark:text-white">
+                    <span className="apsod-link-nudge text-sm font-medium text-slate-900 dark:text-white">
                       Открыть
-                      <span
-                        className="transition-transform duration-500 group-hover:translate-x-1"
-                        aria-hidden
-                      >
-                        →
-                      </span>
+                      <span aria-hidden>→</span>
                     </span>
                   </div>
                 </Link>
@@ -332,9 +332,9 @@ export default function WebDevelopmentLanding() {
       />
 
       {/* Stack */}
-      <section className="py-16 md:py-20 border-b border-slate-200 dark:border-slate-800">
+      <section className="py-14 md:py-16 border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">
-          <Reveal className="mb-8">
+          <Reveal className="mb-6">
             <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
               Стек
             </h2>
@@ -344,7 +344,7 @@ export default function WebDevelopmentLanding() {
               {STACK.map((item) => (
                 <li
                   key={item}
-                  className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-950"
+                  className="apsod-surface-hover px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-950 cursor-default"
                 >
                   {item}
                 </li>

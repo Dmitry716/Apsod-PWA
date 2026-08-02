@@ -447,7 +447,9 @@
 }
 
 .apsod-case-row {
-  transition: background-color 0.4s ease;
+  transition:
+    background-color 0.4s ease,
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .apsod-case-row:hover {
@@ -456,6 +458,72 @@
 
 .dark .apsod-case-row:hover {
   background-color: rgba(15, 23, 42, 0.35);
+}
+
+/* Premium interactive surfaces */
+.apsod-surface-hover {
+  transition:
+    background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.apsod-surface-hover:hover {
+  background-color: rgba(248, 250, 252, 1);
+  box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08);
+}
+
+.dark .apsod-surface-hover:hover {
+  background-color: rgba(15, 23, 42, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.apsod-link-nudge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: gap 0.35s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+}
+
+.apsod-link-nudge:hover {
+  gap: 0.65rem;
+}
+
+.apsod-nav-link {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.apsod-nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -0.2rem;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.apsod-nav-link:hover::after {
+  width: 100%;
+}
+
+.apsod-price-card {
+  transition:
+    background-color 0.4s ease,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s ease;
+}
+
+.apsod-price-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px -24px rgba(15, 23, 42, 0.35);
+  z-index: 1;
+}
+
+.dark .apsod-price-card:hover {
+  box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.55);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -493,12 +561,18 @@
   }
 
   .apsod-cta-primary:hover,
-  .apsod-card-lift:hover {
+  .apsod-card-lift:hover,
+  .apsod-price-card:hover,
+  .apsod-surface-hover:hover {
     transform: none;
   }
 
   .group:hover .apsod-media-zoom,
   .apsod-media-frame:hover .apsod-media-zoom {
     transform: none;
+  }
+
+  .apsod-nav-link::after {
+    transition: none;
   }
 }

@@ -16,8 +16,7 @@ export default function HomeFeaturedWork() {
           </h2>
           <Link
             href="/portfolio"
-            className="text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors underline-offset-4 hover:underline shrink-0"
-          >
+            className="apsod-link-nudge text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white shrink-0"          >
             Все проекты
           </Link>
         </Reveal>

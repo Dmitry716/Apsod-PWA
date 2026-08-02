@@ -116,7 +116,7 @@ export default function PricingPage() {
           {PACKAGES.map((pkg) => (
             <div
               key={pkg.title}
-              className={`bg-white dark:bg-gray-950 p-7 flex flex-col ${
+              className={`apsod-price-card bg-white dark:bg-gray-950 p-7 flex flex-col ${
                 pkg.highlight ? 'ring-1 ring-inset ring-slate-900 dark:ring-white' : ''
               }`}
             >
@@ -161,7 +161,7 @@ export default function PricingPage() {
           {MOBILE_APP_PACKAGES.map((pkg) => (
             <div
               key={pkg.id}
-              className={`bg-white dark:bg-gray-950 p-7 flex flex-col ${
+              className={`apsod-price-card bg-white dark:bg-gray-950 p-7 flex flex-col ${
                 pkg.highlight ? 'ring-1 ring-inset ring-slate-900 dark:ring-white' : ''
               }`}
             >
@@ -204,7 +204,7 @@ export default function PricingPage() {
             <Link
               key={item.href}
               href={item.href}
-              className="p-6 border border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 bg-white dark:bg-gray-950 transition-colors"
+              className="p-6 border border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 bg-white dark:bg-gray-950 transition-all duration-300 hover:-translate-y-0.5"
             >
               <h3 className="font-display font-semibold text-slate-900 dark:text-white mb-2 tracking-tight">
                 {item.title}

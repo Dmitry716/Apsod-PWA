@@ -59,7 +59,7 @@ export default function HomeCapabilityIndex() {
             </h3>
             <Link
               href="/contact"
-              className="text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors underline-offset-4 hover:underline"
+              className="apsod-link-nudge text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white"
             >
               Начать проект
             </Link>

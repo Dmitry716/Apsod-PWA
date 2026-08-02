@@ -199,7 +199,7 @@ export default function ServicesPage() {
                   <Link
                     key={item.link}
                     href={item.link}
-                    className="group block rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-950 p-7 md:p-8 hover:border-slate-400 dark:hover:border-slate-500 transition-colors"
+                    className="apsod-price-card group block rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-950 p-7 md:p-8 hover:border-slate-400 dark:hover:border-slate-500"
                   >
                     <h3 className="font-display text-lg font-bold text-slate-900 dark:text-white mb-2 tracking-tight group-hover:text-slate-700 dark:group-hover:text-slate-200 transition-colors">
                       {item.title}

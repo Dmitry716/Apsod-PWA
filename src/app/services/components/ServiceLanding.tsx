@@ -117,7 +117,7 @@ export default function ServiceLanding({ content }: Props) {
             }`}
           >
             {content.outcomes.map((item) => (
-              <Reveal key={item.title} className="bg-white dark:bg-gray-950 p-6 md:p-8 min-h-[140px]">
+              <Reveal key={item.title} className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 md:p-8 min-h-[140px]">
                 <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-3 tracking-tight">
                   {item.title}
                 </h3>
@@ -169,7 +169,7 @@ export default function ServiceLanding({ content }: Props) {
               {content.stack.map((item) => (
                 <li
                   key={item}
-                  className="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-950"
+                  className="apsod-surface-hover px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-950 cursor-default"
                 >
                   {item}
                 </li>
@@ -193,7 +193,7 @@ export default function ServiceLanding({ content }: Props) {
             </h2>
             <Link
               href="/portfolio"
-              className="text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors underline-offset-4 hover:underline shrink-0"
+              className="apsod-link-nudge text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white shrink-0"
             >
               Все проекты
             </Link>
