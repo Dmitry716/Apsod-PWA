@@ -97,7 +97,13 @@ export default function ServiceLanding({ content }: Props) {
               Что получите
             </h2>
           </Reveal>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
+          <div
+            className={`grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 ${
+              content.outcomes.length % 3 === 0
+                ? 'md:grid-cols-2 lg:grid-cols-3'
+                : 'md:grid-cols-2'
+            }`}
+          >
             {content.outcomes.map((item) => (
               <Reveal key={item.title} className="bg-white dark:bg-gray-950 p-6 md:p-8 min-h-[140px]">
                 <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-3 tracking-tight">

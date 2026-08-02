@@ -129,6 +129,14 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
         title: 'Админка',
         body: 'Товары, цены, остатки и заказы — под вашу команду.',
       },
+      {
+        title: 'Мобильная витрина',
+        body: 'Быстрый UX на телефоне: поиск, фильтры и оформление заказа.',
+      },
+      {
+        title: 'Аналитика продаж',
+        body: 'События воронки, источники трафика и отчёты для роста.',
+      },
     ],
     screens: [
       { src: '/portfolio/oak-and-thread.jpg', alt: 'Fashion store', device: 'desktop' },
