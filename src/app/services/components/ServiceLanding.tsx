@@ -192,7 +192,7 @@ export default function ServiceLanding({ content }: Props) {
           {content.cases.map((item, index) => {
             const odd = index % 2 === 1
             return (
-              <Reveal key={item.href}>
+              <Reveal key={`${item.href}-${item.title}`}>
                 <Link
                   href={item.href}
                   className="apsod-case-row group grid lg:grid-cols-12 border-b border-slate-200 dark:border-slate-800 last:border-b-0"
