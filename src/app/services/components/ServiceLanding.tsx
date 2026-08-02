@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import DeviceMockup from '../../components/DeviceMockup'
+import IosHandsShowcase from '../../components/IosHandsShowcase'
 import Reveal from '../../components/Reveal'
 import SectionAtmosphere from '../../components/SectionAtmosphere'
 import SeoJsonLd from '../../components/SeoJsonLd'
@@ -25,6 +26,7 @@ export default function ServiceLanding({ content }: Props) {
   }
 
   const phoneHero = content.heroDevice === 'iphone' || content.heroDevice === 'samsung'
+  const hasHeroVisual = Boolean(content.heroVisual)
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
@@ -36,7 +38,11 @@ export default function ServiceLanding({ content }: Props) {
         <div className="container mx-auto px-4 relative z-10 py-20 md:py-24 lg:py-28">
           <div
             className={`grid gap-10 lg:gap-14 items-center ${
-              phoneHero ? 'lg:grid-cols-[1fr_auto]' : 'lg:grid-cols-2'
+              hasHeroVisual
+                ? 'lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.15fr)]'
+                : phoneHero
+                  ? 'lg:grid-cols-[1fr_auto]'
+                  : 'lg:grid-cols-2'
             }`}
           >
             <div className="max-w-xl lg:max-w-none">
@@ -74,17 +80,28 @@ export default function ServiceLanding({ content }: Props) {
 
             <div
               className={`apsod-hero-enter apsod-hero-enter-delay-3 w-full ${
-                phoneHero
-                  ? 'w-[min(46vw,220px)] sm:w-[200px] mx-auto lg:mx-0 lg:justify-self-end'
-                  : 'max-w-2xl mx-auto lg:max-w-none lg:justify-self-stretch'
+                hasHeroVisual
+                  ? 'mx-auto lg:mx-0'
+                  : phoneHero
+                    ? 'w-[min(46vw,220px)] sm:w-[200px] mx-auto lg:mx-0 lg:justify-self-end'
+                    : 'max-w-2xl mx-auto lg:max-w-none lg:justify-self-stretch'
               }`}
             >
-              <DeviceMockup
-                device={content.heroDevice}
-                screenSrc={content.heroScreen.src}
-                screenAlt={content.heroScreen.alt}
-                priority
-              />
+              {hasHeroVisual && content.heroVisual ? (
+                <IosHandsShowcase
+                  src={content.heroVisual.src}
+                  alt={content.heroVisual.alt}
+                  priority
+                  className="rounded-2xl bg-white/[0.03] ring-1 ring-white/10 px-2 sm:px-4 py-3 sm:py-5"
+                />
+              ) : (
+                <DeviceMockup
+                  device={content.heroDevice}
+                  screenSrc={content.heroScreen.src}
+                  screenAlt={content.heroScreen.alt}
+                  priority
+                />
+              )}
             </div>
           </div>
         </div>
@@ -118,30 +135,40 @@ export default function ServiceLanding({ content }: Props) {
 
       <section className="py-16 md:py-24 bg-slate-50 dark:bg-gray-900/40 border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">
-          <div
-            className={`grid gap-8 md:gap-10 ${
-              content.screens.every((s) => s.device === 'iphone' || s.device === 'samsung')
-                ? 'grid-cols-1 sm:grid-cols-3 items-start justify-items-center'
-                : 'md:grid-cols-3 items-stretch'
-            }`}
-          >
-            {content.screens.map((screen, i) => {
-              const isPhone = screen.device === 'iphone' || screen.device === 'samsung'
-              return (
-                <Reveal
-                  key={`${screen.src}-${i}`}
-                  stagger={(Math.min(i + 1, 3) as 1 | 2 | 3)}
-                  className={isPhone ? 'w-full max-w-[min(42vw,200px)]' : 'w-full'}
-                >
-                  <DeviceMockup
-                    device={screen.device}
-                    screenSrc={screen.src}
-                    screenAlt={screen.alt}
-                  />
-                </Reveal>
-              )
-            })}
-          </div>
+          {hasHeroVisual && content.heroVisual ? (
+            <Reveal>
+              <IosHandsShowcase
+                src={content.heroVisual.src}
+                alt={content.heroVisual.alt}
+                className="rounded-2xl bg-white dark:bg-slate-950/40 ring-1 ring-slate-200 dark:ring-white/10 px-3 sm:px-8 py-6 sm:py-10"
+              />
+            </Reveal>
+          ) : (
+            <div
+              className={`grid gap-8 md:gap-10 ${
+                content.screens.every((s) => s.device === 'iphone' || s.device === 'samsung')
+                  ? 'grid-cols-1 sm:grid-cols-3 items-start justify-items-center'
+                  : 'md:grid-cols-3 items-stretch'
+              }`}
+            >
+              {content.screens.map((screen, i) => {
+                const isPhone = screen.device === 'iphone' || screen.device === 'samsung'
+                return (
+                  <Reveal
+                    key={`${screen.src}-${i}`}
+                    stagger={(Math.min(i + 1, 3) as 1 | 2 | 3)}
+                    className={isPhone ? 'w-full max-w-[min(42vw,200px)]' : 'w-full'}
+                  >
+                    <DeviceMockup
+                      device={screen.device}
+                      screenSrc={screen.src}
+                      screenAlt={screen.alt}
+                    />
+                  </Reveal>
+                )
+              })}
+            </div>
+          )}
         </div>
       </section>
 

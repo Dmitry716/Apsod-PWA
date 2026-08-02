@@ -1,4 +1,5 @@
 ﻿import Link from 'next/link'
+import Image from 'next/image'
 import DeviceMockup from '../../components/DeviceMockup'
 import Reveal from '../../components/Reveal'
 import SectionAtmosphere from '../../components/SectionAtmosphere'
@@ -13,15 +14,14 @@ const PLATFORMS = [
     title: 'iOS',
     body: 'Swift, SwiftUI и React Native. Продукт под App Store на iPhone 17 Pro Max и всей линейке Apple.',
     href: '/services/ios-apps',
-    device: 'iphone' as const,
-    screen: '/devices/app-screens/home.png',
+    kind: 'ios-photo' as const,
     cta: 'iOS подробнее',
   },
   {
     title: 'Android',
     body: 'Kotlin, Jetpack Compose и React Native. Google Play и широкий парк устройств — включая Samsung Galaxy S26.',
     href: '/services/android-apps',
-    device: 'samsung' as const,
+    kind: 'samsung' as const,
     screen: '/devices/app-screens/home.png',
     cta: 'Android подробнее',
   },
@@ -96,11 +96,23 @@ export default function MobileDevelopmentPage() {
                   href={item.href}
                   className="group flex h-full flex-col items-center gap-6 sm:flex-row sm:items-center sm:gap-8"
                 >
-                  <div className="w-[min(42vw,160px)] sm:w-[min(28vw,170px)] lg:w-[160px] shrink-0">
-                    <DeviceMockup device={item.device} screenSrc={item.screen} screenAlt={item.title} />
-                  </div>
+                  {item.kind === 'ios-photo' ? (
+                    <div className="relative w-full max-w-[280px] sm:max-w-[240px] lg:max-w-[280px] shrink-0 aspect-[4/3] overflow-hidden rounded-xl bg-white ring-1 ring-slate-200 dark:ring-white/10">
+                      <Image
+                        src="/devices/ios-hands-mockup.png"
+                        alt="iPhone 17 Pro Max"
+                        fill
+                        className="object-contain object-center p-2"
+                        sizes="(max-width: 640px) 80vw, 280px"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-[min(42vw,160px)] sm:w-[min(28vw,170px)] lg:w-[160px] shrink-0">
+                      <DeviceMockup device="samsung" screenSrc={item.screen!} screenAlt={item.title} />
+                    </div>
+                  )}
                   <div className="min-w-0 flex-1 text-center sm:text-left">
-                    <h3 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-3 group-hover:translate-x-1 transition-transform duration-500 sm:group-hover:translate-x-1">
+                    <h3 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-3 group-hover:translate-x-1 transition-transform duration-500">
                       {item.title}
                     </h3>
                     <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-5">{item.body}</p>
