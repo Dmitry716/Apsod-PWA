@@ -4,6 +4,9 @@ export const BYN_SIGN = 'Б\u0336'
 /** Знак российского рубля */
 export const RUB_SIGN = '₽'
 
+/** Неразрывный пробел — сумма и валюта не переносятся по отдельности */
+const NBSP = '\u00A0'
+
 /**
  * Ориентировочный курс для публичного прайса (согласован с /pricing):
  * 8 000 Б̶ ≈ 240 000 ₽ → 1 Б̶ = 30 ₽.
@@ -17,7 +20,7 @@ export const DUAL_CURRENCY_NOTE =
 export function formatAmount(n: number): string {
   return Math.round(n)
     .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    .replace(/\B(?=(\d{3})+(?!\d))/g, NBSP)
 }
 
 export function bynToRub(byn: number): number {
@@ -36,22 +39,22 @@ type DualPriceOptions = {
 /** Одна строка: «от 8 000 Б̶ / 240 000 ₽» */
 export function formatDualPrice(byn: number, options: DualPriceOptions = {}): string {
   const { from = true, plus = false, perMonth = false } = options
-  const prefix = from ? 'от ' : ''
+  const prefix = from ? `от${NBSP}` : ''
   const plusMark = plus ? '+' : ''
-  const per = perMonth ? '/мес' : ''
+  const per = perMonth ? `${NBSP}/мес` : ''
   const rub = bynToRub(byn)
-  return `${prefix}${formatAmount(byn)} ${BYN_SIGN}${plusMark}${per} / ${formatAmount(rub)} ${RUB_SIGN}${plusMark}${per}`
+  return `${prefix}${formatAmount(byn)}${NBSP}${BYN_SIGN}${plusMark}${per} / ${formatAmount(rub)}${NBSP}${RUB_SIGN}${plusMark}${per}`
 }
 
 /** Две строки для карточек прайса */
 export function dualPriceLines(byn: number, options: DualPriceOptions = {}) {
   const { from = true, plus = false, perMonth = false } = options
-  const prefix = from ? 'от ' : ''
+  const prefix = from ? `от${NBSP}` : ''
   const plusMark = plus ? '+' : ''
-  const per = perMonth ? '/мес' : ''
+  const per = perMonth ? `${NBSP}/мес` : ''
   const rub = bynToRub(byn)
   return {
-    byn: `${prefix}${formatAmount(byn)} ${BYN_SIGN}${plusMark}${per}`,
-    rub: `${from ? 'или от ' : ''}${formatAmount(rub)} ${RUB_SIGN}${plusMark}${per}`,
+    byn: `${prefix}${formatAmount(byn)}${NBSP}${BYN_SIGN}${plusMark}${per}`,
+    rub: `${from ? `или от${NBSP}` : ''}${formatAmount(rub)}${NBSP}${RUB_SIGN}${plusMark}${per}`,
   }
 }
