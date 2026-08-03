@@ -60,7 +60,7 @@ export const TECH_STACK_CATEGORIES: TechStackCategory[] = [
     title: 'Frontend',
     items: [
       { id: 'react', name: 'React JS', icon: 'react', accent: '#61DAFB' },
-      { id: 'nextjs', name: 'Next.js', icon: 'nextjs', accent: '#0A0A0A' },
+      { id: 'nextjs', name: 'Next.js', icon: 'nextjs', accent: '#111111' },
       { id: 'angular', name: 'Angular', icon: 'angular', accent: '#DD0031' },
       { id: 'vue', name: 'Vue.js', icon: 'vue', accent: '#42B883' },
       { id: 'nuxt', name: 'Nuxt.js', icon: 'nuxt', accent: '#00DC82' },
@@ -79,8 +79,8 @@ export const TECH_STACK_CATEGORIES: TechStackCategory[] = [
       { id: 'csharp', name: 'C#', icon: 'csharp', accent: '#239120' },
       { id: 'nodejs', name: 'Node.js', icon: 'nodejs', accent: '#5FA04E' },
       { id: 'nestjs', name: 'NestJS', icon: 'nestjs', accent: '#E0234E' },
-      { id: 'express', name: 'Express.js', icon: 'express', accent: '#0A0A0A' },
-      { id: 'rest', name: 'REST API', icon: 'rest', accent: '#94A3B8' },
+      { id: 'express', name: 'Express.js', icon: 'express', accent: '#444444' },
+      { id: 'rest', name: 'REST API', icon: 'rest', accent: '#0EA5E9' },
       { id: 'graphql', name: 'GraphQL', icon: 'graphql', accent: '#E10098' },
     ],
   },
@@ -92,7 +92,7 @@ export const TECH_STACK_CATEGORIES: TechStackCategory[] = [
       { id: 'sqlserver', name: 'SQL Server', icon: 'sqlserver', accent: '#CC2927' },
       { id: 'mongodb', name: 'MongoDB', icon: 'mongodb', accent: '#47A248' },
       { id: 'redis', name: 'Redis', icon: 'redis', accent: '#FF4438' },
-      { id: 'prisma', name: 'Prisma', icon: 'prisma', accent: '#2D3748' },
+      { id: 'prisma', name: 'Prisma', icon: 'prisma', accent: '#5A67D8' },
       { id: 'efcore', name: 'Entity Framework', icon: 'efcore', accent: '#512BD4' },
     ],
   },
@@ -105,7 +105,7 @@ export const TECH_STACK_CATEGORIES: TechStackCategory[] = [
       { id: 'swift', name: 'Swift', icon: 'swift', accent: '#F05138' },
       { id: 'swiftui', name: 'SwiftUI', icon: 'swiftui', accent: '#0A84FF' },
       { id: 'kotlin', name: 'Kotlin', icon: 'kotlin', accent: '#7F52FF' },
-      { id: 'compose', name: 'Jetpack Compose', icon: 'compose', accent: '#4285F4' },
+      { id: 'compose', name: 'Jetpack Compose', icon: 'compose', accent: '#3DDC84' },
     ],
   },
   {
@@ -114,7 +114,7 @@ export const TECH_STACK_CATEGORIES: TechStackCategory[] = [
     items: [
       { id: 'docker', name: 'Docker', icon: 'docker', accent: '#2496ED' },
       { id: 'cicd', name: 'CI / CD', icon: 'cicd', accent: '#FC6D26' },
-      { id: 'vercel', name: 'Vercel', icon: 'vercel', accent: '#0A0A0A' },
+      { id: 'vercel', name: 'Vercel', icon: 'vercel', accent: '#A1A1AA' },
       { id: 'azure', name: 'Microsoft Azure', icon: 'azure', accent: '#0078D4' },
       { id: 'monitoring', name: 'Monitoring', icon: 'monitoring', accent: '#F5A623' },
     ],
@@ -122,7 +122,7 @@ export const TECH_STACK_CATEGORIES: TechStackCategory[] = [
 ]
 
 export const WEB_STACK: TechItem[] = [
-  { id: 'nextjs', name: 'Next.js', icon: 'nextjs', accent: '#0A0A0A' },
+  { id: 'nextjs', name: 'Next.js', icon: 'nextjs', accent: '#111111' },
   { id: 'react', name: 'React JS', icon: 'react', accent: '#61DAFB' },
   { id: 'angular', name: 'Angular', icon: 'angular', accent: '#DD0031' },
   { id: 'vue', name: 'Vue.js', icon: 'vue', accent: '#42B883' },
@@ -140,7 +140,7 @@ export const WEB_STACK: TechItem[] = [
 export const WEB_STACK_CHIPS = WEB_STACK.map((t) => t.name)
 
 export const ECOMMERCE_STACK: TechItem[] = [
-  { id: 'nextjs', name: 'Next.js', icon: 'nextjs', accent: '#0A0A0A' },
+  { id: 'nextjs', name: 'Next.js', icon: 'nextjs', accent: '#111111' },
   { id: 'react', name: 'React JS', icon: 'react', accent: '#61DAFB' },
   { id: 'aspnet', name: 'ASP.NET Core', icon: 'aspnet', accent: '#512BD4' },
   { id: 'csharp', name: 'C#', icon: 'csharp', accent: '#239120' },

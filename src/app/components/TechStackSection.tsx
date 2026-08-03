@@ -15,7 +15,7 @@ function TechTile({ item }: { item: TechItem }) {
       className="apsod-tech-tile group relative flex items-center gap-2.5 sm:gap-3 bg-white dark:bg-gray-950 px-3 py-2.5 sm:px-4 sm:py-3.5"
       style={{ ['--tech-accent' as string]: item.accent }}
     >
-      <span className="apsod-tech-tile__icon flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/70 text-slate-700 dark:text-slate-200">
+      <span className="apsod-tech-tile__icon flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-md">
         <TechBrandIcon id={item.icon} className="h-4 w-4 sm:h-5 sm:w-5" title={item.name} />
       </span>
       <span className="min-w-0">
