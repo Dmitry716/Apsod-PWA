@@ -12,14 +12,14 @@ type Props = {
 function TechTile({ item }: { item: TechItem }) {
   return (
     <li
-      className="apsod-tech-tile group relative flex items-center gap-3 bg-white dark:bg-gray-950 px-4 py-3.5"
+      className="apsod-tech-tile group relative flex items-center gap-2.5 sm:gap-3 bg-white dark:bg-gray-950 px-3 py-2.5 sm:px-4 sm:py-3.5"
       style={{ ['--tech-accent' as string]: item.accent }}
     >
-      <span className="apsod-tech-tile__icon flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/70 text-slate-700 dark:text-slate-200">
-        <TechBrandIcon id={item.icon} className="h-5 w-5" title={item.name} />
+      <span className="apsod-tech-tile__icon flex h-8 w-8 sm:h-10 sm:w-10 shrink-0 items-center justify-center rounded-md border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/70 text-slate-700 dark:text-slate-200">
+        <TechBrandIcon id={item.icon} className="h-4 w-4 sm:h-5 sm:w-5" title={item.name} />
       </span>
       <span className="min-w-0">
-        <span className="block font-display text-sm font-semibold tracking-tight text-slate-900 dark:text-white truncate">
+        <span className="block font-display text-xs sm:text-sm font-semibold tracking-tight text-slate-900 dark:text-white truncate">
           {item.name}
         </span>
       </span>
@@ -48,10 +48,10 @@ export default function TechStackSection({
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{subtitle}</p>
         </Reveal>
 
-        <div className="space-y-8 md:space-y-10">
+        <div className="space-y-6 md:space-y-10">
           {categories.map((category) => (
             <Reveal key={category.id}>
-              <div className="flex items-end justify-between gap-4 mb-3">
+              <div className="flex items-end justify-between gap-4 mb-2 md:mb-3">
                 <h3 className="font-display text-sm md:text-base font-semibold tracking-tight text-slate-900 dark:text-white">
                   {category.title}
                 </h3>
@@ -59,7 +59,7 @@ export default function TechStackSection({
                   {String(category.items.length).padStart(2, '0')}
                 </span>
               </div>
-              <ul className="apsod-tech-grid grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
+              <ul className="apsod-tech-grid flex flex-wrap gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
                 {category.items.map((item) => (
                   <TechTile key={item.id} item={item} />
                 ))}
@@ -81,7 +81,7 @@ type ChipsProps = {
 export function TechStackChips({ items, className = '' }: ChipsProps) {
   return (
     <ul
-      className={`apsod-tech-grid apsod-tech-grid--chips grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 ${className}`}
+      className={`apsod-tech-grid apsod-tech-grid--chips flex flex-wrap gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 ${className}`}
     >
       {items.map((item) => (
         <TechTile key={item.id} item={item} />

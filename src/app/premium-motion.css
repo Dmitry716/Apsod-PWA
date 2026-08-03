@@ -567,13 +567,96 @@
   color: color-mix(in srgb, var(--tech-accent, #94a3b8) 58%, #f8fafc);
 }
 
-/* auto-fit collapses empty tracks so incomplete rows don't show holes */
-.apsod-tech-grid {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11.5rem), 1fr));
+/* 2-col compact grid on mobile; flex-grow fills odd last cells. */
+.apsod-tech-grid > .apsod-tech-tile {
+  flex: 1 1 calc(50% - 1px);
+  min-width: calc(50% - 1px);
+  max-width: 100%;
 }
 
-.apsod-tech-grid--chips {
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10.5rem), 1fr));
+.apsod-tech-grid--chips > .apsod-tech-tile {
+  flex-basis: calc(50% - 1px);
+  min-width: calc(50% - 1px);
+}
+
+/* Premium mobile burger */
+.apsod-burger__lines {
+  position: relative;
+  display: block;
+  width: 1.35rem;
+  height: 0.9rem;
+}
+
+.apsod-burger__lines span {
+  position: absolute;
+  left: 0;
+  display: block;
+  height: 2px;
+  width: 100%;
+  border-radius: 999px;
+  background: currentColor;
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.25s ease,
+    width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    top 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.apsod-burger__lines span:nth-child(1) {
+  top: 0;
+  width: 100%;
+}
+
+.apsod-burger__lines span:nth-child(2) {
+  top: 50%;
+  width: 72%;
+  transform: translateY(-50%);
+}
+
+.apsod-burger__lines span:nth-child(3) {
+  bottom: 0;
+  width: 88%;
+}
+
+.apsod-burger:hover .apsod-burger__lines span:nth-child(2),
+.apsod-burger:hover .apsod-burger__lines span:nth-child(3) {
+  width: 100%;
+}
+
+.apsod-burger__lines.is-open span:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 100%;
+}
+
+.apsod-burger__lines.is-open span:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+
+.apsod-burger__lines.is-open span:nth-child(3) {
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .apsod-tech-grid > .apsod-tech-tile {
+    flex: 1 1 11.5rem;
+    min-width: min(100%, 11.5rem);
+  }
+
+  .apsod-tech-grid--chips > .apsod-tech-tile {
+    flex: 1 1 10.5rem;
+    min-width: min(100%, 10.5rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .apsod-tech-grid > .apsod-tech-tile {
+    flex-basis: 12rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -603,6 +686,10 @@
 
   .apsod-tech-tile:hover .apsod-tech-tile__icon {
     transform: none;
+  }
+
+  .apsod-burger__lines span {
+    transition: none;
   }
 
   .apsod-reveal {

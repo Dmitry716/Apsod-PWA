@@ -65,11 +65,11 @@ export default function HomeCapabilityIndex() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
+          <div className="grid grid-cols-1 sm:grid-cols-5 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
             {STEPS.map((item) => (
               <div
                 key={item.step}
-                className="bg-white dark:bg-gray-950 p-5 md:p-6 min-h-[120px] flex flex-col justify-between"
+                className="apsod-surface-hover bg-white dark:bg-gray-950 p-5 md:p-6 min-h-[120px] flex flex-col justify-between"
               >
                 <p className="text-[11px] tracking-[0.2em] uppercase text-slate-400">{item.step}</p>
                 <h4 className="font-display text-base md:text-lg font-semibold text-slate-900 dark:text-white tracking-tight">

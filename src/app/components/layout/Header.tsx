@@ -50,10 +50,7 @@ export default function Header() {
           {/* Логотип */}
           <Link
             href="/"
-            className="font-display text-xl md:text-2xl font-bold tracking-tight text-slate-900 dark:text-white transition-opacity duration-300 hover:opacity-80"
-            style={{
-              letterSpacing: "-0.03em",
-            }}
+            className="apsod-logo font-display text-[1.75rem] leading-none md:text-[1.85rem] font-extrabold tracking-[-0.045em] text-slate-900 dark:text-white transition-opacity duration-300 hover:opacity-80"
           >
             APSOD
           </Link>
@@ -79,26 +76,29 @@ export default function Header() {
             </Link>
           </nav>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center gap-1.5 sm:gap-3">
             <div className="hidden sm:block">
               <LanguageSwitcher />
             </div>
-            <ThemeToggle />
+            <ThemeToggle size="sm" />
 
             {/* Кнопка мобильного меню — до lg, т.к. пунктов много */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 rounded-lg"
+              className="apsod-burger lg:hidden relative inline-flex h-11 w-11 items-center justify-center rounded-md text-slate-900 dark:text-white hover:bg-slate-100/80 dark:hover:bg-white/5 transition-colors"
               aria-label={t(locale, 'header.menu')}
               title={t(locale, 'header.menu')}
+              aria-expanded={isMenuOpen}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              <span className="sr-only">{t(locale, 'header.menu')}</span>
+              <span
+                className={`apsod-burger__lines ${isMenuOpen ? 'is-open' : ''}`}
+                aria-hidden
+              >
+                <span />
+                <span />
+                <span />
+              </span>
             </button>
           </div>
         </div>

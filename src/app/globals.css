@@ -98,14 +98,23 @@
     z-index: 50;
   }
 
-  /* Не красим solid-CTA: цвет задаёт .apsod-btn-solid / Tailwind */
-  header.apsod-site-header a:not(.apsod-btn-solid) {
+  /* Не красим solid-CTA и логотип: цвет задают собственные классы */
+  header.apsod-site-header a:not(.apsod-btn-solid):not(.apsod-logo) {
     color: var(--text-secondary);
     transition: color 0.2s;
   }
 
-  header.apsod-site-header a:not(.apsod-btn-solid):hover {
+  header.apsod-site-header a:not(.apsod-btn-solid):not(.apsod-logo):hover {
     color: var(--primary-color);
+  }
+
+  header.apsod-site-header a.apsod-logo {
+    color: var(--text-primary);
+  }
+
+  header.apsod-site-header a.apsod-logo:hover {
+    color: var(--text-primary);
+    opacity: 0.8;
   }
 
   /* Main */
