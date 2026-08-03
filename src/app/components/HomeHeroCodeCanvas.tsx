@@ -46,16 +46,16 @@ function highlight(line: string) {
   return parts.map((p, i) => {
     const cls =
       p.kind === 'kw'
-        ? 'text-sky-300/90'
+        ? 'text-sky-300'
         : p.kind === 'str'
-          ? 'text-emerald-300/80'
+          ? 'text-emerald-300/90'
           : p.kind === 'fn'
-            ? 'text-blue-200/90'
+            ? 'text-blue-200'
             : p.kind === 'num'
-              ? 'text-amber-200/70'
+              ? 'text-amber-200/80'
               : p.kind === 'punct'
-                ? 'text-slate-500'
-                : 'text-slate-300/85'
+                ? 'text-slate-400'
+                : 'text-slate-200'
     return (
       <span key={i} className={cls}>
         {p.text}
@@ -123,15 +123,15 @@ export default function HomeHeroCodeCanvas() {
   return (
     <div className="apsod-code-hero absolute inset-0 overflow-hidden" aria-hidden>
       <div className="absolute inset-0 bg-slate-950" />
-      <div className="apsod-code-hero-grid absolute inset-0 opacity-[0.35]" />
-      <div className="apsod-code-hero-glow absolute -right-24 top-1/4 h-[55%] w-[55%] rounded-full bg-sky-500/10 blur-3xl" />
-      <div className="apsod-code-hero-glow absolute left-1/3 -bottom-20 h-[40%] w-[40%] rounded-full bg-blue-600/10 blur-3xl" />
+      <div className="apsod-code-hero-grid absolute inset-0 opacity-[0.45] md:opacity-[0.4]" />
+      <div className="apsod-code-hero-glow absolute -right-16 top-[18%] h-[50%] w-[70%] rounded-full bg-sky-500/15 blur-3xl md:bg-sky-500/12" />
+      <div className="apsod-code-hero-glow absolute left-1/4 -bottom-16 h-[36%] w-[50%] rounded-full bg-blue-600/12 blur-3xl" />
 
-      {/* Ghost finished code — depth */}
-      <pre className="apsod-code-hero-ghost pointer-events-none absolute right-[-4%] top-[12%] hidden select-none font-mono text-[11px] leading-[1.7] text-slate-500/25 md:block lg:right-[2%] lg:text-[12.5px]">
+      {/* Ghost finished code — depth on all viewports */}
+      <pre className="apsod-code-hero-ghost pointer-events-none absolute inset-x-3 top-[10%] select-none font-mono text-[10px] leading-[1.65] text-slate-500/40 sm:inset-x-auto sm:right-[-2%] sm:top-[12%] sm:text-[11px] md:right-[2%] md:text-[12.5px] md:text-slate-500/30">
         {completeLines.map((line, idx) => (
           <div key={`g-${idx}`} className="whitespace-pre">
-            <span className="inline-block w-8 text-right text-slate-600/40 mr-4 select-none">
+            <span className="inline-block w-7 text-right text-slate-500/50 mr-3 select-none sm:w-8 sm:mr-4">
               {String(idx + 1).padStart(2, '0')}
             </span>
             {line || ' '}
@@ -139,28 +139,28 @@ export default function HomeHeroCodeCanvas() {
         ))}
       </pre>
 
-      {/* Live typing pane */}
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-full md:w-[58%] lg:w-[54%] flex items-center justify-end pr-4 md:pr-8 lg:pr-14">
-        <div className="apsod-code-hero-panel relative w-full max-w-xl opacity-[0.42] md:opacity-[0.72]">
-          <div className="mb-3 flex items-center gap-2 px-1">
-            <span className="h-2 w-2 rounded-full bg-slate-600" />
-            <span className="h-2 w-2 rounded-full bg-slate-600" />
-            <span className="h-2 w-2 rounded-full bg-slate-600" />
-            <span className="ml-2 font-mono text-[10px] tracking-wide text-slate-500 uppercase">
+      {/* Live typing pane — visible on mobile, stronger on desktop */}
+      <div className="pointer-events-none absolute inset-x-0 top-[8%] bottom-auto flex justify-start px-3 sm:inset-y-0 sm:right-0 sm:left-auto sm:w-[62%] sm:items-center sm:justify-end sm:px-0 sm:pr-6 md:w-[58%] lg:w-[54%] lg:pr-14">
+        <div className="apsod-code-hero-panel relative w-full max-w-xl opacity-[0.78] sm:opacity-[0.82] md:opacity-[0.88]">
+          <div className="mb-2 sm:mb-3 flex items-center gap-2 px-1">
+            <span className="h-2 w-2 rounded-full bg-slate-500" />
+            <span className="h-2 w-2 rounded-full bg-slate-500" />
+            <span className="h-2 w-2 rounded-full bg-slate-500" />
+            <span className="ml-2 font-mono text-[10px] tracking-wide text-slate-400 uppercase">
               product.ts
             </span>
           </div>
-          <pre className="font-mono text-[11px] sm:text-[12px] md:text-[13px] leading-[1.75] overflow-hidden">
+          <pre className="font-mono text-[11.5px] sm:text-[12px] md:text-[13px] leading-[1.7] sm:leading-[1.75] overflow-hidden">
             {lines.map((line, idx) => {
               const isLast = idx === lines.length - 1
               return (
                 <div key={idx} className="whitespace-pre">
-                  <span className="inline-block w-7 md:w-8 text-right text-slate-600 mr-3 md:mr-4 select-none">
+                  <span className="inline-block w-7 md:w-8 text-right text-slate-500 mr-3 md:mr-4 select-none">
                     {String(idx + 1).padStart(2, '0')}
                   </span>
                   {highlight(line)}
                   {isLast && !reduced && chars < FULL.length ? (
-                    <span className="apsod-code-caret inline-block w-[0.55ch] h-[1.05em] align-[-0.15em] ml-0.5 bg-sky-300/90" />
+                    <span className="apsod-code-caret inline-block w-[0.55ch] h-[1.05em] align-[-0.15em] ml-0.5 bg-sky-300" />
                   ) : null}
                 </div>
               )
@@ -169,9 +169,9 @@ export default function HomeHeroCodeCanvas() {
         </div>
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/92 to-slate-950/25 md:to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/50" />
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-950/70" />
+      {/* Readable scrim under copy — keep code visible at the edges */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/55 via-slate-950/25 to-slate-950/80 sm:bg-gradient-to-r sm:from-slate-950 sm:via-slate-950/88 sm:to-slate-950/20 md:to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/40 pointer-events-none" />
     </div>
   )
 }
