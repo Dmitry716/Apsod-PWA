@@ -79,6 +79,11 @@ const EXTRA = [
   },
 ]
 
+const SITE_PLUS_SEO = {
+  title: 'Сайт + SEO',
+  body: `Разработка на собственном коде и старт продвижения в Яндексе и Google. Ориентир: корпоративный сайт ${formatDualPrice(15000)} + SEO-цикл ${formatDualPrice(3000, { perMonth: true })}. Точная смета после брифа.`,
+}
+
 export default function PricingPage() {
   const schemas = [
     generateFAQSchema(
@@ -101,16 +106,26 @@ export default function PricingPage() {
         />
 
         <p className="text-xs font-medium tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400 mb-4">
-          Стоимость и условия
+          Стоимость
         </p>
         <h1 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
-          Цены на разработку сайтов и digital
+          Стоимость сайта в Минске
         </h1>
         <p className="text-lg text-slate-600 dark:text-slate-300 mb-3 max-w-3xl leading-relaxed">
-          Ориентиры стоимости для бизнеса в Минске. Точная смета — после короткого брифа.
-          Цены зависят от объёма дизайна, интеграций и сроков.
+          Цены на разработку сайтов и SEO для бизнеса в Минске. Точная смета — после короткого брифа.
+          Ориентиры зависят от объёма дизайна, интеграций и сроков.
         </p>
-        <p className="text-sm text-slate-500 dark:text-slate-400 mb-12 max-w-3xl">{DUAL_CURRENCY_NOTE}</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 max-w-3xl">{DUAL_CURRENCY_NOTE}</p>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-12 max-w-3xl">
+          Подробнее об услуге —{' '}
+          <Link href="/services/web-development" className="apsod-link-nudge text-slate-900 dark:text-white font-medium">
+            разработка сайтов
+          </Link>
+          {' · '}
+          <Link href="/services/seo" className="apsod-link-nudge text-slate-900 dark:text-white font-medium">
+            SEO продвижение
+          </Link>
+        </p>
 
         <div className="grid md:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden mb-16">
           {PACKAGES.map((pkg) => (
@@ -149,6 +164,29 @@ export default function PricingPage() {
               </Link>
             </div>
           ))}
+        </div>
+
+        <div className="border border-slate-200 dark:border-slate-800 p-7 md:p-8 mb-16 bg-white dark:bg-gray-950">
+          <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
+            {SITE_PLUS_SEO.title}
+          </h2>
+          <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6 max-w-3xl">
+            {SITE_PLUS_SEO.body}
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/contact?goal=corporate&budget=corporate-15k"
+              className="apsod-btn-solid inline-flex px-5 py-2.5 rounded-md text-sm font-semibold transition-colors"
+            >
+              Получить смету на пакет
+            </Link>
+            <Link
+              href="/services/seo"
+              className="inline-flex px-5 py-2.5 rounded-md text-sm font-semibold border border-slate-300 dark:border-slate-600 text-slate-900 dark:text-white hover:border-slate-500 transition-colors"
+            >
+              Подробнее про SEO
+            </Link>
+          </div>
         </div>
 
         <h2 className="font-display text-2xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">

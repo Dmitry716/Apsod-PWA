@@ -75,7 +75,7 @@ export default function SEOPage() {
     '@type': 'Service',
     name: 'SEO продвижение сайтов',
     description:
-      'SEO продвижение в Яндексе и Google: аудит, семантика, техника, контент.',
+      'SEO продвижение сайта в Минске: аудит, семантика, техника, контент в Яндексе и Google.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
     areaServed: [{ '@type': 'City', name: 'Minsk' }],
     url: `${SITE_URL}/services/seo`,
@@ -90,13 +90,13 @@ export default function SEOPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-3">
-              Яндекс · Google · органика
+              Минск · Яндекс · Google
             </p>
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-5">
-              SEO-продвижение сайта под заявки
+              SEO продвижение сайта в Минске
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6">
-              Аудит, семантика, техника и контент. Комплекс —{' '}
+              Аудит, семантика, техника и контент под заявки из поиска. Комплекс —{' '}
               {formatDualPrice(3000, { perMonth: true })}. Для AI-видимости в нейросетях — отдельно{' '}
               <Link href="/services/geo-promotion" className="text-blue-600 dark:text-blue-400 hover:underline">
                 GEO
@@ -111,10 +111,10 @@ export default function SEOPage() {
                 Заказать SEO
               </Link>
               <Link
-                href="#products"
+                href="/pricing"
                 className="px-7 py-3.5 border border-gray-300 dark:border-gray-600 rounded-lg font-medium hover:border-blue-500"
               >
-                Что можно заказать
+                Стоимость
               </Link>
             </div>
           </div>
@@ -278,9 +278,15 @@ export default function SEOPage() {
 
       <section className="py-14 bg-slate-950 text-white">
         <div className="container mx-auto px-4 text-center max-w-2xl">
-          <h2 className="text-2xl md:text-3xl font-bold mb-3">Нужен план по SEO?</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-3">
+            Нужен план по SEO в Минске?
+          </h2>
           <p className="text-white/90 mb-6">
-            Начнём с аудита или сразу с комплексного цикла — подскажем после короткого брифа.
+            Начнём с аудита или сразу с комплексного цикла. Можно вместе с{' '}
+            <Link href="/services/web-development" className="underline underline-offset-2 hover:text-white">
+              разработкой сайта
+            </Link>
+            .
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Link

@@ -42,6 +42,21 @@ const TRUST = [
   'Сроки 2–8 недель',
 ] as const
 
+const LOCAL_BLOCKS = [
+  {
+    h2: 'Создание сайта в Минске под заявки',
+    body: 'Лендинг, корпоративный сайт, каталог или магазин — с коммерческой структурой, аналитикой и понятным путём к контакту. Смета и договор до старта работ.',
+  },
+  {
+    h2: 'Сайт под ключ на собственном коде',
+    body: 'Проектируем и собираем продукт без конструкторов: контроль над дизайном, CRM, оплатой и Core Web Vitals. Хостинг выбираете вы.',
+  },
+  {
+    h2: 'SEO-база уже в разработке',
+    body: 'Семантика, разметка и скорость закладываем с первого дня. Дальше — продвижение в Яндексе и Google или пакет «сайт + SEO».',
+  },
+] as const
+
 const FEATURED_CASES = WEB_DEV_CASES.filter((c) =>
   ['Amba Detail', 'NEXTON', 'ArtDetailing'].includes(c.title)
 )
@@ -93,23 +108,25 @@ export default function WebDevelopmentLanding() {
             Разработка сайтов в Минске
           </h1>
           <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-base md:text-lg text-slate-300 leading-relaxed mb-4 max-w-lg">
-            Лендинг, корпоративный сайт или каталог — проектируем и собираем на собственном коде, запускаем как продукт.
+            Создание сайта под ключ для бизнеса в Минске: лендинг, корпоративный сайт или каталог на
+            собственном коде — с SEO-базой и запуском как продукта.
           </p>
           <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-sm text-slate-400 mb-8 max-w-lg">
-            Ориентир: лендинг — {formatDualPrice(8000)}, корпоративный — {formatDualPrice(15000)}.
+            Ориентир: лендинг — {formatDualPrice(8000)}, корпоративный — {formatDualPrice(15000)}. Смета
+            после брифа.
           </p>
           <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3">
             <Link
               href="/contact?goal=corporate&budget=corporate-15k"
               className="apsod-btn-solid apsod-cta-primary px-7 py-3.5 rounded-md text-sm font-semibold"
             >
-              <span>Начать проект</span>
+              <span>Заказать сайт</span>
             </Link>
             <Link
-              href="#cases"
+              href="/pricing"
               className="px-7 py-3.5 rounded-md text-sm font-semibold border border-white/30 text-white hover:border-white transition-colors"
             >
-              Смотреть кейсы
+              Стоимость
             </Link>
           </div>
         </div>
@@ -130,6 +147,54 @@ export default function WebDevelopmentLanding() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      {/* Local commercial copy — без отдельного гео-URL */}
+      <section className="py-14 md:py-16 border-b border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="mb-8 max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+              Веб-студия в Минске для бизнеса
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              APSOD — разработка и создание сайтов в Минске: от брифа до запуска. Офис: ул. Куйбышева,
+              35. Работаем онлайн и на встречах.
+            </p>
+          </Reveal>
+          <div className="grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 md:grid-cols-3">
+            {LOCAL_BLOCKS.map((block) => (
+              <Reveal
+                key={block.h2}
+                className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 md:p-8"
+              >
+                <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-3 tracking-tight">
+                  {block.h2}
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{block.body}</p>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <Link href="/pricing" className="apsod-link-nudge font-medium text-slate-900 dark:text-white">
+              Стоимость сайта
+              <span aria-hidden>→</span>
+            </Link>
+            <Link
+              href="/services/seo"
+              className="apsod-link-nudge font-medium text-slate-900 dark:text-white"
+            >
+              SEO продвижение
+              <span aria-hidden>→</span>
+            </Link>
+            <Link
+              href="/contact"
+              className="apsod-link-nudge font-medium text-slate-900 dark:text-white"
+            >
+              Контакты
+              <span aria-hidden>→</span>
+            </Link>
+          </Reveal>
         </div>
       </section>
 
@@ -211,7 +276,8 @@ export default function WebDevelopmentLanding() {
               Стоимость и ориентиры
             </h2>
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              Точная смета — после короткого брифа. Цифры ниже помогают сориентироваться.
+              Стоимость разработки сайта в Минске зависит от объёма. Точная смета — после короткого
+              брифа.
             </p>
             <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">{DUAL_CURRENCY_NOTE}</p>
           </Reveal>
@@ -254,6 +320,15 @@ export default function WebDevelopmentLanding() {
               </Reveal>
             ))}
           </div>
+          <Reveal className="mt-6">
+            <Link
+              href="/pricing"
+              className="apsod-link-nudge text-sm font-medium text-slate-900 dark:text-white"
+            >
+              Полная стоимость: сайты, SEO и приложения
+              <span aria-hidden>→</span>
+            </Link>
+          </Reveal>
         </div>
       </section>
 
