@@ -5,7 +5,13 @@ import SectionAtmosphere from '../../components/SectionAtmosphere'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { DUAL_CURRENCY_NOTE, formatDualPrice } from '../../lib/currency'
-import { COMPANY_AREA_SERVED, SITE_URL } from '../../lib/seo'
+import {
+  CLIENT_PROOF,
+  TEAM_PROOF,
+  WEB_BUILD_TIMELINE,
+  WHY_APSOD_WEB,
+} from '../../lib/client-proof'
+import { COMPANY_ADDRESS_DISPLAY, COMPANY_AREA_SERVED, SITE_URL } from '../../lib/seo'
 import {
   WEB_DEV_CASES,
   WEB_DEV_FEATURED_PACKAGES,
@@ -253,10 +259,10 @@ export default function WebDevelopmentLanding() {
                   {type.body}
                 </p>
                 <Link
-                  href="#pricing"
+                  href={type.href}
                   className="apsod-link-nudge text-sm font-medium text-slate-900 dark:text-white"
                 >
-                  К стоимости
+                  Подробнее
                   <span aria-hidden>→</span>
                 </Link>
               </Reveal>
@@ -329,6 +335,37 @@ export default function WebDevelopmentLanding() {
               <span aria-hidden>→</span>
             </Link>
           </Reveal>
+        </div>
+      </section>
+
+      <section className="py-14 md:py-20 bg-slate-50 dark:bg-gray-900/40 border-b border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="mb-8 max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+              Сроки по этапам
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              Понятный ритм от брифа до запуска — как у сильных студий Минска, без размытых «индивидуально».
+            </p>
+          </Reveal>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
+            {WEB_BUILD_TIMELINE.map((step) => (
+              <Reveal
+                key={step.title}
+                className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 min-h-[140px] flex flex-col justify-between"
+              >
+                <p className="text-[11px] tracking-[0.18em] uppercase text-slate-400 mb-3">
+                  {step.weeks}
+                </p>
+                <div>
+                  <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-2 tracking-tight">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{step.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -405,6 +442,97 @@ export default function WebDevelopmentLanding() {
         subtitle="От брифа до запуска — прозрачные этапы и артефакты."
         phases={WEB_DEVELOPMENT_PROCESS}
       />
+
+      <section className="py-14 md:py-20 border-b border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="mb-8 max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+              Почему APSOD, а не конструктор или «агентство ради отчётов»
+            </h2>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
+              {COMPANY_ADDRESS_DISPLAY}. Делаем продукт под заявки — с SEO-базой и развитием на вашем коде.
+            </p>
+          </Reveal>
+          <div className="grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 md:grid-cols-2">
+            {WHY_APSOD_WEB.map((item) => (
+              <Reveal
+                key={item.title}
+                className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 md:p-8"
+              >
+                <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-3 tracking-tight">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{item.body}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 md:py-20 bg-slate-50 dark:bg-gray-900/40 border-b border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="mb-8 max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+              Отзывы по проектам
+            </h2>
+          </Reveal>
+          <div className="grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 md:grid-cols-3">
+            {CLIENT_PROOF.map((item) => (
+              <Reveal
+                key={item.attribution}
+                className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 md:p-8"
+              >
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                  «{item.quote}»
+                </p>
+                <p className="font-display font-semibold text-slate-900 dark:text-white tracking-tight">
+                  {item.attribution}
+                </p>
+                <p className="text-xs text-slate-500 mt-1">{item.niche}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 md:py-16 border-b border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="grid md:grid-cols-2 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden max-w-4xl">
+            <div className="relative min-h-[220px] bg-slate-100 dark:bg-slate-900">
+              <Image
+                src={TEAM_PROOF.image}
+                alt={TEAM_PROOF.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+            <div className="bg-white dark:bg-gray-950 p-8 md:p-10 flex flex-col justify-end">
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+                {TEAM_PROOF.title}
+              </h2>
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                {TEAM_PROOF.body}
+              </p>
+              <ul className="space-y-2">
+                {TEAM_PROOF.people.map((person) => (
+                  <li key={person.name} className="text-sm">
+                    <span className="font-medium text-slate-900 dark:text-white">{person.name}</span>
+                    <span className="text-slate-500"> — {person.role}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/about"
+                className="apsod-link-nudge mt-6 text-sm font-medium text-slate-900 dark:text-white"
+              >
+                О компании
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
       {/* Stack */}
       <section className="py-14 md:py-16 border-b border-slate-200 dark:border-slate-800">

@@ -2,12 +2,12 @@ import Link from 'next/link'
 import Reveal from './Reveal'
 
 const CAPABILITIES = [
-  { title: 'Корпоративные сайты', href: '/services/web-development' },
+  { title: 'Разработка сайтов', href: '/services/web-development' },
+  { title: 'Лендинги', href: '/services/landing-page' },
+  { title: 'Корпоративные сайты', href: '/services/corporate-sites' },
   { title: 'Интернет-магазины', href: '/services/ecommerce' },
   { title: 'Мобильные приложения', href: '/services/mobile-development' },
-  { title: 'PWA и кабинеты', href: '/services/pwa-development' },
   { title: 'SEO и GEO', href: '/services/seo' },
-  { title: 'Сопровождение', href: '/services/technical-support' },
 ] as const
 
 const STEPS = [

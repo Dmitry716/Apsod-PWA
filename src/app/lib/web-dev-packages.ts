@@ -110,21 +110,25 @@ export const WEB_DEV_SITE_TYPES = [
     id: 'landing' as const,
     title: 'Landing page',
     body: 'Одностраничный сайт под рекламу и заявки.',
+    href: '/services/landing-page',
   },
   {
     id: 'corporate' as const,
     title: 'Корпоративный',
     body: 'Сайт компании: услуги, кейсы, контакты, SEO.',
+    href: '/services/corporate-sites',
   },
   {
     id: 'catalog' as const,
     title: 'Каталог',
     body: 'Витрина товаров или услуг с фильтрами.',
+    href: '/services/web-development#pricing',
   },
   {
     id: 'shop' as const,
     title: 'Интернет-магазин',
     body: 'Онлайн-продажи: корзина, оплата, доставка.',
+    href: '/services/ecommerce',
   },
 ]
 
@@ -149,25 +153,25 @@ export const WEB_DEV_PAYMENT_STAGES = [
 export const WEB_DEV_CASES = [
   {
     title: 'Amba Detail',
-    result: 'Единая витрина услуг и цен с понятным путём к заявке',
+    result: 'Витрина услуг и цен + путь к заявке с телефона за один экран',
     href: '/portfolio/amba-detail',
     image: '/portfolio/amba.png',
   },
   {
     title: 'NEXTON',
-    result: 'PWA автосервиса: app-like интерфейс, услуги для двух городов',
+    result: 'PWA автосервиса: app-like UX, услуги для двух городов без App Store',
     href: '/portfolio/nexton',
     image: '/portfolio/nexton.png',
   },
   {
     title: 'Maxximum',
-    result: 'Запись на пробные занятия с сайта спортивного центра',
+    result: 'Запись на пробные занятия прямо с сайта спортивного центра',
     href: '/portfolio/maxximum',
     image: '/portfolio/maxximum.jpg',
   },
   {
     title: 'ArtDetailing',
-    result: 'PWA детейлинг-студии: запись и SEO под заявки',
+    result: 'PWA студии: запись, каталог услуг и SEO-база под заявки',
     href: '/portfolio/artdetailing',
     image: '/portfolio/artdetailing.png',
   },

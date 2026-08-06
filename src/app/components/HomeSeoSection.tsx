@@ -31,16 +31,23 @@ export default function HomeSeoSection() {
           ))}
         </div>
         <p className="mt-8 text-center text-sm text-slate-500">
-          <Link href="/contact" className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200">
-            Связаться
+          <Link
+            href="/services/web-development"
+            className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200"
+          >
+            Разработка сайтов
           </Link>
           {' · '}
           <Link href="/pricing" className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200">
-            Цены
+            Стоимость
           </Link>
           {' · '}
-          <Link href="/portfolio" className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200">
-            Кейсы
+          <Link href="/services/seo" className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200">
+            SEO
+          </Link>
+          {' · '}
+          <Link href="/contact" className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200">
+            Связаться
           </Link>
         </p>
       </div>

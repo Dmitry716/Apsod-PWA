@@ -78,6 +78,8 @@ export const COMPANY_AREA_SERVED = [{ '@type': 'City' as const, name: 'Minsk' }]
 
 export const SERVICE_PATHS = [
   'web-development',
+  'landing-page',
+  'corporate-sites',
   'ecommerce',
   'mobile-development',
   'ios-apps',
@@ -140,6 +142,8 @@ const DEFAULT_INDEX_ROBOTS = {
 /** Приоритеты страниц услуг в sitemap.xml */
 export const SERVICE_SITEMAP_PRIORITY: Partial<Record<ServicePath, number>> = {
   'web-development': 0.92,
+  'landing-page': 0.918,
+  'corporate-sites': 0.917,
   ecommerce: 0.915,
   seo: 0.91,
   'geo-promotion': 0.9,
@@ -586,6 +590,16 @@ export const SERVICE_SEO: Record<
     title: serviceSnippet('web-development').title,
     description: serviceSnippet('web-development').description,
     keywords: [...(serviceSnippet('web-development').keywords ?? [])],
+  },
+  'landing-page': {
+    title: serviceSnippet('landing-page').title,
+    description: serviceSnippet('landing-page').description,
+    keywords: [...(serviceSnippet('landing-page').keywords ?? [])],
+  },
+  'corporate-sites': {
+    title: serviceSnippet('corporate-sites').title,
+    description: serviceSnippet('corporate-sites').description,
+    keywords: [...(serviceSnippet('corporate-sites').keywords ?? [])],
   },
   ecommerce: {
     title: serviceSnippet('ecommerce').title,

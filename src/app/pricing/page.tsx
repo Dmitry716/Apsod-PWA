@@ -117,13 +117,21 @@ export default function PricingPage() {
         </p>
         <p className="text-sm text-slate-500 dark:text-slate-400 mb-4 max-w-3xl">{DUAL_CURRENCY_NOTE}</p>
         <p className="text-sm text-slate-500 dark:text-slate-400 mb-12 max-w-3xl">
-          Подробнее об услуге —{' '}
+          Подробнее —{' '}
           <Link href="/services/web-development" className="apsod-link-nudge text-slate-900 dark:text-white font-medium">
             разработка сайтов
           </Link>
           {' · '}
+          <Link href="/services/landing-page" className="apsod-link-nudge text-slate-900 dark:text-white font-medium">
+            лендинг
+          </Link>
+          {' · '}
+          <Link href="/services/corporate-sites" className="apsod-link-nudge text-slate-900 dark:text-white font-medium">
+            корпоративный
+          </Link>
+          {' · '}
           <Link href="/services/seo" className="apsod-link-nudge text-slate-900 dark:text-white font-medium">
-            SEO продвижение
+            SEO
           </Link>
         </p>
 

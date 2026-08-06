@@ -17,6 +17,8 @@ export default function Footer() {
 
   const serviceLinks = [
     { href: "/services/web-development", label: isEn ? "Web development" : "Разработка сайтов" },
+    { href: "/services/landing-page", label: isEn ? "Landing pages" : "Лендинги" },
+    { href: "/services/corporate-sites", label: isEn ? "Corporate sites" : "Корпоративные сайты" },
     { href: "/services/ecommerce", label: isEn ? "Online stores" : "Интернет-магазины" },
     { href: "/services/ios-apps", label: isEn ? "iOS apps" : "Приложения iOS" },
     { href: "/services/android-apps", label: isEn ? "Android apps" : "Приложения Android" },
