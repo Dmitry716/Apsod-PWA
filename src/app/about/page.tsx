@@ -115,8 +115,7 @@ export default function AboutPage() {
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
               APSOD проектирует и выпускает сайты, приложения и digital-контуры для бизнеса:
-              исследование, инженерия, безопасность, SEO и сопровождение. Офис:{' '}
-              {COMPANY_ADDRESS_DISPLAY}.
+              исследование, инженерия, безопасность, SEO и сопровождение.
             </p>
           </div>
 
