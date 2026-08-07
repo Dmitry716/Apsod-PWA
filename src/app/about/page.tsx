@@ -122,11 +122,11 @@ export default function AboutPage() {
 
           <div className="relative w-full max-w-5xl overflow-hidden aspect-[16/9] bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 mb-12">
             <Image
-              src="/about/office-team.jpg"
-              alt="Офис APSOD: рабочие места с мониторами и техникой"
+              src="/about/gallery/negotiation.jpg"
+              alt="APSOD: встреча с клиентами — Дмитрий за MacBook Pro"
               fill
               priority
-              className="object-cover"
+              className="object-cover object-center"
               sizes="(max-width: 1024px) 100vw, 1024px"
             />
           </div>
