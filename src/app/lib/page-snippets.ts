@@ -19,7 +19,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/': {
     title: 'APSOD — разработка сайтов в Минске',
     description:
-      'Разработка сайтов в Минске на собственном коде: лендинг, корпоративный, магазин. SEO и GEO. Смета за 1 день.',
+      'Разработка сайтов в Минске: лендинг, корпоративный, магазин. SEO и GEO. Смета за 1 день. Офис: ул. Куйбышева, 35.',
     absoluteTitle: true,
     keywords: [
       'разработка сайтов в Минске',
@@ -34,7 +34,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/about': {
     title: 'О компании APSOD — software engineering в Минске',
     description:
-      'APSOD: software engineering в Минске — сайты, приложения, SEO и GEO на собственном коде. Офис: ул. Куйбышева, 35.',
+      'APSOD: software engineering в Минске — сайты, приложения, SEO и GEO. Офис: ул. Куйбышева, 35.',
     absoluteTitle: true,
     keywords: [
       'IT компания',
@@ -71,7 +71,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/ready-sites': {
     title: 'Готовые сайты в Минске — разработка с нуля, SEO и GEO',
     description:
-      `Купить готовый сайт APSOD в Минске: уникальный код с нуля, ребренд, перенос на ваш домен, база SEO и GEO. От ${formatDualPrice(15000, { from: true })}.`,
+      `Купить готовый сайт APSOD в Минске: индивидуальная разработка с нуля, ребренд, перенос на ваш домен, база SEO и GEO. От ${formatDualPrice(15000, { from: true })}.`,
     absoluteTitle: true,
     keywords: [
       'готовые сайты Минск',
@@ -100,7 +100,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/services': {
     title: 'Услуги APSOD — software engineering в Минске',
     description:
-      'Услуги APSOD в Минске: веб и мобильная разработка, SEO, GEO, CRM, ERP и сопровождение. Собственный код.',
+      'Услуги APSOD в Минске: веб и мобильная разработка, SEO, GEO, CRM, ERP и сопровождение.',
     keywords: [
       'услуги веб-студии',
       'услуги IT компании',
@@ -109,9 +109,9 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
     ],
   },
   '/services/web-development': {
-    title: 'Разработка сайтов в Минске — собственный код',
+    title: 'Разработка сайтов в Минске — под ключ',
     description:
-      'Создание сайта в Минске под ключ: лендинг от 8 000 Б̶, корпоративный от 15 000 Б̶. Собственный код, SEO-база, смета после брифа.',
+      'Создание сайта в Минске под ключ: лендинг от 8 000 Б̶, корпоративный от 15 000 Б̶. SEO-база, смета после брифа.',
     keywords: [
       'разработка сайтов в Минске',
       'разработка сайтов Минск',
@@ -124,7 +124,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/services/landing-page': {
     title: 'Разработка лендинга в Минске — от 8 000 Б̶',
     description:
-      'Создание landing page в Минске под рекламу и заявки. Собственный код, формы, WhatsApp, SEO-база. Срок 2–4 недели.',
+      'Создание landing page в Минске под рекламу и заявки. Формы, WhatsApp, SEO-база. Срок 2–4 недели.',
     keywords: [
       'разработка лендинга Минск',
       'создание лендинга Минск',
@@ -135,7 +135,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/services/corporate-sites': {
     title: 'Корпоративный сайт в Минске — от 15 000 Б̶',
     description:
-      'Разработка корпоративного сайта в Минске под ключ: услуги, кейсы, CMS, SEO-структура. Собственный код. Смета после брифа.',
+      'Разработка корпоративного сайта в Минске под ключ: услуги, кейсы, CMS, SEO-структура. Смета после брифа.',
     keywords: [
       'корпоративный сайт Минск',
       'разработка корпоративного сайта',
@@ -146,7 +146,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/services/ecommerce': {
     title: 'Разработка интернет-магазина в Минске',
     description:
-      'Интернет-магазин в Минске на собственном коде: каталог, корзина, оплата, доставка, админка и SEO. От 23 000 Б̶.',
+      'Интернет-магазин в Минске: каталог, корзина, оплата, доставка, админка и SEO. От 23 000 Б̶.',
     keywords: [
       'разработка интернет-магазина Минск',
       'создание интернет-магазина Минск',
@@ -295,7 +295,7 @@ export function cityPageSnippet(
     return {
       title: clipTitle('Создание сайтов в Витебске — разработка и продвижение'),
       description: clipDescription(
-        'Создание и разработка сайтов в Витебске на уникальном коде: визитка, лендинг, каталог, магазин. Раскрутка SEO в Яндексе и Google. APSOD — база в Витебске. Смета от 8 000 Б̶.'
+        'Создание и разработка сайтов в Витебске: визитка, лендинг, каталог, магазин. Раскрутка SEO в Яндексе и Google. APSOD. Смета от 8 000 Б̶.'
       ),
       absoluteTitle: true,
       keywords: [
@@ -316,7 +316,7 @@ export function cityPageSnippet(
     return {
       title: clipTitle('Разработка сайтов в Минске — создание сайта и SEO'),
       description: clipDescription(
-        'Разработка и создание сайтов в Минске на уникальном коде: лендинг, корпоративный, магазин. SEO в Яндексе и Google. Офис: ул. Куйбышева, 35. Смета от 8 000 Б̶.'
+        'Разработка и создание сайтов в Минске: лендинг, корпоративный, магазин. SEO в Яндексе и Google. Офис: ул. Куйбышева, 35. Смета от 8 000 Б̶.'
       ),
       absoluteTitle: true,
       keywords: [
@@ -333,7 +333,7 @@ export function cityPageSnippet(
   }
 
   const title = `Разработка и продвижение сайтов ${nameIn}`
-  const description = `Разработка и продвижение сайтов ${nameIn} на уникальном коде: лендинг, корпоративный, каталог, магазин. SEO в Яндексе и Google. APSOD — ${region}. Смета от 8 000 Б̶.`
+  const description = `Разработка и продвижение сайтов ${nameIn}: лендинг, корпоративный, каталог, магазин. SEO в Яндексе и Google. APSOD — ${region}. Смета от 8 000 Б̶.`
   return {
     title: clipTitle(title),
     description: clipDescription(description),
@@ -358,7 +358,7 @@ export function portfolioCaseSnippet(
   return {
     title: clipTitle(`${projectTitle} — кейс APSOD`),
     description: clipDescription(
-      description || `Кейс APSOD: ${projectTitle}. Задача, решение и результат уникальной разработки.`
+      description || `Кейс APSOD: ${projectTitle}. Задача, решение и результат проекта.`
     ),
     keywords: [projectTitle, 'портфолио APSOD', 'кейс разработки', 'разработка сайтов Минск'],
   }

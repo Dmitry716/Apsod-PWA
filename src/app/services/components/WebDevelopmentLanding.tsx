@@ -28,8 +28,8 @@ const OUTCOMES = [
     body: 'Структура, CTA и аналитика под коммерческие цели — сайт как инструмент продаж, а не визитка.',
   },
   {
-    title: 'Собственный код',
-    body: 'Next.js, Angular, Vue, Svelte или ASP.NET Core — стек под задачу, скорость, SEO и контроль без конструкторов.',
+    title: 'Инженерия под продукт',
+    body: 'Next.js, Angular, Vue, Svelte или ASP.NET Core — стек под задачу: скорость, SEO и развитие без чужих ограничений платформы.',
   },
   {
     title: 'SEO с первого дня',
@@ -43,7 +43,7 @@ const OUTCOMES = [
 
 const TRUST = [
   'Минск',
-  'Собственный код',
+  'Индивидуальная разработка',
   'SEO-ready',
   'Сроки 2–8 недель',
 ] as const
@@ -54,8 +54,8 @@ const LOCAL_BLOCKS = [
     body: 'Лендинг, корпоративный сайт, каталог или магазин — с коммерческой структурой, аналитикой и понятным путём к контакту. Смета и договор до старта работ.',
   },
   {
-    h2: 'Сайт под ключ на собственном коде',
-    body: 'Проектируем и собираем продукт без конструкторов: контроль над дизайном, CRM, оплатой и Core Web Vitals. Хостинг выбираете вы.',
+    h2: 'Сайт под ключ',
+    body: 'Проектируем и собираем продукт: контроль над дизайном, CRM, оплатой и Core Web Vitals. Хостинг выбираете вы.',
   },
   {
     h2: 'SEO-база уже в разработке',
@@ -114,8 +114,8 @@ export default function WebDevelopmentLanding() {
             Разработка сайтов в Минске
           </h1>
           <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-base md:text-lg text-slate-300 leading-relaxed mb-4 max-w-lg">
-            Создание сайта под ключ для бизнеса в Минске: лендинг, корпоративный сайт или каталог на
-            собственном коде — с SEO-базой и запуском как продукта.
+            Создание сайта под ключ для бизнеса в Минске: лендинг, корпоративный сайт или каталог —
+            с SEO-базой и запуском как продукта.
           </p>
           <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-sm text-slate-400 mb-8 max-w-lg">
             Ориентир: лендинг — {formatDualPrice(8000)}, корпоративный — {formatDualPrice(15000)}. Смета
@@ -212,7 +212,7 @@ export default function WebDevelopmentLanding() {
               Что получите
             </h2>
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              Не шаблонный сайт — рабочий digital-канал под заявки, поиск и рост.
+              Рабочий digital-канал под заявки, поиск и рост — не визитка «для галочки».
             </p>
           </Reveal>
           <div className="grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 md:grid-cols-2">
@@ -447,10 +447,10 @@ export default function WebDevelopmentLanding() {
         <div className="container mx-auto px-4">
           <Reveal className="mb-8 max-w-2xl">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-              Почему APSOD, а не конструктор или «агентство ради отчётов»
+              Почему APSOD
             </h2>
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              {COMPANY_ADDRESS_DISPLAY}. Делаем продукт под заявки — с SEO-базой и развитием на вашем коде.
+              {COMPANY_ADDRESS_DISPLAY}. Продукт под заявки — с SEO-базой и понятным сопровождением после релиза.
             </p>
           </Reveal>
           <div className="grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 md:grid-cols-2">

@@ -26,12 +26,12 @@ const GROUPS: {
     id: 'build',
     title: 'Разработка',
     subtitle:
-      'Проектируем и выпускаем digital-продукты на собственном коде — под задачи компании и дальнейший рост.',
+      'Проектируем и выпускаем digital-продукты под задачи компании и дальнейший рост.',
     items: [
       {
         title: 'Веб-разработка',
         description:
-          'Корпоративные сайты и лендинги: исследование, архитектура, собственный код и запуск.',
+          'Корпоративные сайты и лендинги: исследование, архитектура, разработка и запуск.',
         link: '/services/web-development',
       },
       {
@@ -49,7 +49,7 @@ const GROUPS: {
       {
         title: 'Интернет-магазин',
         description:
-          'Каталог, корзина, оплата, доставка и админка — витрина продаж на собственном коде.',
+          'Каталог, корзина, оплата, доставка и админка — витрина продаж под ваш процесс.',
         link: '/services/ecommerce',
       },
       {
@@ -165,7 +165,7 @@ export default function ServicesPage() {
             </h1>
             <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 leading-relaxed max-w-2xl">
               Полный цикл: сделать продукт, привести клиентов из поиска и нейросетей, сопровождать
-              рост. Собственный код и полный цикл работ.
+              рост.
             </p>
             <div className="flex flex-wrap gap-3 mb-10">
               <Link
@@ -238,10 +238,10 @@ export default function ServicesPage() {
           <div className="grid md:grid-cols-3 gap-10">
             <div>
               <h3 className="font-display font-semibold text-slate-900 dark:text-white mb-2 tracking-tight">
-                Собственный код
+                Индивидуальная инженерия
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Индивидуальная разработка под задачи компании — продукт остаётся под вашим контролем.
+                Разработка под задачи компании — продукт остаётся под вашим контролем.
               </p>
             </div>
             <div>

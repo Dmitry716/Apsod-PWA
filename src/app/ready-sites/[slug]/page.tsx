@@ -148,7 +148,7 @@ export default async function ReadySiteSlugPage({ params }: Props) {
             <div className="space-y-6 mb-12">
               <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                  Почему это не шаблон
+                  Что внутри продукта
                 </h2>
                 <ul className="space-y-2">
                   {site.whyNotTemplate.map((item) => (

@@ -68,8 +68,8 @@ export default function Footer() {
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
               {isEn
-                ? "Custom products, SEO and GEO."
-                : "Продукты на собственном коде, SEO и GEO."}
+                ? "Digital products, SEO and GEO."
+                : "Digital-продукты, SEO и GEO."}
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <LanguageSwitcher />

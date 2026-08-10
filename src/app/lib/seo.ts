@@ -50,7 +50,7 @@ function companyPostalAddress() {
 }
 
 export const SITE_DESCRIPTION =
-  'APSOD — digital engineering в Минске: сайты и приложения на уникальном коде, SEO и GEO. Офис: ул. Куйбышева, 35.'
+  'APSOD — digital engineering в Минске: сайты, приложения, SEO и GEO. Офис: ул. Куйбышева, 35.'
 
 export const SITE_OG_IMAGE = '/og-image.jpg'
 export const DEFAULT_OG_IMAGE_URL = `${SITE_URL}${SITE_OG_IMAGE}`

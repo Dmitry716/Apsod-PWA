@@ -16,7 +16,7 @@ export default function HomeHero() {
       <div className="container mx-auto px-4 relative z-10 pt-24 pb-10 md:py-32">
         <div className="max-w-xl">
           <p className="apsod-hero-enter apsod-hero-enter-delay-1 text-[11px] font-medium tracking-[0.22em] uppercase text-slate-400 mb-3 md:mb-6">
-            {isEn ? 'Custom software' : 'Собственный код'}
+            {isEn ? 'Software engineering' : 'Software engineering'}
           </p>
 
           <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display text-[clamp(2.15rem,7.5vw,3.75rem)] font-bold tracking-tight leading-[1.08] mb-3 md:mb-5">

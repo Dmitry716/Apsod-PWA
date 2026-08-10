@@ -4,7 +4,7 @@ import { formatDualPrice } from './currency'
 export const HOMEPAGE_FAQ = [
   {
     question: 'На чём разрабатываете сайты?',
-    answer: 'Собственный код: Next.js, React, TypeScript, Node.js.',
+    answer: 'Next.js, React, TypeScript, Node.js — стек под задачу продукта.',
   },
   {
     question: 'Сколько стоит сайт?',

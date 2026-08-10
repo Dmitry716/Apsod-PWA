@@ -56,7 +56,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       'Разработка сайтов в Минске: лендинг, корпоративный сайт, каталог на Next.js, Angular, Vue и ASP.NET Core.',
     eyebrow: 'Веб-разработка',
     title: 'Разработка сайтов любой сложности',
-    lead: 'Лендинг, корпоративный сайт или каталог — проектируем, собираем на собственном коде и запускаем как продукт.',
+    lead: 'Лендинг, корпоративный сайт или каталог — проектируем, собираем и запускаем как продукт.',
     primaryCta: { label: 'Смотреть работы', href: '/portfolio' },
     secondaryCta: { label: 'Начать проект', href: '/contact' },
     heroDevice: 'desktop',
@@ -67,7 +67,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
         body: 'Структура, CTA и аналитика под коммерческие цели.',
       },
       {
-        title: 'Собственный код',
+        title: 'Инженерия под продукт',
         body: 'Next.js, Angular, Vue, Svelte или ASP.NET Core — стек под задачу и развитие.',
       },
       {
@@ -111,7 +111,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     slug: 'ecommerce',
     schemaName: 'Разработка интернет-магазина',
     schemaDescription:
-      'Разработка интернет-магазина в Минске: каталог, корзина, оплата, доставка и админка на собственном коде.',
+      'Разработка интернет-магазина в Минске: каталог, корзина, оплата, доставка и админка.',
     eyebrow: 'E-commerce',
     title: 'Разработка интернет-магазина',
     lead: 'Каталог, корзина, оплата и доставка — собираем витрину продаж, которую удобно вести и масштабировать.',

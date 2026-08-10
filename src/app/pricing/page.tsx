@@ -81,7 +81,7 @@ const EXTRA = [
 
 const SITE_PLUS_SEO = {
   title: 'Сайт + SEO',
-  body: `Разработка на собственном коде и старт продвижения в Яндексе и Google. Ориентир: корпоративный сайт ${formatDualPrice(15000)} + SEO-цикл ${formatDualPrice(3000, { perMonth: true })}. Точная смета после брифа.`,
+  body: `Разработка сайта и старт продвижения в Яндексе и Google. Ориентир: корпоративный сайт ${formatDualPrice(15000)} + SEO-цикл ${formatDualPrice(3000, { perMonth: true })}. Точная смета после брифа.`,
 }
 
 export default function PricingPage() {

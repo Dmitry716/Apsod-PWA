@@ -5,7 +5,7 @@ export const POSITIONING = {
     badge: 'Инженерия продуктов',
     /** Одна фраза в духе enterprise (как у крупных engineering-компаний) */
     heroTitle: 'Цифровые продукты для бизнеса',
-    heroLead: 'Сайты и приложения на собственном коде — от исследования до сопровождения.',
+    heroLead: 'Сайты и приложения: от исследования и дизайна до запуска и сопровождения.',
     heroTopics: [
       { label: 'Веб-разработка', href: '/services/web-development' },
       { label: 'Мобильные продукты', href: '/services/mobile-development' },
@@ -27,8 +27,8 @@ export const POSITIONING = {
         body: 'Собираем digital-контур целиком: цели, структура, заявки, аналитика, SEO и сопровождение после запуска.',
       },
       {
-        title: 'Собственная разработка',
-        body: 'Индивидуальная архитектура и дизайн под задачи бизнеса на собственном коде.',
+        title: 'Индивидуальная разработка',
+        body: 'Архитектура и дизайн под задачи бизнеса — без чужих ограничений платформы.',
       },
       {
         title: 'Качество в эксплуатации',
@@ -49,7 +49,7 @@ export const POSITIONING = {
       {
         step: '03',
         title: 'Разработка и проверка',
-        body: 'Собственный код, интеграции, тестирование, производительность и устойчивость к нагрузкам.',
+        body: 'Инженерия, интеграции, тестирование, производительность и устойчивость к нагрузкам.',
       },
       {
         step: '04',
@@ -66,7 +66,7 @@ export const POSITIONING = {
   en: {
     badge: 'Software engineering',
     heroTitle: 'Digital products for business',
-    heroLead: 'Custom-code websites and apps — from Discovery to ongoing support.',
+    heroLead: 'Websites and apps — from discovery and design to launch and ongoing support.',
     heroTopics: [
       { label: 'Web development', href: '/services/web-development' },
       { label: 'Mobile products', href: '/services/mobile-development' },
@@ -88,8 +88,8 @@ export const POSITIONING = {
         body: 'We assemble the digital channel end to end: goals, structure, lead flow, analytics, SEO and post-launch support.',
       },
       {
-        title: 'Custom development',
-        body: 'Architecture and design built for your business on custom code.',
+        title: 'Bespoke engineering',
+        body: 'Architecture and design built for your business — without template limits.',
       },
       {
         title: 'Quality in production',
@@ -110,7 +110,7 @@ export const POSITIONING = {
       {
         step: '03',
         title: 'Engineering & QA',
-        body: 'Custom code, integrations, testing, performance and resilience under load.',
+        body: 'Engineering, integrations, testing, performance and resilience under load.',
       },
       {
         step: '04',
