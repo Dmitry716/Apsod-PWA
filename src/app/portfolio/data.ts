@@ -28,6 +28,7 @@ export type PortfolioProject = {
 
 /** Порядок проектов на главной и в портфолио */
 export const PORTFOLIO_PRIORITY_LINKS = [
+  'https://legal-team-sooty.vercel.app',
   'https://ambadetail.by',
   'https://nexton.vip',
   'https://artdetailing.by',
@@ -42,6 +43,31 @@ function normalizePortfolioLink(link: string): string {
 
 /** Проекты APSOD: локальные кейсы + международные работы (США / UK) */
 export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
+  {
+    id: 26,
+    slug: 'legal-team',
+    title: 'Legal Team',
+    category: 'Юриспруденция',
+    type: 'web',
+    description:
+      'Сайт юридической компании Legal Team в Москве: 22 направления права, кейсы, отзывы, статьи, онлайн-чат и PWA — премиальный digital-канал под заявки и SEO.',
+    challenge:
+      'Юридической компании нужен был не «визитка-конструктор», а масштабируемый продукт: десятки услуг, доверие, лиды из поиска и удобный контакт с телефона — без потери премиального тона.',
+    solution:
+      'Собрали полноценный сайт: структура по направлениям права, блоки кейсов и отзывов, FAQ, журнал, прайс-ориентиры, формы и чат. PWA для установки с телефона, SEO-разметка и контур под GEO.',
+    results: [
+      '22 направления права в одной понятной навигации',
+      'Канал заявок: формы, чат и быстрый звонок с мобильного',
+      'PWA + SEO-база под коммерческие запросы в Москве и РФ',
+    ],
+    image: '/portfolio/legal-team.jpg',
+    tags: ['Next.js', 'PWA', 'SEO', 'UI/UX'],
+    liveUrl: 'https://legal-team-sooty.vercel.app/',
+    link: 'https://legal-team-sooty.vercel.app/',
+    color: 'from-slate-800 to-amber-700',
+    year: '2026',
+    location: 'Москва',
+  },
   {
     id: 3,
     slug: 'amba-detail',

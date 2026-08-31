@@ -84,7 +84,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/portfolio': {
     title: 'Кейсы APSOD — разработка сайтов в Минске',
     description:
-      'Кейсы APSOD в Минске: сайты и приложения для бизнеса. Amba Detail, NEXTON, Maxximum, Динамо-Витебск, BMservice, ArtDetailing.',
+      'Кейсы APSOD: Legal Team, Amba Detail, NEXTON, Maxximum, Динамо-Витебск, BMservice, ArtDetailing.',
     keywords: [
       'портфолио APSOD',
       'кейсы разработки сайтов',

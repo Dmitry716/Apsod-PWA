@@ -5,28 +5,44 @@ import SectionAtmosphere from './SectionAtmosphere'
 
 const SHOWCASE = [
   {
+    src: '/portfolio/legal-team.jpg',
+    alt: 'Legal Team — юридическая компания',
+    href: '/portfolio/legal-team',
+    className: 'col-span-12 aspect-[16/9] md:aspect-[21/9] min-h-[240px] md:min-h-[360px]',
+    priority: true,
+    label: 'Legal Team · Москва',
+  },
+  {
     src: '/portfolio/amba.png',
     alt: 'Amba Detail',
     href: '/portfolio/amba-detail',
-    className: 'col-span-12 md:col-span-7 aspect-[16/10]',
-  },
-  {
-    src: '/devices/showcase-iphone.png',
-    alt: 'Мобильный интерфейс проекта',
-    href: '/portfolio/artdetailing',
-    className: 'col-span-12 md:col-span-5 aspect-[4/5] md:aspect-auto md:min-h-full',
+    className: 'col-span-12 md:col-span-6 aspect-[16/10]',
+    priority: false,
+    label: undefined,
   },
   {
     src: '/portfolio/nexton.png',
     alt: 'NEXTON',
     href: '/portfolio/nexton',
     className: 'col-span-12 md:col-span-6 aspect-[16/10]',
+    priority: false,
+    label: undefined,
+  },
+  {
+    src: '/devices/showcase-iphone.png',
+    alt: 'Мобильный интерфейс проекта',
+    href: '/portfolio/artdetailing',
+    className: 'col-span-12 md:col-span-5 aspect-[4/5] md:aspect-auto md:min-h-full',
+    priority: false,
+    label: undefined,
   },
   {
     src: '/portfolio/artdetailing.png',
     alt: 'ArtDetailing',
     href: '/portfolio/artdetailing',
-    className: 'col-span-12 md:col-span-6 aspect-[16/10]',
+    className: 'col-span-12 md:col-span-7 aspect-[16/10]',
+    priority: false,
+    label: undefined,
   },
 ] as const
 
@@ -57,10 +73,24 @@ export default function HomeDeviceShowcase() {
                   src={item.src}
                   alt={item.alt}
                   fill
-                  className="object-contain object-center p-3 md:p-4 transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
+                  className={`transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02] ${
+                    item.priority
+                      ? 'object-cover object-top'
+                      : 'object-contain object-center p-3 md:p-4'
+                  }`}
                   sizes="(max-width: 768px) 100vw, 55vw"
-                  priority={i === 0}
+                  priority={item.priority}
                 />
+                {item.label ? (
+                  <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 bg-gradient-to-t from-slate-950/85 to-transparent">
+                    <p className="text-[11px] tracking-[0.18em] uppercase text-amber-400/90 mb-1">
+                      Избранный кейс
+                    </p>
+                    <p className="font-display text-lg md:text-xl font-semibold text-white tracking-tight">
+                      {item.label}
+                    </p>
+                  </div>
+                ) : null}
               </Link>
             </Reveal>
           ))}

@@ -3,9 +3,11 @@ import Link from 'next/link'
 import Reveal from './Reveal'
 import { getCasePath, getFeaturedPortfolioProjects } from '../portfolio/data'
 
-/** Oversized editorial cases — proof of craft at Apple/Microsoft scale of ambition */
+/** Oversized editorial cases — hero case + alternating grid */
 export default function HomeFeaturedWork() {
-  const projects = getFeaturedPortfolioProjects().slice(0, 4)
+  const featured = getFeaturedPortfolioProjects()
+  const [hero, ...rest] = featured
+  const projects = rest.slice(0, 3)
 
   return (
     <section className="bg-white dark:bg-gray-950">
@@ -16,11 +18,55 @@ export default function HomeFeaturedWork() {
           </h2>
           <Link
             href="/portfolio"
-            className="apsod-link-nudge text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white shrink-0"          >
+            className="apsod-link-nudge text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white shrink-0"
+          >
             Все проекты
           </Link>
         </Reveal>
       </div>
+
+      {hero ? (
+        <Reveal>
+          <Link
+            href={getCasePath(hero)}
+            className="apsod-case-row group relative block border-t border-slate-200 dark:border-slate-800 overflow-hidden bg-slate-950 text-white"
+          >
+            <div className="relative min-h-[min(72svh,640px)] md:min-h-[min(78svh,720px)]">
+              <Image
+                src={hero.image}
+                alt={hero.title}
+                fill
+                priority
+                className="object-cover object-top opacity-90 transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
+                sizes="100vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/55 to-slate-950/20" />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-transparent to-transparent" />
+
+              <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-14 lg:p-20">
+                <p className="text-[11px] tracking-[0.22em] uppercase text-amber-400/90 mb-4">
+                  Избранный кейс · {hero.category}
+                </p>
+                <h3 className="font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-4 max-w-3xl leading-[1.05]">
+                  {hero.title}
+                </h3>
+                <p className="text-base md:text-lg text-slate-300 max-w-xl leading-relaxed mb-8">
+                  {hero.description}
+                </p>
+                <span className="inline-flex items-center gap-2 text-sm font-semibold text-white">
+                  Смотреть кейс
+                  <span
+                    className="transition-transform duration-500 group-hover:translate-x-1"
+                    aria-hidden
+                  >
+                    →
+                  </span>
+                </span>
+              </div>
+            </div>
+          </Link>
+        </Reveal>
+      ) : null}
 
       <div className="space-y-0">
         {projects.map((project, index) => {
@@ -52,7 +98,7 @@ export default function HomeFeaturedWork() {
                   }`}
                 >
                   <p className="text-[11px] tracking-[0.22em] uppercase text-slate-400 mb-4">
-                    {String(index + 1).padStart(2, '0')} · {project.category}
+                    {String(index + 2).padStart(2, '0')} · {project.category}
                   </p>
                   <h3 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-6 group-hover:translate-x-1 transition-transform duration-500">
                     {project.title}

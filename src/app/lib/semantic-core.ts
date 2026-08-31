@@ -562,7 +562,7 @@ export function getCityFaq(
     },
     {
       question: `Есть ли кейсы рядом с ${cityName}?`,
-      answer: `В портфолио — избранные работы (Amba Detail, Maxximum, Динамо-Витебск, NEXTON, BMservice, ArtDetailing). Расширенный архив покажем на консультации.`,
+      answer: `В портфолио — избранные работы (Legal Team, Amba Detail, Maxximum, Динамо-Витебск, NEXTON, BMservice, ArtDetailing). Расширенный архив покажем на консультации.`,
     },
   ]
 }

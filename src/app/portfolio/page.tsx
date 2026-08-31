@@ -217,18 +217,28 @@ export default function PortfolioPage() {
       <section className="pb-20">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {filteredProjects.map((project) => (
+            {filteredProjects.map((project) => {
+              const isFeatured = getFeaturedRank(project) === 0
+              return (
               <article
                 key={project.id}
-                className="apsod-price-card group border border-slate-200 dark:border-slate-800 bg-white dark:bg-gray-950 overflow-hidden hover:border-slate-400 dark:hover:border-slate-600"
+                className={`apsod-price-card group border bg-white dark:bg-gray-950 overflow-hidden hover:border-slate-400 dark:hover:border-slate-600 ${
+                  isFeatured
+                    ? 'md:col-span-2 border-amber-500/40 dark:border-amber-500/30 ring-1 ring-amber-500/20'
+                    : 'border-slate-200 dark:border-slate-800'
+                }`}
               >
-                <div className="h-48 relative overflow-hidden bg-slate-100 dark:bg-slate-900">
+                <div
+                  className={`relative overflow-hidden bg-slate-100 dark:bg-slate-900 ${
+                    isFeatured ? 'h-56 md:h-72' : 'h-48'
+                  }`}
+                >
                   {!imageErrors[project.id] ? (
                     <img
                       src={project.image}
                       alt={`Главная страница ${project.title}`}
                       loading="lazy"
-                      className="w-full h-full object-cover"
+                      className={`w-full h-full ${isFeatured ? 'object-cover object-top' : 'object-cover'}`}
                       onError={() => setImageErrors((prev) => ({ ...prev, [project.id]: true }))}
                     />
                   ) : (
@@ -238,8 +248,13 @@ export default function PortfolioPage() {
                       </span>
                     </div>
                   )}
+                  {isFeatured ? (
+                    <span className="absolute top-3 left-3 z-10 rounded-md bg-amber-500 text-slate-950 text-xs font-semibold px-2.5 py-1">
+                      Избранный кейс
+                    </span>
+                  ) : null}
                   {project.forSale ? (
-                    <span className="absolute top-3 left-3 z-10 rounded-md bg-slate-900 text-white text-xs font-semibold px-2.5 py-1 dark:bg-white dark:text-slate-900">
+                    <span className="absolute top-3 right-3 z-10 rounded-md bg-slate-900 text-white text-xs font-semibold px-2.5 py-1 dark:bg-white dark:text-slate-900">
                       В продаже
                     </span>
                   ) : null}
@@ -296,7 +311,8 @@ export default function PortfolioPage() {
                   </div>
                 </div>
               </article>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>

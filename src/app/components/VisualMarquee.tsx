@@ -3,6 +3,11 @@ import Link from 'next/link'
 
 const BAND = [
   {
+    src: '/portfolio/legal-team.jpg',
+    alt: 'Legal Team',
+    href: '/portfolio/legal-team',
+  },
+  {
     src: '/portfolio/amba.png',
     alt: 'Amba Detail',
     href: '/portfolio/amba-detail',
