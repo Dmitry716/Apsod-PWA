@@ -8,7 +8,8 @@ const SHOWCASE = [
     src: '/portfolio/legal-team.jpg',
     alt: 'Legal Team — юридическая компания',
     href: '/portfolio/legal-team',
-    className: 'col-span-12 aspect-[16/9] md:aspect-[21/9] min-h-[240px] md:min-h-[360px]',
+    className: 'col-span-12 min-w-0 w-full aspect-[16/9] md:aspect-[21/9] md:min-h-[360px]',
+    objectPosition: '32% center',
     priority: true,
     label: 'Legal Team · Москва',
   },
@@ -16,7 +17,7 @@ const SHOWCASE = [
     src: '/portfolio/amba.png',
     alt: 'Amba Detail',
     href: '/portfolio/amba-detail',
-    className: 'col-span-12 md:col-span-6 aspect-[16/10]',
+    className: 'col-span-12 min-w-0 w-full md:col-span-6 aspect-[16/10]',
     priority: false,
     label: undefined,
   },
@@ -24,7 +25,7 @@ const SHOWCASE = [
     src: '/portfolio/nexton.png',
     alt: 'NEXTON',
     href: '/portfolio/nexton',
-    className: 'col-span-12 md:col-span-6 aspect-[16/10]',
+    className: 'col-span-12 min-w-0 w-full md:col-span-6 aspect-[16/10]',
     priority: false,
     label: undefined,
   },
@@ -32,7 +33,7 @@ const SHOWCASE = [
     src: '/devices/showcase-iphone.png',
     alt: 'Мобильный интерфейс проекта',
     href: '/portfolio/artdetailing',
-    className: 'col-span-12 md:col-span-5 aspect-[4/5] md:aspect-auto md:min-h-full',
+    className: 'col-span-12 min-w-0 w-full md:col-span-5 aspect-[4/5] md:aspect-auto md:min-h-full',
     priority: false,
     label: undefined,
   },
@@ -40,7 +41,7 @@ const SHOWCASE = [
     src: '/portfolio/artdetailing.png',
     alt: 'ArtDetailing',
     href: '/portfolio/artdetailing',
-    className: 'col-span-12 md:col-span-7 aspect-[16/10]',
+    className: 'col-span-12 min-w-0 w-full md:col-span-7 aspect-[16/10]',
     priority: false,
     label: undefined,
   },
@@ -58,7 +59,7 @@ export default function HomeDeviceShowcase() {
           </h2>
         </Reveal>
 
-        <div className="grid grid-cols-12 gap-3 md:gap-4">
+        <div className="grid grid-cols-12 gap-3 md:gap-4 min-w-0">
           {SHOWCASE.map((item, i) => (
             <Reveal
               key={item.src}
@@ -67,7 +68,7 @@ export default function HomeDeviceShowcase() {
             >
               <Link
                 href={item.href}
-                className="apsod-media-frame group relative block h-full min-h-[220px] md:min-h-[300px] overflow-hidden bg-slate-200/80 dark:bg-slate-900"
+                className="apsod-media-frame group relative block h-full min-h-0 overflow-hidden bg-slate-200/80 dark:bg-slate-900"
               >
                 <Image
                   src={item.src}
@@ -78,7 +79,11 @@ export default function HomeDeviceShowcase() {
                       ? 'object-cover'
                       : 'object-contain object-center p-3 md:p-4'
                   }`}
-                  style={item.priority ? { objectPosition: 'center' } : undefined}
+                  style={
+                    'objectPosition' in item && item.objectPosition
+                      ? { objectPosition: item.objectPosition }
+                      : undefined
+                  }
                   sizes="(max-width: 768px) 100vw, 55vw"
                   priority={item.priority}
                 />
