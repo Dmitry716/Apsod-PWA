@@ -37,7 +37,8 @@ export default function HomeFeaturedWork() {
                 alt={hero.title}
                 fill
                 priority
-                className="object-cover object-top opacity-90 transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
+                className="object-cover opacity-90 transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
+                style={{ objectPosition: hero.imageObjectPosition ?? 'center' }}
                 sizes="100vw"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/55 to-slate-950/20" />

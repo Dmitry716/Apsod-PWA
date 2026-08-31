@@ -238,7 +238,12 @@ export default function PortfolioPage() {
                       src={project.image}
                       alt={`Главная страница ${project.title}`}
                       loading="lazy"
-                      className={`w-full h-full ${isFeatured ? 'object-cover object-top' : 'object-cover'}`}
+                      className="w-full h-full object-cover"
+                      style={
+                        project.imageObjectPosition
+                          ? { objectPosition: project.imageObjectPosition }
+                          : undefined
+                      }
                       onError={() => setImageErrors((prev) => ({ ...prev, [project.id]: true }))}
                     />
                   ) : (

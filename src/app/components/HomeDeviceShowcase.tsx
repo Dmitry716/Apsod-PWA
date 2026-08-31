@@ -75,9 +75,10 @@ export default function HomeDeviceShowcase() {
                   fill
                   className={`transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02] ${
                     item.priority
-                      ? 'object-cover object-top'
+                      ? 'object-cover'
                       : 'object-contain object-center p-3 md:p-4'
                   }`}
+                  style={item.priority ? { objectPosition: 'center' } : undefined}
                   sizes="(max-width: 768px) 100vw, 55vw"
                   priority={item.priority}
                 />

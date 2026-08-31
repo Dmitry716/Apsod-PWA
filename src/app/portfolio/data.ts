@@ -24,6 +24,8 @@ export type PortfolioProject = {
   forSale?: boolean
   /** slug в /ready-sites/[slug] */
   readySiteSlug?: string
+  /** object-position для обложки в карточках */
+  imageObjectPosition?: string
 }
 
 /** Порядок проектов на главной и в портфолио */
@@ -61,6 +63,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       'PWA + SEO-база под коммерческие запросы в Москве и РФ',
     ],
     image: '/portfolio/legal-team.jpg',
+    imageObjectPosition: 'center',
     tags: ['Next.js', 'PWA', 'SEO', 'UI/UX'],
     liveUrl: 'https://legal-team-sooty.vercel.app/',
     link: 'https://legal-team-sooty.vercel.app/',
