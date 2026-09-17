@@ -70,7 +70,7 @@ export default function Header() {
             })}
             <Link
               href="/contact"
-              className="apsod-btn-solid apsod-cta-primary ml-1 px-4 py-2.5 rounded-md text-[12px] font-semibold tracking-[0.08em] uppercase transition-colors"
+              className="apsod-lab-btn apsod-lab-btn--primary ml-1 !py-2 !px-3.5"
             >
               <span>{locale === 'en' ? 'Contact' : 'Связаться'}</span>
             </Link>

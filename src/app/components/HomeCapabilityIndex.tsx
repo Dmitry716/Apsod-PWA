@@ -2,12 +2,12 @@ import Link from 'next/link'
 import Reveal from './Reveal'
 
 const CAPABILITIES = [
-  { title: 'Разработка сайтов', href: '/services/web-development' },
-  { title: 'Лендинги', href: '/services/landing-page' },
-  { title: 'Корпоративные сайты', href: '/services/corporate-sites' },
-  { title: 'Интернет-магазины', href: '/services/ecommerce' },
-  { title: 'Мобильные приложения', href: '/services/mobile-development' },
-  { title: 'SEO и GEO', href: '/services/seo' },
+  { title: 'Разработка сайтов', href: '/services/web-development', cmd: 'web' },
+  { title: 'Лендинги', href: '/services/landing-page', cmd: 'landing' },
+  { title: 'Корпоративные сайты', href: '/services/corporate-sites', cmd: 'corp' },
+  { title: 'Интернет-магазины', href: '/services/ecommerce', cmd: 'shop' },
+  { title: 'Мобильные приложения', href: '/services/mobile-development', cmd: 'mobile' },
+  { title: 'SEO и GEO', href: '/services/seo', cmd: 'seo' },
 ] as const
 
 const STEPS = [
@@ -18,71 +18,78 @@ const STEPS = [
   { step: '05', title: 'Рост' },
 ] as const
 
-/** Capabilities + process in one dense block — no empty heading voids */
+/** Capabilities + process as lab index modules */
 export default function HomeCapabilityIndex() {
   return (
-    <section className="py-16 md:py-24 bg-white dark:bg-[var(--bg-primary)] border-t border-slate-200 dark:border-[var(--border-color)]">
-      <div className="container mx-auto px-4">
-        <Reveal className="mb-10 md:mb-12">
-          <p className="apsod-section-marker mb-3">04 · Capabilities</p>
-          <h2 className="font-display text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-[-0.03em]">
-            Возможности
-          </h2>
-        </Reveal>
-
+    <section className="border-b border-slate-200 dark:border-[var(--border-color)] bg-white dark:bg-[var(--bg-primary)]">
+      <div className="container mx-auto px-4 py-8 md:py-10 space-y-6">
         <Reveal>
-          <ul className="border-t border-slate-200 dark:border-[var(--border-color)] mb-16 md:mb-20">
-            {CAPABILITIES.map((item) => (
-              <li key={item.href + item.title}>
-                <Link
-                  href={item.href}
-                  className="group flex items-center justify-between gap-6 py-5 md:py-6 border-b border-slate-200 dark:border-[var(--border-color)]"
-                >
-                  <span className="font-display text-xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-[-0.03em] transition-transform duration-500 group-hover:translate-x-2 group-hover:text-sky-700 dark:group-hover:text-sky-300">
-                    {item.title}
-                  </span>
-                  <span
-                    className="text-slate-300 dark:text-slate-600 text-lg md:text-xl transition-all duration-500 group-hover:text-sky-600 dark:group-hover:text-sky-300 group-hover:translate-x-1"
-                    aria-hidden
-                  >
-                    →
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </Reveal>
-
-        <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4 mb-8">
-            <div>
-              <p className="apsod-section-marker mb-2">05 · Process</p>
-              <h3 className="font-display text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-[-0.03em]">
-                Как мы работаем
-              </h3>
-            </div>
-            <Link
-              href="/contact"
-              className="apsod-link-nudge text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-500 hover:text-sky-600 dark:hover:text-sky-300"
-            >
-              Начать проект
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-5 gap-px bg-slate-200 dark:bg-[var(--border-color)] border border-slate-200 dark:border-[var(--border-color)]">
-            {STEPS.map((item) => (
-              <div
-                key={item.step}
-                className="apsod-surface-hover bg-white dark:bg-[var(--bg-secondary)] p-5 md:p-6 min-h-[120px] flex flex-col justify-between"
+          <div className="apsod-lab-panel overflow-hidden">
+            <div className="apsod-lab-panel__head">
+              <span className="apsod-lab-panel__title">Index / Capabilities</span>
+              <Link
+                href="/services"
+                className="apsod-lab-panel__meta hover:text-sky-600 dark:hover:text-sky-300 transition-colors"
               >
-                <p className="text-[11px] tracking-[0.2em] uppercase text-sky-600/80 dark:text-sky-400/80">
-                  {item.step}
-                </p>
-                <h4 className="font-display text-base md:text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
-                  {item.title}
-                </h4>
-              </div>
-            ))}
+                All services →
+              </Link>
+            </div>
+
+            <ul>
+              {CAPABILITIES.map((item, i) => (
+                <li key={item.href + item.title}>
+                  <Link
+                    href={item.href}
+                    className="group flex items-center gap-4 md:gap-6 px-4 md:px-5 py-4 border-b border-slate-200 dark:border-[var(--border-color)] last:border-b-0 hover:bg-slate-50 dark:hover:bg-slate-900/40 transition-colors"
+                  >
+                    <span className="apsod-lab-mono text-[11px] text-slate-400 w-8 shrink-0">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="apsod-lab-mono text-[11px] text-sky-600/80 dark:text-sky-400/80 w-16 shrink-0 hidden sm:block">
+                      /{item.cmd}
+                    </span>
+                    <span className="font-display text-lg md:text-2xl font-extrabold text-slate-900 dark:text-white tracking-[-0.03em] flex-1 min-w-0 group-hover:translate-x-1 transition-transform duration-400">
+                      {item.title}
+                    </span>
+                    <span
+                      className="text-slate-300 dark:text-slate-600 group-hover:text-sky-500 transition-colors"
+                      aria-hidden
+                    >
+                      →
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="apsod-lab-panel overflow-hidden">
+            <div className="apsod-lab-panel__head">
+              <span className="apsod-lab-panel__title">Process / Pipeline</span>
+              <Link
+                href="/contact"
+                className="apsod-lab-panel__meta hover:text-sky-600 dark:hover:text-sky-300 transition-colors"
+              >
+                Start →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-5 gap-px bg-slate-200 dark:bg-[var(--border-color)]">
+              {STEPS.map((item) => (
+                <div
+                  key={item.step}
+                  className="apsod-surface-hover bg-white dark:bg-[var(--bg-card)] p-4 md:p-5 min-h-[100px] flex flex-col justify-between"
+                >
+                  <p className="apsod-lab-mono text-[11px] text-sky-600/80 dark:text-sky-400/80">
+                    {item.step}
+                  </p>
+                  <h4 className="font-display text-sm md:text-base font-semibold text-slate-900 dark:text-white tracking-tight">
+                    {item.title}
+                  </h4>
+                </div>
+              ))}
+            </div>
           </div>
         </Reveal>
       </div>

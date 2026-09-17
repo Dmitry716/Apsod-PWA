@@ -259,6 +259,134 @@
     var(--apsod-immersive);
 }
 
+/* Product Lab shell */
+.apsod-lab-shell {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.apsod-lab-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 2.25rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  background: color-mix(in srgb, var(--bg-secondary) 88%, transparent);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.apsod-lab-bar__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-secondary);
+}
+
+.apsod-lab-bar__live::before {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 9999px;
+  background: #34d399;
+  box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.18);
+}
+
+.apsod-lab-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: 0.04em;
+}
+
+.apsod-lab-panel {
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.apsod-lab-panel:hover {
+  border-color: color-mix(in srgb, var(--apsod-accent) 35%, var(--border-color));
+}
+
+.apsod-lab-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid var(--border-color);
+  background: color-mix(in srgb, var(--bg-secondary) 70%, transparent);
+}
+
+.apsod-lab-panel__title {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.apsod-lab-panel__meta {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.apsod-lab-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid var(--border-color);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.apsod-lab-btn--primary {
+  background: var(--text-primary);
+  color: var(--bg-primary);
+  border-color: var(--text-primary);
+}
+
+.apsod-lab-btn--primary:hover {
+  background: color-mix(in srgb, var(--apsod-accent) 85%, var(--text-primary));
+  border-color: transparent;
+  color: #fff;
+}
+
+.apsod-lab-btn--ghost {
+  background: transparent;
+  color: var(--text-primary);
+}
+
+.apsod-lab-btn--ghost:hover {
+  border-color: var(--apsod-accent);
+  color: var(--apsod-accent);
+}
+
+.apsod-lab-grid-bg {
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--apsod-accent) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--apsod-accent) 8%, transparent) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, black 15%, transparent 75%);
+}
+
 /* Базовые анимации */
 @keyframes blob {
   0% {

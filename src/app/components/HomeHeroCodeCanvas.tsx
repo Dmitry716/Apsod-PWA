@@ -54,7 +54,7 @@ function highlight(line: string) {
             : p.kind === 'num'
               ? 'text-amber-200/80'
               : p.kind === 'punct'
-                ? 'text-slate-400'
+                ? 'text-slate-500'
                 : 'text-slate-200'
     return (
       <span key={i} className={cls}>
@@ -64,7 +64,7 @@ function highlight(line: string) {
   })
 }
 
-/** Live typing code field — craft atmosphere, not a client mockup */
+/** Framed live code window for Product Lab hero */
 export default function HomeHeroCodeCanvas() {
   const [chars, setChars] = useState(0)
   const [reduced, setReduced] = useState(false)
@@ -118,61 +118,37 @@ export default function HomeHeroCodeCanvas() {
 
   const visible = FULL.slice(0, chars)
   const lines = visible.split('\n')
-  const completeLines = FULL.split('\n')
 
   return (
-    <div className="apsod-code-hero absolute inset-0 overflow-hidden" aria-hidden>
-      <div className="absolute inset-0 bg-[var(--apsod-immersive,#05070d)]" />
-      <div className="apsod-code-hero-grid absolute inset-0 opacity-[0.55] md:opacity-[0.5]" />
-      <div className="apsod-code-hero-glow absolute -right-16 top-[18%] h-[52%] w-[72%] rounded-full bg-sky-400/18 blur-3xl md:bg-cyan-400/14" />
-      <div className="apsod-code-hero-glow absolute left-1/4 -bottom-16 h-[38%] w-[52%] rounded-full bg-blue-600/16 blur-3xl" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_75%_40%,rgba(56,189,248,0.08),transparent_60%)]" />
-
-      {/* Ghost finished code — depth on all viewports */}
-      <pre className="apsod-code-hero-ghost pointer-events-none absolute inset-x-3 top-[10%] select-none font-mono text-[10px] leading-[1.65] text-slate-500/40 sm:inset-x-auto sm:right-[-2%] sm:top-[12%] sm:text-[11px] md:right-[2%] md:text-[12.5px] md:text-slate-500/30">
-        {completeLines.map((line, idx) => (
-          <div key={`g-${idx}`} className="whitespace-pre">
-            <span className="inline-block w-7 text-right text-slate-500/50 mr-3 select-none sm:w-8 sm:mr-4">
-              {String(idx + 1).padStart(2, '0')}
-            </span>
-            {line || ' '}
-          </div>
-        ))}
-      </pre>
-
-      {/* Live typing pane — visible on mobile, stronger on desktop */}
-      <div className="pointer-events-none absolute inset-x-0 top-[8%] bottom-auto flex justify-start px-3 sm:inset-y-0 sm:right-0 sm:left-auto sm:w-[62%] sm:items-center sm:justify-end sm:px-0 sm:pr-6 md:w-[58%] lg:w-[54%] lg:pr-14">
-        <div className="apsod-code-hero-panel relative w-full max-w-xl opacity-[0.78] sm:opacity-[0.82] md:opacity-[0.88]">
-          <div className="mb-2 sm:mb-3 flex items-center gap-2 px-1">
-            <span className="h-2 w-2 rounded-full bg-slate-500" />
-            <span className="h-2 w-2 rounded-full bg-slate-500" />
-            <span className="h-2 w-2 rounded-full bg-slate-500" />
-            <span className="ml-2 font-mono text-[10px] tracking-wide text-slate-400 uppercase">
-              product.ts
-            </span>
-          </div>
-          <pre className="font-mono text-[11.5px] sm:text-[12px] md:text-[13px] leading-[1.7] sm:leading-[1.75] overflow-hidden">
-            {lines.map((line, idx) => {
-              const isLast = idx === lines.length - 1
-              return (
-                <div key={idx} className="whitespace-pre">
-                  <span className="inline-block w-7 md:w-8 text-right text-slate-500 mr-3 md:mr-4 select-none">
-                    {String(idx + 1).padStart(2, '0')}
-                  </span>
-                  {highlight(line)}
-                  {isLast && !reduced && chars < FULL.length ? (
-                    <span className="apsod-code-caret inline-block w-[0.55ch] h-[1.05em] align-[-0.15em] ml-0.5 bg-sky-300" />
-                  ) : null}
-                </div>
-              )
-            })}
-          </pre>
+    <div className="apsod-lab-panel h-full min-h-[280px] md:min-h-[420px] overflow-hidden bg-slate-950 text-white border-slate-800 dark:border-[var(--border-color)]">
+      <div className="apsod-lab-panel__head border-slate-800 bg-slate-900/90">
+        <div className="flex items-center gap-2 min-w-0">
+          <span className="h-2 w-2 rounded-full bg-rose-400/80" aria-hidden />
+          <span className="h-2 w-2 rounded-full bg-amber-300/80" aria-hidden />
+          <span className="h-2 w-2 rounded-full bg-emerald-400/80" aria-hidden />
+          <span className="apsod-lab-panel__title ml-2 text-slate-400 truncate">product.ts</span>
         </div>
+        <span className="apsod-lab-panel__meta text-emerald-400/80">running</span>
       </div>
-
-      {/* Readable scrim under copy — keep code visible at the edges */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#05070d]/60 via-[#05070d]/28 to-[#05070d]/85 sm:bg-gradient-to-r sm:from-[#05070d] sm:via-[#05070d]/90 sm:to-[#05070d]/15 md:to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#05070d] via-transparent to-[#05070d]/45 pointer-events-none" />
+      <div className="relative p-4 md:p-5 h-[calc(100%-2.5rem)] overflow-hidden">
+        <div className="apsod-lab-grid-bg absolute inset-0 opacity-60" aria-hidden />
+        <pre className="relative z-[1] font-mono text-[11.5px] sm:text-[12px] md:text-[13px] leading-[1.7] sm:leading-[1.75] overflow-hidden">
+          {lines.map((line, idx) => {
+            const isLast = idx === lines.length - 1
+            return (
+              <div key={idx} className="whitespace-pre">
+                <span className="inline-block w-7 md:w-8 text-right text-slate-600 mr-3 md:mr-4 select-none">
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
+                {highlight(line)}
+                {isLast && !reduced && chars < FULL.length ? (
+                  <span className="apsod-code-caret inline-block w-[0.55ch] h-[1.05em] align-[-0.15em] ml-0.5 bg-sky-300" />
+                ) : null}
+              </div>
+            )
+          })}
+        </pre>
+      </div>
     </div>
   )
 }

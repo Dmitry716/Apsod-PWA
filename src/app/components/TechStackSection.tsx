@@ -35,36 +35,43 @@ export default function TechStackSection({
 }: Props) {
   return (
     <section
-      className={`py-14 md:py-20 border-y border-slate-200 dark:border-[var(--border-color)] bg-slate-50/70 dark:bg-[var(--bg-secondary)] ${className}`}
+      className={`border-b border-slate-200 dark:border-[var(--border-color)] bg-slate-50 dark:bg-[var(--bg-secondary)] ${className}`}
     >
-      <div className="container mx-auto px-4">
-        <Reveal className="mb-8 md:mb-10 max-w-2xl">
-          <p className="apsod-section-marker mb-3">06 · Stack</p>
-          <h2 className="font-display text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-[-0.03em] mb-3">
-            {title}
-          </h2>
-          <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{subtitle}</p>
-        </Reveal>
+      <div className="container mx-auto px-4 py-8 md:py-10">
+        <Reveal>
+          <div className="apsod-lab-panel overflow-hidden">
+            <div className="apsod-lab-panel__head">
+              <span className="apsod-lab-panel__title">{title}</span>
+              <span className="apsod-lab-panel__meta">
+                {categories.reduce((n, c) => n + c.items.length, 0)} modules
+              </span>
+            </div>
 
-        <div className="space-y-6 md:space-y-10">
-          {categories.map((category) => (
-            <Reveal key={category.id}>
-              <div className="flex items-end justify-between gap-4 mb-2 md:mb-3">
-                <h3 className="font-display text-sm md:text-base font-semibold tracking-tight text-slate-900 dark:text-white">
-                  {category.title}
-                </h3>
-                <span className="text-[11px] tracking-[0.14em] uppercase text-slate-400">
-                  {String(category.items.length).padStart(2, '0')}
-                </span>
-              </div>
-              <ul className="apsod-tech-grid flex flex-wrap gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
-                {category.items.map((item) => (
-                  <TechTile key={item.id} item={item} />
-                ))}
-              </ul>
-            </Reveal>
-          ))}
-        </div>
+            <div className="p-4 md:p-5 space-y-6 md:space-y-8">
+              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
+                {subtitle}
+              </p>
+
+              {categories.map((category) => (
+                <div key={category.id}>
+                  <div className="flex items-end justify-between gap-4 mb-2 md:mb-3">
+                    <h3 className="apsod-lab-mono text-[11px] tracking-[0.14em] uppercase text-slate-500 dark:text-slate-400">
+                      {category.title}
+                    </h3>
+                    <span className="apsod-lab-mono text-[10px] tracking-[0.12em] uppercase text-slate-400">
+                      {String(category.items.length).padStart(2, '0')}
+                    </span>
+                  </div>
+                  <ul className="apsod-tech-grid flex flex-wrap gap-px bg-slate-200 dark:bg-[var(--border-color)] border border-slate-200 dark:border-[var(--border-color)]">
+                    {category.items.map((item) => (
+                      <TechTile key={item.id} item={item} />
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

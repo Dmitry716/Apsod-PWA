@@ -4,53 +4,44 @@ import Link from 'next/link'
 import { useLocale } from '../lib/useLocale'
 import HomeHeroCodeCanvas from './HomeHeroCodeCanvas'
 
-/** Full-bleed craft hero — live code atmosphere, no client mockups */
+/** Product Lab command surface — brand + actions + framed runtime panel */
 export default function HomeHero() {
   const { locale } = useLocale()
   const isEn = locale === 'en'
 
   return (
-    <section className="apsod-grain relative min-h-[min(72svh,600px)] md:min-h-[min(100svh,920px)] flex items-end md:items-center overflow-hidden bg-[var(--apsod-immersive)] text-white">
-      <HomeHeroCodeCanvas />
+    <section className="relative overflow-hidden border-b border-slate-200 dark:border-[var(--border-color)] bg-white dark:bg-[var(--bg-primary)]">
+      <div className="apsod-lab-grid-bg absolute inset-0 opacity-40 dark:opacity-50" aria-hidden />
 
-      <div className="container mx-auto px-4 relative z-10 pt-24 pb-12 md:py-32">
-        <div className="max-w-2xl">
-          <div className="apsod-hero-enter apsod-hero-enter-delay-1 mb-4 md:mb-7 flex items-center gap-3">
-            <p className="font-display text-sm md:text-base font-extrabold tracking-[-0.03em] text-white">
+      <div className="container mx-auto px-4 relative z-10 py-10 md:py-14 lg:py-16">
+        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch min-w-0">
+          <div className="lg:col-span-5 flex flex-col justify-end min-w-0">
+            <p className="apsod-lab-mono text-[11px] text-slate-500 dark:text-slate-400 mb-4 tracking-[0.16em] uppercase">
+              {isEn ? 'Build · Ship · Grow' : 'Build · Ship · Grow'}
+            </p>
+
+            <h1 className="apsod-hero-enter apsod-hero-enter-delay-1 font-display text-[clamp(3.2rem,12vw,6.5rem)] font-extrabold tracking-[-0.06em] leading-[0.9] text-slate-950 dark:text-white mb-5 md:mb-6">
               APSOD
+            </h1>
+
+            <p className="apsod-hero-enter apsod-hero-enter-delay-2 text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-sm leading-relaxed mb-7 md:mb-9">
+              {isEn
+                ? 'Web, commerce and apps as one engineered product.'
+                : 'Сайты, магазины и приложения — как один инженерный продукт.'}
             </p>
-            <span className="apsod-hero-line-dot" aria-hidden />
-            <span className="apsod-hero-line bg-sky-400/80" aria-hidden />
-            <p className="text-[11px] font-semibold tracking-[0.22em] uppercase text-slate-400">
-              {isEn ? 'Software engineering' : 'Software engineering'}
-            </p>
+
+            <div className="apsod-hero-enter apsod-hero-enter-delay-3 flex flex-wrap gap-2.5">
+              <Link href="/portfolio" className="apsod-lab-btn apsod-lab-btn--primary">
+                {isEn ? 'Open cases' : 'Открыть кейсы'}
+              </Link>
+              <Link href="/contact" className="apsod-lab-btn apsod-lab-btn--ghost">
+                {isEn ? 'Start project' : 'Запустить проект'}
+              </Link>
+            </div>
           </div>
 
-          <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display text-[clamp(2.4rem,8vw,4.5rem)] font-extrabold tracking-[-0.04em] leading-[1.02] mb-4 md:mb-6">
-            {isEn
-              ? 'Digital products of any complexity'
-              : 'Digital-продукты любой сложности'}
-          </h1>
-
-          <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-[0.95rem] md:text-lg text-slate-300/95 max-w-md leading-relaxed mb-7 md:mb-11">
-            {isEn
-              ? 'Websites, commerce and applications — designed, engineered and shipped as one product.'
-              : 'Сайты, магазины и приложения: проектируем, разрабатываем и запускаем как единый продукт.'}
-          </p>
-
-          <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3">
-            <Link
-              href="/portfolio"
-              className="apsod-btn-solid apsod-cta-primary px-6 py-3.5 md:px-8 md:py-4 rounded-md text-[12px] font-semibold tracking-[0.1em] uppercase"
-            >
-              <span>{isEn ? 'View work' : 'Смотреть работы'}</span>
-            </Link>
-            <Link
-              href="/contact"
-              className="px-6 py-3.5 md:px-8 md:py-4 rounded-md text-[12px] font-semibold tracking-[0.1em] uppercase border border-sky-400/35 text-white hover:border-sky-300/70 hover:bg-sky-400/5 transition-colors"
-            >
-              {isEn ? 'Start a project' : 'Начать проект'}
-            </Link>
+          <div className="lg:col-span-7 min-w-0 apsod-hero-enter apsod-hero-enter-delay-2">
+            <HomeHeroCodeCanvas />
           </div>
         </div>
       </div>
