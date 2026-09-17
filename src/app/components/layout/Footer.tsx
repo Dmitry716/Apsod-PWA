@@ -44,14 +44,14 @@ export default function Footer() {
     <footer
       role="contentinfo"
       aria-label="Подвал сайта"
-      className="relative overflow-hidden bg-slate-950 text-white"
+      className="apsod-grain relative overflow-hidden bg-[var(--apsod-immersive)] text-white"
     >
       <div
-        className="pointer-events-none absolute inset-0 opacity-30"
+        className="pointer-events-none absolute inset-0 opacity-40"
         aria-hidden="true"
         style={{
           background:
-            "radial-gradient(ellipse 50% 40% at 0% 0%, rgba(30,64,175,0.18), transparent)",
+            "radial-gradient(ellipse 55% 45% at 0% 0%, rgba(56,189,248,0.16), transparent), radial-gradient(ellipse 40% 35% at 100% 100%, rgba(37,99,235,0.12), transparent)",
         }}
       />
 
@@ -61,10 +61,10 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-4 space-y-5">
             <Link
               href="/"
-              className="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 rounded"
+              className="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60 rounded"
               aria-label="APSOD — на главную"
             >
-              <span className="font-display text-2xl font-bold tracking-tight text-white">APSOD</span>
+              <span className="font-display text-[1.85rem] font-extrabold tracking-[-0.045em] text-white">APSOD</span>
             </Link>
             <p className="text-sm text-slate-400 leading-relaxed max-w-sm">
               {isEn

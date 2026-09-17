@@ -17,7 +17,7 @@ export const metadata = buildSnippetMetadata('/')
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-white dark:bg-[var(--bg-primary)]">
       <SeoJsonLd data={generateFAQSchema([...HOMEPAGE_FAQ])} />
 
       <HomeHero />
@@ -28,15 +28,18 @@ export default function Home() {
       <HomeCapabilityIndex />
       <TechStackSection title="С чем работаем" />
 
-      <section className="py-20 md:py-28 bg-slate-50 dark:bg-gray-900/40 border-y border-slate-200 dark:border-slate-800">
+      <section className="py-20 md:py-28 bg-slate-50 dark:bg-[var(--bg-secondary)] border-y border-slate-200 dark:border-[var(--border-color)]">
         <div className="container mx-auto px-4">
           <Reveal className="flex justify-between items-end mb-12 md:mb-16">
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight">
-              Журнал
-            </h2>
+            <div>
+              <p className="apsod-section-marker mb-3">07 · Journal</p>
+              <h2 className="font-display text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-[-0.03em]">
+                Журнал
+              </h2>
+            </div>
             <Link
               href="/blog"
-              className="text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors underline-offset-4 hover:underline"
+              className="apsod-link-nudge text-[12px] font-semibold tracking-[0.12em] uppercase text-slate-500 hover:text-sky-600 dark:hover:text-sky-300 transition-colors"
             >
               Все статьи
             </Link>
@@ -56,11 +59,11 @@ export default function Home() {
                     src={post.image}
                     alt=""
                     loading="lazy"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05]"
+                    className="apsod-media-zoom absolute inset-0 w-full h-full object-cover transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-6 md:p-7">
-                    <h3 className="font-display text-xl font-bold text-white tracking-tight leading-snug">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#05070d]/92 via-[#05070d]/25 to-transparent z-[2]" />
+                  <div className="absolute inset-x-0 bottom-0 p-6 md:p-7 z-[2]">
+                    <h3 className="font-display text-xl font-extrabold text-white tracking-tight leading-snug">
                       {post.title}
                     </h3>
                   </div>
@@ -73,17 +76,21 @@ export default function Home() {
 
       <HomeSeoSection />
 
-      <section className="relative py-24 md:py-32 overflow-hidden bg-slate-950 text-white">
+      <section className="apsod-grain apsod-immersive relative py-24 md:py-32 overflow-hidden text-white">
         <SectionAtmosphere tone="dark" grid={false} />
         <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
           <Reveal>
-            <p className="text-[11px] tracking-[0.28em] uppercase text-slate-500 mb-6">APSOD</p>
-            <h2 className="font-display text-4xl md:text-6xl font-bold tracking-tight leading-[1.05] mb-10">
+            <div className="mb-6 flex items-center justify-center gap-3">
+              <span className="apsod-hero-line-dot" aria-hidden />
+              <p className="text-[11px] tracking-[0.28em] uppercase text-slate-400">APSOD</p>
+              <span className="apsod-hero-line bg-sky-400/70" aria-hidden />
+            </div>
+            <h2 className="font-display text-4xl md:text-6xl font-extrabold tracking-[-0.035em] leading-[1.02] mb-10">
               Обсудим ваш проект
             </h2>
             <Link
               href="/contact"
-              className="apsod-btn-solid apsod-cta-primary inline-flex px-10 py-4 rounded-md text-sm font-semibold"
+              className="apsod-btn-solid apsod-cta-primary inline-flex px-10 py-4 rounded-md text-[12px] font-semibold tracking-[0.12em] uppercase"
             >
               <span>Начать проект</span>
             </Link>

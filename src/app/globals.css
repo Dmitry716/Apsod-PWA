@@ -13,29 +13,35 @@
   --border-color: #e2e8f0;
   --primary-color: #1e40af;
   --primary-hover: #1e3a8a;
-  --header-bg: rgba(255, 255, 255, 0.86);
-  --footer-bg: #0b1220;
+  --header-bg: rgba(255, 255, 255, 0.88);
+  --footer-bg: #070b14;
   --footer-text: #f8fafc;
   --section-y: 5rem;
   --hairline: #e2e8f0;
+  --apsod-accent: #0284c7;
+  --apsod-glow: rgba(14, 165, 233, 0.18);
+  --apsod-immersive: #070b14;
 }
 
 .dark {
-  /* Темная тема */
-  --bg-primary: #030712;
-  --bg-secondary: #0f172a;
-  --bg-card: #0f172a;
+  /* Тёмная тема — immersive tech (slate + electric cyan) */
+  --bg-primary: #05070d;
+  --bg-secondary: #0a101c;
+  --bg-card: #0a101c;
   --text-primary: #f8fafc;
   --text-secondary: #cbd5e1;
   --text-muted: #94a3b8;
-  --border-color: #1e293b;
-  --primary-color: #60a5fa;
-  --primary-hover: #93c5fd;
-  --header-bg: rgba(3, 7, 18, 0.86);
-  --footer-bg: #030712;
+  --border-color: #1a2336;
+  --primary-color: #38bdf8;
+  --primary-hover: #7dd3fc;
+  --header-bg: rgba(5, 7, 13, 0.78);
+  --footer-bg: #03050a;
   --footer-text: #f8fafc;
   --section-y: 5rem;
-  --hairline: #1e293b;
+  --hairline: #1a2336;
+  --apsod-accent: #38bdf8;
+  --apsod-glow: rgba(56, 189, 248, 0.22);
+  --apsod-immersive: #05070d;
 }
 
 /*
@@ -199,14 +205,58 @@
   color: #fff;
 }
 .dark .apsod-btn-solid {
-  background-color: #fff;
-  color: #0f172a;
+  background-color: #f8fafc;
+  color: #05070d;
 }
 .apsod-btn-solid:hover {
   background-color: #1e293b;
 }
 .dark .apsod-btn-solid:hover {
-  background-color: #f1f5f9;
+  background-color: #e2e8f0;
+}
+
+/* Tech utilities */
+.apsod-grain {
+  position: relative;
+  isolation: isolate;
+}
+.apsod-grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+}
+.dark .apsod-grain::before {
+  opacity: 0.22;
+}
+
+.apsod-section-marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.apsod-section-marker::after {
+  content: '';
+  width: 2.75rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--apsod-accent), transparent);
+}
+
+.apsod-immersive {
+  background:
+    radial-gradient(ellipse 80% 55% at 70% 10%, var(--apsod-glow), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 15% 90%, rgba(37, 99, 235, 0.12), transparent 50%),
+    var(--apsod-immersive);
 }
 
 /* Базовые анимации */

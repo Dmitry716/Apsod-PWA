@@ -122,10 +122,11 @@ export default function HomeHeroCodeCanvas() {
 
   return (
     <div className="apsod-code-hero absolute inset-0 overflow-hidden" aria-hidden>
-      <div className="absolute inset-0 bg-slate-950" />
-      <div className="apsod-code-hero-grid absolute inset-0 opacity-[0.45] md:opacity-[0.4]" />
-      <div className="apsod-code-hero-glow absolute -right-16 top-[18%] h-[50%] w-[70%] rounded-full bg-sky-500/15 blur-3xl md:bg-sky-500/12" />
-      <div className="apsod-code-hero-glow absolute left-1/4 -bottom-16 h-[36%] w-[50%] rounded-full bg-blue-600/12 blur-3xl" />
+      <div className="absolute inset-0 bg-[var(--apsod-immersive,#05070d)]" />
+      <div className="apsod-code-hero-grid absolute inset-0 opacity-[0.55] md:opacity-[0.5]" />
+      <div className="apsod-code-hero-glow absolute -right-16 top-[18%] h-[52%] w-[72%] rounded-full bg-sky-400/18 blur-3xl md:bg-cyan-400/14" />
+      <div className="apsod-code-hero-glow absolute left-1/4 -bottom-16 h-[38%] w-[52%] rounded-full bg-blue-600/16 blur-3xl" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_75%_40%,rgba(56,189,248,0.08),transparent_60%)]" />
 
       {/* Ghost finished code — depth on all viewports */}
       <pre className="apsod-code-hero-ghost pointer-events-none absolute inset-x-3 top-[10%] select-none font-mono text-[10px] leading-[1.65] text-slate-500/40 sm:inset-x-auto sm:right-[-2%] sm:top-[12%] sm:text-[11px] md:right-[2%] md:text-[12.5px] md:text-slate-500/30">
@@ -170,8 +171,8 @@ export default function HomeHeroCodeCanvas() {
       </div>
 
       {/* Readable scrim under copy — keep code visible at the edges */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/55 via-slate-950/25 to-slate-950/80 sm:bg-gradient-to-r sm:from-slate-950 sm:via-slate-950/88 sm:to-slate-950/20 md:to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/40 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#05070d]/60 via-[#05070d]/28 to-[#05070d]/85 sm:bg-gradient-to-r sm:from-[#05070d] sm:via-[#05070d]/90 sm:to-[#05070d]/15 md:to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#05070d] via-transparent to-[#05070d]/45 pointer-events-none" />
     </div>
   )
 }

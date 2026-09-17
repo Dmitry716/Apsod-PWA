@@ -35,14 +35,12 @@ export default function TechStackSection({
 }: Props) {
   return (
     <section
-      className={`py-14 md:py-20 border-y border-slate-200 dark:border-slate-800 ${className}`}
+      className={`py-14 md:py-20 border-y border-slate-200 dark:border-[var(--border-color)] bg-slate-50/70 dark:bg-[var(--bg-secondary)] ${className}`}
     >
       <div className="container mx-auto px-4">
         <Reveal className="mb-8 md:mb-10 max-w-2xl">
-          <p className="text-[11px] font-medium tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400 mb-3">
-            Технологии
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+          <p className="apsod-section-marker mb-3">06 · Stack</p>
+          <h2 className="font-display text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-[-0.03em] mb-3">
             {title}
           </h2>
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{subtitle}</p>

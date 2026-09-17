@@ -49,12 +49,13 @@ const SHOWCASE = [
 
 export default function HomeDeviceShowcase() {
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden bg-slate-50 dark:bg-gray-950 border-y border-slate-200 dark:border-slate-800">
+    <section className="relative py-20 md:py-28 overflow-hidden bg-slate-50 dark:bg-[var(--bg-primary)] border-y border-slate-200 dark:border-[var(--border-color)]">
       <SectionAtmosphere tone="slate" />
 
       <div className="container mx-auto px-4 relative z-10">
         <Reveal className="mb-12 md:mb-16 max-w-2xl">
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight">
+          <p className="apsod-section-marker mb-4">01 · Product UI</p>
+          <h2 className="font-display text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-[-0.03em]">
             Интерфейс как продукт
           </h2>
         </Reveal>
@@ -68,13 +69,13 @@ export default function HomeDeviceShowcase() {
             >
               <Link
                 href={item.href}
-                className="apsod-media-frame group relative block h-full min-h-0 overflow-hidden bg-slate-200/80 dark:bg-slate-900"
+                className="apsod-media-frame group relative block h-full min-h-0 overflow-hidden bg-slate-200/80 dark:bg-slate-900/80"
               >
                 <Image
                   src={item.src}
                   alt={item.alt}
                   fill
-                  className={`transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02] ${
+                  className={`apsod-media-zoom transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04] ${
                     item.priority
                       ? 'object-cover'
                       : 'object-contain object-center p-3 md:p-4'
@@ -88,8 +89,8 @@ export default function HomeDeviceShowcase() {
                   priority={item.priority}
                 />
                 {item.label ? (
-                  <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 bg-gradient-to-t from-slate-950/85 to-transparent">
-                    <p className="text-[11px] tracking-[0.18em] uppercase text-amber-400/90 mb-1">
+                  <div className="absolute inset-x-0 bottom-0 p-5 md:p-6 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent z-[2]">
+                    <p className="text-[11px] tracking-[0.18em] uppercase text-sky-300/90 mb-1">
                       Избранный кейс
                     </p>
                     <p className="font-display text-lg md:text-xl font-semibold text-white tracking-tight">
