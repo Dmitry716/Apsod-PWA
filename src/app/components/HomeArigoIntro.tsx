@@ -28,10 +28,10 @@ export default function HomeArigoIntro() {
           <Reveal className="lg:col-span-5">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[28px] md:aspect-[5/6]">
               <Image
-                src="/about/gallery/office-devfloor.jpg"
-                alt=""
+                src="/about/gallery/team-lounge.jpg"
+                alt={isEn ? 'APSOD team' : 'Команда APSOD'}
                 fill
-                className="object-cover"
+                className="object-cover object-[center_35%]"
                 sizes="(max-width: 1024px) 100vw, 40vw"
               />
             </div>
