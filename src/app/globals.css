@@ -176,11 +176,13 @@
     color: #fff;
   }
 
-  header.apsod-site-header.apsod-site-header--hero a:not(.apsod-btn-solid):not(.apsod-logo) {
+  header.apsod-site-header.apsod-site-header--hero
+    a:not(.apsod-btn-solid):not(.apsod-logo) {
     color: rgba(255, 255, 255, 0.85);
   }
 
-  header.apsod-site-header.apsod-site-header--hero a:not(.apsod-btn-solid):not(.apsod-logo):hover {
+  header.apsod-site-header.apsod-site-header--hero
+    a:not(.apsod-btn-solid):not(.apsod-logo):hover {
     color: #fff;
   }
 
@@ -208,7 +210,10 @@
     color: var(--text-primary);
     font-size: 15px;
     line-height: 1;
-    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      color 0.3s ease;
     cursor: pointer;
   }
 
@@ -328,7 +333,7 @@
   isolation: isolate;
 }
 .apsod-grain::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
@@ -353,7 +358,7 @@
   color: var(--text-muted);
 }
 .apsod-section-marker::after {
-  content: '';
+  content: "";
   width: 2.75rem;
   height: 1px;
   background: linear-gradient(90deg, var(--apsod-accent), transparent);
@@ -361,8 +366,16 @@
 
 .apsod-immersive {
   background:
-    radial-gradient(ellipse 80% 55% at 70% 10%, var(--apsod-glow), transparent 55%),
-    radial-gradient(ellipse 60% 45% at 15% 90%, rgba(37, 99, 235, 0.12), transparent 50%),
+    radial-gradient(
+      ellipse 80% 55% at 70% 10%,
+      var(--apsod-glow),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 60% 45% at 15% 90%,
+      rgba(37, 99, 235, 0.12),
+      transparent 50%
+    ),
     var(--apsod-immersive);
 }
 
@@ -396,7 +409,7 @@
 }
 
 .apsod-lab-bar__live::before {
-  content: '';
+  content: "";
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 9999px;
@@ -412,11 +425,17 @@
 .apsod-lab-panel {
   border: 1px solid var(--border-color);
   background: var(--bg-card);
-  transition: border-color 0.3s ease, background-color 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .apsod-lab-panel:hover {
-  border-color: color-mix(in srgb, var(--apsod-accent) 35%, var(--border-color));
+  border-color: color-mix(
+    in srgb,
+    var(--apsod-accent) 35%,
+    var(--border-color)
+  );
 }
 
 .apsod-lab-panel__head {
@@ -488,10 +507,21 @@
 
 .apsod-lab-grid-bg {
   background-image:
-    linear-gradient(color-mix(in srgb, var(--apsod-accent) 8%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in srgb, var(--apsod-accent) 8%, transparent) 1px, transparent 1px);
+    linear-gradient(
+      color-mix(in srgb, var(--apsod-accent) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--apsod-accent) 8%, transparent) 1px,
+      transparent 1px
+    );
   background-size: 40px 40px;
-  mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, black 15%, transparent 75%);
+  mask-image: radial-gradient(
+    ellipse 80% 70% at 60% 40%,
+    black 15%,
+    transparent 75%
+  );
 }
 
 /* Базовые анимации */

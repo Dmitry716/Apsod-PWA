@@ -1,0 +1,292 @@
+/* ============================================
+   APSOD Blog — типографика и стили
+   ============================================ */
+
+/* -------- Общая типографика -------- */
+.blog-prose {
+  --blog-accent: var(--apsod-accent, #0284c7);
+  --blog-accent-soft: rgba(2, 132, 199, 0.08);
+  --blog-text: var(--text-primary);
+  --blog-text-soft: var(--text-secondary);
+  --blog-border: var(--border-color);
+  --blog-bg-soft: var(--bg-secondary);
+}
+
+.dark .blog-prose {
+  --blog-accent-soft: rgba(56, 189, 248, 0.12);
+}
+
+.blog-prose p {
+  margin-bottom: 1.5em;
+  line-height: 1.75;
+  color: var(--blog-text-soft);
+}
+
+.blog-prose p:first-of-type {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--blog-text);
+}
+
+/* -------- Заголовки -------- */
+.blog-prose h2 {
+  margin-top: 3rem;
+  margin-bottom: 1.25rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--blog-text);
+  position: relative;
+  padding-left: 1rem;
+}
+
+.blog-prose h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  bottom: 0.15em;
+  width: 4px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--blog-accent), transparent);
+}
+
+.blog-prose h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.875rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--blog-text);
+}
+
+/* -------- Акценты -------- */
+.blog-prose strong {
+  font-weight: 600;
+  color: var(--blog-text);
+  background: linear-gradient(180deg, transparent 60%, var(--blog-accent-soft) 60%);
+  padding: 0 0.15em;
+}
+
+.blog-prose a {
+  color: var(--blog-accent);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--blog-accent) 40%, transparent);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.blog-prose a:hover {
+  border-bottom-color: var(--blog-accent);
+  background: var(--blog-accent-soft);
+}
+
+/* -------- Списки -------- */
+.blog-prose ul {
+  margin: 1.5em 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.blog-prose ul li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.75em;
+  line-height: 1.7;
+  color: var(--blog-text-soft);
+}
+
+.blog-prose ul li::before {
+  content: '';
+  position: absolute;
+  left: 0.25rem;
+  top: 0.65em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--blog-accent);
+  box-shadow: 0 0 0 4px var(--blog-accent-soft);
+}
+
+.blog-prose ol {
+  margin: 1.5em 0;
+  padding-left: 1.5rem;
+  counter-reset: item;
+  list-style: none;
+}
+
+.blog-prose ol li {
+  counter-increment: item;
+  position: relative;
+  padding-left: 2.5rem;
+  margin-bottom: 0.75em;
+  line-height: 1.7;
+}
+
+.blog-prose ol li::before {
+  content: counter(item);
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--blog-accent);
+  background: var(--blog-accent-soft);
+  border-radius: 50%;
+}
+
+/* -------- Цитаты / Callout -------- */
+.blog-prose blockquote,
+.blog-callout {
+  margin: 2rem 0;
+  padding: 1.25rem 1.5rem;
+  border-left: 4px solid var(--blog-accent);
+  border-radius: 0 0.75rem 0.75rem 0;
+  background: var(--blog-bg-soft);
+  font-style: normal;
+  color: var(--blog-text);
+  position: relative;
+}
+
+.blog-callout--info {
+  border-left-color: #0ea5e9;
+  background: rgba(14, 165, 233, 0.06);
+}
+
+.blog-callout--tip {
+  border-left-color: #10b981;
+  background: rgba(16, 185, 129, 0.06);
+}
+
+.blog-callout--warn {
+  border-left-color: #f59e0b;
+  background: rgba(245, 158, 11, 0.06);
+}
+
+.blog-callout__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--blog-accent);
+}
+
+/* -------- Разделитель -------- */
+.blog-prose hr {
+  margin: 3rem 0;
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--blog-border), transparent);
+}
+
+/* -------- Изображения -------- */
+.blog-prose img {
+  margin: 2rem 0;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.15);
+}
+
+/* -------- Плавное появление блоков -------- */
+.blog-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.blog-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* -------- Читательский прогресс -------- */
+.blog-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  z-index: 100;
+  background: linear-gradient(90deg, var(--apsod-accent), #06b6d4, #8b5cf6);
+  transform-origin: left;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 12px var(--apsod-glow);
+}
+
+/* -------- Карточки тегов -------- */
+.blog-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.875rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.blog-tag:hover {
+  color: var(--apsod-accent);
+  border-color: var(--apsod-accent);
+  background: var(--blog-accent-soft);
+  transform: translateY(-1px);
+}
+
+/* -------- Карточки похожих статей -------- */
+.blog-related-card {
+  display: block;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  text-decoration: none;
+}
+
+.blog-related-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--apsod-accent);
+  box-shadow: 0 20px 40px -20px var(--apsod-glow),
+              0 0 0 1px var(--apsod-accent);
+}
+
+/* -------- Оглавление (TOC) -------- */
+.blog-toc {
+  position: sticky;
+  top: calc(var(--apsod-header-h, 88px) + 1.5rem);
+  font-size: 0.875rem;
+}
+
+.blog-toc a {
+  display: block;
+  padding: 0.375rem 0;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  padding-left: 0.75rem;
+  transition: all 0.2s;
+}
+
+.blog-toc a:hover,
+.blog-toc a.is-active {
+  color: var(--apsod-accent);
+  border-left-color: var(--apsod-accent);
+}
