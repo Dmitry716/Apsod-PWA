@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Source_Sans_3, Manrope } from "next/font/google";
-import { cookies } from "next/headers";
+import { Montserrat, Poppins, Roboto } from "next/font/google";
+import { cookies, headers } from "next/headers";
 import { Providers } from "./providers";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
@@ -8,6 +8,7 @@ import CookieConsent from "./components/CookieConsent";
 import PushPermissionBanner from "./components/PushPermissionBanner";
 import ChatWidget from "./components/ChatWidget";
 import SeoJsonLd from "./components/SeoJsonLd";
+import LocaleSeoHints from "./components/LocaleSeoHints";
 import YandexMetrika from "./components/YandexMetrika";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import {
@@ -24,17 +25,39 @@ import {
   generateGraphSchema,
 } from "./lib/seo";
 import { normalizeLocale } from "./lib/i18n";
+import { getLocaleFromPathname } from "./lib/locale-path";
 import "./globals.css";
 import "./hero-animations.css";
 import "./premium-motion.css";
 
-const sourceSans = Source_Sans_3({
+/** Nerox body/paragraph — Roboto (full Cyrillic) */
+const roboto = Roboto({
   subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "700"],
   variable: "--font-sans",
+  display: "swap",
 });
-const manrope = Manrope({
-  subsets: ["latin", "cyrillic"],
+
+/**
+ * Nerox headings — Poppins.
+ * adjustFontFallback: false so missing Cyrillic glyphs fall through to Montserrat
+ * instead of a local "Poppins Fallback" face.
+ */
+const poppins = Poppins({
+  subsets: ["latin", "latin-ext"],
+  weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--font-display",
+  display: "swap",
+  adjustFontFallback: false,
+});
+
+/** Geometric Cyrillic stand-in for Poppins (Nerox has no Cyrillic Poppins) */
+const montserrat = Montserrat({
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-display-cyr",
+  display: "swap",
+  adjustFontFallback: false,
 });
 
 export const viewport: Viewport = {
@@ -114,13 +137,17 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const headerStore = await headers()
   const cookieStore = await cookies()
+  const headerLocale = headerStore.get('x-apsod-locale')
+  const pathLocale = getLocaleFromPathname(headerStore.get('x-apsod-pathname') || '/')
   const cookieLang = cookieStore.get('lang')?.value
-  const lang = normalizeLocale(cookieLang)
+  const lang = normalizeLocale(headerLocale ?? pathLocale ?? cookieLang)
 
   return (
     <html lang={lang === 'en' ? 'en' : 'ru'} suppressHydrationWarning>
       <head>
+        <LocaleSeoHints />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -143,14 +170,16 @@ export default async function RootLayout({
           ])}
         />
       </head>
-      <body className={`${sourceSans.variable} ${manrope.variable} ${sourceSans.className}`}>
+      <body
+        className={`${roboto.variable} ${poppins.variable} ${montserrat.variable} ${roboto.className}`}
+      >
         <GoogleAnalytics />
         <YandexMetrika />
         <Providers>
           <Header />
           <PushPermissionBanner />
           <CookieConsent />
-          <main className="pt-16 md:pt-20 min-h-screen">{children}</main>
+          <main className="min-h-screen">{children}</main>
           <Footer />
           <ChatWidget />
         </Providers>

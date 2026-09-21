@@ -38,25 +38,21 @@ export default function ERPPage() {
       name: "1С:ERP",
       description: "Лидер на рынке СНГ для производственных и торговых предприятий.",
       features: ["Управление производством", "Бухгалтерия", "Зарплата и кадры", "CRM"],
-      price: "индивидуально",
     },
     {
       name: "SAP",
       description: "Мировой стандарт для крупного бизнеса и корпораций.",
       features: ["SAP S/4HANA", "SAP Business One", "SAP Ariba", "SAP SuccessFactors"],
-      price: "индивидуально",
     },
     {
       name: "Oracle ERP",
       description: "Облачная ERP для глобальных компаний с полным циклом управления.",
       features: ["Financials", "Procurement", "Project Management", "Analytics"],
-      price: "индивидуально",
     },
     {
       name: "Кастомная ERP",
       description: "Разрабатываем ERP с нуля под уникальные процессы вашего бизнеса.",
       features: ["Полная кастомизация", "Любые интеграции", "Масштабирование"],
-      price: "индивидуально",
     }
   ];
 
@@ -198,7 +194,12 @@ export default function ERPPage() {
                     </li>
                   ))}
                 </ul>
-                <p className="text-lg font-bold text-blue-600 dark:text-blue-400">{solution.price}</p>
+                <Link
+                  href="/contact"
+                  className="inline-flex text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  Обсудить проект →
+                </Link>
               </div>
             ))}
           </div>

@@ -9,14 +9,14 @@ export default function HomeGlobalDelivery() {
 
   const points = isEn
     ? [
-        { title: 'Web', body: 'Sites, shops, product UI' },
+        { title: 'Web', body: 'Sites, online stores, product UI' },
         { title: 'Mobile', body: 'iOS · Android · PWA' },
-        { title: 'Growth', body: 'SEO · GEO · analytics' },
+        { title: 'Development & support', body: 'SEO · GEO · analytics' },
       ]
     : [
-        { title: 'Веб', body: 'Сайты, магазины, интерфейсы' },
+        { title: 'Веб', body: 'Сайты, интернет-магазины, интерфейсы' },
         { title: 'Мобильные', body: 'iOS · Android · PWA' },
-        { title: 'Рост', body: 'SEO · GEO · аналитика' },
+        { title: 'Развитие и поддержка', body: 'SEO · GEO · аналитика' },
       ]
 
   return (

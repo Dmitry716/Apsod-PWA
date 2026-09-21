@@ -9,7 +9,11 @@ import { SERVICE_FAQS } from '../lib/service-faq'
 import PageBreadcrumbs from './PageBreadcrumbs'
 
 export function ServiceBreadcrumbs({ service }: { service: ServicePath }) {
-  const title = SERVICE_SEO[service]?.title?.split('—')[0]?.trim() || 'Услуга'
+  const title =
+    SERVICE_SEO[service]?.title
+      ?.split('—')[0]
+      ?.replace(/\s+в Минске\s*$/i, '')
+      ?.trim() || 'Услуга'
   return (
     <PageBreadcrumbs
       items={[
@@ -44,10 +48,7 @@ export function ServiceFaqBlock({ service }: { service: ServicePath }) {
                   <span className="text-gray-400 group-open:rotate-180 transition">▼</span>
                 </summary>
                 <p className="mt-3 text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
-                  {item.answer}{' '}
-                  <Link href="/pricing" className="text-blue-600 hover:underline">
-                    Смотреть цены
-                  </Link>
+                  {item.answer}
                 </p>
               </details>
             ))}

@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-import { formatDualPrice } from '@/app/lib/currency';
-
 // Интерфейс для данных формы
 interface FormData {
   name: string;
@@ -63,13 +61,20 @@ function getServiceLabel(value: string): string {
 
 function getBudgetLabel(value: string): string {
   const budgets: Record<string, string> = {
-    'landing-8k': `${formatDualPrice(8000)} (лендинг)`,
-    'corporate-15k': `${formatDualPrice(15000)} (корп. сайт)`,
-    'shop-23k': `${formatDualPrice(23000)} (магазин)`,
-    complex: `${formatDualPrice(30000, { plus: true })} (сложный продукт)`,
-    'ready-8k': `${formatDualPrice(8000, { from: false })} (готовый сайт)`,
-    'ready-15k': `${formatDualPrice(15000, { from: false })} (готовый сайт)`,
-    negotiable: 'Пока не знаю / нужна смета',
+    landing: 'Старт (лендинг)',
+    corporate: 'Стандарт (корп. сайт)',
+    shop: 'Масштаб (магазин)',
+    complex: 'Сложный продукт',
+    'landing-8k': 'Старт (лендинг)',
+    'corporate-15k': 'Стандарт (корп. сайт)',
+    'shop-23k': 'Масштаб (магазин)',
+    'mobile-mvp': 'MVP · одна платформа',
+    'mobile-rn': 'Кроссплатформа (React Native)',
+    'mobile-product': 'Продукт · две платформы',
+    'mobile-mvp-12k': 'MVP · одна платформа',
+    'mobile-rn-18k': 'Кроссплатформа (React Native)',
+    'mobile-product-25k': 'Продукт · две платформы',
+    negotiable: 'Обсудим / нужна смета',
     '1000-3000': '$1,000 - $3,000',
     '3000-5000': '$3,000 - $5,000',
     '5000-10000': '$5,000 - $10,000',

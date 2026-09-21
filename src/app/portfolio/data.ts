@@ -11,6 +11,11 @@ export type PortfolioProject = {
   solution: string
   /** Измеримые или качественные результаты (без выдуманных %) */
   results: string[]
+  /**
+   * Дополнительные абзацы кейса (как в Nerox portfolio-details):
+   * показываются после задачи/решения и после галереи.
+   */
+  detailParagraphs?: string[]
   image: string
   tags: string[]
   /** Живой сайт или внешняя ссылка (если есть) */
@@ -20,12 +25,14 @@ export type PortfolioProject = {
   color: string
   year: string
   location: string
-  /** Сайт выставлен на продажу как готовый продукт */
-  forSale?: boolean
-  /** slug в /ready-sites/[slug] */
-  readySiteSlug?: string
   /** object-position для обложки в карточках */
   imageObjectPosition?: string
+  /** contain — баннеры/широкие обложки без обрезки текста на мобиле */
+  imageFit?: 'cover' | 'contain'
+  /** Отдельная обложка для узких экранов */
+  imageMobile?: string
+  /** Скрины внутренних страниц сайта (галерея внизу кейса) */
+  gallery?: string[]
 }
 
 /** Порядок проектов на главной и в портфолио */
@@ -64,12 +71,23 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     ],
     image: '/portfolio/legal-team.jpg',
     imageObjectPosition: 'center',
+    imageFit: 'contain',
     tags: ['Next.js', 'PWA', 'SEO', 'UI/UX'],
     liveUrl: 'https://legal-team-sooty.vercel.app/',
     link: 'https://legal-team-sooty.vercel.app/',
     color: 'from-slate-800 to-amber-700',
     year: '2026',
     location: 'Москва',
+    detailParagraphs: [
+      'Отдельно проработали структуру коммерческих запросов: направления права, FAQ, статьи и блоки доверия связаны так, чтобы пользователь быстро находил услугу и оставлял заявку — с десктопа и с телефона.',
+      'PWA даёт установку на домашний экран без магазинов приложений: клиент возвращается в привычный интерфейс, а компания получает ещё один канал повторных обращений. SEO и разметка заложены в основу, а не «поверх» дизайна.',
+    ],
+    gallery: [
+      '/portfolio/gallery/legal-team/01.jpg',
+      '/portfolio/gallery/legal-team/02.jpg',
+      '/portfolio/gallery/legal-team/03.jpg',
+      '/portfolio/gallery/legal-team/04.jpg',
+    ],
   },
   {
     id: 3,
@@ -95,6 +113,16 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     color: 'from-orange-600 to-red-500',
     year: '2026',
     location: 'Витебск',
+    detailParagraphs: [
+      'Сделали акцент на атмосфере студии и понятном прайсе: клиент видит услуги, примеры работ и сразу может позвонить или написать в WhatsApp — без лишних шагов.',
+      'Структура страниц заточена под локальный поиск по Витебску: услуги, контакты и точки доверия собраны так, чтобы новый клиент быстро принимал решение о записи.',
+    ],
+    gallery: [
+      '/portfolio/gallery/amba-detail/01.jpg',
+      '/portfolio/gallery/amba-detail/02.jpg',
+      '/portfolio/gallery/amba-detail/03.jpg',
+      '/portfolio/gallery/amba-detail/04.jpg',
+    ],
   },
   {
     id: 23,
@@ -120,6 +148,16 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     color: 'from-violet-600 to-fuchsia-600',
     year: '2026',
     location: 'Полоцк',
+    detailParagraphs: [
+      'Интерфейс собран как приложение: крупные зоны услуг, быстрый контакт и сценарий записи с телефона. Гео-фокус на Полоцк и Новополоцк заложен в тексты и структуру разделов.',
+      'PWA снимает зависимость от магазинов приложений: клиент ставит сервис на домашний экран и возвращается за записью, а бизнес получает стабильный мобильный канал заявок.',
+    ],
+    gallery: [
+      '/portfolio/gallery/nexton/01.jpg',
+      '/portfolio/gallery/nexton/02.jpg',
+      '/portfolio/gallery/nexton/03.jpg',
+      '/portfolio/gallery/nexton/04.jpg',
+    ],
   },
   {
     id: 2,
@@ -145,6 +183,16 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     color: 'from-green-600 to-emerald-500',
     year: '2024',
     location: 'Витебск',
+    detailParagraphs: [
+      'Направления, тренеры и запись собраны в одной логике: родитель или ученик быстро понимает, куда идти, и оставляет заявку на пробное занятие без лишней навигации.',
+      'Индивидуальный дизайн поддерживает характер центра, а структура страниц рассчитана на регулярное обновление расписания и состава команды.',
+    ],
+    gallery: [
+      '/portfolio/gallery/maxximum/01.jpg',
+      '/portfolio/gallery/maxximum/02.jpg',
+      '/portfolio/gallery/maxximum/03.jpg',
+      '/portfolio/gallery/maxximum/04.jpg',
+    ],
   },
   {
     id: 1,
@@ -170,6 +218,16 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     color: 'from-blue-600 to-cyan-500',
     year: '2019',
     location: 'Витебск',
+    detailParagraphs: [
+      'Отделения, секции, новости и достижения воспитанников собраны в официальную витрину школы — родителям проще найти нужное направление и убедиться в уровне подготовки.',
+      'Сайт рассчитан на долгую жизнь: администрирование контента, блог и поддержка с 2019 года без смены «конструкторной» платформы.',
+    ],
+    gallery: [
+      '/portfolio/gallery/dynamo-vitebsk/01.jpg',
+      '/portfolio/gallery/dynamo-vitebsk/02.jpg',
+      '/portfolio/gallery/dynamo-vitebsk/03.jpg',
+      '/portfolio/gallery/dynamo-vitebsk/04.jpg',
+    ],
   },
   {
     id: 24,
@@ -195,6 +253,16 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     color: 'from-slate-700 to-gray-900',
     year: '2022',
     location: 'Витебск',
+    detailParagraphs: [
+      'Акцент на марках BMW, Mercedes и Land Rover поддержан структурой услуг, блогом и сценарием онлайн-записи — сайт усиливает экспертизу сервиса, а не спорит с ней.',
+      'Контент и формы собраны так, чтобы клиент понимал зону ответственности сервиса и оставлял заявку без лишних звонков «в никуда».',
+    ],
+    gallery: [
+      '/portfolio/gallery/bmservice/01.jpg',
+      '/portfolio/gallery/bmservice/02.jpg',
+      '/portfolio/gallery/bmservice/03.jpg',
+      '/portfolio/gallery/bmservice/04.jpg',
+    ],
   },
   {
     id: 25,
@@ -220,8 +288,16 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     color: 'from-rose-700 to-red-900',
     year: '2026',
     location: 'Витебск',
-    forSale: true,
-    readySiteSlug: 'detailing-studio',
+    detailParagraphs: [
+      'Каталог услуг и комплексов, фото/видео работ и онлайн-запись собраны в app-like интерфейс: с телефона путь к заявке короткий, с десктопа — так же прозрачный.',
+      'ASP.NET Core 10.0 даёт контроль над кодом и производительностью, а SEO/GEO-контур под Витебск заложен в структуру страниц и контент, а не добавлен «в конце».',
+    ],
+    gallery: [
+      '/portfolio/gallery/artdetailing/01.jpg',
+      '/portfolio/gallery/artdetailing/02.jpg',
+      '/portfolio/gallery/artdetailing/03.jpg',
+      '/portfolio/gallery/artdetailing/04.jpg',
+    ],
   },
   {
     id: 4,
@@ -344,7 +420,7 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     location: 'Уэстон, Флорида, США',
   },
   {
-    id: 26,
+    id: 35,
     slug: 'nordforge-industrial',
     title: 'NordForge Industrial',
     category: 'Производство',
@@ -608,4 +684,22 @@ export function getIndexedPortfolioSlugs(): string[] {
 
 export function getAllPortfolioSlugs(): string[] {
   return PORTFOLIO_PROJECTS.map((p) => p.slug)
+}
+
+/** Соседние кейсы для навигации Back / Next на странице деталей */
+export function getAdjacentPortfolioProjects(slug: string): {
+  prev: PortfolioProject | null
+  next: PortfolioProject | null
+} {
+  const slugs = getAllPortfolioSlugs()
+  const index = slugs.indexOf(slug)
+  if (index === -1) return { prev: null, next: null }
+
+  const prevSlug = index > 0 ? slugs[index - 1] : null
+  const nextSlug = index < slugs.length - 1 ? slugs[index + 1] : null
+
+  return {
+    prev: prevSlug ? getProjectBySlug(prevSlug) ?? null : null,
+    next: nextSlug ? getProjectBySlug(nextSlug) ?? null : null,
+  }
 }

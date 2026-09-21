@@ -56,13 +56,7 @@ export default function ServiceLanding({ content }: Props) {
               <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-base md:text-lg text-slate-300 leading-relaxed mb-5 max-w-lg">
                 {content.lead}
               </p>
-              {content.priceNote ? (
-                <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-sm text-slate-400 mb-9 max-w-lg">
-                  {content.priceNote}
-                </p>
-              ) : (
-                <div className="mb-9" />
-              )}
+              <div className="mb-9" />
               <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3">
                 <Link
                   href={content.primaryCta.href}
@@ -213,7 +207,7 @@ export default function ServiceLanding({ content }: Props) {
                       src={item.image}
                       alt={item.title}
                       fill
-                      className="object-contain object-center p-3 md:p-5 transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
+                      className="object-cover object-top transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
                       sizes="(max-width: 1024px) 100vw, 66vw"
                     />
                   </div>

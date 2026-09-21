@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="APSOD">
+  <!-- Unified premium messenger avatar — monogram -->
+  <rect width="512" height="512" fill="#0B1220"/>
+  <text
+    x="256"
+    y="300"
+    text-anchor="middle"
+    font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Arial, sans-serif"
+    font-size="220"
+    font-weight="800"
+    letter-spacing="-8"
+    fill="#FFFFFF"
+  >A</text>
+  <rect x="196" y="338" width="120" height="3" rx="1.5" fill="#64748B"/>
+</svg>

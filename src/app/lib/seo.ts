@@ -107,6 +107,18 @@ export function buildCanonical(path: string): string {
   return `${base}${p}`
 }
 
+export function buildLocaleAlternates(path: string) {
+  const clean = path.startsWith('/') ? path : `/${path}`
+  const base = SITE_URL.replace(/\/$/, '')
+  const ruPath = clean === '/' ? '' : clean
+  const enPath = clean === '/' ? '/en' : `/en${clean}`
+  return {
+    ru: `${base}${ruPath}` || base,
+    en: `${base}${enPath}`,
+    'x-default': `${base}${ruPath}` || base,
+  }
+}
+
 export function buildOgImageUrl(path?: string): string {
   return path ? `${SITE_URL}${path}` : DEFAULT_OG_IMAGE_URL
 }
@@ -239,12 +251,16 @@ export function buildPageMetadata(options: PageMetadataOptions): Metadata {
       : undefined
 
   const ogTitle = absoluteTitle ? snippetTitle : `${snippetTitle} | ${SITE_NAME}`
+  const localeAlternates = buildLocaleAlternates(canonicalPath || path)
 
   return {
     title: absoluteTitle ? { absolute: snippetTitle } : snippetTitle,
     description: snippetDescription,
     keywords: keywordList,
-    alternates: { canonical },
+    alternates: {
+      canonical,
+      languages: localeAlternates,
+    },
     robots: noIndex
       ? { index: false, follow: false }
       : DEFAULT_INDEX_ROBOTS,
@@ -254,6 +270,7 @@ export function buildPageMetadata(options: PageMetadataOptions): Metadata {
       url: canonical,
       siteName: SITE_NAME,
       locale: SITE_LOCALE,
+      alternateLocale: ['en_US'],
       type: ogType,
       images: ogImages,
       ...(publishedIso ? { publishedTime: publishedIso } : {}),
@@ -332,7 +349,6 @@ export function generateOrganizationSchema() {
 /** Основные разделы для быстрых ссылок / SiteNavigationElement (короткие имена) */
 export const SITE_NAV_LINKS = [
   { name: 'Услуги', path: '/services' },
-  { name: 'Цены', path: '/pricing' },
   { name: 'Портфолио', path: '/portfolio' },
   { name: 'Блог', path: '/blog' },
   { name: 'О нас', path: '/about' },

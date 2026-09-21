@@ -3,7 +3,6 @@ import SeoJsonLd from '../../components/SeoJsonLd'
 import ServiceSemanticBlocks from '../../components/ServiceSemanticBlocks'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
-import { DUAL_CURRENCY_NOTE, formatDualPrice } from '../../lib/currency'
 
 export const metadata = buildServiceMetadata('seo')
 
@@ -11,32 +10,27 @@ const ENTRY = [
   {
     title: 'SEO-аудит',
     description: 'Техника, контент, индексация, конкуренты — карта проблем и приоритетов.',
-    price: formatDualPrice(800),
     tag: 'Старт',
   },
   {
     title: 'Сбор семантики',
     description: 'Ядро запросов, кластеризация, структура посадочных под бизнес-цели.',
-    price: formatDualPrice(500),
     tag: 'Основа',
   },
   {
     title: 'Техническая оптимизация',
     description: 'Скорость, индексация, ошибки, разметка — фундамент для роста позиций.',
-    price: formatDualPrice(1500),
     tag: 'Техника',
   },
   {
     title: 'Оптимизация контента',
     description: 'Мета, тексты, перелинковка, страницы услуг под коммерческие запросы.',
-    price: formatDualPrice(1000),
     tag: 'Контент',
   },
 ]
 
 const COMPLEX = {
   title: 'Комплексное SEO',
-  price: formatDualPrice(3000, { perMonth: true }),
   description:
     'Ежемесячный цикл: техника, семантика, контент, внешние факторы и отчётность. Старт после аудита.',
   points: [
@@ -90,14 +84,13 @@ export default function SEOPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-3">
-              Минск · Яндекс · Google
+              Яндекс · Google
             </p>
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-5">
-              SEO продвижение сайта в Минске
+              SEO продвижение сайта
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6">
-              Аудит, семантика, техника и контент под заявки из поиска. Комплекс —{' '}
-              {formatDualPrice(3000, { perMonth: true })}. Для AI-видимости в нейросетях — отдельно{' '}
+              Аудит, семантика, техника и контент под заявки из поиска. Смета после аудита. Для AI-видимости в нейросетях — отдельно{' '}
               <Link href="/services/geo-promotion" className="text-blue-600 dark:text-blue-400 hover:underline">
                 GEO
               </Link>
@@ -111,10 +104,10 @@ export default function SEOPage() {
                 Заказать SEO
               </Link>
               <Link
-                href="/pricing"
+                href="/contact?goal=seo"
                 className="px-7 py-3.5 border border-gray-300 dark:border-gray-600 rounded-lg font-medium hover:border-blue-500"
               >
-                Стоимость
+                Получить смету
               </Link>
             </div>
           </div>
@@ -145,7 +138,7 @@ export default function SEOPage() {
               Входные услуги и комплекс
             </h2>
             <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-sm md:text-base">
-              Можно начать с аудита или сразу с ежемесячного цикла. {DUAL_CURRENCY_NOTE}
+              Можно начать с аудита или сразу с ежемесячного цикла. Точная смета — после брифа и оценки конкуренции.
             </p>
           </div>
 
@@ -159,8 +152,7 @@ export default function SEOPage() {
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mt-1 mb-2">
                   {item.title}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{item.description}</p>
-                <p className="font-semibold text-blue-600 dark:text-blue-400">{item.price}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{item.description}</p>
               </div>
             ))}
           </div>
@@ -179,9 +171,6 @@ export default function SEOPage() {
                 </ul>
               </div>
               <div className="shrink-0 text-left md:text-right">
-                <p className="text-xl font-bold text-blue-600 dark:text-blue-400 mb-3">
-                  {COMPLEX.price}
-                </p>
                 <Link
                   href="/contact?goal=seo"
                   className="inline-flex px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
@@ -194,8 +183,8 @@ export default function SEOPage() {
 
           <p className="text-center text-sm text-gray-500">
             Ссылочное продвижение — индивидуально после аудита.{' '}
-            <Link href="/pricing" className="text-blue-600 hover:underline">
-              Ориентиры на странице цен
+            <Link href="/contact?goal=seo" className="text-blue-600 hover:underline">
+              Запросить смету
             </Link>
           </p>
         </div>
@@ -279,7 +268,7 @@ export default function SEOPage() {
       <section className="py-14 bg-slate-950 text-white">
         <div className="container mx-auto px-4 text-center max-w-2xl">
           <h2 className="text-2xl md:text-3xl font-bold mb-3">
-            Нужен план по SEO в Минске?
+            Нужен план по SEO?
           </h2>
           <p className="text-white/90 mb-6">
             Начнём с аудита или сразу с комплексного цикла. Можно вместе с{' '}
@@ -296,10 +285,10 @@ export default function SEOPage() {
               Получить консультацию
             </Link>
             <Link
-              href="/pricing"
+              href="/contact?goal=seo"
               className="px-6 py-3 border border-white/40 rounded-lg font-medium hover:bg-white/10"
             >
-              Цены
+              Получить смету
             </Link>
           </div>
         </div>

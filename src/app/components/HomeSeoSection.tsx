@@ -1,13 +1,19 @@
+'use client'
+
 import Link from 'next/link'
 import { HOMEPAGE_FAQ } from '../lib/homepage-faq'
+import { t } from '../lib/i18n'
+import { useLocale } from '../lib/useLocale'
 
 /** FAQ only — без SEO-стены текста и дублирующих ссылок */
 export default function HomeSeoSection() {
+  const { locale } = useLocale()
+
   return (
     <section className="py-14 md:py-16 bg-slate-50 dark:bg-gray-900/50 border-t border-slate-200 dark:border-slate-800">
       <div className="container mx-auto px-4 max-w-2xl">
         <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-8 tracking-tight text-center">
-          Вопросы
+          {t(locale, 'home.faq.title')}
         </h2>
         <div className="space-y-2">
           {HOMEPAGE_FAQ.map((item) => (
@@ -35,19 +41,19 @@ export default function HomeSeoSection() {
             href="/services/web-development"
             className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200"
           >
-            Разработка сайтов
-          </Link>
-          {' · '}
-          <Link href="/pricing" className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200">
-            Стоимость
-          </Link>
-          {' · '}
-          <Link href="/services/seo" className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200">
-            SEO
+            {t(locale, 'home.faq.link.dev')}
           </Link>
           {' · '}
           <Link href="/contact" className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200">
-            Связаться
+            {t(locale, 'home.faq.link.pricing')}
+          </Link>
+          {' · '}
+          <Link href="/services/seo" className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200">
+            {t(locale, 'home.faq.link.seo')}
+          </Link>
+          {' · '}
+          <Link href="/contact" className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200">
+            {t(locale, 'home.faq.link.contact')}
           </Link>
         </p>
       </div>

@@ -1,4 +1,3 @@
-import { formatDualPrice } from './currency'
 import { getWebDevPackage, WEB_DEV_CASES, type WebDevPackageId } from './web-dev-packages'
 
 export type SiteTypeSlug = 'landing-page' | 'corporate-sites' | 'ecommerce'
@@ -10,7 +9,7 @@ export type SiteTypePage = {
   eyebrow: string
   h1: string
   lead: string
-  priceLine: string
+  termLine: string
   outcomes: { title: string; body: string }[]
   caseTitles: string[]
   parentNote?: { label: string; href: string }
@@ -22,10 +21,10 @@ export const SITE_TYPE_PAGES: Record<SiteTypeSlug, SiteTypePage> = {
     packageId: 'landing',
     schemaName: 'Разработка лендинга',
     eyebrow: 'Landing page',
-    h1: 'Разработка лендинга в Минске',
+    h1: 'Разработка лендинга',
     lead:
       'Одностраничный сайт под рекламу и заявки: сильный первый экран, оффер, форма и мессенджеры.',
-    priceLine: `Ориентир — ${formatDualPrice(8000)}. Срок 2–4 недели. Смета после брифа.`,
+    termLine: 'Срок 2–4 недели. Смета после брифа.',
     outcomes: [
       {
         title: 'Под рекламу',
@@ -52,10 +51,10 @@ export const SITE_TYPE_PAGES: Record<SiteTypeSlug, SiteTypePage> = {
     packageId: 'corporate',
     schemaName: 'Разработка корпоративного сайта',
     eyebrow: 'Корпоративный сайт',
-    h1: 'Корпоративный сайт в Минске',
+    h1: 'Корпоративный сайт',
     lead:
-      'Сайт компании под ключ: услуги, кейсы, команда, контакты и структура под SEO.',
-    priceLine: `Ориентир — ${formatDualPrice(15000)}. Срок 4–8 недель. Смета после брифа.`,
+      'Сайт компании: услуги, кейсы, команда, контакты и структура под SEO.',
+    termLine: 'Срок 4–8 недель. Смета после брифа.',
     outcomes: [
       {
         title: 'До 10–15 страниц',
@@ -63,7 +62,7 @@ export const SITE_TYPE_PAGES: Record<SiteTypeSlug, SiteTypePage> = {
       },
       {
         title: 'Под семантику',
-        body: 'Иерархия и тексты под коммерческие запросы Минска и вашей ниши.',
+        body: 'Иерархия и тексты под коммерческие запросы вашей ниши.',
       },
       {
         title: 'CMS для команды',
@@ -82,10 +81,10 @@ export const SITE_TYPE_PAGES: Record<SiteTypeSlug, SiteTypePage> = {
     packageId: 'shop',
     schemaName: 'Разработка интернет-магазина',
     eyebrow: 'Интернет-магазин',
-    h1: 'Разработка интернет-магазина в Минске',
+    h1: 'Разработка интернет-магазина',
     lead:
       'Каталог, корзина, оплата и доставка — витрина, которую удобно вести и масштабировать.',
-    priceLine: `Ориентир — ${formatDualPrice(23000)}. Срок от 2–3 месяцев. Смета после брифа.`,
+    termLine: 'Срок от 2–3 месяцев. Смета после брифа.',
     outcomes: [
       {
         title: 'Полный цикл покупки',
@@ -97,7 +96,7 @@ export const SITE_TYPE_PAGES: Record<SiteTypeSlug, SiteTypePage> = {
       },
       {
         title: 'SEO каталога',
-        body: 'Структура разделов, фильтры и скорость под органику в Минске и РБ.',
+        body: 'Структура разделов, фильтры и скорость под локальную органику.',
       },
       {
         title: 'Админка',

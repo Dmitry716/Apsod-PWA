@@ -4,9 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { IMaskInput } from 'react-imask'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
-import { formatDualPrice } from '../lib/currency'
 import { MOBILE_APP_PACKAGES } from '../lib/mobile-app-packages'
-import { getReadySiteBySlug } from '../ready-sites/data'
 
 const GOALS = [
   {
@@ -26,12 +24,6 @@ const GOALS = [
     service: 'web',
     label: 'Интернет-магазин',
     hint: 'Каталог, оплата, доставка',
-  },
-  {
-    value: 'ready-site',
-    service: 'web',
-    label: 'Готовый сайт в продаже',
-    hint: 'Ребренд + перенос + SEO/GEO',
   },
   {
     value: 'mobile',
@@ -54,19 +46,18 @@ const GOALS = [
 ] as const
 
 const WEB_BUDGETS = [
-  { value: 'ready-15k', label: formatDualPrice(15000, { from: false }), hint: 'готовый сайт' },
-  { value: 'landing-8k', label: formatDualPrice(8000), hint: 'лендинг' },
-  { value: 'corporate-15k', label: formatDualPrice(15000), hint: 'корп. сайт' },
-  { value: 'shop-23k', label: formatDualPrice(23000), hint: 'магазин' },
-  { value: 'complex', label: formatDualPrice(30000, { plus: true }), hint: 'сложный продукт' },
-  { value: 'negotiable', label: 'Пока не знаю', hint: 'нужна смета' },
+  { value: 'landing', label: 'Старт', hint: 'лендинг' },
+  { value: 'corporate', label: 'Стандарт', hint: 'корп. сайт' },
+  { value: 'shop', label: 'Масштаб', hint: 'магазин' },
+  { value: 'complex', label: 'Сложный продукт', hint: 'индивидуально' },
+  { value: 'negotiable', label: 'Обсудим', hint: 'нужна смета' },
 ] as const
 
 const MOBILE_BUDGETS = [
   ...MOBILE_APP_PACKAGES.map((pkg) => ({
     value: pkg.budget,
-    label: pkg.byn,
-    hint: pkg.title,
+    label: pkg.title,
+    hint: pkg.term,
   })),
   { value: 'negotiable', label: 'Пока не знаю', hint: 'нужна смета' },
 ]
@@ -149,30 +140,19 @@ export default function ContactLeadQuiz() {
     const goal = searchParams.get('goal') || ''
     const budget = searchParams.get('budget') || ''
     const service = searchParams.get('service') || ''
-    const readySite = searchParams.get('ready-site') || ''
-    const ref = searchParams.get('ref') || readySite || ''
+    const ref = searchParams.get('ref') || ''
     const matchedGoal = GOALS.find((g) => g.value === goal || g.service === service)
-
-    const readySiteData = readySite ? getReadySiteBySlug(readySite) : undefined
-    const defaultReadyBudget = readySiteData?.contactBudgetKey ?? 'ready-15k'
 
     if (matchedGoal || budget || ref) {
       setFormData((prev) => ({
         ...prev,
-        goal: matchedGoal?.value || (readySite ? 'ready-site' : prev.goal),
-        service: matchedGoal?.service || service || (readySite ? 'web' : prev.service),
-        budget: ALL_BUDGET_VALUES.has(budget)
-          ? budget
-          : readySite
-            ? defaultReadyBudget
-            : prev.budget,
+        goal: matchedGoal?.value || prev.goal,
+        service: matchedGoal?.service || service || prev.service,
+        budget: ALL_BUDGET_VALUES.has(budget) ? budget : prev.budget,
         ref,
-        description: readySite
-          ? `Интересует готовый сайт: ${readySite}`
-          : prev.description,
       }))
       if (matchedGoal && budget) setStep(2)
-      else if (matchedGoal || readySite) setStep(1)
+      else if (matchedGoal) setStep(1)
     }
   }, [searchParams])
 
@@ -399,7 +379,7 @@ export default function ContactLeadQuiz() {
               Ориентир по бюджету
             </h2>
             <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-              Совпадает со стоимостью на странице цен. Точная смета — после брифа.
+              Бюджетный ориентир для брифа. Точная смета — после обсуждения задачи.
             </p>
             <div className="grid sm:grid-cols-2 gap-3">
               {budgetOptions.map((budget) => {

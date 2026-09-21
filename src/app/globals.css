@@ -21,6 +21,20 @@
   --apsod-accent: #0284c7;
   --apsod-glow: rgba(14, 165, 233, 0.18);
   --apsod-immersive: #070b14;
+  --apsod-arigo-accent: #ff6a2b;
+  --apsod-header-h: 72px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --apsod-header-h: 88px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --apsod-header-h: 100px;
+  }
 }
 
 .dark {
@@ -53,15 +67,48 @@
   body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
-    font-family: var(--font-sans), system-ui, sans-serif;
+    /* Nerox body: Roboto — avoid next/font Fallback faces for Cyrillic */
+    font-family: Roboto, system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.625;
     transition:
       background-color 0.3s ease,
       color 0.3s ease;
     min-height: 100vh;
   }
 
+  /*
+    Nerox typography:
+    - headings: Poppins (Latin) → Montserrat (Cyrillic)
+    - body/p: Roboto
+    Do not include next/font "* Fallback" faces — they have system
+    glyphs and steal Cyrillic before Montserrat can apply.
+  */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: Poppins, Montserrat, Roboto, system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  p {
+    font-family: Roboto, system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.75;
+  }
+
   .font-display {
-    font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
+    font-family: Poppins, Montserrat, Roboto, system-ui, sans-serif;
+  }
+
+  .font-sans {
+    font-family: Roboto, system-ui, sans-serif;
   }
 
   /* Чат открыт: блокировка сдвига макета на iOS (клавиатура не меняет размеры) */
@@ -123,10 +170,70 @@
     opacity: 0.8;
   }
 
-  /* Main */
+  /* Homepage / dark heroes: light chrome until scroll */
+  header.apsod-site-header.apsod-site-header--hero a.apsod-logo,
+  header.apsod-site-header.apsod-site-header--hero a.apsod-logo:hover {
+    color: #fff;
+  }
+
+  header.apsod-site-header.apsod-site-header--hero a:not(.apsod-btn-solid):not(.apsod-logo) {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  header.apsod-site-header.apsod-site-header--hero a:not(.apsod-btn-solid):not(.apsod-logo):hover {
+    color: #fff;
+  }
+
+  header.apsod-site-header.apsod-site-header--hero .apsod-header-circle {
+    border-color: rgba(255, 255, 255, 0.35);
+    color: #fff;
+  }
+
+  header.apsod-site-header.apsod-site-header--hero .apsod-header-circle:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.55);
+    color: #fff;
+  }
+
+  /* Nerox-style circular header actions */
+  .apsod-header-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--border-color) 90%, transparent);
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 15px;
+    line-height: 1;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+  }
+
+  .apsod-header-circle:hover {
+    background: var(--apsod-accent);
+    border-color: var(--apsod-accent);
+    color: #fff;
+  }
+
+  @media (max-width: 640px) {
+    .apsod-header-circle {
+      width: 44px;
+      height: 44px;
+    }
+  }
+
+  /* Main — single source of truth for header offset */
   main {
-    min-height: calc(100vh - 64px);
-    padding-top: 64px;
+    min-height: calc(100vh - var(--apsod-header-h));
+    padding-top: var(--apsod-header-h);
+  }
+
+  /* Dark heroes bleed under fixed header (avoids white-on-white nav in light theme) */
+  .apsod-bleed-hero {
+    margin-top: calc(-1 * var(--apsod-header-h));
   }
 
   /* Footer */

@@ -1,13 +1,8 @@
-import { dualPriceLines } from './currency'
-
 export type MobileAppPackageId = 'mvp' | 'cross' | 'product'
 
 export type MobileAppPackage = {
   id: MobileAppPackageId
   title: string
-  bynAmount: number
-  byn: string
-  rub: string
   term: string
   goal: string
   budget: string
@@ -18,7 +13,6 @@ export type MobileAppPackage = {
 const packageFrom = (
   id: MobileAppPackageId,
   title: string,
-  bynAmount: number,
   term: string,
   goal: string,
   budget: string,
@@ -27,8 +21,6 @@ const packageFrom = (
 ): MobileAppPackage => ({
   id,
   title,
-  bynAmount,
-  ...dualPriceLines(bynAmount),
   term,
   goal,
   budget,
@@ -36,15 +28,14 @@ const packageFrom = (
   items,
 })
 
-/** Ориентиры стоимости мобильной разработки — /pricing и /services/mobile-development */
+/** Форматы мобильной разработки — /services/mobile-development */
 export const MOBILE_APP_PACKAGES: MobileAppPackage[] = [
   packageFrom(
     'mvp',
     'MVP · одна платформа',
-    12000,
     '6–10 недель',
     'mobile',
-    'mobile-mvp-12k',
+    'mobile-mvp',
     false,
     [
       'UX/UI и 5–8 ключевых экранов',
@@ -56,10 +47,9 @@ export const MOBILE_APP_PACKAGES: MobileAppPackage[] = [
   packageFrom(
     'cross',
     'Кроссплатформа (React Native)',
-    18000,
     '2–4 месяца',
     'mobile',
-    'mobile-rn-18k',
+    'mobile-rn',
     true,
     [
       'Один код для iOS и Android',
@@ -71,10 +61,9 @@ export const MOBILE_APP_PACKAGES: MobileAppPackage[] = [
   packageFrom(
     'product',
     'Продукт · две платформы',
-    25000,
     'от 3 месяцев',
     'mobile',
-    'mobile-product-25k',
+    'mobile-product',
     false,
     [
       'Натив или RN+ под сложный MVP',
@@ -84,8 +73,6 @@ export const MOBILE_APP_PACKAGES: MobileAppPackage[] = [
     ]
   ),
 ]
-
-export const MOBILE_APP_ENTRY_BYN = 12000
 
 export function getMobileAppPackage(id: MobileAppPackageId): MobileAppPackage {
   return MOBILE_APP_PACKAGES.find((p) => p.id === id) ?? MOBILE_APP_PACKAGES[0]

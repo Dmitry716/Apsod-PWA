@@ -2,47 +2,53 @@
 
 import Link from 'next/link'
 import { useLocale } from '../lib/useLocale'
-import HomeHeroCodeCanvas from './HomeHeroCodeCanvas'
 
-/** Product Lab command surface — brand + actions + framed runtime panel */
+/** Arigo-inspired hero — oversized type, gradient stage, no mockups */
 export default function HomeHero() {
   const { locale } = useLocale()
   const isEn = locale === 'en'
 
   return (
-    <section className="relative overflow-hidden border-b border-slate-200 dark:border-[var(--border-color)] bg-white dark:bg-[var(--bg-primary)]">
-      <div className="apsod-lab-grid-bg absolute inset-0 opacity-40 dark:opacity-50" aria-hidden />
+    <section className="apsod-bleed-hero relative min-h-[min(100svh,920px)] overflow-hidden text-white">
+      <div className="apsod-arigo-hero-bg absolute inset-0" aria-hidden />
+      <div className="apsod-arigo-hero-noise absolute inset-0" aria-hidden />
 
-      <div className="container mx-auto px-4 relative z-10 py-10 md:py-14 lg:py-16">
-        <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch min-w-0">
-          <div className="lg:col-span-5 flex flex-col justify-end min-w-0">
-            <p className="apsod-lab-mono text-[11px] text-slate-500 dark:text-slate-400 mb-4 tracking-[0.16em] uppercase">
-              {isEn ? 'Build · Ship · Grow' : 'Build · Ship · Grow'}
-            </p>
+      <div className="relative z-10 mx-auto flex min-h-[min(100svh,920px)] max-w-7xl flex-col justify-end px-4 pb-16 pt-32 md:px-8 md:pb-20 md:pt-36 lg:pb-24">
+        <p className="apsod-hero-enter apsod-hero-enter-delay-1 mb-8 flex max-w-xl items-center gap-4 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/90 md:mb-10 md:text-xs">
+          <span>
+            {isEn
+              ? 'Building products that convert and scale'
+              : 'Продукты, которые конвертируют и масштабируются'}
+          </span>
+          <span className="hidden h-px flex-1 bg-white/50 sm:block" aria-hidden />
+          <span className="hidden h-1.5 w-1.5 shrink-0 rounded-full bg-white sm:block" aria-hidden />
+        </p>
 
-            <h1 className="apsod-hero-enter apsod-hero-enter-delay-1 font-display text-[clamp(3.2rem,12vw,6.5rem)] font-extrabold tracking-[-0.06em] leading-[0.9] text-slate-950 dark:text-white mb-5 md:mb-6">
-              APSOD
-            </h1>
+        <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display font-extrabold uppercase leading-[0.92] tracking-[-0.03em]">
+          <span className="block text-[clamp(3.25rem,14vw,9.5rem)]">Digital</span>
+          <span className="mt-1 flex flex-wrap items-center gap-3 text-[clamp(3.25rem,14vw,9.5rem)] md:gap-5 md:mt-2">
+            <span className="apsod-arigo-star" aria-hidden>
+              <svg viewBox="0 0 64 64" className="h-[0.55em] w-[0.55em]" fill="currentColor">
+                <path d="M32 4l4.2 20.2L56 32l-19.8 7.8L32 60l-4.2-20.2L8 32l19.8-7.8L32 4z" />
+              </svg>
+            </span>
+            <span>{isEn ? 'Engineering' : 'Engineering'}</span>
+          </span>
+        </h1>
 
-            <p className="apsod-hero-enter apsod-hero-enter-delay-2 text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-sm leading-relaxed mb-7 md:mb-9">
-              {isEn
-                ? 'Web, commerce and apps as one engineered product.'
-                : 'Сайты, магазины и приложения — как один инженерный продукт.'}
-            </p>
-
-            <div className="apsod-hero-enter apsod-hero-enter-delay-3 flex flex-wrap gap-2.5">
-              <Link href="/portfolio" className="apsod-lab-btn apsod-lab-btn--primary">
-                {isEn ? 'Open cases' : 'Открыть кейсы'}
-              </Link>
-              <Link href="/contact" className="apsod-lab-btn apsod-lab-btn--ghost">
-                {isEn ? 'Start project' : 'Запустить проект'}
-              </Link>
-            </div>
-          </div>
-
-          <div className="lg:col-span-7 min-w-0 apsod-hero-enter apsod-hero-enter-delay-2">
-            <HomeHeroCodeCanvas />
-          </div>
+        <div className="apsod-hero-enter apsod-hero-enter-delay-3 mt-10 flex flex-wrap gap-3 md:mt-12">
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-slate-950 transition-colors hover:bg-orange-100"
+          >
+            {isEn ? 'Start a project' : 'Начать проект'}
+          </Link>
+          <Link
+            href="/portfolio"
+            className="inline-flex items-center justify-center rounded-full border border-white/40 px-8 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-white transition-colors hover:border-white hover:bg-white/10"
+          >
+            {isEn ? 'View work' : 'Смотреть работы'}
+          </Link>
         </div>
       </div>
     </section>

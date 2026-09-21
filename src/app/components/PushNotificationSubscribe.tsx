@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLocale } from "@/app/lib/useLocale";
 
 interface PushNotificationSubscribeProps {
   compact?: boolean;
 }
 
 export default function PushNotificationSubscribe({ compact = false }: PushNotificationSubscribeProps) {
+  const { locale } = useLocale();
   const [isSubscribing, setIsSubscribing] = useState(false);
   const [subscriptionStatus, setSubscriptionStatus] = useState<string | null>(null);
   const [permission, setPermission] = useState<NotificationPermission>('default');
@@ -178,6 +180,7 @@ export default function PushNotificationSubscribe({ compact = false }: PushNotif
   };
 
   if (!isSupported) {
+    if (compact) return null;
     return (
       <div className="bg-linear-to-r from-yellow-50 to-amber-50 dark:from-yellow-900/20 dark:to-amber-900/20 rounded-xl p-6 border border-yellow-200 dark:border-yellow-800">
         <div className="flex items-start gap-4">
@@ -197,29 +200,43 @@ export default function PushNotificationSubscribe({ compact = false }: PushNotif
 
   if (compact) {
     return (
-      <div className="space-y-3">
-        <p className="text-sm text-gray-300">
-          Получайте уведомления о новых материалах и статусе заявок
+      <div className="w-full space-y-2.5">
+        <p className="mb-0 text-xs leading-snug text-[var(--text-muted)] md:text-right">
+          {locale === "en"
+            ? "Get updates on articles and request status"
+            : "Уведомления о материалах и статусе заявок"}
         </p>
         {subscriptionStatus && (
-          <div className={`text-xs ${subscriptionStatus.includes('✅') ? 'text-green-400' : 'text-red-400'}`}>
+          <div
+            className={`text-xs md:text-right ${
+              subscriptionStatus.includes("✅") ? "text-emerald-500" : "text-red-500"
+            }`}
+          >
             {subscriptionStatus}
           </div>
         )}
-        {permission === 'granted' ? (
+        {permission === "granted" ? (
           <button
+            type="button"
             onClick={handleUnsubscribe}
-            className="w-full px-4 py-2 bg-gray-600 text-white rounded-lg text-sm font-medium hover:bg-gray-700 transition-all"
+            className="w-full rounded-md border border-[var(--border-color)] bg-[var(--bg-primary)] px-3 py-2 text-xs font-medium text-[var(--text-secondary)] transition-colors hover:border-[var(--apsod-accent)] hover:text-[var(--apsod-accent)]"
           >
-            Отписаться
+            {locale === "en" ? "Unsubscribe" : "Отписаться"}
           </button>
         ) : (
           <button
+            type="button"
             onClick={handleSubscribe}
             disabled={isSubscribing}
-            className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition-all disabled:opacity-50"
+            className="w-full rounded-md bg-slate-800 px-3 py-2 text-xs font-medium text-white transition-colors hover:bg-[var(--apsod-accent)] disabled:opacity-50 dark:bg-slate-700"
           >
-            {isSubscribing ? 'Подписка...' : '🔔 Подписаться'}
+            {isSubscribing
+              ? locale === "en"
+                ? "Subscribing…"
+                : "Подписка…"
+              : locale === "en"
+                ? "Subscribe"
+                : "Подписаться"}
           </button>
         )}
       </div>

@@ -4,10 +4,8 @@ import Reveal from '../../components/Reveal'
 import SectionAtmosphere from '../../components/SectionAtmosphere'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
-import { DUAL_CURRENCY_NOTE } from '../../lib/currency'
 import {
   CLIENT_PROOF,
-  TEAM_PROOF,
   WEB_BUILD_TIMELINE,
   WHY_APSOD_WEB,
 } from '../../lib/client-proof'
@@ -35,8 +33,6 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
     offers: {
       '@type': 'Offer',
       name: pkg.title,
-      priceCurrency: 'BYN',
-      price: String(pkg.bynAmount),
       url: `${SITE_URL}/contact?goal=${pkg.goal}&budget=${pkg.budget}`,
     },
   }
@@ -46,45 +42,38 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
       <ServiceBreadcrumbs service={slug} />
       <SeoJsonLd data={serviceSchema} />
 
-      <section className="relative min-h-[min(68svh,600px)] flex items-end overflow-hidden bg-slate-950 text-white">
-        <div className="absolute inset-0" aria-hidden>
-          <Image
-            src={cases[0]?.image ?? '/portfolio/amba.png'}
-            alt=""
-            fill
-            priority
-            className="object-cover object-center scale-105 opacity-40 apsod-ken-burns"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/45" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/55 to-transparent" />
-        </div>
+      <section className="relative overflow-hidden text-white">
+        <div className="apsod-arigo-hero-bg absolute inset-0" aria-hidden />
+        <div className="apsod-arigo-hero-noise absolute inset-0" aria-hidden />
 
-        <div className="container mx-auto px-4 relative z-10 pb-12 md:pb-16 pt-20 md:pt-24">
-          <p className="apsod-hero-enter apsod-hero-enter-delay-1 text-[11px] font-medium tracking-[0.22em] uppercase text-slate-400 mb-5">
+        <div
+          className="relative z-10 mx-auto max-w-7xl px-4 pb-14 md:px-8 md:pb-20"
+          style={{ paddingTop: 'calc(var(--apsod-header-h) + 3.5rem)' }}
+        >
+          <p className="apsod-hero-enter apsod-hero-enter-delay-1 mb-5 text-[11px] font-medium uppercase tracking-[0.22em] text-white/50">
             {page.eyebrow}
           </p>
-          <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display text-[clamp(1.85rem,4.5vw,3.25rem)] font-bold tracking-tight leading-[1.1] mb-5 max-w-2xl">
+          <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display mb-5 max-w-3xl text-[clamp(2rem,6vw,4.25rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.03em]">
             {page.h1}
           </h1>
-          <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-base md:text-lg text-slate-300 leading-relaxed mb-4 max-w-lg">
+          <p className="apsod-hero-enter apsod-hero-enter-delay-3 mb-4 max-w-lg text-base leading-relaxed text-white/70 md:text-lg">
             {page.lead}
           </p>
-          <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-sm text-slate-400 mb-8 max-w-lg">
-            {page.priceLine}
+          <p className="apsod-hero-enter apsod-hero-enter-delay-3 mb-8 max-w-lg text-sm text-white/45">
+            {page.termLine}
           </p>
           <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3">
             <Link
               href={`/contact?goal=${pkg.goal}&budget=${pkg.budget}`}
-              className="apsod-btn-solid apsod-cta-primary px-7 py-3.5 rounded-md text-sm font-semibold"
+              className="inline-flex rounded-full bg-white px-7 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-slate-950 transition-colors hover:bg-orange-100"
             >
-              <span>Получить смету</span>
+              Получить смету
             </Link>
             <Link
-              href="/pricing"
-              className="px-7 py-3.5 rounded-md text-sm font-semibold border border-white/30 text-white hover:border-white transition-colors"
+              href="/contact"
+              className="inline-flex rounded-full border border-white/30 px-7 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-white transition-colors hover:border-white"
             >
-              Стоимость
+              Обсудить задачу
             </Link>
           </div>
         </div>
@@ -94,8 +83,8 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
         <div className="container mx-auto px-4 py-5 text-sm text-slate-600 dark:text-slate-300">
           {COMPANY_ADDRESS_DISPLAY}
           {' · '}
-          <Link href="/pricing" className="apsod-link-nudge font-medium text-slate-900 dark:text-white">
-            Цены
+          <Link href="/contact" className="apsod-link-nudge font-medium text-slate-900 dark:text-white">
+            Контакты
           </Link>
           {page.parentNote ? (
             <>
@@ -138,16 +127,14 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
         <div className="container mx-auto px-4">
           <Reveal className="mb-8 max-w-2xl">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-              Стоимость
+              Формат
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400">{DUAL_CURRENCY_NOTE}</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">Смета после брифа — обычно за 1 рабочий день.</p>
           </Reveal>
           <Reveal className="apsod-price-card max-w-lg bg-white dark:bg-gray-950 border border-slate-200 dark:border-slate-800 p-7 flex flex-col">
             <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
               {pkg.title}
             </h3>
-            <p className="font-display text-2xl font-bold text-slate-900 dark:text-white">{pkg.byn}</p>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{pkg.rub}</p>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Срок: {pkg.term}</p>
             <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300 mb-8">
               {pkg.items.map((item) => (
@@ -246,7 +233,7 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
                       src={item.image}
                       alt={item.title}
                       fill
-                      className="object-contain object-center p-4 transition-transform duration-[1.1s] group-hover:scale-[1.02]"
+                      className="object-cover object-top transition-transform duration-[1.1s] group-hover:scale-[1.02]"
                       sizes="(max-width: 768px) 100vw, 40vw"
                     />
                   </div>
@@ -294,38 +281,6 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
         </div>
       </section>
 
-      <section className="py-14 md:py-16 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
-          <Reveal className="grid md:grid-cols-2 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden max-w-4xl">
-            <div className="relative min-h-[220px] bg-slate-100 dark:bg-slate-900">
-              <Image
-                src={TEAM_PROOF.image}
-                alt={TEAM_PROOF.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </div>
-            <div className="bg-white dark:bg-gray-950 p-8 md:p-10 flex flex-col justify-end">
-              <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-                {TEAM_PROOF.title}
-              </h2>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                {TEAM_PROOF.body}
-              </p>
-              <ul className="space-y-2">
-                {TEAM_PROOF.people.map((person) => (
-                  <li key={person.name} className="text-sm">
-                    <span className="font-medium text-slate-900 dark:text-white">{person.name}</span>
-                    <span className="text-slate-500"> — {person.role}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
       <ServiceFaqBlock service={slug} />
 
       <section className="relative py-20 md:py-28 overflow-hidden bg-slate-950 text-white">
@@ -336,7 +291,7 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
               Нужна смета?
             </h2>
             <p className="text-slate-300 mb-8 leading-relaxed">
-              Ориентир стоимости и сроки — после короткого брифа, обычно в течение рабочего дня.
+              Смета и сроки — после короткого брифа, обычно в течение рабочего дня.
             </p>
             <Link
               href={`/contact?goal=${pkg.goal}&budget=${pkg.budget}`}

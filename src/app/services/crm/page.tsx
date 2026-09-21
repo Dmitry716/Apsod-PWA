@@ -2,8 +2,6 @@
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
-import { formatDualPrice } from '../../lib/currency'
-
 export const metadata = buildServiceMetadata('crm')
 
 export default function CRMPage() {
@@ -39,25 +37,21 @@ export default function CRMPage() {
       name: "Битрикс24",
       description: "Самая популярная CRM в СНГ. Подходит для малого и среднего бизнеса.",
       features: ["Бесплатный тариф", "Воронка продаж", "Телефония", "Задачи и проекты"],
-      price: formatDualPrice(0, { perMonth: true }),
     },
     {
       name: "AmoCRM",
       description: "Простая и понятная CRM для активных продаж. Фокус на воронке и сделках.",
       features: ["Воронка продаж", "Интеграция с WhatsApp", "Виджеты", "API"],
-      price: formatDualPrice(50, { perMonth: true }),
     },
     {
       name: "Salesforce",
       description: "Мировой лидер для крупного бизнеса. Максимальная кастомизация и масштабирование.",
       features: ["Sales Cloud", "Service Cloud", "Marketing Cloud", "AI-аналитика"],
-      price: "индивидуально",
     },
     {
       name: "Кастомная CRM",
       description: "Разрабатываем CRM с нуля под ваши уникальные бизнес-процессы.",
       features: ["Полная кастомизация", "Любые интеграции", "Ваша интеллектуальная собственность"],
-      price: "индивидуально",
     }
   ];
 
@@ -199,7 +193,12 @@ export default function CRMPage() {
                     </li>
                   ))}
                 </ul>
-                <p className="text-base font-bold text-blue-600 dark:text-blue-400 leading-snug">{solution.price}</p>
+                <Link
+                  href="/contact"
+                  className="inline-flex text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  Обсудить внедрение →
+                </Link>
               </div>
             ))}
           </div>

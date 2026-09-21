@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="APSOD — Web & Mobile Development">
+  <rect width="512" height="512" fill="#050505"/>
+  <text x="256" y="248" text-anchor="middle"
+    font-family="ui-sans-serif, system-ui, Segoe UI, Arial, sans-serif"
+    font-size="88" font-weight="800" letter-spacing="-3.5" fill="#FFFFFF">APSOD</text>
+  <text x="256" y="292" text-anchor="middle"
+    font-family="ui-sans-serif, system-ui, Segoe UI, Arial, sans-serif"
+    font-size="16" font-weight="600" letter-spacing="4.5" fill="#E5E7EB">WEB &amp; MOBILE DEVELOPMENT</text>
+</svg>

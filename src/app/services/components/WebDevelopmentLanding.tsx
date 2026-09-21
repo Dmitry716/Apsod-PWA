@@ -1,71 +1,60 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import Reveal from '../../components/Reveal'
-import SectionAtmosphere from '../../components/SectionAtmosphere'
 import SeoJsonLd from '../../components/SeoJsonLd'
-import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
-import { DUAL_CURRENCY_NOTE, formatDualPrice } from '../../lib/currency'
-import {
-  CLIENT_PROOF,
-  TEAM_PROOF,
-  WEB_BUILD_TIMELINE,
-  WHY_APSOD_WEB,
-} from '../../lib/client-proof'
-import { COMPANY_ADDRESS_DISPLAY, COMPANY_AREA_SERVED, SITE_URL } from '../../lib/seo'
+import { ServiceFaqBlock } from '../../components/ServiceSeoExtras'
+import { WEB_BUILD_TIMELINE } from '../../lib/client-proof'
+import { COMPANY_AREA_SERVED, SITE_URL } from '../../lib/seo'
 import {
   WEB_DEV_CASES,
   WEB_DEV_FEATURED_PACKAGES,
   WEB_DEV_SITE_TYPES,
 } from '../../lib/web-dev-packages'
 import { WEB_STACK } from '../../lib/tech-stack'
-import { WEB_DEVELOPMENT_PROCESS } from '../lib/development-process'
-import DevelopmentProcessSection from './DevelopmentProcessSection'
 import { TechStackChips } from '../../components/TechStackSection'
+import ServiceDetailsCarousel from './ServiceDetailsCarousel'
 
-const OUTCOMES = [
-  {
-    title: 'Канал заявок',
-    body: 'Структура, CTA и аналитика под коммерческие цели — сайт как инструмент продаж, а не визитка.',
-  },
-  {
-    title: 'Инженерия под продукт',
-    body: 'Next.js, Angular, Vue, Svelte или ASP.NET Core — стек под задачу: скорость, SEO и развитие без чужих ограничений платформы.',
-  },
-  {
-    title: 'SEO с первого дня',
-    body: 'Семантика в структуре, разметка, Core Web Vitals и готовность к продвижению в Яндексе и Google.',
-  },
-  {
-    title: 'Сопровождение',
-    body: 'Запуск, обучение и поддержка после релиза — интеграции с CRM, оплатой и рекламой.',
-  },
+const PILL_LINKS = [
+  { label: 'Лендинг', href: '/services/landing-page' },
+  { label: 'Корпоративный сайт', href: '/services/corporate-sites' },
+  { label: 'Интернет-магазин', href: '/services/ecommerce' },
+  { label: 'PWA', href: '/services/pwa-development' },
 ] as const
 
-const TRUST = [
-  'Минск',
-  'Индивидуальная разработка',
-  'SEO-ready',
-  'Сроки 2–8 недель',
+const SLIDES = [
+  { src: '/portfolio/gallery/nexton/01.jpg', alt: 'Кейс NEXTON — веб-продукт' },
+  { src: '/portfolio/gallery/amba-detail/01.jpg', alt: 'Кейс Amba Detail' },
+  { src: '/portfolio/gallery/artdetailing/01.jpg', alt: 'Кейс ArtDetailing' },
+  { src: '/portfolio/gallery/maxximum/01.jpg', alt: 'Кейс Maxximum' },
 ] as const
 
-const LOCAL_BLOCKS = [
-  {
-    h2: 'Создание сайта в Минске под заявки',
-    body: 'Лендинг, корпоративный сайт, каталог или магазин — с коммерческой структурой, аналитикой и понятным путём к контакту. Смета и договор до старта работ.',
-  },
-  {
-    h2: 'Сайт под ключ',
-    body: 'Проектируем и собираем продукт: контроль над дизайном, CRM, оплатой и Core Web Vitals. Хостинг выбираете вы.',
-  },
-  {
-    h2: 'SEO-база уже в разработке',
-    body: 'Семантика, разметка и скорость закладываем с первого дня. Дальше — продвижение в Яндексе и Google или пакет «сайт + SEO».',
-  },
+const COLLAGE = [
+  { src: '/portfolio/gallery/legal-team/01.jpg', alt: 'Legal Team', tall: true },
+  { src: '/portfolio/gallery/bmservice/01.jpg', alt: 'BM Service', tall: false },
+  { src: '/portfolio/gallery/dynamo-vitebsk/01.jpg', alt: 'Dynamo Vitebsk', tall: false },
+  { src: '/devices/macbook.jpg', alt: 'Разработка на MacBook', center: true },
+  { src: '/portfolio/gallery/nexton/03.jpg', alt: 'NEXTON UI', tall: false },
+  { src: '/portfolio/gallery/amba-detail/03.jpg', alt: 'Amba Detail UI', tall: false },
 ] as const
 
-const FEATURED_CASES = WEB_DEV_CASES.filter((c) =>
-  ['Amba Detail', 'NEXTON', 'ArtDetailing'].includes(c.title)
-)
+const BENEFITS = [
+  {
+    title: 'Скорость и CWV',
+    body: 'Оптимизированный код и современный стек — быстрая загрузка и стабильный UX на всех устройствах.',
+  },
+  {
+    title: 'Надёжность',
+    body: 'Безопасность, бэкапы и архитектура под рост: сайт не ломается на первом же пике трафика.',
+  },
+  {
+    title: 'Адаптив',
+    body: 'Корректная работа на десктопе, планшете и телефоне — без «обрезанных» макетов.',
+  },
+  {
+    title: 'Конверсия',
+    body: 'Структура, CTA и аналитика под заявки — сайт как канал продаж, а не визитка.',
+  },
+] as const
 
 export default function WebDevelopmentLanding() {
   const serviceSchema = {
@@ -73,295 +62,150 @@ export default function WebDevelopmentLanding() {
     '@type': 'Service',
     name: 'Разработка сайтов',
     description:
-      'Разработка сайтов в Минске: лендинг, корпоративный сайт, каталог и интернет-магазин на Next.js, Angular, Vue, Svelte и ASP.NET Core.',
+      'Разработка сайтов: лендинг, корпоративный сайт, каталог и интернет-магазин на Next.js, Angular, Vue, Svelte и ASP.NET Core.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
     areaServed: COMPANY_AREA_SERVED,
     url: `${SITE_URL}/services/web-development`,
     offers: WEB_DEV_FEATURED_PACKAGES.map((pkg) => ({
       '@type': 'Offer',
       name: pkg.title,
-      priceCurrency: 'BYN',
-      price: String(pkg.bynAmount),
       url: `${SITE_URL}/contact?goal=${pkg.goal}&budget=${pkg.budget}`,
     })),
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
-      <ServiceBreadcrumbs service="web-development" />
+    <div className="min-h-screen bg-white text-slate-950">
       <SeoJsonLd data={serviceSchema} />
 
-      {/* Hero — full-bleed composition */}
-      <section className="relative min-h-[min(72svh,640px)] flex items-end overflow-hidden bg-slate-950 text-white">
-        <div className="absolute inset-0" aria-hidden>
-          <Image
-            src="/portfolio/amba.png"
-            alt=""
-            fill
-            priority
-            className="object-cover object-center scale-105 opacity-45 apsod-ken-burns"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-slate-950/45" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/55 to-transparent" />
+      {/* Arigo Service Details — dark banner */}
+      <section className="apsod-bleed-hero relative overflow-hidden text-white">
+        <div className="apsod-arigo-hero-bg absolute inset-0" aria-hidden />
+        <div className="apsod-arigo-hero-noise absolute inset-0" aria-hidden />
+        <div
+          className="pointer-events-none absolute left-[8%] top-1/2 h-[min(42vw,420px)] w-[min(42vw,420px)] -translate-y-1/2 opacity-[0.14]"
+          aria-hidden
+        >
+          <svg viewBox="0 0 200 200" className="h-full w-full text-white" fill="currentColor">
+            <path d="M100 8 L112 78 L180 78 L126 118 L146 188 L100 148 L54 188 L74 118 L20 78 L88 78 Z" />
+          </svg>
         </div>
 
-        <div className="container mx-auto px-4 relative z-10 pb-12 md:pb-16 pt-20 md:pt-24">
-          <p className="apsod-hero-enter apsod-hero-enter-delay-1 text-[11px] font-medium tracking-[0.22em] uppercase text-slate-400 mb-5">
-            Веб-разработка
-          </p>
-          <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display text-[clamp(1.85rem,4.5vw,3.25rem)] font-bold tracking-tight leading-[1.1] mb-5 max-w-2xl">
-            Разработка сайтов в Минске
+        <div
+          className="relative z-10 mx-auto max-w-5xl px-4 pb-16 text-center md:px-8 md:pb-24"
+          style={{ paddingTop: 'calc(var(--apsod-header-h) + 4.5rem)' }}
+        >
+          <h1 className="font-display text-[clamp(2.5rem,9vw,5.5rem)] font-extrabold uppercase leading-[0.92] tracking-[-0.03em]">
+            Разработка сайтов
           </h1>
-          <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-base md:text-lg text-slate-300 leading-relaxed mb-4 max-w-lg">
-            Создание сайта под ключ для бизнеса в Минске: лендинг, корпоративный сайт или каталог —
-            с SEO-базой и запуском как продукта.
-          </p>
-          <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-sm text-slate-400 mb-8 max-w-lg">
-            Ориентир: лендинг — {formatDualPrice(8000)}, корпоративный — {formatDualPrice(15000)}. Смета
-            после брифа.
-          </p>
-          <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3">
-            <Link
-              href="/contact?goal=corporate&budget=corporate-15k"
-              className="apsod-btn-solid apsod-cta-primary px-7 py-3.5 rounded-md text-sm font-semibold"
-            >
-              <span>Заказать сайт</span>
-            </Link>
-            <Link
-              href="/pricing"
-              className="px-7 py-3.5 rounded-md text-sm font-semibold border border-white/30 text-white hover:border-white transition-colors"
-            >
-              Стоимость
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Trust strip */}
-      <section className="border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-4 py-5 md:py-6">
-          <ul className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-600 dark:text-slate-300">
-            {TRUST.map((item, i) => (
-              <li key={item} className="inline-flex items-center gap-6">
-                {i > 0 ? (
-                  <span className="hidden sm:inline text-slate-300 dark:text-slate-700" aria-hidden>
-                    ·
-                  </span>
-                ) : null}
-                <span>{item}</span>
+          <ul className="mt-8 flex flex-wrap items-center justify-center gap-2.5 md:mt-10 md:gap-3">
+            {PILL_LINKS.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="inline-flex rounded-full border border-white/25 bg-black/25 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/90 backdrop-blur-sm transition-colors hover:border-white/55 hover:bg-white/10 md:px-5 md:py-2.5"
+                >
+                  {item.label}
+                </Link>
               </li>
             ))}
           </ul>
         </div>
       </section>
 
-      {/* Local commercial copy — без отдельного гео-URL */}
-      <section className="py-14 md:py-16 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
-          <Reveal className="mb-8 max-w-2xl">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-              Веб-студия в Минске для бизнеса
+      {/* Light body panel — overlaps hero like Arigo */}
+      <section className="relative z-10 -mt-6 rounded-t-[1.75rem] bg-white pb-4 md:-mt-10 md:rounded-t-[2.5rem]">
+        <div className="mx-auto max-w-[1370px] px-4 pt-6 md:px-8 md:pt-10">
+          <Reveal>
+            <ServiceDetailsCarousel slides={[...SLIDES]} />
+          </Reveal>
+
+          <Reveal className="mx-auto mt-12 max-w-[1100px] md:mt-16">
+            <h2 className="font-display text-[clamp(1.75rem,4.2vw,3.75rem)] font-extrabold uppercase leading-[1.02] tracking-[-0.03em] text-slate-950">
+              От разработки до постоянного развития
             </h2>
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              APSOD — разработка и создание сайтов в Минске: от брифа до запуска. Офис: ул. Куйбышева,
-              35. Работаем онлайн и на встречах.
+            <p className="mt-5 max-w-3xl text-sm leading-relaxed text-slate-600 md:text-base">
+              Создаём сайт для бизнеса: лендинг, корпоративный сайт, каталог или магазин — от брифа
+              до запуска, с SEO-базой и инженерией под рост.
+            </p>
+            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-600 md:text-base">
+              Смета после короткого брифа — обычно за 1 рабочий день. Полный цикл: структура,
+              дизайн, разработка, интеграции, запуск и поддержка.
             </p>
           </Reveal>
-          <div className="grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 md:grid-cols-3">
-            {LOCAL_BLOCKS.map((block) => (
-              <Reveal
-                key={block.h2}
-                className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 md:p-8"
-              >
-                <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-3 tracking-tight">
-                  {block.h2}
-                </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{block.body}</p>
+
+          <Reveal className="mx-auto mt-14 max-w-[1100px] md:mt-20">
+            <h2 className="font-display text-[clamp(1.75rem,4vw,3.25rem)] font-extrabold uppercase leading-[1.02] tracking-[-0.03em] text-slate-950">
+              Обзор услуги
+            </h2>
+            <p className="mt-5 max-w-3xl text-sm leading-relaxed text-slate-600 md:text-base">
+              Полный цикл веб-разработки под современные задачи бизнеса: кастомная разработка,
+              front-end и back-end, адаптив и производительность. Собираем быстрые, безопасные и
+              масштабируемые сайты с понятным UX на всех устройствах.
+            </p>
+            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-600 md:text-base">
+              От концепции до релиза — чистый код, удобство и поддержка на дистанции. Корпоративный
+              сайт, портфолио или e-commerce: надёжный digital-канал, который помогает расти и
+              получать заявки.
+            </p>
+          </Reveal>
+
+          {/* Collage */}
+          <div className="mx-auto mt-10 grid max-w-[1100px] gap-3 md:mt-14 md:grid-cols-3 md:gap-4">
+            <div className="flex flex-col gap-3 md:gap-4">
+              <Reveal className="relative aspect-[4/5] overflow-hidden rounded-2xl">
+                <Image src={COLLAGE[0].src} alt={COLLAGE[0].alt} fill className="object-cover" sizes="33vw" />
               </Reveal>
-            ))}
-          </div>
-          <Reveal className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            <Link href="/pricing" className="apsod-link-nudge font-medium text-slate-900 dark:text-white">
-              Стоимость сайта
-              <span aria-hidden>→</span>
-            </Link>
-            <Link
-              href="/services/seo"
-              className="apsod-link-nudge font-medium text-slate-900 dark:text-white"
-            >
-              SEO продвижение
-              <span aria-hidden>→</span>
-            </Link>
-            <Link
-              href="/contact"
-              className="apsod-link-nudge font-medium text-slate-900 dark:text-white"
-            >
-              Контакты
-              <span aria-hidden>→</span>
-            </Link>
-          </Reveal>
-        </div>
-      </section>
+              <div className="grid grid-cols-2 gap-3 md:gap-4">
+                <Reveal className="relative aspect-square overflow-hidden rounded-2xl">
+                  <Image src={COLLAGE[1].src} alt={COLLAGE[1].alt} fill className="object-cover" sizes="16vw" />
+                </Reveal>
+                <Reveal className="relative aspect-square overflow-hidden rounded-2xl">
+                  <Image src={COLLAGE[2].src} alt={COLLAGE[2].alt} fill className="object-cover" sizes="16vw" />
+                </Reveal>
+              </div>
+            </div>
 
-      {/* What you get */}
-      <section className="py-14 md:py-20 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
-          <Reveal className="mb-8 md:mb-10 max-w-2xl">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-              Что получите
-            </h2>
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              Рабочий digital-канал под заявки, поиск и рост — не визитка «для галочки».
-            </p>
-          </Reveal>
-          <div className="grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 md:grid-cols-2">
-            {OUTCOMES.map((item) => (
-              <Reveal
-                key={item.title}
-                className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 md:p-8 min-h-[120px]"
+            <Reveal className="relative min-h-[280px] overflow-hidden rounded-2xl md:min-h-full">
+              <Image src={COLLAGE[3].src} alt={COLLAGE[3].alt} fill className="object-cover" sizes="33vw" />
+              <Link
+                href="/contact?goal=corporate"
+                className="absolute left-1/2 top-1/2 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[var(--apsod-arigo-accent)] text-[11px] font-bold uppercase tracking-[0.16em] text-white shadow-lg transition hover:scale-105 md:h-24 md:w-24"
               >
-                <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-3 tracking-tight">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{item.body}</p>
+                Brief
+              </Link>
+            </Reveal>
+
+            <div className="flex flex-col gap-3 md:gap-4 md:pt-10">
+              <Reveal className="relative aspect-[5/4] overflow-hidden rounded-2xl">
+                <Image src={COLLAGE[4].src} alt={COLLAGE[4].alt} fill className="object-cover" sizes="33vw" />
               </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Site types */}
-      <section className="py-14 md:py-20 bg-slate-50 dark:bg-gray-900/40 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
-          <Reveal className="mb-8 md:mb-10 max-w-2xl">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-              Какой сайт нужен
-            </h2>
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              Подберём формат под задачу — от посадочной под рекламу до витрины продаж.
-            </p>
-          </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
-            {WEB_DEV_SITE_TYPES.map((type, index) => (
-              <Reveal
-                key={type.id}
-                stagger={(Math.min(index + 1, 4) as 1 | 2 | 3 | 4)}
-                className="apsod-surface-hover group bg-white dark:bg-gray-950 p-6 md:p-7"
-              >
-                <p className="text-[11px] tracking-[0.18em] uppercase text-slate-400 mb-3">
-                  {String(index + 1).padStart(2, '0')}
-                </p>
-                <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white tracking-tight mb-2">
-                  {type.title}
-                </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-5">
-                  {type.body}
-                </p>
-                <Link
-                  href={type.href}
-                  className="apsod-link-nudge text-sm font-medium text-slate-900 dark:text-white"
-                >
-                  Подробнее
-                  <span aria-hidden>→</span>
-                </Link>
+              <Reveal className="relative aspect-[5/4] overflow-hidden rounded-2xl">
+                <Image src={COLLAGE[5].src} alt={COLLAGE[5].alt} fill className="object-cover" sizes="33vw" />
               </Reveal>
-            ))}
+            </div>
           </div>
-        </div>
-      </section>
 
-      {/* Pricing */}
-      <section
-        id="pricing"
-        className="py-14 md:py-20 border-b border-slate-200 dark:border-slate-800 scroll-mt-24"
-      >
-        <div className="container mx-auto px-4">
-          <Reveal className="mb-4 max-w-2xl">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-              Стоимость и ориентиры
+          {/* Benefits */}
+          <Reveal className="mx-auto mt-14 max-w-[1100px] md:mt-20">
+            <h2 className="font-display text-[clamp(1.75rem,4vw,3.25rem)] font-extrabold uppercase leading-[1.02] tracking-[-0.03em] text-slate-950">
+              Что вы получите
             </h2>
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              Стоимость разработки сайта в Минске зависит от объёма. Точная смета — после короткого
-              брифа.
-            </p>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">{DUAL_CURRENCY_NOTE}</p>
-          </Reveal>
-
-          <div className="mt-8 grid md:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden">
-            {WEB_DEV_FEATURED_PACKAGES.map((pkg) => (
-              <Reveal
-                key={pkg.id}
-                className={`apsod-price-card bg-white dark:bg-gray-950 p-7 flex flex-col h-full ${
-                  pkg.highlight ? 'ring-1 ring-inset ring-slate-900 dark:ring-white' : ''
-                }`}
-              >
-                {pkg.highlight ? (
-                  <p className="text-[11px] font-medium tracking-[0.14em] uppercase text-slate-500 dark:text-slate-400 mb-3">
-                    Часто выбирают
-                  </p>
-                ) : (
-                  <div className="h-5 mb-3" aria-hidden />
-                )}
-                <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
-                  {pkg.title}
-                </h3>
-                <p className="font-display text-2xl font-bold text-slate-900 dark:text-white">{pkg.byn}</p>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{pkg.rub}</p>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Срок: {pkg.term}</p>
-                <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300 mb-8 flex-1">
-                  {pkg.items.map((item) => (
-                    <li key={item} className="flex gap-2">
-                      <span className="h-px w-3 bg-slate-400 shrink-0 mt-2.5" aria-hidden />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href={`/contact?goal=${pkg.goal}&budget=${pkg.budget}`}
-                  className="apsod-btn-solid inline-flex justify-center w-full px-4 py-2.5 rounded-md text-sm font-semibold transition-colors"
-                >
-                  Получить смету
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal className="mt-6">
-            <Link
-              href="/pricing"
-              className="apsod-link-nudge text-sm font-medium text-slate-900 dark:text-white"
-            >
-              Полная стоимость: сайты, SEO и приложения
-              <span aria-hidden>→</span>
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="py-14 md:py-20 bg-slate-50 dark:bg-gray-900/40 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
-          <Reveal className="mb-8 max-w-2xl">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-              Сроки по этапам
-            </h2>
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              Понятный ритм от брифа до запуска — как у сильных студий Минска, без размытых «индивидуально».
+            <p className="mt-5 max-w-3xl text-sm leading-relaxed text-slate-600 md:text-base">
+              Рабочий digital-канал под заявки, поиск и рост — с инженерией, SEO-базой и понятными
+              сроками. Без размытых «индивидуально» и чужих ограничений платформы.
             </p>
           </Reveal>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800">
-            {WEB_BUILD_TIMELINE.map((step) => (
-              <Reveal
-                key={step.title}
-                className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 min-h-[140px] flex flex-col justify-between"
-              >
-                <p className="text-[11px] tracking-[0.18em] uppercase text-slate-400 mb-3">
-                  {step.weeks}
-                </p>
+
+          <div className="mx-auto mt-8 grid max-w-[1100px] gap-6 sm:grid-cols-2 md:mt-10 md:gap-8">
+            {BENEFITS.map((item) => (
+              <Reveal key={item.title} className="flex gap-3">
+                <span
+                  className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--apsod-arigo-accent)]"
+                  aria-hidden
+                />
                 <div>
-                  <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-2 tracking-tight">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{step.body}</p>
+                  <h3 className="font-display text-base font-bold text-slate-950 md:text-lg">{item.title}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{item.body}</p>
                 </div>
               </Reveal>
             ))}
@@ -369,180 +213,191 @@ export default function WebDevelopmentLanding() {
         </div>
       </section>
 
-      {/* Cases */}
-      <section
-        id="cases"
-        className="py-14 md:py-20 bg-white dark:bg-gray-950 border-b border-slate-200 dark:border-slate-800 scroll-mt-24"
-      >
-        <div className="container mx-auto px-4 mb-8 md:mb-10">
-          <Reveal className="flex items-end justify-between gap-6">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
-              Кейсы
+      {/* Directions */}
+      <section id="directions" className="scroll-mt-24 border-t border-slate-200 bg-white py-16 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 md:px-8">
+          <Reveal className="mb-10 max-w-2xl md:mb-14">
+            <div className="mb-5 flex items-center gap-4">
+              <span className="text-xs font-medium tracking-[0.18em] text-slate-400">01</span>
+              <span className="h-px w-16 bg-slate-200" aria-hidden />
+            </div>
+            <h2 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold uppercase tracking-[-0.02em] text-slate-950">
+              Направления
             </h2>
-            <Link
-              href="/portfolio"
-              className="apsod-link-nudge text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white"
-            >
-              Все проекты
-              <span aria-hidden>→</span>
-            </Link>
-          </Reveal>
-        </div>
-
-        <div className="border-y border-slate-200 dark:border-slate-800">
-          {FEATURED_CASES.map((item, index) => {
-            const odd = index % 2 === 1
-            return (
-              <Reveal key={`${item.href}-${item.title}`}>
-                <Link
-                  href={item.href}
-                  className="apsod-case-row group grid lg:grid-cols-12 border-b border-slate-200 dark:border-slate-800 last:border-b-0"
-                >
-                  <div
-                    className={`lg:col-span-8 relative min-h-[220px] md:min-h-[320px] lg:min-h-[380px] overflow-hidden bg-slate-100 dark:bg-slate-900 ${
-                      odd ? 'lg:order-2' : ''
-                    }`}
-                  >
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-contain object-center p-3 md:p-5 transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
-                      sizes="(max-width: 1024px) 100vw, 66vw"
-                    />
-                  </div>
-                  <div
-                    className={`lg:col-span-4 flex flex-col justify-end p-8 md:p-12 lg:p-14 bg-white dark:bg-gray-950 ${
-                      odd ? 'lg:order-1' : ''
-                    }`}
-                  >
-                    <p className="text-[11px] tracking-[0.22em] uppercase text-slate-400 mb-4">
-                      {String(index + 1).padStart(2, '0')}
-                    </p>
-                    <h3 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-4 group-hover:translate-x-1 transition-transform duration-500">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                      {item.result}
-                    </p>
-                    <span className="apsod-link-nudge text-sm font-medium text-slate-900 dark:text-white">
-                      Открыть
-                      <span aria-hidden>→</span>
-                    </span>
-                  </div>
-                </Link>
-              </Reveal>
-            )
-          })}
-        </div>
-      </section>
-
-      <DevelopmentProcessSection
-        title="Как создаём сайт"
-        subtitle="От брифа до запуска — прозрачные этапы и артефакты."
-        phases={WEB_DEVELOPMENT_PROCESS}
-      />
-
-      <section className="py-14 md:py-20 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
-          <Reveal className="mb-8 max-w-2xl">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-              Почему APSOD
-            </h2>
-            <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              {COMPANY_ADDRESS_DISPLAY}. Продукт под заявки — с SEO-базой и понятным сопровождением после релиза.
+            <p className="mt-4 text-sm text-slate-600">
+              Выберите формат — откроется страница с деталями и сроками.
             </p>
           </Reveal>
-          <div className="grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 md:grid-cols-2">
-            {WHY_APSOD_WEB.map((item) => (
-              <Reveal
-                key={item.title}
-                className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 md:p-8"
-              >
-                <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-3 tracking-tight">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{item.body}</p>
+
+          <div className="divide-y divide-slate-200 border-y border-slate-200">
+            {WEB_DEV_SITE_TYPES.map((type, index) => (
+              <Reveal key={type.id} stagger={(Math.min(index % 5, 4) + 1) as 1 | 2 | 3 | 4 | 5}>
+                <div className="grid gap-3 py-7 sm:grid-cols-12 sm:items-center sm:gap-6 md:py-8">
+                  <span className="text-xs tracking-[0.18em] text-slate-400 sm:col-span-1">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <h3 className="font-display text-xl font-extrabold uppercase tracking-tight text-slate-950 sm:col-span-4 md:text-2xl">
+                    <Link href={type.href} className="transition-colors hover:text-orange-600">
+                      {type.title}
+                    </Link>
+                  </h3>
+                  <p className="text-sm leading-relaxed text-slate-600 sm:col-span-5">{type.body}</p>
+                  <Link
+                    href={type.href}
+                    className="text-xs font-bold uppercase tracking-[0.16em] text-slate-400 transition-colors hover:text-slate-950 sm:col-span-2 sm:text-right"
+                  >
+                    →
+                  </Link>
+                </div>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-14 md:py-20 bg-slate-50 dark:bg-gray-900/40 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
-          <Reveal className="mb-8 max-w-2xl">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-              Отзывы по проектам
+      {/* Formats */}
+      <section id="formats" className="scroll-mt-24 border-t border-slate-200 bg-slate-50 py-16 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 md:px-8">
+          <Reveal className="mb-10 max-w-2xl md:mb-14">
+            <div className="mb-5 flex items-center gap-4">
+              <span className="text-xs font-medium tracking-[0.18em] text-slate-400">02</span>
+              <span className="h-px w-16 bg-slate-200" aria-hidden />
+            </div>
+            <h2 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold uppercase tracking-[-0.02em] text-slate-950">
+              Форматы
+            </h2>
+            <p className="mt-4 text-sm text-slate-600">
+              Объём и интеграции определяют срок. Смету фиксируем после короткого брифа.
+            </p>
+          </Reveal>
+
+          <div className="grid gap-5 md:grid-cols-3">
+            {WEB_DEV_FEATURED_PACKAGES.map((pkg, index) => (
+              <Reveal key={pkg.id} stagger={(Math.min(index, 4) + 1) as 1 | 2 | 3 | 4 | 5}>
+                <article
+                  className={`flex h-full flex-col rounded-[20px] border bg-white p-7 ${
+                    pkg.highlight ? 'border-slate-950' : 'border-slate-200'
+                  }`}
+                >
+                  {pkg.highlight ? (
+                    <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.14em] text-orange-600">
+                      Часто выбирают
+                    </p>
+                  ) : (
+                    <div className="mb-3 h-4" aria-hidden />
+                  )}
+                  <h3 className="font-display text-xl font-extrabold uppercase tracking-tight text-slate-950">
+                    {pkg.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-slate-500">Срок: {pkg.term}</p>
+                  <ul className="mt-6 flex-1 space-y-2.5 text-sm text-slate-600">
+                    {pkg.items.map((item) => (
+                      <li key={item} className="flex gap-2">
+                        <span className="mt-2 h-px w-3 shrink-0 bg-slate-300" aria-hidden />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href={`/contact?goal=${pkg.goal}&budget=${pkg.budget}`}
+                    className="mt-8 inline-flex justify-center rounded-full bg-slate-950 px-5 py-3 text-xs font-bold uppercase tracking-[0.14em] text-white transition hover:bg-orange-600"
+                  >
+                    Получить смету
+                  </Link>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Timeline */}
+      <section className="border-t border-slate-200 bg-white py-16 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 md:px-8">
+          <Reveal className="mb-10 max-w-2xl md:mb-14">
+            <div className="mb-5 flex items-center gap-4">
+              <span className="text-xs font-medium tracking-[0.18em] text-slate-400">03</span>
+              <span className="h-px w-16 bg-slate-200" aria-hidden />
+            </div>
+            <h2 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold uppercase tracking-[-0.02em] text-slate-950">
+              Сроки по этапам
             </h2>
           </Reveal>
-          <div className="grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 md:grid-cols-3">
-            {CLIENT_PROOF.map((item) => (
-              <Reveal
-                key={item.attribution}
-                className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 md:p-8"
-              >
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                  «{item.quote}»
-                </p>
-                <p className="font-display font-semibold text-slate-900 dark:text-white tracking-tight">
-                  {item.attribution}
-                </p>
-                <p className="text-xs text-slate-500 mt-1">{item.niche}</p>
+          <div className="grid gap-px overflow-hidden rounded-[20px] border border-slate-200 bg-slate-200 sm:grid-cols-2 lg:grid-cols-4">
+            {WEB_BUILD_TIMELINE.map((step) => (
+              <Reveal key={step.title} className="bg-white p-6 md:p-7">
+                <p className="mb-3 text-[11px] uppercase tracking-[0.18em] text-slate-400">{step.weeks}</p>
+                <h3 className="font-display text-lg font-bold text-slate-950">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{step.body}</p>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-14 md:py-16 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
-          <Reveal className="grid md:grid-cols-2 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden max-w-4xl">
-            <div className="relative min-h-[220px] bg-slate-100 dark:bg-slate-900">
-              <Image
-                src={TEAM_PROOF.image}
-                alt={TEAM_PROOF.title}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+      {/* Cases */}
+      <section id="cases" className="scroll-mt-24 border-t border-slate-200 bg-white py-16 md:py-24">
+        <div className="mx-auto mb-10 flex max-w-7xl items-end justify-between gap-6 px-4 md:mb-14 md:px-8">
+          <Reveal>
+            <div className="mb-5 flex items-center gap-4">
+              <span className="text-xs font-medium tracking-[0.18em] text-slate-400">04</span>
+              <span className="h-px w-16 bg-slate-200" aria-hidden />
             </div>
-            <div className="bg-white dark:bg-gray-950 p-8 md:p-10 flex flex-col justify-end">
-              <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-                {TEAM_PROOF.title}
-              </h2>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
-                {TEAM_PROOF.body}
-              </p>
-              <ul className="space-y-2">
-                {TEAM_PROOF.people.map((person) => (
-                  <li key={person.name} className="text-sm">
-                    <span className="font-medium text-slate-900 dark:text-white">{person.name}</span>
-                    <span className="text-slate-500"> — {person.role}</span>
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/about"
-                className="apsod-link-nudge mt-6 text-sm font-medium text-slate-900 dark:text-white"
-              >
-                О компании
-                <span aria-hidden>→</span>
-              </Link>
-            </div>
+            <h2 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold uppercase tracking-[-0.02em] text-slate-950">
+              Кейсы
+            </h2>
           </Reveal>
+          <Link
+            href="/portfolio"
+            className="text-xs font-bold uppercase tracking-[0.14em] text-slate-500 transition hover:text-slate-950"
+          >
+            Все проекты →
+          </Link>
+        </div>
+
+        <div className="divide-y divide-slate-200 border-y border-slate-200">
+          {WEB_DEV_CASES.map((item, index) => (
+            <Reveal key={item.href}>
+              <Link
+                href={item.href}
+                className="group mx-auto grid max-w-7xl gap-5 px-4 py-8 sm:grid-cols-12 sm:items-center md:px-8 md:py-10"
+              >
+                <span className="text-xs tracking-[0.18em] text-slate-400 sm:col-span-1">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl sm:col-span-4">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+                <div className="sm:col-span-6">
+                  <h3 className="font-display text-xl font-extrabold uppercase tracking-tight text-slate-950 md:text-2xl">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-600">{item.result}</p>
+                </div>
+                <span className="text-xs font-bold uppercase tracking-[0.16em] text-slate-400 transition group-hover:text-slate-950 sm:col-span-1 sm:text-right">
+                  →
+                </span>
+              </Link>
+            </Reveal>
+          ))}
         </div>
       </section>
 
       {/* Stack */}
-      <section className="py-14 md:py-16 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
-          <Reveal className="mb-4 max-w-2xl">
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
+      <section className="border-t border-slate-200 bg-slate-50 py-14 md:py-16">
+        <div className="mx-auto max-w-7xl px-4 md:px-8">
+          <Reveal className="mb-6 max-w-2xl">
+            <h2 className="font-display text-2xl font-extrabold uppercase tracking-tight text-slate-950 md:text-3xl">
               Стек
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              Современные фреймворки 2026 года — выбираем под продукт, сроки и команду заказчика.
+            <p className="mt-2 text-sm text-slate-600">
+              Современные фреймворки — выбираем под продукт, сроки и команду заказчика.
             </p>
           </Reveal>
           <Reveal>
@@ -553,22 +408,22 @@ export default function WebDevelopmentLanding() {
 
       <ServiceFaqBlock service="web-development" />
 
-      {/* Final CTA */}
-      <section className="relative py-20 md:py-28 overflow-hidden bg-slate-950 text-white">
-        <SectionAtmosphere tone="dark" grid={false} />
-        <div className="container mx-auto px-4 relative z-10 text-center max-w-2xl">
+      {/* CTA */}
+      <section className="apsod-arigo-hero-bg relative overflow-hidden text-white">
+        <div className="apsod-arigo-hero-noise absolute inset-0" aria-hidden />
+        <div className="relative z-10 mx-auto max-w-3xl px-4 py-20 text-center md:px-8 md:py-28">
           <Reveal>
-            <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight mb-4">
+            <h2 className="font-display mb-5 text-[clamp(1.85rem,4vw,3rem)] font-extrabold uppercase tracking-[-0.02em]">
               Нужна смета под ваш сайт?
             </h2>
-            <p className="text-slate-300 mb-8 leading-relaxed">
-              Расскажем сроки и ориентир стоимости после короткого брифа — обычно в течение рабочего дня.
+            <p className="mx-auto mb-8 max-w-xl text-white/70">
+              Расскажем сроки и смету после короткого брифа — обычно в течение рабочего дня.
             </p>
             <Link
               href="/contact?goal=corporate"
-              className="apsod-btn-solid apsod-cta-primary inline-flex px-10 py-4 rounded-md text-sm font-semibold"
+              className="inline-flex rounded-full bg-white px-8 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-slate-950 transition-colors hover:bg-orange-100"
             >
-              <span>Получить смету</span>
+              Получить смету
             </Link>
           </Reveal>
         </div>

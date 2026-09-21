@@ -3,8 +3,6 @@
  * Title ≈ до 60–65 символов, description ≈ 140–160 (Яндекс/Google).
  */
 
-import { formatDualPrice } from './currency'
-
 export type PageSnippet = {
   title: string
   description: string
@@ -57,30 +55,6 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
       'заказать SEO',
     ],
   },
-  '/pricing': {
-    title: 'Стоимость сайта в Минске — от 8 000 Б̶',
-    description:
-      'Стоимость разработки сайта в Минске: лендинг от 8 000 Б̶, корпоративный от 15 000 Б̶, магазин от 23 000 Б̶. SEO от 800 Б̶/мес. Сайт + SEO — по смете.',
-    keywords: [
-      'стоимость сайта Минск',
-      'цена разработки сайта',
-      'стоимость SEO Минск',
-      'цены на сайт Минск',
-    ],
-  },
-  '/ready-sites': {
-    title: 'Готовые сайты в Минске — разработка с нуля, SEO и GEO',
-    description:
-      `Купить готовый сайт APSOD в Минске: индивидуальная разработка с нуля, ребренд, перенос на ваш домен, база SEO и GEO. От ${formatDualPrice(15000, { from: true })}.`,
-    absoluteTitle: true,
-    keywords: [
-      'готовые сайты Минск',
-      'купить готовый сайт',
-      'разработка сайта с нуля',
-      'готовый сайт SEO',
-      'готовый сайт GEO',
-    ],
-  },
   '/portfolio': {
     title: 'Кейсы APSOD — разработка сайтов в Минске',
     description:
@@ -109,20 +83,19 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
     ],
   },
   '/services/web-development': {
-    title: 'Разработка сайтов в Минске — под ключ',
+    title: 'Разработка сайтов в Минске',
     description:
-      'Создание сайта в Минске под ключ: лендинг от 8 000 Б̶, корпоративный от 15 000 Б̶. SEO-база, смета после брифа.',
+      'Создание сайта в Минске: лендинг, корпоративный, магазин. SEO-база, смета после брифа.',
     keywords: [
       'разработка сайтов в Минске',
       'разработка сайтов Минск',
       'создание сайта Минск',
       'заказать сайт Минск',
-      'сайт под ключ Минск',
       'создание сайта',
     ],
   },
   '/services/landing-page': {
-    title: 'Разработка лендинга в Минске — от 8 000 Б̶',
+    title: 'Разработка лендинга в Минске',
     description:
       'Создание landing page в Минске под рекламу и заявки. Формы, WhatsApp, SEO-база. Срок 2–4 недели.',
     keywords: [
@@ -133,30 +106,28 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
     ],
   },
   '/services/corporate-sites': {
-    title: 'Корпоративный сайт в Минске — от 15 000 Б̶',
+    title: 'Корпоративный сайт в Минске',
     description:
-      'Разработка корпоративного сайта в Минске под ключ: услуги, кейсы, CMS, SEO-структура. Смета после брифа.',
+      'Разработка корпоративного сайта в Минске: услуги, кейсы, CMS, SEO-структура. Смета после брифа.',
     keywords: [
       'корпоративный сайт Минск',
       'разработка корпоративного сайта',
       'создание сайта компании Минск',
-      'сайт компании под ключ',
     ],
   },
   '/services/ecommerce': {
     title: 'Разработка интернет-магазина в Минске',
     description:
-      'Интернет-магазин в Минске: каталог, корзина, оплата, доставка, админка и SEO. От 23 000 Б̶.',
+      'Интернет-магазин в Минске: каталог, корзина, оплата, доставка, админка и SEO. Смета после брифа.',
     keywords: [
       'разработка интернет-магазина Минск',
       'создание интернет-магазина Минск',
-      'интернет-магазин под ключ',
     ],
   },
   '/services/ios-apps': {
     title: 'Разработка приложений для iOS в Минске',
     description:
-      'Мобильные приложения для iPhone в Минске: Swift, SwiftUI, React Native. Публикация в App Store. MVP от 12 000 Б̶.',
+      'Мобильные приложения для iPhone в Минске: Swift, SwiftUI, React Native. Публикация в App Store. Смета после Discovery.',
     keywords: [
       'разработка приложений iOS Минск',
       'создание приложения для iPhone',
@@ -166,7 +137,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/services/android-apps': {
     title: 'Разработка приложений для Android в Минске',
     description:
-      'Мобильные приложения для Android в Минске: Kotlin, Jetpack Compose, React Native. Google Play. MVP от 12 000 Б̶.',
+      'Мобильные приложения для Android в Минске: Kotlin, Jetpack Compose, React Native. Google Play. Смета после Discovery.',
     keywords: [
       'разработка приложений Android Минск',
       'создание приложения для Android',
@@ -176,7 +147,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/services/seo': {
     title: 'SEO продвижение сайта в Минске — Яндекс и Google',
     description:
-      'SEO продвижение в Минске: аудит, семантика, техника и контент в Яндексе и Google. Комплекс от 3 000 Б̶/мес. Смета после аудита.',
+      'SEO продвижение в Минске: аудит, семантика, техника и контент в Яндексе и Google. Смета после аудита.',
     keywords: [
       'SEO продвижение Минск',
       'продвижение сайта Минск',
@@ -200,7 +171,7 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
   '/services/mobile-development': {
     title: 'Разработка мобильных приложений в Минске',
     description:
-      'Создание мобильного приложения iOS и Android в Минске. React Native, Flutter. MVP от 12 000 Б̶. Смета после Discovery.',
+      'Создание мобильного приложения iOS и Android в Минске. React Native, Flutter. Смета после Discovery.',
     keywords: [
       'разработка мобильных приложений Минск',
       'создание мобильного приложения Минск',
@@ -295,7 +266,7 @@ export function cityPageSnippet(
     return {
       title: clipTitle('Создание сайтов в Витебске — разработка и продвижение'),
       description: clipDescription(
-        'Создание и разработка сайтов в Витебске: визитка, лендинг, каталог, магазин. Раскрутка SEO в Яндексе и Google. APSOD. Смета от 8 000 Б̶.'
+        'Создание и разработка сайтов в Витебске: визитка, лендинг, каталог, магазин. Раскрутка SEO в Яндексе и Google. APSOD. Смета после брифа.'
       ),
       absoluteTitle: true,
       keywords: [
@@ -316,7 +287,7 @@ export function cityPageSnippet(
     return {
       title: clipTitle('Разработка сайтов в Минске — создание сайта и SEO'),
       description: clipDescription(
-        'Разработка и создание сайтов в Минске: лендинг, корпоративный, магазин. SEO в Яндексе и Google. Офис: ул. Куйбышева, 35. Смета от 8 000 Б̶.'
+        'Разработка и создание сайтов в Минске: лендинг, корпоративный, магазин. SEO в Яндексе и Google. Офис: ул. Куйбышева, 35. Смета после брифа.'
       ),
       absoluteTitle: true,
       keywords: [
@@ -333,7 +304,7 @@ export function cityPageSnippet(
   }
 
   const title = `Разработка и продвижение сайтов ${nameIn}`
-  const description = `Разработка и продвижение сайтов ${nameIn}: лендинг, корпоративный, каталог, магазин. SEO в Яндексе и Google. APSOD — ${region}. Смета от 8 000 Б̶.`
+  const description = `Разработка и продвижение сайтов ${nameIn}: лендинг, корпоративный, каталог, магазин. SEO в Яндексе и Google. APSOD — ${region}. Смета после брифа.`
   return {
     title: clipTitle(title),
     description: clipDescription(description),
@@ -361,28 +332,6 @@ export function portfolioCaseSnippet(
       description || `Кейс APSOD: ${projectTitle}. Задача, решение и результат проекта.`
     ),
     keywords: [projectTitle, 'портфолио APSOD', 'кейс разработки', 'разработка сайтов Минск'],
-  }
-}
-
-/** Сниппет лота готового сайта */
-export function readySiteSnippet(site: {
-  title: string
-  subtitle: string
-  priceLabel: string
-}): PageSnippet {
-  return {
-    title: clipTitle(`${site.title} — разработка с нуля в Минске`),
-    description: clipDescription(
-      `${site.subtitle} Цена ${site.priceLabel}. Купить готовый сайт APSOD в Минске с ребрендом.`
-    ),
-    absoluteTitle: true,
-    keywords: [
-      'купить готовый сайт Минск',
-      'готовый сайт детейлинг',
-      'разработка сайта с нуля',
-      'готовый сайт SEO',
-      'готовый сайт GEO',
-    ],
   }
 }
 

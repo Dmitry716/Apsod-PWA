@@ -34,7 +34,6 @@ export default function HomeLabStatusBar() {
         <span className="apsod-lab-bar__live">System online</span>
       </div>
       <div className="flex items-center gap-3 shrink-0 tabular-nums">
-        <span>Minsk</span>
         <span className="text-slate-800 dark:text-slate-200">{clock}</span>
       </div>
     </div>

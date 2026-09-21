@@ -27,10 +27,10 @@ export default function ServiceSemanticBlocks({ service }: { service: ServiceKey
             Обсудить задачу
           </Link>
           <Link
-            href="/pricing"
+            href="/contact"
             className="px-6 py-3 border border-gray-300 dark:border-gray-600 rounded-lg hover:border-blue-500"
           >
-            Цены
+            Получить смету
           </Link>
           <Link
             href="/services/web-development"

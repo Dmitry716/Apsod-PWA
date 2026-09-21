@@ -59,10 +59,10 @@ export default function HomeLeadStrip() {
             Связаться с нами
           </Link>
           <Link
-            href="/pricing"
+            href="/contact"
             className="inline-flex px-6 py-3 border border-slate-300 dark:border-slate-600 hover:border-slate-900 dark:hover:border-white rounded-md text-sm font-medium text-slate-800 dark:text-slate-100 transition-colors"
           >
-            Стоимость и условия
+            Обсудить задачу
           </Link>
         </Reveal>
       </div>

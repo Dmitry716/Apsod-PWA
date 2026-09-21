@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="1024" height="1024">
+  <rect width="512" height="512" fill="#F7F7F5"/>
+  <g transform="translate(256 248)">
+    <text text-anchor="middle" dominant-baseline="middle" font-family="Arial Black, Arial, Helvetica, sans-serif" font-size="58" font-weight="800" letter-spacing="-2" fill="#050505" y="-8">APSOD</text>
+    <text text-anchor="middle" dominant-baseline="middle" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="600" letter-spacing="1.8" fill="#374151" y="32">WEB &amp; MOBILE DEVELOPMENT</text>
+  </g>
+</svg>

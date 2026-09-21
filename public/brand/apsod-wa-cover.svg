@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="#050505"/>
+  <g transform="translate(160 520)">
+    <text
+      font-family="Arial Black, Arial, Helvetica, sans-serif"
+      font-size="120"
+      font-weight="800"
+      letter-spacing="-4"
+      fill="#FFFFFF"
+      dominant-baseline="alphabetic"
+    >APSOD</text>
+    <text
+      y="72"
+      font-family="Arial, Helvetica, sans-serif"
+      font-size="28"
+      font-weight="600"
+      letter-spacing="6"
+      fill="#E8E8E8"
+      dominant-baseline="alphabetic"
+    >WEB &amp; MOBILE DEVELOPMENT</text>
+  </g>
+</svg>

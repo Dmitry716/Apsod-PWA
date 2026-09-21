@@ -1,13 +1,8 @@
-import { dualPriceLines } from './currency'
-
 export type WebDevPackageId = 'landing' | 'corporate' | 'catalog' | 'shop'
 
 export type WebDevPackage = {
   id: WebDevPackageId
   title: string
-  bynAmount: number
-  byn: string
-  rub: string
   term: string
   goal: string
   budget: string
@@ -18,7 +13,6 @@ export type WebDevPackage = {
 const packageFrom = (
   id: WebDevPackageId,
   title: string,
-  bynAmount: number,
   term: string,
   goal: string,
   budget: string,
@@ -27,8 +21,6 @@ const packageFrom = (
 ): WebDevPackage => ({
   id,
   title,
-  bynAmount,
-  ...dualPriceLines(bynAmount),
   term,
   goal,
   budget,
@@ -36,15 +28,14 @@ const packageFrom = (
   items,
 })
 
-/** Единый прайс веб-разработки — /services/web-development и гео-офферы */
+/** Единые форматы веб-разработки — /services/web-development и гео-офферы */
 export const WEB_DEV_PACKAGES: WebDevPackage[] = [
   packageFrom(
     'landing',
     'Лендинг',
-    8000,
     '2–4 недели',
     'landing',
-    'landing-8k',
+    'landing',
     false,
     [
       'Уникальный дизайн и адаптив',
@@ -56,10 +47,9 @@ export const WEB_DEV_PACKAGES: WebDevPackage[] = [
   packageFrom(
     'corporate',
     'Корпоративный сайт',
-    15000,
     '4–8 недель',
     'corporate',
-    'corporate-15k',
+    'corporate',
     true,
     [
       'До 10–15 страниц под семантику',
@@ -71,10 +61,9 @@ export const WEB_DEV_PACKAGES: WebDevPackage[] = [
   packageFrom(
     'catalog',
     'Каталог товаров / услуг',
-    15000,
     '4–8 недель',
     'corporate',
-    'corporate-15k',
+    'corporate',
     false,
     [
       'Каталог с фильтрами и карточками',
@@ -86,10 +75,9 @@ export const WEB_DEV_PACKAGES: WebDevPackage[] = [
   packageFrom(
     'shop',
     'Интернет-магазин',
-    23000,
     'от 2–3 месяцев',
     'shop',
-    'shop-23k',
+    'shop',
     false,
     [
       'Каталог, корзина, оплата',
@@ -100,7 +88,7 @@ export const WEB_DEV_PACKAGES: WebDevPackage[] = [
   ),
 ]
 
-/** Ориентиры стоимости для сетки на /services/web-development (без отдельной карточки каталога) */
+/** Форматы для сетки на /services/web-development (без отдельной карточки каталога) */
 export const WEB_DEV_FEATURED_PACKAGES = WEB_DEV_PACKAGES.filter(
   (p) => p.id === 'landing' || p.id === 'corporate' || p.id === 'shop'
 )
@@ -108,13 +96,13 @@ export const WEB_DEV_FEATURED_PACKAGES = WEB_DEV_PACKAGES.filter(
 export const WEB_DEV_SITE_TYPES = [
   {
     id: 'landing' as const,
-    title: 'Landing page',
+    title: 'Лендинг',
     body: 'Одностраничный сайт под рекламу и заявки.',
     href: '/services/landing-page',
   },
   {
     id: 'corporate' as const,
-    title: 'Корпоративный',
+    title: 'Корпоративный сайт',
     body: 'Сайт компании: услуги, кейсы, контакты, SEO.',
     href: '/services/corporate-sites',
   },
@@ -122,7 +110,7 @@ export const WEB_DEV_SITE_TYPES = [
     id: 'catalog' as const,
     title: 'Каталог',
     body: 'Витрина товаров или услуг с фильтрами.',
-    href: '/services/web-development#pricing',
+    href: '/services/corporate-sites',
   },
   {
     id: 'shop' as const,

@@ -1,115 +1,80 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import Reveal from './Reveal'
 import { getCasePath, getFeaturedPortfolioProjects } from '../portfolio/data'
+import { useLocale } from '../lib/useLocale'
 
-/** Featured cases as lab panel rows */
+/** Arigo-style featured projects — large media, bold titles */
 export default function HomeFeaturedWork() {
-  const featured = getFeaturedPortfolioProjects()
-  const [hero, ...rest] = featured
-  const projects = rest.slice(0, 3)
+  const { locale } = useLocale()
+  const isEn = locale === 'en'
+  const projects = getFeaturedPortfolioProjects().slice(0, 3)
 
   return (
-    <section className="border-b border-slate-200 dark:border-[var(--border-color)] bg-white dark:bg-[var(--bg-primary)]">
-      <div className="container mx-auto px-4 py-8 md:py-10">
-        <Reveal className="mb-4 flex items-end justify-between gap-4">
-          <div className="apsod-lab-panel__title text-slate-500 dark:text-slate-400">
-            Cases / Featured
+    <section className="bg-black text-white">
+      <div className="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+        <Reveal className="mb-10 flex flex-wrap items-end justify-between gap-6 md:mb-14">
+          <div>
+            <div className="mb-6 flex items-center gap-4">
+              <span className="text-xs font-medium tracking-[0.18em] text-white/45">03</span>
+              <span className="h-px w-16 bg-white/15 sm:w-24" aria-hidden />
+            </div>
+            <h2 className="font-display text-[clamp(1.85rem,4vw,3.25rem)] font-extrabold uppercase leading-[1.05] tracking-[-0.02em]">
+              {isEn ? 'Selected work' : 'Избранные кейсы'}
+            </h2>
           </div>
           <Link
             href="/portfolio"
-            className="apsod-lab-mono text-[11px] tracking-[0.12em] uppercase text-slate-500 hover:text-sky-600 dark:hover:text-sky-300"
+            className="text-xs font-bold uppercase tracking-[0.16em] text-white/70 transition-colors hover:text-white"
           >
-            All projects →
+            {isEn ? 'View all projects' : 'Все проекты'} →
           </Link>
         </Reveal>
 
-        <div className="apsod-lab-panel overflow-hidden">
-          {hero ? (
-            <Reveal>
-              <Link
-                href={getCasePath(hero)}
-                className="apsod-case-row group relative block overflow-hidden bg-slate-950 text-white border-b border-slate-800"
-              >
-                <div className="relative min-h-[min(58svh,520px)] md:min-h-[min(64svh,600px)]">
-                  <Image
-                    src={hero.image}
-                    alt={hero.title}
-                    fill
-                    priority
-                    className="object-cover opacity-90 transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-                    style={{ objectPosition: hero.imageObjectPosition ?? 'center' }}
-                    sizes="100vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-slate-950/10" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-slate-950/75 via-transparent to-transparent" />
-
-                  <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-10 lg:p-12">
-                    <p className="apsod-lab-mono text-[11px] tracking-[0.16em] uppercase text-sky-300/90 mb-3">
-                      01 · {hero.category}
-                    </p>
-                    <h3 className="font-display text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-[-0.04em] mb-3 max-w-3xl leading-[1.02]">
-                      {hero.title}
-                    </h3>
-                    <p className="text-sm md:text-base text-slate-300 max-w-xl leading-relaxed mb-5">
-                      {hero.description}
-                    </p>
-                    <span className="apsod-lab-mono text-[11px] tracking-[0.12em] uppercase text-white inline-flex items-center gap-2">
-                      Open case
-                      <span className="transition-transform duration-500 group-hover:translate-x-1" aria-hidden>
-                        →
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            </Reveal>
-          ) : null}
-
-          {projects.map((project, index) => {
-            const odd = index % 2 === 1
-            return (
-              <Reveal key={project.id}>
+        <div className="space-y-14 md:space-y-20">
+          {projects.map((project, index) => (
+            <Reveal key={project.id} stagger={(Math.min(index, 4) + 1) as 1 | 2 | 3 | 4 | 5}>
+              <article className="group grid items-center gap-8 lg:grid-cols-12 lg:gap-10">
                 <Link
                   href={getCasePath(project)}
-                  className="apsod-case-row group grid lg:grid-cols-12 border-t border-slate-200 dark:border-[var(--border-color)]"
+                  className={`relative block overflow-hidden rounded-[24px] bg-zinc-900 lg:col-span-7 ${
+                    index % 2 === 1 ? 'lg:order-2' : ''
+                  }`}
                 >
-                  <div
-                    className={`lg:col-span-8 relative min-h-[220px] md:min-h-[320px] lg:min-h-[380px] overflow-hidden bg-slate-100 dark:bg-slate-900/80 ${
-                      odd ? 'lg:order-2' : ''
-                    }`}
-                  >
+                  <div className="relative aspect-[16/10]">
                     <Image
                       src={project.image}
                       alt={project.title}
                       fill
-                      className="object-contain object-center p-4 md:p-5 transition-transform duration-[1.1s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
-                      sizes="(max-width: 1024px) 100vw, 66vw"
+                      className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                      sizes="(max-width: 1024px) 100vw, 58vw"
+                      priority={index === 0}
                     />
                   </div>
-
-                  <div
-                    className={`lg:col-span-4 flex flex-col justify-end p-6 md:p-8 lg:p-10 bg-white dark:bg-[var(--bg-primary)] ${
-                      odd ? 'lg:order-1' : ''
-                    }`}
-                  >
-                    <p className="apsod-lab-mono text-[11px] tracking-[0.16em] uppercase text-slate-400 mb-3">
-                      {String(index + 2).padStart(2, '0')} · {project.category}
-                    </p>
-                    <h3 className="font-display text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-[-0.03em] mb-5 group-hover:translate-x-1 transition-transform duration-500">
-                      {project.title}
-                    </h3>
-                    <span className="apsod-lab-mono text-[11px] tracking-[0.12em] uppercase text-slate-900 dark:text-white inline-flex items-center gap-2">
-                      Open
-                      <span className="transition-transform duration-500 group-hover:translate-x-1" aria-hidden>
-                        →
-                      </span>
-                    </span>
-                  </div>
                 </Link>
-              </Reveal>
-            )
-          })}
+
+                <div className={`lg:col-span-5 ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-white/40">
+                    {String(index + 1).padStart(2, '0')} / {project.category}
+                  </p>
+                  <h3 className="font-display mb-5 text-[clamp(1.5rem,2.8vw,2.35rem)] font-extrabold uppercase leading-[1.1] tracking-tight">
+                    <Link href={getCasePath(project)} className="transition-colors hover:text-orange-300">
+                      {project.title}
+                    </Link>
+                  </h3>
+                  <Link
+                    href={getCasePath(project)}
+                    className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-white/70 transition-colors hover:text-white"
+                  >
+                    {isEn ? 'View project' : 'Смотреть кейс'}
+                    <span aria-hidden>→</span>
+                  </Link>
+                </div>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

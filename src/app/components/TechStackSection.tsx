@@ -35,6 +35,7 @@ export default function TechStackSection({
 }: Props) {
   return (
     <section
+      id="tech-stack"
       className={`border-b border-slate-200 dark:border-[var(--border-color)] bg-slate-50 dark:bg-[var(--bg-secondary)] ${className}`}
     >
       <div className="container mx-auto px-4 py-8 md:py-10">

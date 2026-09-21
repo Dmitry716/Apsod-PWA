@@ -4,7 +4,6 @@ import {
   MOBILE_DEVELOPMENT_PROCESS,
   WEB_DEVELOPMENT_PROCESS,
 } from './development-process'
-import { formatDualPrice } from '../../lib/currency'
 import type { ServicePath } from '../../lib/seo'
 import {
   ANDROID_STACK,
@@ -45,7 +44,6 @@ export type ServiceLandingContent = {
   processSubtitle: string
   process: DevelopmentPhase[]
   cases: ServiceLandingCase[]
-  priceNote?: string
 }
 
 export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent>> = {
@@ -104,7 +102,6 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
         image: '/portfolio/oak-and-thread.jpg',
       },
     ],
-    priceNote: `Ориентир: лендинг — ${formatDualPrice(8000)}, корпоративный — ${formatDualPrice(15000)}.`,
   },
 
   ecommerce: {
@@ -174,7 +171,6 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
         image: '/portfolio/brightpath-academy.jpg',
       },
     ],
-    priceNote: `Ориентир интернет-магазина — ${formatDualPrice(23000)}. Точная смета после брифа.`,
   },
 
   'ios-apps': {
@@ -232,7 +228,6 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
         image: '/portfolio/amba.png',
       },
     ],
-    priceNote: `Ориентир MVP — ${formatDualPrice(12000)}. Смета после Discovery.`,
   },
 
   'android-apps': {
@@ -290,7 +285,6 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
         image: '/portfolio/amba.png',
       },
     ],
-    priceNote: `Ориентир MVP — ${formatDualPrice(12000)}. Смета после Discovery.`,
   },
 }
 

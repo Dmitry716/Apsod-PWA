@@ -2,7 +2,6 @@
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
-import { DUAL_CURRENCY_NOTE, formatDualPrice } from '../../lib/currency'
 
 export const metadata = buildServiceMetadata('geo-promotion')
 
@@ -34,7 +33,6 @@ export default function GeoPromotionPage() {
   const tariffs = [
     {
       name: 'Базовый',
-      price: formatDualPrice(2500, { perMonth: true }),
       focus: 'В основном внутренний контур',
       suit: 'Старт подготовки сайта к AI-видимости и регулярный мониторинг.',
       points: [
@@ -48,7 +46,6 @@ export default function GeoPromotionPage() {
     },
     {
       name: 'Стандартный',
-      price: formatDualPrice(4000, { perMonth: true }),
       focus: 'Внутренний контур + расширение внешнего',
       suit: 'Несколько направлений, услуг, регионов или более широкая контентная структура.',
       points: [
@@ -63,7 +60,6 @@ export default function GeoPromotionPage() {
     },
     {
       name: 'Бизнес',
-      price: formatDualPrice(6500, { perMonth: true }),
       focus: 'Внутренний + внешний контур',
       suit: 'Когда AI-видимость зависит от публикаций, карточек, каталогов и рейтингов.',
       points: [
@@ -294,7 +290,7 @@ export default function GeoPromotionPage() {
             Три уровня регулярной работы. Точная смета — после брифа и аудита.
           </p>
           <p className="text-center text-sm text-gray-500 dark:text-gray-400 mb-12">
-            {DUAL_CURRENCY_NOTE}
+            Смета после брифа и стартового аудита.
           </p>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {tariffs.map((t) => (
@@ -302,10 +298,7 @@ export default function GeoPromotionPage() {
                 key={t.name}
                 className="flex flex-col rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-7 shadow-sm"
               >
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{t.name}</h3>
-                <p className="text-lg font-bold text-blue-700 dark:text-blue-400 leading-snug mt-2 mb-3">
-                  {t.price}
-                </p>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{t.name}</h3>
                 <p className="text-sm font-semibold text-gray-800 dark:text-gray-200 mb-1">
                   Фокус: {t.focus}
                 </p>
@@ -393,9 +386,7 @@ export default function GeoPromotionPage() {
             <div className="rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6">
               <h3 className="font-bold text-gray-900 dark:text-white mb-2">GEO-аудит отдельно</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                Срез текущей AI-видимости, конкуренты и карта проблем — без регулярного ведения.
-                {' '}
-                {formatDualPrice(1200)}.
+                Срез текущей AI-видимости, конкуренты и карта проблем — без регулярного ведения. Смета после брифа.
               </p>
               <Link href="/contact" className="text-blue-700 dark:text-blue-400 text-sm font-medium hover:underline">
                 Заказать аудит →

@@ -16,8 +16,52 @@ const dictionary = {
     'footer.cookie': 'Обработка cookie',
     'footer.terms': 'Пользовательское соглашение',
     'footer.copy': 'Все права защищены.',
+    'footer.countryBy': 'Беларусь',
+    'footer.contactCta': 'Связаться с нами',
     'language.ru': 'Русский',
     'language.en': 'English',
+
+    'common.moreDetails': 'Подробнее',
+    'common.viewAll': 'Смотреть все',
+    'common.popular': 'Популярный',
+    'common.allDirections': 'Все направления',
+    'nav.cases': 'Кейсы',
+
+    // Home sections
+    'home.portfolio.eyebrow': 'Наше портфолио',
+    'home.portfolio.titleLead': 'Кейсы',
+    'home.portfolio.titleAccent': '',
+    'home.portfolio.viewAll': 'Все кейсы',
+    'home.journal.eyebrow': 'Блог и статьи',
+    'home.journal.titleLead': 'Читайте наш',
+    'home.journal.titleAccent': 'журнал',
+    'home.journal.viewMore': 'Больше статей',
+    'home.cta.title': 'Обсудим ваш проект',
+    'home.cta.pipeline': 'Бриф → Архитектура → Разработка → Рост',
+    'home.cta.button': 'Начать проект',
+    'home.faq.title': 'Вопросы',
+    'home.faq.link.dev': 'Разработка сайтов',
+    'home.faq.link.pricing': 'Обсудить задачу',
+    'home.faq.link.seo': 'SEO',
+    'home.faq.link.contact': 'Связаться',
+
+    // Services index
+    'services.hero.title': 'Услуги',
+    'services.hero.crumb': 'Услуги',
+    'services.hero.note': 'Полный цикл: продукт, поиск, нейросети и сопровождение роста.',
+    'services.pricing.eyebrow': 'Форматы',
+    'services.pricing.titleLead': 'Форматы под',
+    'services.pricing.titleAccent': 'вашу задачу',
+    'services.pricing.fullPrice': 'Обсудить задачу →',
+    'services.pricing.note':
+      'Точная смета — после короткого брифа, обычно за 1 рабочий день.',
+    'services.cta.title': 'Не нашли нужный формат?',
+    'services.cta.text': 'Опишите задачу — предложим контур: сайт, магазин, приложение, SEO или GEO. Ответ обычно в тот же день.',
+    'services.cta.button': 'Написать нам',
+    'services.order': 'Заказать',
+    'services.tech.title': 'Технологии в delivery',
+    'services.tech.subtitle':
+      'Подбираем технологии под задачу: от современных JS-фреймворков до ASP.NET Core и мобильных платформ.',
 
     // Portfolio
     'portfolio.title': 'Наши проекты',
@@ -57,6 +101,7 @@ const dictionary = {
     // Blog post
     'blog.breadcrumb.home': 'Главная',
     'blog.breadcrumb.blog': 'Блог',
+    'common.home': 'Главная',
     'blog.backToBlog': 'Назад к блогу',
     'blog.relatedTitle': 'Похожие статьи',
 
@@ -105,8 +150,52 @@ const dictionary = {
     'footer.cookie': 'Cookie Processing',
     'footer.terms': 'Terms of Use',
     'footer.copy': 'All rights reserved.',
+    'footer.countryBy': 'Belarus',
+    'footer.contactCta': 'Contact us',
     'language.ru': 'Russian',
     'language.en': 'English',
+
+    'common.moreDetails': 'More details',
+    'common.viewAll': 'View all',
+    'common.popular': 'Popular',
+    'common.allDirections': 'All directions',
+    'nav.cases': 'Cases',
+
+    // Home sections
+    'home.portfolio.eyebrow': 'Our portfolio',
+    'home.portfolio.titleLead': 'Cases',
+    'home.portfolio.titleAccent': '',
+    'home.portfolio.viewAll': 'All cases',
+    'home.journal.eyebrow': 'Blog & article',
+    'home.journal.titleLead': 'Read our',
+    'home.journal.titleAccent': 'journal',
+    'home.journal.viewMore': 'View more articles',
+    'home.cta.title': 'Let’s discuss your project',
+    'home.cta.pipeline': 'Brief → Architecture → Build → Growth',
+    'home.cta.button': 'Start a project',
+    'home.faq.title': 'FAQ',
+    'home.faq.link.dev': 'Web development',
+    'home.faq.link.pricing': 'Discuss your brief',
+    'home.faq.link.seo': 'SEO',
+    'home.faq.link.contact': 'Contact',
+
+    // Services index
+    'services.hero.title': 'Services',
+    'services.hero.crumb': 'Services',
+    'services.hero.note': 'Full cycle: product, search, AI visibility and growth support.',
+    'services.pricing.eyebrow': 'Formats',
+    'services.pricing.titleLead': 'Formats for',
+    'services.pricing.titleAccent': 'your brief',
+    'services.pricing.fullPrice': 'Discuss your brief →',
+    'services.pricing.note':
+      'Final quote after a short brief — usually within one business day.',
+    'services.cta.title': 'Need a custom format?',
+    'services.cta.text': 'Describe the brief — we’ll propose a path: site, store, app, SEO or GEO. Usually same-day reply.',
+    'services.cta.button': 'Write to us',
+    'services.order': 'Order',
+    'services.tech.title': 'Delivery stack',
+    'services.tech.subtitle':
+      'We pick the stack for the job — from modern JS frameworks to ASP.NET Core and mobile platforms.',
 
     // Portfolio
     'portfolio.title': 'Our projects',
@@ -146,6 +235,7 @@ const dictionary = {
     // Blog post
     'blog.breadcrumb.home': 'Home',
     'blog.breadcrumb.blog': 'Blog',
+    'common.home': 'Home',
     'blog.backToBlog': 'Back to blog',
     'blog.relatedTitle': 'Related articles',
 

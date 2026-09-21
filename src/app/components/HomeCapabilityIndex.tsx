@@ -48,7 +48,7 @@ export default function HomeCapabilityIndex() {
                     <span className="apsod-lab-mono text-[11px] text-sky-600/80 dark:text-sky-400/80 w-16 shrink-0 hidden sm:block">
                       /{item.cmd}
                     </span>
-                    <span className="font-display text-lg md:text-2xl font-extrabold text-slate-900 dark:text-white tracking-[-0.03em] flex-1 min-w-0 group-hover:translate-x-1 transition-transform duration-400">
+                    <span className="font-display text-lg md:text-2xl font-bold text-slate-900 dark:text-white tracking-normal flex-1 min-w-0 group-hover:translate-x-1 transition-transform duration-400">
                       {item.title}
                     </span>
                     <span

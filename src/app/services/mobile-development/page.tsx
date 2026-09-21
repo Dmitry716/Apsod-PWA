@@ -1,10 +1,9 @@
-﻿import Link from 'next/link'
+import Link from 'next/link'
 import DeviceMockup from '../../components/DeviceMockup'
 import Reveal from '../../components/Reveal'
 import SectionAtmosphere from '../../components/SectionAtmosphere'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
-import { DUAL_CURRENCY_NOTE } from '../../lib/currency'
 import { MOBILE_APP_PACKAGES } from '../../lib/mobile-app-packages'
 import { COMPANY_AREA_SERVED, SITE_URL, buildServiceMetadata } from '../../lib/seo'
 
@@ -61,10 +60,16 @@ export default function MobileDevelopmentPage() {
             </p>
             <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3">
               <Link
-                href="/services/ios-apps"
+                href="#directions"
                 className="apsod-btn-solid apsod-cta-primary px-7 py-3.5 rounded-md text-sm font-semibold"
               >
-                <span>iOS</span>
+                <span>Направления</span>
+              </Link>
+              <Link
+                href="/services/ios-apps"
+                className="px-7 py-3.5 rounded-md text-sm font-semibold border border-white/30 text-white hover:border-white transition-colors"
+              >
+                iOS
               </Link>
               <Link
                 href="/services/android-apps"
@@ -83,12 +88,15 @@ export default function MobileDevelopmentPage() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 border-b border-slate-200 dark:border-slate-800">
+      <section id="directions" className="scroll-mt-24 py-16 md:py-24 border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">
           <Reveal className="mb-12 md:mb-16">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
-              Платформы
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+              Направления мобильной разработки
             </h2>
+            <p className="text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
+              Выберите платформу — на отдельной странице детали по стеку, срокам и публикации в сторе.
+            </p>
           </Reveal>
 
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-14">
@@ -126,12 +134,11 @@ export default function MobileDevelopmentPage() {
         <div className="container mx-auto px-4">
           <Reveal className="mb-4 max-w-2xl">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-              Ориентиры стоимости
+              Форматы разработки
             </h2>
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-              Точная смета — после Discovery. Цифры ниже помогают сориентироваться по объёму.
+              Точная смета — после Discovery, обычно за 1–2 рабочих дня.
             </p>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">{DUAL_CURRENCY_NOTE}</p>
           </Reveal>
 
           <div className="mt-10 grid md:grid-cols-3 gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 overflow-hidden">
@@ -153,8 +160,6 @@ export default function MobileDevelopmentPage() {
                 <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
                   {pkg.title}
                 </h3>
-                <p className="font-display text-2xl font-bold text-slate-900 dark:text-white">{pkg.byn}</p>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">{pkg.rub}</p>
                 <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Срок: {pkg.term}</p>
                 <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300 mb-8 flex-1">
                   {pkg.items.map((item) => (

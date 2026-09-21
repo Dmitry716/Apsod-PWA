@@ -33,7 +33,7 @@ const nextConfig = {
   
   // Экспериментальные функции
   experimental: {
-    optimizeCss: true, // Оптимизация CSS
+    // optimizeCss needs `critters`; leave off until that dep is installed
     optimizeServerReact: true,
   },
 
