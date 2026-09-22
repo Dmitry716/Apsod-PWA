@@ -86,14 +86,6 @@ export default async function PortfolioSlugPage({ params }: Props) {
     year: project.year,
   });
 
-  const titleParts = project.title.split(/\s+/);
-  const titleLead = titleParts
-    .slice(0, Math.max(1, Math.ceil(titleParts.length / 2)))
-    .join(" ");
-  const titleRest = titleParts
-    .slice(Math.max(1, Math.ceil(titleParts.length / 2)))
-    .join(" ");
-
   const mediaBg =
     project.imageFit === "contain"
       ? "bg-[#050a1f]"
@@ -107,33 +99,41 @@ export default async function PortfolioSlugPage({ params }: Props) {
 
       <section className="pb-16 pt-14 md:pb-24 md:pt-20">
         <div className="container mx-auto px-4">
-          {/* Top: image + title / meta */}
-          <div className="mb-14 grid items-center gap-10 lg:mb-16 lg:grid-cols-12 lg:gap-12">
-            <div className="lg:col-span-5">
+          {/* ─── Top: фото слева + мета справа ─── */}
+          <div className="mb-14 grid items-center gap-10 lg:mb-16 lg:grid-cols-12 lg:gap-14">
+            {/* Фото — слева, минимальное скругление, затемнение по периметру */}
+            <div className="relative lg:col-span-6">
               <div
-                className={`relative min-w-0 overflow-hidden rounded-2xl aspect-[4/5] sm:aspect-[5/6] ${mediaBg}`}
+                className={`relative min-w-0 overflow-hidden rounded-sm ${mediaBg}`}
               >
                 <Image
                   src={project.image}
                   alt={project.title}
-                  fill
+                  width={1200}
+                  height={800}
                   priority
-                  className={`object-top ${
-                    project.imageFit === "contain"
-                      ? "object-contain"
-                      : "object-cover"
-                  }`}
-                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="h-auto w-full object-contain"
+                />
+
+                {/* Плавное размытие справа — только на десктопе, мягче на светлой теме */}
+                <div
+                  className="pointer-events-none absolute inset-y-0 right-0 hidden w-16 bg-gradient-to-l from-white/55 via-white/25 to-transparent lg:block dark:from-gray-950/75 dark:via-gray-950/35"
+                  aria-hidden
+                />
+
+                {/* Затемнение по периметру (виньетка) — IT-стиль, обе темы */}
+                <div
+                  className="apsod-photo-vignette pointer-events-none absolute inset-0 rounded-sm"
+                  aria-hidden
                 />
               </div>
             </div>
 
-            <div className="lg:col-span-7">
-              <h1 className="font-display mb-10 text-[clamp(1.85rem,4.5vw,3.25rem)] font-bold leading-[1.1] tracking-tight text-slate-300 dark:text-slate-600">
-                <span className="text-slate-900 dark:text-white">
-                  {titleLead}
-                </span>
-                {titleRest ? <> {titleRest}</> : null}
+            {/* Мета — справа */}
+            <div className="lg:col-span-6 lg:pl-6 xl:pl-10">
+              <h1 className="font-display mb-10 text-balance text-[clamp(1.75rem,4vw,3rem)] font-extrabold uppercase leading-[1.08] tracking-[-0.015em] text-slate-900 dark:text-white">
+                {project.title}
               </h1>
 
               <ul className="space-y-4 text-base text-slate-600 dark:text-slate-300">
@@ -193,11 +193,10 @@ export default async function PortfolioSlugPage({ params }: Props) {
             </div>
           </div>
 
-          {/* Case study body — Nerox text + gallery rhythm */}
+          {/* ─── Текст кейса ─── */}
           <div className="mx-auto max-w-4xl">
-            <h2 className="font-display mb-8 text-[clamp(1.5rem,3vw,2.25rem)] font-bold tracking-tight text-slate-300 dark:text-slate-600">
-              <span className="text-slate-900 dark:text-white">О проекте</span>{" "}
-              — кейс
+            <h2 className="font-display mb-8 text-[clamp(1.5rem,3vw,2.25rem)] font-bold tracking-tight text-slate-900 dark:text-white">
+              О проекте — кейс
             </h2>
 
             <div className="space-y-6 text-base leading-relaxed text-slate-600 dark:text-slate-300 md:text-[17px]">
@@ -217,50 +216,30 @@ export default async function PortfolioSlugPage({ params }: Props) {
               ))}
             </div>
 
-            {/* Mid gallery — first two page screens */}
+            {/* Галерея — первые 2 скрина */}
             {pairGallery.length > 0 ? (
               <div className="mt-12 grid gap-5 md:mt-14 md:grid-cols-2 md:gap-7">
                 {pairGallery.map((src, index) => (
                   <div
                     key={src}
-                    className={`relative min-w-0 overflow-hidden rounded-2xl aspect-[16/11] border border-slate-200 dark:border-slate-800 ${mediaBg}`}
+                    className={`relative min-w-0 overflow-hidden rounded-sm border border-slate-200 dark:border-slate-800 ${mediaBg}`}
                   >
                     <Image
                       src={src}
                       alt={`${project.title} — страница ${index + 1}`}
-                      fill
-                      className="object-cover object-top"
+                      width={1200}
+                      height={800}
+                      className="h-auto w-full object-contain"
                       sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div
+                      className="apsod-photo-vignette pointer-events-none absolute inset-0 rounded-sm"
+                      aria-hidden
                     />
                   </div>
                 ))}
               </div>
-            ) : (
-              <div className="mt-12 grid gap-5 md:mt-14 md:grid-cols-2 md:gap-7">
-                <div
-                  className={`relative min-w-0 overflow-hidden rounded-2xl aspect-[16/11] border border-slate-200 dark:border-slate-800 ${mediaBg}`}
-                >
-                  <Image
-                    src={project.image}
-                    alt={`${project.title} — экран`}
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-                <div
-                  className={`relative min-w-0 overflow-hidden rounded-2xl aspect-[16/11] border border-slate-200 dark:border-slate-800 ${mediaBg}`}
-                >
-                  <Image
-                    src={project.imageMobile ?? project.image}
-                    alt={`${project.title} — детали`}
-                    fill
-                    className="object-cover object-top"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-              </div>
-            )}
+            ) : null}
 
             {afterGalleryParagraphs.length > 0 ? (
               <div className="mt-12 space-y-6 text-base leading-relaxed text-slate-600 dark:text-slate-300 md:mt-14 md:text-[17px]">
@@ -270,7 +249,7 @@ export default async function PortfolioSlugPage({ params }: Props) {
               </div>
             ) : null}
 
-            {/* Extra page screens at the bottom */}
+            {/* Остальные скрины */}
             {moreGallery.length > 0 ? (
               <div className="mt-12 md:mt-16">
                 <h3 className="font-display mb-6 text-xl font-bold tracking-tight text-slate-900 dark:text-white md:mb-8">
@@ -280,14 +259,19 @@ export default async function PortfolioSlugPage({ params }: Props) {
                   {moreGallery.map((src, index) => (
                     <div
                       key={src}
-                      className={`relative min-w-0 overflow-hidden rounded-2xl aspect-[16/10] border border-slate-200 dark:border-slate-800 ${mediaBg}`}
+                      className={`relative min-w-0 overflow-hidden rounded-sm border border-slate-200 dark:border-slate-800 ${mediaBg}`}
                     >
                       <Image
                         src={src}
                         alt={`${project.title} — экран ${index + 3}`}
-                        fill
-                        className="object-cover object-top"
+                        width={1200}
+                        height={800}
+                        className="h-auto w-full object-contain"
                         sizes="(max-width: 640px) 100vw, 50vw"
+                      />
+                      <div
+                        className="apsod-photo-vignette pointer-events-none absolute inset-0 rounded-sm"
+                        aria-hidden
                       />
                     </div>
                   ))}
@@ -295,6 +279,7 @@ export default async function PortfolioSlugPage({ params }: Props) {
               </div>
             ) : null}
 
+            {/* Результаты */}
             <div className="mt-12 md:mt-14">
               <h3 className="font-display mb-5 text-xl font-bold tracking-tight text-slate-900 dark:text-white">
                 Результат
@@ -315,6 +300,7 @@ export default async function PortfolioSlugPage({ params }: Props) {
               </ul>
             </div>
 
+            {/* CTA */}
             <div className="mt-12 flex flex-wrap gap-3 border-t border-slate-200 pt-10 dark:border-slate-800">
               <Link
                 href={`/contact?goal=${project.type === "mobile" ? "mobile" : "web"}&ref=${project.slug}`}
@@ -330,6 +316,7 @@ export default async function PortfolioSlugPage({ params }: Props) {
               </Link>
             </div>
 
+            {/* Навигация */}
             <nav
               className="mt-14 flex items-center justify-between gap-4 border-t border-slate-200 pt-8 dark:border-slate-800 md:mt-16"
               aria-label="Соседние кейсы"
