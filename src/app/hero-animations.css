@@ -228,3 +228,159 @@
 .hero-section .animation-delay-500 {
   animation-delay: 500ms;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   HERO PHOTOS — 3 фото справа, бесконечное плавание
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes apsodPhotoFloat1 {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-18px) translateX(-6px);
+  }
+}
+
+@keyframes apsodPhotoFloat2 {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(22px) translateX(8px);
+  }
+}
+
+@keyframes apsodPhotoFloat3 {
+  0%,
+  100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-14px) translateX(10px);
+  }
+}
+
+.apsod-photo-float-1 {
+  animation: apsodPhotoFloat1 9s ease-in-out infinite;
+}
+
+.apsod-photo-float-2 {
+  animation: apsodPhotoFloat2 11s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+.apsod-photo-float-3 {
+  animation: apsodPhotoFloat3 13s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SPINNING STAR — звёздочка вращается бесконечно
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes apsodStarSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.apsod-star-spin {
+  display: inline-flex;
+  animation: apsodStarSpin 22s linear infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* На мобилке — медленнее и меньше */
+@media (max-width: 768px) {
+  .apsod-star-spin {
+    animation-duration: 30s;
+  }
+}
+
+/* Уважение к prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .apsod-photo-float-1,
+  .apsod-photo-float-2,
+  .apsod-photo-float-3,
+  .apsod-star-spin {
+    animation: none;
+  }
+}
+
+/* Убираем фон/рамку у окна кода в hero — оставляем только текст */
+.apsod-hero-code-bare > * {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE HERO PHOTO STRIP — горизонтальная лента с автопрокруткой
+   ═══════════════════════════════════════════════════════════ */
+
+.apsod-mobile-photo-strip::-webkit-scrollbar {
+  display: none;
+}
+.apsod-mobile-photo-strip {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+.apsod-mobile-photo-strip > * {
+  scroll-snap-align: center;
+}
+
+/* Заголовок на мобилке чуть плотнее */
+@media (max-width: 640px) {
+  .apsod-bleed-hero h1 {
+    letter-spacing: -0.04em;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PREFERS-REDUCED-MOTION — отключаем всё движение
+   ═══════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .apsod-star-spin,
+  .apsod-photo-float-1,
+  .apsod-photo-float-2,
+  .apsod-photo-float-3 {
+    animation: none !important;
+  }
+
+  .apsod-hero-enter,
+  .apsod-hero-enter-delay-1,
+  .apsod-hero-enter-delay-2,
+  .apsod-hero-enter-delay-3 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .apsod-mobile-photo-strip {
+    scroll-behavior: auto;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO CODE — на мобилке видно, но не перекрывает
+   ═══════════════════════════════════════════════════════════ */
+
+/* На мобилке код занимает всю ширину и не мешает тексту */
+@media (max-width: 1023px) {
+  .apsod-hero-code-bare {
+    font-size: 11px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+}
