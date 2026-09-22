@@ -1,7 +1,7 @@
-import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
-import Link from 'next/link'
-import Image from 'next/image'
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
 import {
   getAdjacentPortfolioProjects,
   getAllPortfolioSlugs,
@@ -9,27 +9,27 @@ import {
   getProjectBySlug,
   isIndexedPortfolioCase,
   type PortfolioProject,
-} from '../data'
-import SeoJsonLd from '../../components/SeoJsonLd'
-import AgencyPageHero from '../../components/AgencyPageHero'
+} from "../data";
+import SeoJsonLd from "../../components/SeoJsonLd";
+import AgencyPageHero from "../../components/AgencyPageHero";
 import {
   buildPageMetadata,
   generateBreadcrumbSchema,
   generateCreativeWorkSchema,
-} from '../../lib/seo'
-import { portfolioCaseSnippet } from '../../lib/page-snippets'
+} from "../../lib/seo";
+import { portfolioCaseSnippet } from "../../lib/page-snippets";
 
-type Props = { params: Promise<{ slug: string }> }
+type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  return getAllPortfolioSlugs().map((slug) => ({ slug }))
+  return getAllPortfolioSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
-  const project = getProjectBySlug(slug)
-  if (!project) return { title: 'Проект не найден' }
-  const snippet = portfolioCaseSnippet(project.title, project.description)
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
+  if (!project) return { title: "Проект не найден" };
+  const snippet = portfolioCaseSnippet(project.title, project.description);
   return buildPageMetadata({
     title: snippet.title,
     description: snippet.description,
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     keywords: [...(snippet.keywords ?? []), ...project.tags, project.category],
     images: [project.image],
     noIndex: !isIndexedPortfolioCase(project),
-  })
+  });
 }
 
 function buildCaseParagraphs(project: PortfolioProject): string[] {
@@ -45,37 +45,38 @@ function buildCaseParagraphs(project: PortfolioProject): string[] {
     project.description,
     `Задача. ${project.challenge}`,
     `Решение. ${project.solution}`,
-  ]
+  ];
   const extra = project.detailParagraphs ?? [
-    `Стек проекта: ${project.tags.join(', ')}. Формат — ${
-      project.type === 'mobile' ? 'мобильный продукт' : 'веб-продукт'
+    `Стек проекта: ${project.tags.join(", ")}. Формат — ${
+      project.type === "mobile" ? "мобильный продукт" : "веб-продукт"
     } для ${project.location}, с фокусом на понятный путь пользователя и дальнейшее развитие.`,
     project.results.length
-      ? `После запуска зафиксировали: ${project.results.join('; ')}.`
+      ? `После запуска зафиксировали: ${project.results.join("; ")}.`
       : `Проект рассчитан на сопровождение: контент, метрики и итерации после релиза.`,
-  ]
-  return [...lead, ...extra]
+  ];
+  return [...lead, ...extra];
 }
 
 export default async function PortfolioSlugPage({ params }: Props) {
-  const { slug } = await params
-  const project = getProjectBySlug(slug)
-  if (!project) notFound()
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
+  if (!project) notFound();
 
-  const { prev, next } = getAdjacentPortfolioProjects(slug)
-  const typeLabel = project.type === 'mobile' ? 'Мобильное приложение' : 'Веб-сайт'
-  const paragraphs = buildCaseParagraphs(project)
-  const introParagraphs = paragraphs.slice(0, 4)
-  const afterGalleryParagraphs = paragraphs.slice(4)
-  const gallery = (project.gallery ?? []).filter(Boolean)
-  const pairGallery = gallery.slice(0, 2)
-  const moreGallery = gallery.slice(2)
+  const { prev, next } = getAdjacentPortfolioProjects(slug);
+  const typeLabel =
+    project.type === "mobile" ? "Мобильное приложение" : "Веб-сайт";
+  const paragraphs = buildCaseParagraphs(project);
+  const introParagraphs = paragraphs.slice(0, 4);
+  const afterGalleryParagraphs = paragraphs.slice(4);
+  const gallery = (project.gallery ?? []).filter(Boolean);
+  const pairGallery = gallery.slice(0, 2);
+  const moreGallery = gallery.slice(2);
 
   const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Главная', path: '/' },
-    { name: 'Портфолио', path: '/portfolio' },
+    { name: "Главная", path: "/" },
+    { name: "Портфолио", path: "/portfolio" },
     { name: project.title, path: `/portfolio/${slug}` },
-  ])
+  ]);
   const workSchema = generateCreativeWorkSchema({
     title: project.title,
     description: project.description,
@@ -83,14 +84,20 @@ export default async function PortfolioSlugPage({ params }: Props) {
     image: project.image,
     location: project.location,
     year: project.year,
-  })
+  });
 
-  const titleParts = project.title.split(/\s+/)
-  const titleLead = titleParts.slice(0, Math.max(1, Math.ceil(titleParts.length / 2))).join(' ')
-  const titleRest = titleParts.slice(Math.max(1, Math.ceil(titleParts.length / 2))).join(' ')
+  const titleParts = project.title.split(/\s+/);
+  const titleLead = titleParts
+    .slice(0, Math.max(1, Math.ceil(titleParts.length / 2)))
+    .join(" ");
+  const titleRest = titleParts
+    .slice(Math.max(1, Math.ceil(titleParts.length / 2)))
+    .join(" ");
 
   const mediaBg =
-    project.imageFit === 'contain' ? 'bg-[#050a1f]' : 'bg-slate-100 dark:bg-slate-900'
+    project.imageFit === "contain"
+      ? "bg-[#050a1f]"
+      : "bg-slate-100 dark:bg-slate-900";
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
@@ -112,7 +119,9 @@ export default async function PortfolioSlugPage({ params }: Props) {
                   fill
                   priority
                   className={`object-top ${
-                    project.imageFit === 'contain' ? 'object-contain' : 'object-cover'
+                    project.imageFit === "contain"
+                      ? "object-contain"
+                      : "object-cover"
                   }`}
                   sizes="(max-width: 1024px) 100vw, 42vw"
                 />
@@ -121,30 +130,42 @@ export default async function PortfolioSlugPage({ params }: Props) {
 
             <div className="lg:col-span-7">
               <h1 className="font-display mb-10 text-[clamp(1.85rem,4.5vw,3.25rem)] font-bold leading-[1.1] tracking-tight text-slate-300 dark:text-slate-600">
-                <span className="text-slate-900 dark:text-white">{titleLead}</span>
+                <span className="text-slate-900 dark:text-white">
+                  {titleLead}
+                </span>
                 {titleRest ? <> {titleRest}</> : null}
               </h1>
 
               <ul className="space-y-4 text-base text-slate-600 dark:text-slate-300">
                 <li className="flex flex-wrap gap-x-2">
-                  <span className="text-slate-500 dark:text-slate-400">Клиент:</span>
+                  <span className="text-slate-500 dark:text-slate-400">
+                    Клиент:
+                  </span>
                   <span className="font-medium text-slate-900 dark:text-white">
                     {project.title}
                     {project.location ? ` (${project.location})` : null}
                   </span>
                 </li>
                 <li className="flex flex-wrap gap-x-2">
-                  <span className="text-slate-500 dark:text-slate-400">Год:</span>
-                  <span className="font-medium text-slate-900 dark:text-white">{project.year}</span>
+                  <span className="text-slate-500 dark:text-slate-400">
+                    Год:
+                  </span>
+                  <span className="font-medium text-slate-900 dark:text-white">
+                    {project.year}
+                  </span>
                 </li>
                 <li className="flex flex-wrap gap-x-2">
-                  <span className="text-slate-500 dark:text-slate-400">Категория:</span>
+                  <span className="text-slate-500 dark:text-slate-400">
+                    Категория:
+                  </span>
                   <span className="font-medium text-slate-900 dark:text-white">
                     {project.category} · {typeLabel}
                   </span>
                 </li>
                 <li className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                  <span className="text-slate-500 dark:text-slate-400">Стек:</span>
+                  <span className="text-slate-500 dark:text-slate-400">
+                    Стек:
+                  </span>
                   <span className="flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
                       <span
@@ -175,18 +196,19 @@ export default async function PortfolioSlugPage({ params }: Props) {
           {/* Case study body — Nerox text + gallery rhythm */}
           <div className="mx-auto max-w-4xl">
             <h2 className="font-display mb-8 text-[clamp(1.5rem,3vw,2.25rem)] font-bold tracking-tight text-slate-300 dark:text-slate-600">
-              <span className="text-slate-900 dark:text-white">О проекте</span> — кейс
+              <span className="text-slate-900 dark:text-white">О проекте</span>{" "}
+              — кейс
             </h2>
 
             <div className="space-y-6 text-base leading-relaxed text-slate-600 dark:text-slate-300 md:text-[17px]">
               {introParagraphs.map((text) => (
                 <p key={text.slice(0, 48)}>
-                  {text.startsWith('Задача.') || text.startsWith('Решение.') ? (
+                  {text.startsWith("Задача.") || text.startsWith("Решение.") ? (
                     <>
                       <strong className="font-semibold text-slate-900 dark:text-white">
-                        {text.slice(0, text.indexOf('.') + 1)}{' '}
+                        {text.slice(0, text.indexOf(".") + 1)}{" "}
                       </strong>
-                      {text.slice(text.indexOf('.') + 1).trim()}
+                      {text.slice(text.indexOf(".") + 1).trim()}
                     </>
                   ) : (
                     text
@@ -295,7 +317,7 @@ export default async function PortfolioSlugPage({ params }: Props) {
 
             <div className="mt-12 flex flex-wrap gap-3 border-t border-slate-200 pt-10 dark:border-slate-800">
               <Link
-                href={`/contact?goal=${project.type === 'mobile' ? 'mobile' : 'web'}&ref=${project.slug}`}
+                href={`/contact?goal=${project.type === "mobile" ? "mobile" : "web"}&ref=${project.slug}`}
                 className="apsod-btn-solid inline-flex rounded-md px-6 py-3 text-sm font-semibold transition-colors"
               >
                 Обсудить похожий проект
@@ -317,8 +339,20 @@ export default async function PortfolioSlugPage({ params }: Props) {
                   href={getCasePath(prev)}
                   className="group inline-flex max-w-[45%] items-center gap-2 text-sm font-semibold text-slate-700 transition-colors hover:text-[var(--apsod-accent)] dark:text-slate-200"
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                    <path d="M19 12H5M12 19l-7-7 7-7" strokeLinecap="round" strokeLinejoin="round" />
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden
+                  >
+                    <path
+                      d="M19 12H5M12 19l-7-7 7-7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                   <span className="truncate">
                     <span className="block text-[11px] font-medium uppercase tracking-[0.14em] text-slate-400 group-hover:text-[var(--apsod-accent)]">
@@ -342,8 +376,20 @@ export default async function PortfolioSlugPage({ params }: Props) {
                     </span>
                     {next.title}
                   </span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                    <path d="M5 12h14M13 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    aria-hidden
+                  >
+                    <path
+                      d="M5 12h14M13 5l7 7-7 7"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </Link>
               ) : (
@@ -354,5 +400,5 @@ export default async function PortfolioSlugPage({ params }: Props) {
         </div>
       </section>
     </div>
-  )
+  );
 }

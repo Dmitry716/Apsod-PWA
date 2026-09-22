@@ -65,7 +65,7 @@ const dictionary = {
 
     // Portfolio
     'portfolio.title': 'Наши проекты',
-    'portfolio.subtitle': 'Избранные проекты; расширенный архив — на консультации',
+    'portfolio.subtitle': 'Каждый проект — решённая задача бизнеса. Смотрите, как это работает',
     'portfolio.filters.all': 'Все проекты',
     'portfolio.filters.web': 'Веб-сайты',
     'portfolio.filters.mobile': 'Мобильные приложения',
@@ -199,7 +199,7 @@ const dictionary = {
 
     // Portfolio
     'portfolio.title': 'Our projects',
-    'portfolio.subtitle': 'Selected projects; full archive on consultation',
+    'portfolio.subtitle': 'Every project is a solved business challenge. See how it works',
     'portfolio.filters.all': 'All projects',
     'portfolio.filters.web': 'Web sites',
     'portfolio.filters.mobile': 'Mobile apps',
