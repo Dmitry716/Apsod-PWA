@@ -1,0 +1,186 @@
+/* ═══════════════════════════════════════════════════════════
+   ABOUT — плавное появление текста
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes apsodTextIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.apsod-reveal {
+  animation: apsodTextIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.apsod-reveal:nth-child(1) { animation-delay: 0.05s; }
+.apsod-reveal:nth-child(2) { animation-delay: 0.15s; }
+.apsod-reveal:nth-child(3) { animation-delay: 0.25s; }
+.apsod-reveal:nth-child(4) { animation-delay: 0.35s; }
+
+/* ═══════════════════════════════════════════════════════════
+   ABOUT — 6 карточек слетаются
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes apsodSlideTL {
+  from { opacity: 0; transform: translate(-100vw, -50vh) scale(0.6); }
+  to   { opacity: 1; transform: translate(0, 0) scale(1); }
+}
+@keyframes apsodSlideTop {
+  from { opacity: 0; transform: translate(0, -80vh) scale(0.6); }
+  to   { opacity: 1; transform: translate(0, 0) scale(1); }
+}
+@keyframes apsodSlideTR {
+  from { opacity: 0; transform: translate(100vw, -50vh) scale(0.6); }
+  to   { opacity: 1; transform: translate(0, 0) scale(1); }
+}
+@keyframes apsodSlideBL {
+  from { opacity: 0; transform: translate(-100vw, 50vh) scale(0.6); }
+  to   { opacity: 1; transform: translate(0, 0) scale(1); }
+}
+@keyframes apsodSlideBottom {
+  from { opacity: 0; transform: translate(0, 80vh) scale(0.6); }
+  to   { opacity: 1; transform: translate(0, 0) scale(1); }
+}
+@keyframes apsodSlideBR {
+  from { opacity: 0; transform: translate(100vw, 50vh) scale(0.6); }
+  to   { opacity: 1; transform: translate(0, 0) scale(1); }
+}
+
+.apsod-about-card {
+  animation-duration: 2s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+  will-change: transform, opacity;
+}
+
+.apsod-slide-tl { animation-name: apsodSlideTL; }
+.apsod-slide-top { animation-name: apsodSlideTop; }
+.apsod-slide-tr { animation-name: apsodSlideTR; }
+.apsod-slide-bl { animation-name: apsodSlideBL; }
+.apsod-slide-bottom { animation-name: apsodSlideBottom; }
+.apsod-slide-br { animation-name: apsodSlideBR; }
+
+/* Размытие по краям карточки */
+.apsod-card-mask {
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 90% 80% at center, transparent 60%, rgba(0,0,0,0.25) 100%);
+  mix-blend-mode: multiply;
+}
+
+.dark .apsod-card-mask {
+  background:
+    radial-gradient(ellipse 90% 80% at center, transparent 55%, rgba(0,0,0,0.55) 100%);
+  mix-blend-mode: normal;
+}
+
+/* Glow вокруг карточки */
+.apsod-card-glow {
+  pointer-events: none;
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.25) inset,
+    0 20px 40px -20px rgba(56, 189, 248, 0.35);
+  transition: box-shadow 0.4s ease;
+}
+
+.apsod-about-card:hover .apsod-card-glow {
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.5) inset,
+    0 25px 50px -20px rgba(56, 189, 248, 0.55);
+}
+
+.dark .apsod-card-glow {
+  box-shadow:
+    0 0 0 1px rgba(56, 189, 248, 0.35) inset,
+    0 20px 60px -20px rgba(56, 189, 248, 0.5),
+    0 0 30px rgba(56, 189, 248, 0.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apsod-about-card,
+  .apsod-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE — горизонтальная лента
+   ═══════════════════════════════════════════════════════════ */
+
+.apsod-mobile-strip {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.apsod-mobile-strip::-webkit-scrollbar {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TYPING CLOUD — стильное облачко (обе темы)
+   ═══════════════════════════════════════════════════════════ */
+
+.apsod-typing-cloud {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 9px 14px;
+  border-radius: 6px 16px 6px 16px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: #0c4a6e;
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  border: 1px solid rgba(14, 165, 233, 0.5);
+  box-shadow:
+    0 8px 24px rgba(14, 165, 233, 0.25),
+    0 2px 6px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: rotate(-2deg);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
+  white-space: normal;
+  min-height: 38px;
+  max-width: 190px;
+}
+
+.dark .apsod-typing-cloud {
+  color: #e0f2fe;
+  background: linear-gradient(135deg, rgba(14, 165, 233, 0.22), rgba(56, 189, 248, 0.12));
+  border-color: rgba(56, 189, 248, 0.55);
+  box-shadow:
+    0 0 24px rgba(56, 189, 248, 0.35),
+    0 8px 20px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.apsod-typing-cloud__text {
+  display: inline;
+}
+
+.apsod-typing-cloud__cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: #0284c7;
+  animation: apsodCursorBlink 0.9s steps(2, start) infinite;
+}
+
+.dark .apsod-typing-cloud__cursor {
+  color: #7dd3fc;
+}
+
+@keyframes apsodCursorBlink {
+  0%, 50% { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apsod-typing-cloud__cursor {
+    animation: none;
+  }
+}
