@@ -8,8 +8,8 @@ type Props = {
 };
 
 /**
- * Page hero — заголовок слева + калейдоскоп-анимация справа.
- * Второе слово заголовка — полупрозрачное.
+ * Page hero — заголовок слева + калейдоскоп справа (на всех экранах).
+ * На мобилке калейдоскоп — позади заголовка, полупрозрачный.
  */
 export default function AgencyPageHero({
   title,
@@ -29,9 +29,9 @@ export default function AgencyPageHero({
       <div className="apsod-arigo-hero-bg absolute inset-0" aria-hidden />
       <div className="apsod-arigo-hero-noise absolute inset-0" aria-hidden />
 
-      {/* ─── Калейдоскоп-анимация справа ─── */}
+      {/* ─── Калейдоскоп — на всех экранах ─── */}
       <div
-        className="pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 lg:block"
+        className="apsod-kaleido-wrap pointer-events-none absolute inset-0 z-0"
         aria-hidden
       >
         <div className="apsod-kaleido absolute inset-0">
@@ -64,7 +64,7 @@ export default function AgencyPageHero({
           <span className="text-orange-300">{crumb}</span>
         </nav>
 
-        {/* Заголовок — слева */}
+        {/* Заголовок — слева, поверх калейдоскопа */}
         <h1 className="apsod-hero-enter font-display max-w-4xl text-balance text-left text-[clamp(2rem,5vw,4rem)] font-extrabold uppercase leading-[1.05] tracking-[-0.02em]">
           <span className="text-white">{titleLead}</span>
           {titleTail ? (
