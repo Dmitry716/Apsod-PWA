@@ -19,7 +19,7 @@ export default function HomeHero() {
       <div className="apsod-arigo-hero-bg absolute inset-0" aria-hidden />
       <div className="apsod-arigo-hero-noise absolute inset-0" aria-hidden />
 
-      {/* Код на фоне — виден и на мобилке, и на десктопе */}
+      {/* Код на фоне */}
       <div
         className="pointer-events-none absolute bottom-0 left-0 top-[96px] w-full opacity-[0.12] lg:w-1/2 lg:opacity-25"
         aria-hidden
@@ -58,10 +58,12 @@ export default function HomeHero() {
           id="hero-title"
           className="apsod-hero-enter apsod-hero-enter-delay-2 font-display font-extrabold uppercase leading-[0.92] tracking-[-0.03em]"
         >
-          <span className="block text-[clamp(3rem,15vw,9.5rem)]">Digital</span>
-          <span className="mt-1 flex flex-wrap items-center gap-3 text-[clamp(3rem,15vw,9.5rem)] md:gap-5 md:mt-2">
+          <span className="block text-[clamp(2.75rem,11vw,9.5rem)]">
+            Digital
+          </span>
+          <span className="mt-1 flex flex-wrap items-center gap-2 text-[clamp(2.25rem,10vw,9.5rem)] sm:gap-3 md:gap-5 md:mt-2">
             <span
-              className="apsod-arigo-star apsod-star-spin"
+              className="apsod-arigo-star apsod-star-spin shrink-0"
               role="img"
               aria-label={isEn ? "Star" : "Звезда"}
             >
@@ -75,7 +77,7 @@ export default function HomeHero() {
                 <path d="M32 4l4.2 20.2L56 32l-19.8 7.8L32 60l-4.2-20.2L8 32l19.8-7.8L32 4z" />
               </svg>
             </span>
-            <span>Engineering</span>
+            <span className="break-words">Engineering</span>
           </span>
         </h1>
 

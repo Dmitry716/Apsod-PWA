@@ -667,3 +667,34 @@
     transform: scaleX(1);
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   LOGO HOVER — увеличение + свечение
+   ═══════════════════════════════════════════════════════════ */
+
+header.apsod-site-header a.apsod-logo {
+  display: inline-block;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.35s ease,
+    opacity 0.2s ease;
+  will-change: transform;
+}
+
+header.apsod-site-header a.apsod-logo:hover {
+  transform: scale(1.06);
+  filter: drop-shadow(0 0 14px var(--apsod-glow, rgba(56, 189, 248, 0.55)));
+}
+
+header.apsod-site-header a.apsod-logo:active {
+  transform: scale(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header.apsod-site-header a.apsod-logo,
+  header.apsod-site-header a.apsod-logo:hover {
+    transition: none;
+    transform: none;
+    filter: none;
+  }
+}
