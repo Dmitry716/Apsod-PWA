@@ -18,7 +18,8 @@ interface CardDef {
 
 /**
  * 6 карточек: 3 сверху, 3 снизу.
- * Контейнер h-[1050px] — чтобы ряды не слипались.
+ * Фото целиком (object-contain) + размытая копия на фоне.
+ * Контейнер h-[700px] — чтобы ряды не слипались.
  */
 const CARDS: CardDef[] = [
   // ─── ВЕРХНИЙ РЯД ───
@@ -27,7 +28,7 @@ const CARDS: CardDef[] = [
     alt: 'Основатели APSOD',
     cloud: 'Держим фокус на продукте',
     cloudEn: 'Product-first mindset',
-    position: 'top-[0%] left-[1%] w-[30%] rotate-[-2deg]',
+    position: 'top-[0%] left-[1%] w-[31%] rotate-[-2deg]',
     anim: 'apsod-slide-tl',
     delay: 0,
   },
@@ -36,7 +37,7 @@ const CARDS: CardDef[] = [
     alt: 'Сайт vs соцсети',
     cloud: 'Строим digital-присутствие',
     cloudEn: 'We build digital presence',
-    position: 'top-[1%] left-[35%] w-[30%] rotate-[0deg]',
+    position: 'top-[1%] left-[34.5%] w-[31%] rotate-[0deg]',
     anim: 'apsod-slide-top',
     delay: 0.35,
   },
@@ -45,7 +46,7 @@ const CARDS: CardDef[] = [
     alt: 'SEO vs реклама',
     cloud: 'Усиливаем органику',
     cloudEn: 'We grow organic traffic',
-    position: 'top-[0%] right-[1%] w-[30%] rotate-[2deg]',
+    position: 'top-[0%] right-[1%] w-[31%] rotate-[2deg]',
     anim: 'apsod-slide-tr',
     delay: 0.7,
   },
@@ -56,7 +57,7 @@ const CARDS: CardDef[] = [
     alt: 'Преимущества SEO',
     cloud: 'Считаем каждый лид',
     cloudEn: 'Every lead matters',
-    position: 'bottom-[0%] left-[1%] w-[30%] rotate-[2deg]',
+    position: 'bottom-[0%] left-[1%] w-[31%] rotate-[2deg]',
     anim: 'apsod-slide-bl',
     delay: 1.05,
   },
@@ -65,7 +66,7 @@ const CARDS: CardDef[] = [
     alt: 'PWA vs Native',
     cloud: 'Выбираем технологии',
     cloudEn: 'We pick the right stack',
-    position: 'bottom-[1%] left-[35%] w-[30%] rotate-[0deg]',
+    position: 'bottom-[1%] left-[34.5%] w-[31%] rotate-[0deg]',
     anim: 'apsod-slide-bottom',
     delay: 1.4,
   },
@@ -74,7 +75,7 @@ const CARDS: CardDef[] = [
     alt: 'Команда APSOD',
     cloud: 'Собираем сильную команду',
     cloudEn: 'We build a strong team',
-    position: 'bottom-[0%] right-[1%] w-[30%] rotate-[-2deg]',
+    position: 'bottom-[0%] right-[1%] w-[31%] rotate-[-2deg]',
     anim: 'apsod-slide-br',
     delay: 1.75,
   },
@@ -118,24 +119,34 @@ export default function AboutEngineering() {
           </Link>
         </div>
 
-        {/* ─── DESKTOP: 6 карточек 3+3, БОЛЬШОЙ ЗАЗОР ─── */}
-        <div className="relative hidden h-[1050px] w-full lg:block">
+        {/* ─── DESKTOP: 6 карточек 3+3 ─── */}
+        <div className="relative hidden h-[700px] w-full lg:block">
           {CARDS.map((card) => (
             <div
               key={card.src}
-              className={`apsod-about-card group absolute overflow-hidden rounded-[22px] bg-slate-200 shadow-2xl dark:bg-zinc-900 ${card.position} ${card.anim}`}
+              className={`apsod-about-card group absolute overflow-hidden rounded-[22px] bg-slate-900 shadow-2xl dark:bg-zinc-900 ${card.position} ${card.anim}`}
               style={{ animationDelay: `${card.delay}s` }}
             >
-              <div className="relative aspect-[4/5]">
+              <div className="relative aspect-[4/3]">
+                {/* Размытая копия на фоне */}
+                <Image
+                  src={card.src}
+                  alt=""
+                  fill
+                  sizes="30vw"
+                  aria-hidden
+                  className="scale-110 object-cover blur-2xl brightness-[0.5]"
+                />
+                {/* Чёткое фото целиком */}
                 <Image
                   src={card.src}
                   alt={card.alt}
                   fill
                   sizes="30vw"
-                  className="object-cover brightness-[0.85] saturate-[0.95] transition-transform duration-700 group-hover:scale-105 dark:brightness-[0.75] dark:saturate-[0.9]"
+                  className="object-contain transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="apsod-card-mask absolute inset-0" aria-hidden />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent dark:from-black/50" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                 <div className="apsod-card-glow absolute inset-0 rounded-[22px]" aria-hidden />
               </div>
               <TypingCloud
@@ -152,15 +163,23 @@ export default function AboutEngineering() {
             {CARDS.map((card) => (
               <div
                 key={card.src}
-                className="relative w-[72%] shrink-0 snap-center overflow-hidden rounded-2xl bg-slate-200 shadow-xl dark:bg-zinc-900"
+                className="relative w-[72%] shrink-0 snap-center overflow-hidden rounded-2xl bg-slate-900 shadow-xl dark:bg-zinc-900"
               >
-                <div className="relative aspect-[4/5]">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src={card.src}
+                    alt=""
+                    fill
+                    sizes="72vw"
+                    aria-hidden
+                    className="scale-110 object-cover blur-2xl brightness-[0.5]"
+                  />
                   <Image
                     src={card.src}
                     alt={card.alt}
                     fill
                     sizes="72vw"
-                    className="object-cover brightness-[0.9] dark:brightness-[0.8]"
+                    className="object-contain"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                   <div className="apsod-card-glow absolute inset-0 rounded-2xl" aria-hidden />
