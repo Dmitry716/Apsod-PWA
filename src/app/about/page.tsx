@@ -1,38 +1,42 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { buildSnippetMetadata } from '../lib/seo'
-import AboutHero from '../components/AboutHero'
-import AboutEngineering from '../components/AboutEngineering'
-import AboutStats from '../components/AboutStats'
+import Link from "next/link";
+import Image from "next/image";
+import { buildSnippetMetadata } from "../lib/seo";
+import AboutHero from "../components/AboutHero";
+import AboutEngineering from "../components/AboutEngineering";
+import AboutStats from "../components/AboutStats";
 import {
   getCasePath,
   getFeaturedPortfolioProjects,
   PORTFOLIO_PROJECTS,
-} from '../portfolio/data'
-import './about-animations.css'
+} from "../portfolio/data";
+import "./about-animations.css";
 
-export const metadata = buildSnippetMetadata('/about')
+export const metadata = buildSnippetMetadata("/about");
 
 const CLIENTS = [
-  'Legal Team',
-  'Amba Detail',
-  'NEXTON',
-  'ArtDetailing',
-  'BMservice',
-  'Динамо-Витебск',
-  'Maxximum',
-  'Sparkite',
-] as const
+  "Legal Team",
+  "Amba Detail",
+  "NEXTON",
+  "ArtDetailing",
+  "BMservice",
+  "Динамо-Витебск",
+  "Maxximum",
+  "Sparkite",
+] as const;
 
 const STATS = [
-  { value: PORTFOLIO_PROJECTS.length, suffix: '+', label: 'Проектов в портфолио' },
-  { value: 9, suffix: '', label: 'Отраслей в фокусе' },
-  { value: 4, suffix: '', label: 'Рынка: BY · RU · EU · US' },
-  { value: 1, suffix: '', label: 'Офис APSOD' },
-] as const
+  {
+    value: PORTFOLIO_PROJECTS.length,
+    suffix: "+",
+    label: "Проектов в портфолио",
+  },
+  { value: 9, suffix: "", label: "Отраслей в фокусе" },
+  { value: 4, suffix: "", label: "Рынка: BY · RU · EU · US" },
+  { value: 1, suffix: "", label: "Офис APSOD" },
+] as const;
 
 export default function AboutPage() {
-  const milestones = getFeaturedPortfolioProjects().slice(0, 4)
+  const milestones = getFeaturedPortfolioProjects().slice(0, 4);
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -40,27 +44,44 @@ export default function AboutPage() {
       <AboutEngineering />
       <AboutStats stats={[...STATS]} />
 
-      <section className="bg-black py-16 md:py-20">
+      <section className="w-full overflow-hidden bg-white py-16 text-slate-900 transition-colors dark:bg-black dark:text-white md:py-20">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <p className="mb-10 text-center text-xs font-bold uppercase tracking-[0.2em] text-white/40">
-            Клиенты
-          </p>
-          <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-14">
-            {CLIENTS.map((name) => (
-              <li key={name}>
-                <span className="font-display text-sm font-semibold tracking-[0.06em] text-white/35 transition-colors hover:text-white md:text-base">
-                  {name}
-                </span>
-              </li>
+          <h2 className="font-display mb-12 text-center text-[clamp(1.75rem,4.5vw,3.5rem)] font-extrabold uppercase tracking-[-0.02em] text-slate-900 dark:text-white">
+            Клиенты{" "}
+            <span className="text-slate-400 dark:text-white/40">APSOD</span>
+          </h2>
+        </div>
+
+        {/* Бегущая строка */}
+        <div className="apsod-marquee relative w-full overflow-hidden">
+          <div
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white to-transparent dark:from-black md:w-32"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-20 bg-gradient-to-l from-white to-transparent dark:from-black md:w-32"
+            aria-hidden
+          />
+
+          <div className="apsod-marquee__track flex w-max gap-10 whitespace-nowrap md:gap-16">
+            {[...CLIENTS, ...CLIENTS].map((name, i) => (
+              <span
+                key={`${name}-${i}`}
+                className="font-display shrink-0 text-xl font-extrabold uppercase tracking-[0.04em] text-slate-500 transition-colors hover:text-slate-900 dark:text-white/55 dark:hover:text-white sm:text-2xl md:text-3xl lg:text-4xl"
+              >
+                {name}
+              </span>
             ))}
-          </ul>
+          </div>
         </div>
       </section>
 
       <section className="border-t border-white/10 bg-black py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="mb-10 flex items-center gap-4 md:mb-14">
-            <span className="text-xs font-medium tracking-[0.18em] text-white/45">02</span>
+            <span className="text-xs font-medium tracking-[0.18em] text-white/45">
+              02
+            </span>
             <span className="h-px w-16 bg-white/15" aria-hidden />
             <h2 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold uppercase tracking-[-0.02em]">
               Избранные кейсы
@@ -75,7 +96,7 @@ export default function AboutPage() {
                 className="group grid items-center gap-5 py-6 transition-colors sm:grid-cols-12 sm:gap-6 md:py-8"
               >
                 <span className="text-xs tracking-[0.18em] text-white/35 sm:col-span-1">
-                  {String(index + 1).padStart(2, '0')}
+                  {String(index + 1).padStart(2, "0")}
                 </span>
                 <div className="relative h-20 overflow-hidden rounded-2xl bg-zinc-900 sm:col-span-3 sm:h-24">
                   <Image
@@ -119,7 +140,8 @@ export default function AboutPage() {
             Обсудим задачу вашей компании
           </h2>
           <p className="mb-10 max-w-xl text-white/70">
-            Краткий бриф — коммерческое предложение с этапами, сроками и зоной ответственности.
+            Краткий бриф — коммерческое предложение с этапами, сроками и зоной
+            ответственности.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link
@@ -138,5 +160,5 @@ export default function AboutPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }

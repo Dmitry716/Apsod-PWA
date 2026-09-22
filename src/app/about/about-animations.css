@@ -3,46 +3,96 @@
    ═══════════════════════════════════════════════════════════ */
 
 @keyframes apsodTextIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .apsod-reveal {
   animation: apsodTextIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.apsod-reveal:nth-child(1) { animation-delay: 0.05s; }
-.apsod-reveal:nth-child(2) { animation-delay: 0.15s; }
-.apsod-reveal:nth-child(3) { animation-delay: 0.25s; }
-.apsod-reveal:nth-child(4) { animation-delay: 0.35s; }
+.apsod-reveal:nth-child(1) {
+  animation-delay: 0.05s;
+}
+.apsod-reveal:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.apsod-reveal:nth-child(3) {
+  animation-delay: 0.25s;
+}
+.apsod-reveal:nth-child(4) {
+  animation-delay: 0.35s;
+}
 
 /* ═══════════════════════════════════════════════════════════
    ABOUT — 6 карточек слетаются
    ═══════════════════════════════════════════════════════════ */
 
 @keyframes apsodSlideTL {
-  from { opacity: 0; transform: translate(-100vw, -50vh) scale(0.6); }
-  to   { opacity: 1; transform: translate(0, 0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translate(-100vw, -50vh) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
 }
 @keyframes apsodSlideTop {
-  from { opacity: 0; transform: translate(0, -80vh) scale(0.6); }
-  to   { opacity: 1; transform: translate(0, 0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translate(0, -80vh) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
 }
 @keyframes apsodSlideTR {
-  from { opacity: 0; transform: translate(100vw, -50vh) scale(0.6); }
-  to   { opacity: 1; transform: translate(0, 0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translate(100vw, -50vh) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
 }
 @keyframes apsodSlideBL {
-  from { opacity: 0; transform: translate(-100vw, 50vh) scale(0.6); }
-  to   { opacity: 1; transform: translate(0, 0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translate(-100vw, 50vh) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
 }
 @keyframes apsodSlideBottom {
-  from { opacity: 0; transform: translate(0, 80vh) scale(0.6); }
-  to   { opacity: 1; transform: translate(0, 0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translate(0, 80vh) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
 }
 @keyframes apsodSlideBR {
-  from { opacity: 0; transform: translate(100vw, 50vh) scale(0.6); }
-  to   { opacity: 1; transform: translate(0, 0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translate(100vw, 50vh) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
 }
 
 .apsod-about-card {
@@ -52,24 +102,42 @@
   will-change: transform, opacity;
 }
 
-.apsod-slide-tl { animation-name: apsodSlideTL; }
-.apsod-slide-top { animation-name: apsodSlideTop; }
-.apsod-slide-tr { animation-name: apsodSlideTR; }
-.apsod-slide-bl { animation-name: apsodSlideBL; }
-.apsod-slide-bottom { animation-name: apsodSlideBottom; }
-.apsod-slide-br { animation-name: apsodSlideBR; }
+.apsod-slide-tl {
+  animation-name: apsodSlideTL;
+}
+.apsod-slide-top {
+  animation-name: apsodSlideTop;
+}
+.apsod-slide-tr {
+  animation-name: apsodSlideTR;
+}
+.apsod-slide-bl {
+  animation-name: apsodSlideBL;
+}
+.apsod-slide-bottom {
+  animation-name: apsodSlideBottom;
+}
+.apsod-slide-br {
+  animation-name: apsodSlideBR;
+}
 
 /* Размытие по краям карточки */
 .apsod-card-mask {
   pointer-events: none;
-  background:
-    radial-gradient(ellipse 90% 80% at center, transparent 60%, rgba(0,0,0,0.25) 100%);
+  background: radial-gradient(
+    ellipse 90% 80% at center,
+    transparent 60%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
   mix-blend-mode: multiply;
 }
 
 .dark .apsod-card-mask {
-  background:
-    radial-gradient(ellipse 90% 80% at center, transparent 55%, rgba(0,0,0,0.55) 100%);
+  background: radial-gradient(
+    ellipse 90% 80% at center,
+    transparent 55%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
   mix-blend-mode: normal;
 }
 
@@ -150,7 +218,11 @@
 
 .dark .apsod-typing-cloud {
   color: #e0f2fe;
-  background: linear-gradient(135deg, rgba(14, 165, 233, 0.22), rgba(56, 189, 248, 0.12));
+  background: linear-gradient(
+    135deg,
+    rgba(14, 165, 233, 0.22),
+    rgba(56, 189, 248, 0.12)
+  );
   border-color: rgba(56, 189, 248, 0.55);
   box-shadow:
     0 0 24px rgba(56, 189, 248, 0.35),
@@ -175,12 +247,80 @@
 }
 
 @keyframes apsodCursorBlink {
-  0%, 50% { opacity: 1; }
-  50.01%, 100% { opacity: 0; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .apsod-typing-cloud__cursor {
     animation: none;
   }
+}
+/* ═══════════════════════════════════════════════════════════
+   MARQUEE — бегущая строка клиентов
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes apsodMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.apsod-marquee {
+  padding: 1.5rem 0;
+}
+.apsod-marquee__track {
+  display: inline-flex;
+  animation: apsodMarquee 90s linear infinite;
+  will-change: transform;
+}
+
+@media (max-width: 768px) {
+  .apsod-marquee__track {
+    animation-duration: 60s;
+    gap: 2.5rem;
+  }
+}
+
+/* Пауза при наведении (только десктоп) */
+@media (hover: hover) {
+  .apsod-marquee:hover .apsod-marquee__track {
+    animation-play-state: paused;
+  }
+}
+
+/* Уважение к reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .apsod-marquee__track {
+    animation: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MARQUEE — защита от горизонтального скролла
+   ═══════════════════════════════════════════════════════════ */
+
+.apsod-marquee {
+  overflow: hidden;
+  max-width: 100vw;
+}
+
+.apsod-marquee__track {
+  display: inline-flex;
+  width: max-content;
+  will-change: transform;
+}
+
+/* Глобальная защита от горизонтального скролла на странице about */
+body:has(.apsod-marquee) {
+  overflow-x: hidden;
 }
