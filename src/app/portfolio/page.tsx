@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { PORTFOLIO_PROJECTS, getCasePath, getFeaturedRank } from "./data";
 import { t } from "../lib/i18n";
@@ -63,15 +64,11 @@ export default function PortfolioPage() {
     }
   };
 
-  const resetView = () => {
-    setImageErrors({});
-  };
-
+  const resetView = () => setImageErrors({});
   const handleFilterChange = (nextFilter: string) => {
     setActiveFilter(nextFilter);
     resetView();
   };
-
   const handleIndustryChange = (nextIndustry: string) => {
     setActiveIndustry(nextIndustry);
     resetView();
@@ -82,51 +79,38 @@ export default function PortfolioPage() {
       const n = Number.parseInt(year, 10);
       return Number.isFinite(n) ? n : 0;
     };
-
     const getIndustryIndex = (category: string) => {
       const idx = industryOrder.indexOf(category);
       return idx === -1 ? industryOrder.length + 1 : idx;
     };
-
     return [...PORTFOLIO_PROJECTS].sort((a, b) => {
       const featuredDiff = getFeaturedRank(a) - getFeaturedRank(b);
       if (featuredDiff !== 0) return featuredDiff;
-
       const ai = getIndustryIndex(a.category);
       const bi = getIndustryIndex(b.category);
       if (ai !== bi) return ai - bi;
-
-      // Сортировка по году (сначала новые)
       const dy = yearNum(b.year) - yearNum(a.year);
       if (dy !== 0) return dy;
-
-      // Чтобы сортировка была детерминированной
       return a.id - b.id;
     });
   }, [industryOrder]);
 
   const filteredProjects = useMemo(() => {
     let list = sortedProjects;
-
-    if (activeFilter !== "all") {
-      list = list.filter((project) => project.type === activeFilter);
-    }
-
+    if (activeFilter !== "all")
+      list = list.filter((p) => p.type === activeFilter);
     if (activeIndustry !== "all") {
       if (activeIndustry === OTHER_INDUSTRY_KEY) {
-        list = list.filter(
-          (project) => !industryOrder.includes(project.category),
-        );
+        list = list.filter((p) => !industryOrder.includes(p.category));
       } else {
-        list = list.filter((project) => project.category === activeIndustry);
+        list = list.filter((p) => p.category === activeIndustry);
       }
     }
-
     return list;
   }, [activeFilter, activeIndustry, industryOrder, sortedProjects]);
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-white text-slate-900 dark:bg-black dark:text-white">
       <AgencyPageHero
         title={t(locale, "portfolio.title")}
         crumb={locale === "en" ? "Work" : "Кейсы"}
@@ -134,11 +118,12 @@ export default function PortfolioPage() {
         homeLabel={locale === "en" ? "Home" : "Главная"}
       />
 
-      <section className="relative pb-8 pt-10">
+      {/* Фильтры */}
+      <section className="relative pb-8 pt-10" aria-label="Фильтры кейсов">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="mb-6 space-y-3">
             <div
-              className="flex flex-wrap items-stretch justify-start border-y border-white/10 sm:justify-center"
+              className="flex flex-wrap items-stretch justify-start border-y border-slate-200 dark:border-white/10 sm:justify-center"
               role="tablist"
               aria-label={t(locale, "portfolio.filters.all")}
             >
@@ -160,12 +145,12 @@ export default function PortfolioPage() {
                   onClick={() => handleFilterChange(item.key)}
                   className={`relative shrink-0 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors sm:px-5 sm:text-xs ${
                     index > 0
-                      ? "before:absolute before:left-0 before:top-1/2 before:h-3.5 before:w-px before:-translate-y-1/2 before:bg-white/15"
+                      ? "before:absolute before:left-0 before:top-1/2 before:h-3.5 before:w-px before:-translate-y-1/2 before:bg-slate-200 dark:before:bg-white/15"
                       : ""
                   } ${
                     activeFilter === item.key
-                      ? "text-orange-300"
-                      : "text-white/45 hover:text-white"
+                      ? "text-orange-500 dark:text-orange-300"
+                      : "text-slate-500 hover:text-slate-900 dark:text-white/45 dark:hover:text-white"
                   }`}
                 >
                   {item.label}
@@ -175,7 +160,7 @@ export default function PortfolioPage() {
 
             <div className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:overflow-visible md:px-0">
               <div
-                className="flex w-max min-w-full flex-nowrap items-stretch justify-start border-y border-white/10 md:w-auto md:flex-wrap md:justify-center"
+                className="flex w-max min-w-full flex-nowrap items-stretch justify-start border-y border-slate-200 dark:border-white/10 md:w-auto md:flex-wrap md:justify-center"
                 role="tablist"
                 aria-label={t(locale, "portfolio.filters.industriesAll")}
               >
@@ -203,12 +188,12 @@ export default function PortfolioPage() {
                     onClick={() => handleIndustryChange(item.key)}
                     className={`relative shrink-0 px-3.5 py-3 text-[11px] font-semibold uppercase tracking-[0.14em] transition-colors sm:px-4 sm:text-xs ${
                       index > 0
-                        ? "before:absolute before:left-0 before:top-1/2 before:h-3.5 before:w-px before:-translate-y-1/2 before:bg-white/15"
+                        ? "before:absolute before:left-0 before:top-1/2 before:h-3.5 before:w-px before:-translate-y-1/2 before:bg-slate-200 dark:before:bg-white/15"
                         : ""
                     } ${
                       activeIndustry === item.key
-                        ? "text-orange-300"
-                        : "text-white/45 hover:text-white"
+                        ? "text-orange-500 dark:text-orange-300"
+                        : "text-slate-500 hover:text-slate-900 dark:text-white/45 dark:hover:text-white"
                     }`}
                   >
                     {item.label}
@@ -218,46 +203,38 @@ export default function PortfolioPage() {
             </div>
           </div>
 
-          <p className="text-sm text-white/40">
+          <p
+            className="text-sm text-slate-500 dark:text-white/40"
+            aria-live="polite"
+          >
             {t(locale, "portfolio.found")} {filteredProjects.length}
           </p>
         </div>
       </section>
 
+      {/* Карточки — тёмные в обеих темах */}
       <section className="pb-20">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="grid min-w-0 grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
             {filteredProjects.map((project) => {
-              const fitContain = project.imageFit === "contain";
+              const caseHref = getCasePath(project);
+              const hasError = imageErrors[project.id];
               return (
-                <article
-                  key={project.id}
-                  className="group min-w-0 overflow-hidden"
-                >
-                  <div
-                    className={`relative mb-5 aspect-[16/10] w-full min-w-0 overflow-hidden rounded-[20px] ${
-                      fitContain ? "bg-[#050a1f]" : "bg-zinc-900"
-                    }`}
+                <article key={project.id} className="group min-w-0">
+                  <Link
+                    href={caseHref}
+                    className="flex h-full flex-col overflow-hidden rounded-sm border border-slate-200 bg-[#050a1f] text-white transition-all duration-500 hover:border-orange-400/60 hover:shadow-[0_20px_50px_-25px_rgba(251,146,60,0.35)] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-4 focus-visible:ring-offset-white dark:border-white/10 dark:hover:border-white/30 dark:focus-visible:ring-offset-black"
+                    aria-label={`Открыть кейс: ${project.title} — ${project.category}, ${project.year}`}
                   >
-                    {!imageErrors[project.id] ? (
-                      <picture className="absolute inset-0 block h-full w-full">
-                        {project.imageMobile ? (
-                          <source
-                            media="(max-width: 767px)"
-                            srcSet={project.imageMobile}
-                          />
-                        ) : null}
-                        <img
+                    {/* Фото — фикс. высота, contain, тёмный фон (одинаковый в обеих темах) */}
+                    <div className="relative h-[280px] w-full overflow-hidden bg-[#050a1f] md:h-[320px]">
+                      {!hasError ? (
+                        <Image
                           src={project.image}
-                          alt={`Главная страница ${project.title}`}
-                          loading="lazy"
-                          decoding="async"
+                          alt={`Превью проекта ${project.title}`}
+                          fill
                           sizes="(max-width: 768px) 100vw, 50vw"
-                          className={`h-full w-full max-w-full transition-transform duration-700 group-hover:scale-[1.03] ${
-                            fitContain
-                              ? "object-contain object-top"
-                              : "object-cover object-top"
-                          }`}
+                          className="object-contain object-center transition-transform duration-700 group-hover:scale-[1.02]"
                           onError={() =>
                             setImageErrors((prev) => ({
                               ...prev,
@@ -265,35 +242,53 @@ export default function PortfolioPage() {
                             }))
                           }
                         />
-                      </picture>
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="font-display text-sm font-semibold tracking-[0.14em] uppercase text-white/40">
-                          {project.category}
+                      ) : (
+                        <div className="flex h-full items-center justify-center">
+                          <span className="font-display text-sm font-semibold uppercase tracking-[0.14em] text-white/40">
+                            {project.category}
+                          </span>
+                        </div>
+                      )}
+
+                      {/* Виньетка по периметру */}
+                      <div
+                        className="apsod-photo-vignette pointer-events-none absolute inset-0"
+                        aria-hidden
+                      />
+
+                      {/* Чипы: год + тип */}
+                      <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap gap-2">
+                        <span className="rounded-sm border border-white/20 bg-black/60 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-white/90 backdrop-blur-sm">
+                          {project.year}
+                        </span>
+                        <span className="rounded-sm border border-white/20 bg-black/60 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-white/90 backdrop-blur-sm">
+                          {project.type === "mobile" ? "Mobile" : "Web"}
                         </span>
                       </div>
-                    )}
-                  </div>
+                    </div>
 
-                  <p className="mb-2 text-xs font-medium uppercase tracking-[0.14em] text-white/40">
-                    {project.category} · {project.year}
-                  </p>
-                  <h2 className="font-display mb-3 text-xl font-extrabold uppercase tracking-tight md:text-2xl">
-                    <Link
-                      href={getCasePath(project)}
-                      className="transition-colors hover:text-orange-300"
-                    >
-                      {project.title}
-                    </Link>
-                  </h2>
-                  <p className="mb-5 line-clamp-2 text-sm leading-relaxed text-white/55">
-                    {project.description}
-                  </p>
-                  <Link
-                    href={getCasePath(project)}
-                    className="text-xs font-bold uppercase tracking-[0.16em] text-white/60 transition-colors hover:text-white"
-                  >
-                    {locale === "en" ? "View project" : "Смотреть кейс"} →
+                    {/* Текстовый блок — тёмный фон, белый текст, без разделителя */}
+                    <div className="flex flex-1 flex-col p-5 md:p-6">
+                      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-300/80">
+                        {project.category} · {project.location}
+                      </p>
+                      <h2 className="font-display mb-3 text-xl font-extrabold uppercase leading-snug tracking-tight text-white transition-colors group-hover:text-orange-300 md:text-2xl">
+                        {project.title}
+                      </h2>
+                      <p className="mb-5 line-clamp-3 text-sm leading-relaxed text-white/60">
+                        {project.description}
+                      </p>
+
+                      <span className="mt-auto inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-white/70 transition-colors group-hover:text-white">
+                        {locale === "en" ? "View project" : "Смотреть кейс"}
+                        <span
+                          aria-hidden
+                          className="transition-transform duration-300 group-hover:translate-x-1"
+                        >
+                          →
+                        </span>
+                      </span>
+                    </div>
                   </Link>
                 </article>
               );
@@ -302,11 +297,12 @@ export default function PortfolioPage() {
         </div>
       </section>
 
+      {/* CTA */}
       <section className="apsod-arigo-hero-bg relative overflow-hidden">
         <div className="apsod-arigo-hero-noise absolute inset-0" aria-hidden />
         <div className="relative z-10 mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
           <div className="max-w-2xl">
-            <h2 className="font-display mb-4 text-[clamp(1.85rem,4vw,3rem)] font-extrabold uppercase tracking-[-0.02em]">
+            <h2 className="font-display mb-4 text-[clamp(1.75rem,3.5vw,2.75rem)] font-extrabold uppercase leading-[1.08] tracking-[-0.015em]">
               {t(locale, "portfolio.cta.title")}
             </h2>
             <p className="mb-8 leading-relaxed text-white/70">
