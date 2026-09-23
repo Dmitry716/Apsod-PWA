@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -10,11 +11,9 @@ import { useLocale } from "../lib/useLocale";
 import AgencyPageHero from "../components/AgencyPageHero";
 
 export default function PortfolioPage() {
-  const [activeFilter, setActiveFilter] = useState("all");
-  const [activeIndustry, setActiveIndustry] = useState("all");
-  const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
   const { locale } = useLocale();
   const searchParams = useSearchParams();
+
   const industryOrder = useMemo(
     () => [
       "Производство",
@@ -31,13 +30,26 @@ export default function PortfolioPage() {
   );
   const OTHER_INDUSTRY_KEY = "other";
 
-  useEffect(() => {
+  // Инициализация из URL — без useEffect (fix ESLint set-state-in-effect)
+  const initialIndustry = useMemo(() => {
     const fromQuery = searchParams.get("industry");
-    if (!fromQuery) return;
+    if (!fromQuery) return "all";
     if (fromQuery === OTHER_INDUSTRY_KEY || industryOrder.includes(fromQuery)) {
-      setActiveIndustry(fromQuery);
+      return fromQuery;
     }
+    return "all";
   }, [searchParams, industryOrder]);
+
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [activeIndustry, setActiveIndustry] = useState(initialIndustry);
+  const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
+
+  // Синхронизация при смене URL — официальный паттерн React 19, без useEffect
+  const [prevInitial, setPrevInitial] = useState(initialIndustry);
+  if (prevInitial !== initialIndustry) {
+    setPrevInitial(initialIndustry);
+    setActiveIndustry(initialIndustry);
+  }
 
   const industryLabel = (industry: string) => {
     switch (industry) {
@@ -212,7 +224,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Карточки — тёмные в обеих темах */}
+      {/* Карточки */}
       <section className="pb-20">
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="grid min-w-0 grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
@@ -226,7 +238,6 @@ export default function PortfolioPage() {
                     className="flex h-full flex-col overflow-hidden rounded-sm border border-slate-200 bg-[#050a1f] text-white transition-all duration-500 hover:border-orange-400/60 hover:shadow-[0_20px_50px_-25px_rgba(251,146,60,0.35)] focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-4 focus-visible:ring-offset-white dark:border-white/10 dark:hover:border-white/30 dark:focus-visible:ring-offset-black"
                     aria-label={`Открыть кейс: ${project.title} — ${project.category}, ${project.year}`}
                   >
-                    {/* Фото — фикс. высота, contain, тёмный фон (одинаковый в обеих темах) */}
                     <div className="relative h-[280px] w-full overflow-hidden bg-[#050a1f] md:h-[320px]">
                       {!hasError ? (
                         <Image
@@ -249,14 +260,10 @@ export default function PortfolioPage() {
                           </span>
                         </div>
                       )}
-
-                      {/* Виньетка по периметру */}
                       <div
                         className="apsod-photo-vignette pointer-events-none absolute inset-0"
                         aria-hidden
                       />
-
-                      {/* Чипы: год + тип */}
                       <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap gap-2">
                         <span className="rounded-sm border border-white/20 bg-black/60 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-white/90 backdrop-blur-sm">
                           {project.year}
@@ -267,7 +274,6 @@ export default function PortfolioPage() {
                       </div>
                     </div>
 
-                    {/* Текстовый блок — тёмный фон, белый текст, без разделителя */}
                     <div className="flex flex-1 flex-col p-5 md:p-6">
                       <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-orange-300/80">
                         {project.category} · {project.location}
@@ -278,7 +284,6 @@ export default function PortfolioPage() {
                       <p className="mb-5 line-clamp-3 text-sm leading-relaxed text-white/60">
                         {project.description}
                       </p>
-
                       <span className="mt-auto inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-white/70 transition-colors group-hover:text-white">
                         {locale === "en" ? "View project" : "Смотреть кейс"}
                         <span

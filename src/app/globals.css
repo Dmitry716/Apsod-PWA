@@ -698,3 +698,54 @@ header.apsod-site-header a.apsod-logo:active {
     filter: none;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   CONTACT PAGE — мягкий glow-фон под hero
+   ═══════════════════════════════════════════════════════════ */
+
+.apsod-contact-glow {
+  background:
+    radial-gradient(
+      ellipse 50% 60% at 15% 20%,
+      rgba(56, 189, 248, 0.08) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 40% 50% at 85% 0%,
+      rgba(251, 146, 60, 0.06) 0%,
+      transparent 60%
+    );
+  animation: apsodContactGlowDrift 20s ease-in-out infinite;
+}
+
+.dark .apsod-contact-glow {
+  background:
+    radial-gradient(
+      ellipse 50% 60% at 15% 20%,
+      rgba(56, 189, 248, 0.15) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 40% 50% at 85% 0%,
+      rgba(251, 146, 60, 0.1) 0%,
+      transparent 60%
+    );
+}
+
+@keyframes apsodContactGlowDrift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(20px, -20px) scale(1.1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apsod-contact-glow {
+    animation: none;
+  }
+}
