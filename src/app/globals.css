@@ -749,3 +749,264 @@ header.apsod-site-header a.apsod-logo:active {
     animation: none;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   PHOTO VIGNETTE — затемнение по периметру (обе темы)
+   ═══════════════════════════════════════════════════════════ */
+
+.apsod-photo-vignette {
+  box-shadow: inset 0 0 60px 8px rgba(15, 23, 42, 0.18);
+  transition: box-shadow 0.3s ease;
+}
+
+.dark .apsod-photo-vignette {
+  box-shadow: inset 0 0 60px 8px rgba(0, 0, 0, 0.55);
+}
+
+@media (max-width: 1023px) {
+  .apsod-photo-vignette {
+    box-shadow: inset 0 0 40px 6px rgba(15, 23, 42, 0.12);
+  }
+  .dark .apsod-photo-vignette {
+    box-shadow: inset 0 0 40px 6px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   JOURNAL — карточки блога слетаются + вращающаяся точка
+   ═══════════════════════════════════════════════════════════ */
+
+@keyframes apsodJournalSlideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes apsodJournalSlideRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes apsodJournalSlideBottom {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.apsod-journal-card {
+  opacity: 0;
+  animation-duration: 1.1s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+  will-change: opacity, transform;
+}
+
+.apsod-journal-slide-left {
+  animation-name: apsodJournalSlideLeft;
+}
+.apsod-journal-slide-right {
+  animation-name: apsodJournalSlideRight;
+}
+.apsod-journal-slide-bottom {
+  animation-name: apsodJournalSlideBottom;
+}
+
+@keyframes apsodJournalSpin {
+  from {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.4);
+  }
+  to {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+.apsod-journal-spin {
+  animation: apsodJournalSpin 8s linear infinite;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apsod-journal-card,
+  .apsod-journal-spin {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  /* } */
+
+  /* ═══════════════════════════════════════════════════════════
+   JOURNAL — мозаика с overlay + градиентные карточки
+   ═══════════════════════════════════════════════════════════ */
+
+  /* ─── Dot-grid фон секции ─── */
+  .apsod-journal-bg {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(15, 23, 42, 0.06) 1px,
+      transparent 0
+    );
+    background-size: 24px 24px;
+  }
+
+  .dark .apsod-journal-bg {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(148, 163, 184, 0.08) 1px,
+      transparent 0
+    );
+  }
+
+  .apsod-journal-dots {
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 40%,
+      transparent 30%,
+      var(--bg-primary, #f8fafc) 90%
+    );
+    pointer-events: none;
+  }
+
+  .dark .apsod-journal-dots {
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 40%,
+      transparent 30%,
+      #000000 90%
+    );
+  }
+
+  /* ─── Dot-grid поверх фото (в overlay-карточке) ─── */
+  .apsod-journal-photo-dots {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 0
+    );
+    background-size: 20px 20px;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  /* ─── Dot-grid внутри текстовой карточки ─── */
+  .apsod-journal-card-dots {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(255, 255, 255, 0.14) 1px,
+      transparent 0
+    );
+    background-size: 18px 18px;
+    pointer-events: none;
+  }
+
+  .apsod-journal-tile.bg-white .apsod-journal-card-dots,
+  .dark .apsod-journal-tile.bg-white .apsod-journal-card-dots {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(15, 23, 42, 0.1) 1px,
+      transparent 0
+    );
+  }
+
+  /* ─── Анимация слёта ─── */
+  @keyframes apsodJournalSlideLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes apsodJournalSlideRight {
+    from {
+      opacity: 0;
+      transform: translateX(60px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes apsodJournalSlideBottom {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .apsod-journal-card {
+    opacity: 0;
+    animation-duration: 1.1s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-fill-mode: both;
+    will-change: opacity, transform;
+  }
+
+  .apsod-journal-slide-left {
+    animation-name: apsodJournalSlideLeft;
+  }
+  .apsod-journal-slide-right {
+    animation-name: apsodJournalSlideRight;
+  }
+  .apsod-journal-slide-bottom {
+    animation-name: apsodJournalSlideBottom;
+  }
+
+  .apsod-journal-tile {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  /* ─── Медленно вращающаяся точка ─── */
+  @keyframes apsodJournalSpin {
+    from {
+      transform: rotate(0deg) scale(1);
+    }
+    50% {
+      transform: rotate(180deg) scale(1.4);
+    }
+    to {
+      transform: rotate(360deg) scale(1);
+    }
+  }
+
+  .apsod-journal-spin {
+    animation: apsodJournalSpin 8s linear infinite;
+    transform-origin: center;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .apsod-journal-card,
+    .apsod-journal-spin {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
