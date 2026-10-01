@@ -1010,3 +1010,170 @@ header.apsod-site-header a.apsod-logo:active {
     }
   }
 }
+/* 1октября */
+/* ═══════════════════════════════════════════════════════════
+   REVIEWS SECTION — light/dark через CSS-переменные
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --apsod-star: #f59e0b; /* amber-500 */
+  --apsod-reviews-bg: var(--bg-secondary);
+  --apsod-review-card-bg: var(--bg-primary);
+  --apsod-review-card-border: var(--border-color);
+  --apsod-reviews-heading: var(--text-primary);
+  --apsod-reviews-meta: var(--text-muted);
+  --apsod-review-text: var(--text-secondary);
+  --apsod-review-name: var(--text-primary);
+  --apsod-review-avatar-bg: rgba(255, 106, 43, 0.1);
+  --apsod-review-avatar-text: #ea580c;
+  --apsod-review-avatar-border: rgba(255, 106, 43, 0.28);
+  --apsod-review-link: #ea580c;
+  --apsod-review-link-hover: #c2410c;
+  --apsod-reviews-glow: radial-gradient(
+    ellipse 70% 50% at 50% 0%,
+    rgba(255, 106, 43, 0.08),
+    transparent 60%
+  );
+  --apsod-reviews-arrow-border: var(--border-color);
+  --apsod-reviews-arrow-hover: var(--apsod-arigo-accent);
+  --apsod-reviews-dot: rgba(15, 23, 42, 0.2);
+  --apsod-reviews-dot-hover: rgba(15, 23, 42, 0.4);
+  --apsod-reviews-dot-active: var(--apsod-arigo-accent);
+  --apsod-review-verified: #059669;
+}
+
+.dark {
+  --apsod-star: #fbbf24; /* amber-400 */
+  --apsod-reviews-bg: var(--bg-secondary);
+  --apsod-review-card-bg: var(--bg-primary);
+  --apsod-review-card-border: var(--border-color);
+  --apsod-reviews-heading: var(--text-primary);
+  --apsod-reviews-meta: var(--text-muted);
+  --apsod-review-text: var(--text-secondary);
+  --apsod-review-name: var(--text-primary);
+  --apsod-review-avatar-bg: rgba(56, 189, 248, 0.14);
+  --apsod-review-avatar-text: #7dd3fc;
+  --apsod-review-avatar-border: rgba(56, 189, 248, 0.28);
+  --apsod-review-link: #7dd3fc;
+  --apsod-review-link-hover: #bae6fd;
+  --apsod-reviews-glow: radial-gradient(
+    ellipse 70% 50% at 50% 0%,
+    rgba(56, 189, 248, 0.16),
+    transparent 60%
+  );
+  --apsod-reviews-arrow-border: rgba(255, 255, 255, 0.15);
+  --apsod-reviews-arrow-hover: var(--apsod-accent);
+  --apsod-reviews-dot: rgba(255, 255, 255, 0.28);
+  --apsod-reviews-dot-hover: rgba(255, 255, 255, 0.55);
+  --apsod-reviews-dot-active: var(--apsod-accent);
+  --apsod-review-verified: #34d399;
+}
+
+/* Секция */
+.apsod-reviews-section {
+  background-color: var(--apsod-reviews-bg);
+  color: var(--text-primary);
+}
+.apsod-reviews-glow {
+  background: var(--apsod-reviews-glow);
+  opacity: 0.9;
+}
+
+/* Заголовки и мета */
+.apsod-reviews-heading {
+  color: var(--apsod-reviews-heading);
+}
+.apsod-reviews-meta {
+  color: var(--apsod-reviews-meta);
+}
+
+/* Звёзды */
+.apsod-star {
+  color: var(--apsod-star);
+}
+
+/* Карточка */
+.apsod-review-card {
+  background-color: var(--apsod-review-card-bg);
+  border-color: var(--apsod-review-card-border);
+  color: var(--text-primary);
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+.apsod-review-card:hover {
+  border-color: color-mix(
+    in srgb,
+    var(--apsod-arigo-accent, var(--apsod-accent)) 45%,
+    var(--apsod-review-card-border)
+  );
+}
+
+.apsod-review-text {
+  color: var(--apsod-review-text);
+}
+.apsod-review-name {
+  color: var(--apsod-review-name);
+}
+.apsod-review-meta {
+  color: var(--apsod-reviews-meta);
+}
+
+.apsod-review-avatar {
+  background-color: var(--apsod-review-avatar-bg);
+  color: var(--apsod-review-avatar-text);
+  border-color: var(--apsod-review-avatar-border);
+}
+
+.apsod-review-link {
+  color: var(--apsod-review-link);
+  transition: color 0.2s ease;
+}
+.apsod-review-link:hover {
+  color: var(--apsod-review-link-hover);
+}
+
+.apsod-review-verified {
+  color: var(--apsod-review-verified);
+}
+
+/* Стрелки */
+.apsod-reviews-arrow {
+  border-color: var(--apsod-reviews-arrow-border);
+  color: var(--text-primary);
+}
+.apsod-reviews-arrow:hover:not(:disabled) {
+  border-color: var(--apsod-reviews-arrow-hover);
+  color: var(--apsod-reviews-arrow-hover);
+}
+.apsod-reviews-arrow:focus-visible {
+  outline: 2px solid var(--apsod-reviews-arrow-hover);
+  outline-offset: 2px;
+}
+
+/* Точки */
+.apsod-reviews-dot {
+  background-color: var(--apsod-reviews-dot);
+}
+.apsod-reviews-dot:hover {
+  background-color: var(--apsod-reviews-dot-hover);
+}
+.apsod-reviews-dot-active {
+  background-color: var(--apsod-reviews-dot-active);
+}
+
+/* Трек карточек: отступ у scroll-snap, чтобы первая карточка не липла к краю */
+.apsod-reviews-track {
+  scroll-padding-inline: clamp(1rem, 3vw, 2rem);
+}
+
+/* Уважаем prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .apsod-reviews-track {
+    scroll-behavior: auto;
+  }
+  .apsod-review-card,
+  .apsod-reviews-arrow {
+    transition: none;
+  }
+}

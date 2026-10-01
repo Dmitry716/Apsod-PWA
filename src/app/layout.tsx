@@ -11,6 +11,7 @@ import SeoJsonLd from "./components/SeoJsonLd";
 import LocaleSeoHints from "./components/LocaleSeoHints";
 import YandexMetrika from "./components/YandexMetrika";
 import GoogleAnalytics from "./components/GoogleAnalytics";
+import ReviewJsonLd from "./components/ReviewJsonLd";
 import {
   SITE_URL,
   SITE_NAME,
@@ -87,7 +88,9 @@ export const metadata: Metadata = {
       { url: "/icons/icon-192x192.png", sizes: "192x192", type: "image/png" },
       { url: "/icons/icon-512x512.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
     shortcut: ["/favicon.ico"],
   },
   appleWebApp: {
@@ -119,16 +122,24 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-      'max-video-preview': -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
     },
   },
   ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
-    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+        },
+      }
     : {}),
   ...(process.env.NEXT_PUBLIC_YANDEX_VERIFICATION
-    ? { other: { 'yandex-verification': process.env.NEXT_PUBLIC_YANDEX_VERIFICATION } }
+    ? {
+        other: {
+          "yandex-verification": process.env.NEXT_PUBLIC_YANDEX_VERIFICATION,
+        },
+      }
     : {}),
 };
 
@@ -137,25 +148,44 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const headerStore = await headers()
-  const cookieStore = await cookies()
-  const headerLocale = headerStore.get('x-apsod-locale')
-  const pathLocale = getLocaleFromPathname(headerStore.get('x-apsod-pathname') || '/')
-  const cookieLang = cookieStore.get('lang')?.value
-  const lang = normalizeLocale(headerLocale ?? pathLocale ?? cookieLang)
+  const headerStore = await headers();
+  const cookieStore = await cookies();
+  const headerLocale = headerStore.get("x-apsod-locale");
+  const pathLocale = getLocaleFromPathname(
+    headerStore.get("x-apsod-pathname") || "/",
+  );
+  const cookieLang = cookieStore.get("lang")?.value;
+  const lang = normalizeLocale(headerLocale ?? pathLocale ?? cookieLang);
 
   return (
-    <html lang={lang === 'en' ? 'en' : 'ru'} suppressHydrationWarning>
+    <html lang={lang === "en" ? "en" : "ru"} suppressHydrationWarning>
       <head>
         <LocaleSeoHints />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon-16x16.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/apple-touch-icon.png"
+        />
         <meta name="theme-color" content="#0f172a" />
         <meta name="msapplication-TileColor" content="#0f172a" />
-        <meta name="msapplication-TileImage" content="/icons/icon-144x144.png" />
+        <meta
+          name="msapplication-TileImage"
+          content="/icons/icon-144x144.png"
+        />
         <meta name="author" content={SITE_NAME} />
         <meta name="geo.region" content="BY-HM" />
         <meta name="geo.placename" content="Minsk, Belarus" />
@@ -169,6 +199,10 @@ export default async function RootLayout({
             generateLocalBusinessSchema(),
           ])}
         />
+        {/* 1октября */}
+
+        {/* 1 октября */}
+        <ReviewJsonLd />
       </head>
       <body
         className={`${roboto.variable} ${poppins.variable} ${montserrat.variable} ${roboto.className}`}

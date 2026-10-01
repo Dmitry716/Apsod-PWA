@@ -1,0 +1,4 @@
+{
+  "css.customArgs": [],
+  "css.lint.unknownAtRules": "ignore"
+}
