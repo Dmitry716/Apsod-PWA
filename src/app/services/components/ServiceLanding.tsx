@@ -1,33 +1,39 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import DeviceMockup from '../../components/DeviceMockup'
-import IphoneDuoShowcase from '../../components/IphoneDuoShowcase'
-import Reveal from '../../components/Reveal'
-import SectionAtmosphere from '../../components/SectionAtmosphere'
-import SeoJsonLd from '../../components/SeoJsonLd'
-import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
-import { COMPANY_AREA_SERVED, SITE_URL } from '../../lib/seo'
-import DevelopmentProcessSection from './DevelopmentProcessSection'
-import { TechStackChips } from '../../components/TechStackSection'
-import type { ServiceLandingContent } from '../lib/landing-data'
+import Image from "next/image";
+import Link from "next/link";
+import DeviceMockup from "../../components/DeviceMockup";
+import IphoneDuoShowcase from "../../components/IphoneDuoShowcase";
+import Reveal from "../../components/Reveal";
+import SectionAtmosphere from "../../components/SectionAtmosphere";
+import SeoJsonLd from "../../components/SeoJsonLd";
+import ReviewsByService from "../../components/ReviewsByService";
+import type { ReviewServiceSlug } from "../../lib/reviews";
+import {
+  ServiceBreadcrumbs,
+  ServiceFaqBlock,
+} from "../../components/ServiceSeoExtras";
+import { COMPANY_AREA_SERVED, SITE_URL } from "../../lib/seo";
+import DevelopmentProcessSection from "./DevelopmentProcessSection";
+import { TechStackChips } from "../../components/TechStackSection";
+import type { ServiceLandingContent } from "../lib/landing-data";
 
 type Props = {
-  content: ServiceLandingContent
-}
+  content: ServiceLandingContent;
+};
 
 export default function ServiceLanding({ content }: Props) {
   const serviceSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
+    "@context": "https://schema.org",
+    "@type": "Service",
     name: content.schemaName,
     description: content.schemaDescription,
-    provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
+    provider: { "@type": "Organization", name: "APSOD", url: SITE_URL },
     areaServed: COMPANY_AREA_SERVED,
     url: `${SITE_URL}/services/${content.slug}`,
-  }
+  };
 
-  const phoneHero = content.heroDevice === 'iphone' || content.heroDevice === 'samsung'
-  const iosDuo = content.slug === 'ios-apps'
+  const phoneHero =
+    content.heroDevice === "iphone" || content.heroDevice === "samsung";
+  const iosDuo = content.slug === "ios-apps";
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
@@ -40,10 +46,10 @@ export default function ServiceLanding({ content }: Props) {
           <div
             className={`grid gap-10 lg:gap-14 items-center ${
               iosDuo
-                ? 'lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]'
+                ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]"
                 : phoneHero
-                  ? 'lg:grid-cols-[1fr_auto]'
-                  : 'lg:grid-cols-2'
+                  ? "lg:grid-cols-[1fr_auto]"
+                  : "lg:grid-cols-2"
             }`}
           >
             <div className="max-w-xl lg:max-w-none">
@@ -76,10 +82,10 @@ export default function ServiceLanding({ content }: Props) {
             <div
               className={`apsod-hero-enter apsod-hero-enter-delay-3 w-full ${
                 iosDuo
-                  ? 'mx-auto max-w-md lg:max-w-lg lg:mx-0'
+                  ? "mx-auto max-w-md lg:max-w-lg lg:mx-0"
                   : phoneHero
-                    ? 'w-[min(46vw,200px)] sm:w-[190px] mx-auto lg:mx-0 lg:justify-self-end'
-                    : 'max-w-2xl mx-auto lg:max-w-none lg:justify-self-stretch'
+                    ? "w-[min(46vw,200px)] sm:w-[190px] mx-auto lg:mx-0 lg:justify-self-end"
+                    : "max-w-2xl mx-auto lg:max-w-none lg:justify-self-stretch"
               }`}
             >
               {iosDuo ? (
@@ -107,16 +113,21 @@ export default function ServiceLanding({ content }: Props) {
           <div
             className={`grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 ${
               content.outcomes.length % 3 === 0
-                ? 'md:grid-cols-2 lg:grid-cols-3'
-                : 'md:grid-cols-2'
+                ? "md:grid-cols-2 lg:grid-cols-3"
+                : "md:grid-cols-2"
             }`}
           >
             {content.outcomes.map((item) => (
-              <Reveal key={item.title} className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 md:p-8 min-h-[140px]">
+              <Reveal
+                key={item.title}
+                className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 md:p-8 min-h-[140px]"
+              >
                 <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-3 tracking-tight">
                   {item.title}
                 </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{item.body}</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  {item.body}
+                </p>
               </Reveal>
             ))}
           </div>
@@ -127,18 +138,23 @@ export default function ServiceLanding({ content }: Props) {
         <div className="container mx-auto px-4">
           <div
             className={`grid gap-8 md:gap-10 ${
-              content.screens.every((s) => s.device === 'iphone' || s.device === 'samsung')
-                ? 'grid-cols-1 sm:grid-cols-3 items-start justify-items-center'
-                : 'md:grid-cols-3 items-stretch'
+              content.screens.every(
+                (s) => s.device === "iphone" || s.device === "samsung",
+              )
+                ? "grid-cols-1 sm:grid-cols-3 items-start justify-items-center"
+                : "md:grid-cols-3 items-stretch"
             }`}
           >
             {content.screens.map((screen, i) => {
-              const isPhone = screen.device === 'iphone' || screen.device === 'samsung'
+              const isPhone =
+                screen.device === "iphone" || screen.device === "samsung";
               return (
                 <Reveal
                   key={`${screen.src}-${i}`}
-                  stagger={(Math.min(i + 1, 3) as 1 | 2 | 3)}
-                  className={isPhone ? 'w-full max-w-[min(38vw,180px)]' : 'w-full'}
+                  stagger={Math.min(i + 1, 3) as 1 | 2 | 3}
+                  className={
+                    isPhone ? "w-full max-w-[min(38vw,180px)]" : "w-full"
+                  }
                 >
                   <DeviceMockup
                     device={screen.device}
@@ -146,7 +162,7 @@ export default function ServiceLanding({ content }: Props) {
                     screenAlt={screen.alt}
                   />
                 </Reveal>
-              )
+              );
             })}
           </div>
         </div>
@@ -191,7 +207,7 @@ export default function ServiceLanding({ content }: Props) {
 
         <div className="border-y border-slate-200 dark:border-slate-800">
           {content.cases.map((item, index) => {
-            const odd = index % 2 === 1
+            const odd = index % 2 === 1;
             return (
               <Reveal key={`${item.href}-${item.title}`}>
                 <Link
@@ -200,7 +216,7 @@ export default function ServiceLanding({ content }: Props) {
                 >
                   <div
                     className={`lg:col-span-8 relative min-h-[220px] md:min-h-[320px] lg:min-h-[380px] overflow-hidden bg-slate-100 dark:bg-slate-900 ${
-                      odd ? 'lg:order-2' : ''
+                      odd ? "lg:order-2" : ""
                     }`}
                   >
                     <Image
@@ -213,11 +229,11 @@ export default function ServiceLanding({ content }: Props) {
                   </div>
                   <div
                     className={`lg:col-span-4 flex flex-col justify-end p-8 md:p-12 lg:p-14 bg-white dark:bg-gray-950 ${
-                      odd ? 'lg:order-1' : ''
+                      odd ? "lg:order-1" : ""
                     }`}
                   >
                     <p className="text-[11px] tracking-[0.22em] uppercase text-slate-400 mb-4">
-                      {String(index + 1).padStart(2, '0')}
+                      {String(index + 1).padStart(2, "0")}
                     </p>
                     <h3 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-4 group-hover:translate-x-1 transition-transform duration-500">
                       {item.title}
@@ -237,12 +253,18 @@ export default function ServiceLanding({ content }: Props) {
                   </div>
                 </Link>
               </Reveal>
-            )
+            );
           })}
         </div>
       </section>
 
       <ServiceFaqBlock service={content.slug} />
+
+      {/* Отзывы клиентов об этой услуге */}
+      <ReviewsByService
+        serviceSlug={content.slug as ReviewServiceSlug}
+        limit={3}
+      />
 
       <section className="relative py-20 md:py-28 overflow-hidden bg-slate-950 text-white">
         <SectionAtmosphere tone="dark" grid={false} />
@@ -261,5 +283,5 @@ export default function ServiceLanding({ content }: Props) {
         </div>
       </section>
     </div>
-  )
+  );
 }

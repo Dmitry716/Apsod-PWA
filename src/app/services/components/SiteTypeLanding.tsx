@@ -1,41 +1,50 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import Reveal from '../../components/Reveal'
-import SectionAtmosphere from '../../components/SectionAtmosphere'
-import SeoJsonLd from '../../components/SeoJsonLd'
-import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
+import Image from "next/image";
+import Link from "next/link";
+import Reveal from "../../components/Reveal";
+import SectionAtmosphere from "../../components/SectionAtmosphere";
+import SeoJsonLd from "../../components/SeoJsonLd";
+import ReviewsByService from "../../components/ReviewsByService";
+import type { ReviewServiceSlug } from "../../lib/reviews";
+import {
+  ServiceBreadcrumbs,
+  ServiceFaqBlock,
+} from "../../components/ServiceSeoExtras";
 import {
   CLIENT_PROOF,
   WEB_BUILD_TIMELINE,
   WHY_APSOD_WEB,
-} from '../../lib/client-proof'
-import { COMPANY_ADDRESS_DISPLAY, COMPANY_AREA_SERVED, SITE_URL } from '../../lib/seo'
+} from "../../lib/client-proof";
+import {
+  COMPANY_ADDRESS_DISPLAY,
+  COMPANY_AREA_SERVED,
+  SITE_URL,
+} from "../../lib/seo";
 import {
   getSiteTypeCases,
   getSiteTypePackage,
   SITE_TYPE_PAGES,
   type SiteTypeSlug,
-} from '../../lib/site-type-pages'
+} from "../../lib/site-type-pages";
 
 export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
-  const page = SITE_TYPE_PAGES[slug]
-  const pkg = getSiteTypePackage(slug)
-  const cases = getSiteTypeCases(slug)
+  const page = SITE_TYPE_PAGES[slug];
+  const pkg = getSiteTypePackage(slug);
+  const cases = getSiteTypeCases(slug);
 
   const serviceSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Service',
+    "@context": "https://schema.org",
+    "@type": "Service",
     name: page.schemaName,
     description: page.lead,
-    provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
+    provider: { "@type": "Organization", name: "APSOD", url: SITE_URL },
     areaServed: COMPANY_AREA_SERVED,
     url: `${SITE_URL}/services/${slug}`,
     offers: {
-      '@type': 'Offer',
+      "@type": "Offer",
       name: pkg.title,
       url: `${SITE_URL}/contact?goal=${pkg.goal}&budget=${pkg.budget}`,
     },
-  }
+  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
@@ -48,7 +57,7 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
 
         <div
           className="relative z-10 mx-auto max-w-7xl px-4 pb-14 md:px-8 md:pb-20"
-          style={{ paddingTop: 'calc(var(--apsod-header-h) + 3.5rem)' }}
+          style={{ paddingTop: "calc(var(--apsod-header-h) + 3.5rem)" }}
         >
           <p className="apsod-hero-enter apsod-hero-enter-delay-1 mb-5 text-[11px] font-medium uppercase tracking-[0.22em] text-white/50">
             {page.eyebrow}
@@ -82,13 +91,16 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
       <section className="border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 py-5 text-sm text-slate-600 dark:text-slate-300">
           {COMPANY_ADDRESS_DISPLAY}
-          {' · '}
-          <Link href="/contact" className="apsod-link-nudge font-medium text-slate-900 dark:text-white">
+          {" · "}
+          <Link
+            href="/contact"
+            className="apsod-link-nudge font-medium text-slate-900 dark:text-white"
+          >
             Контакты
           </Link>
           {page.parentNote ? (
             <>
-              {' · '}
+              {" · "}
               <Link
                 href={page.parentNote.href}
                 className="apsod-link-nudge font-medium text-slate-900 dark:text-white"
@@ -116,7 +128,9 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
                 <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-3 tracking-tight">
                   {item.title}
                 </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{item.body}</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  {item.body}
+                </p>
               </Reveal>
             ))}
           </div>
@@ -129,17 +143,24 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
             <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
               Формат
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400">Смета после брифа — обычно за 1 рабочий день.</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              Смета после брифа — обычно за 1 рабочий день.
+            </p>
           </Reveal>
           <Reveal className="apsod-price-card max-w-lg bg-white dark:bg-gray-950 border border-slate-200 dark:border-slate-800 p-7 flex flex-col">
             <h3 className="font-display text-xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
               {pkg.title}
             </h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">Срок: {pkg.term}</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">
+              Срок: {pkg.term}
+            </p>
             <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-300 mb-8">
               {pkg.items.map((item) => (
                 <li key={item} className="flex gap-2">
-                  <span className="h-px w-3 bg-slate-400 shrink-0 mt-2.5" aria-hidden />
+                  <span
+                    className="h-px w-3 bg-slate-400 shrink-0 mt-2.5"
+                    aria-hidden
+                  />
                   {item}
                 </li>
               ))}
@@ -174,7 +195,9 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
                   <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-2 tracking-tight">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{step.body}</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                    {step.body}
+                  </p>
                 </div>
               </Reveal>
             ))}
@@ -198,7 +221,9 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
                 <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-3 tracking-tight">
                   {item.title}
                 </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{item.body}</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  {item.body}
+                </p>
               </Reveal>
             ))}
           </div>
@@ -239,7 +264,7 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
                   </div>
                   <div className="md:col-span-7 flex flex-col justify-end p-8 md:p-10">
                     <p className="text-[11px] tracking-[0.22em] uppercase text-slate-400 mb-3">
-                      {String(index + 1).padStart(2, '0')}
+                      {String(index + 1).padStart(2, "0")}
                     </p>
                     <h3 className="font-display text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
                       {item.title}
@@ -282,6 +307,8 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
       </section>
 
       <ServiceFaqBlock service={slug} />
+      {/* Отзывы клиентов об этой услуге */}
+      <ReviewsByService serviceSlug={slug as ReviewServiceSlug} limit={3} />
 
       <section className="relative py-20 md:py-28 overflow-hidden bg-slate-950 text-white">
         <SectionAtmosphere tone="dark" grid={false} />
@@ -291,7 +318,8 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
               Нужна смета?
             </h2>
             <p className="text-slate-300 mb-8 leading-relaxed">
-              Смета и сроки — после короткого брифа, обычно в течение рабочего дня.
+              Смета и сроки — после короткого брифа, обычно в течение рабочего
+              дня.
             </p>
             <Link
               href={`/contact?goal=${pkg.goal}&budget=${pkg.budget}`}
@@ -303,5 +331,5 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
         </div>
       </section>
     </div>
-  )
+  );
 }

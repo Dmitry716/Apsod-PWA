@@ -46,9 +46,6 @@ export default function MobileDevelopmentPage() {
       <ServiceBreadcrumbs service="mobile-development" />
       <SeoJsonLd data={serviceSchema} />
 
-      {/* Отзывы клиентов об этой услуге */}
-      <ReviewsByService serviceSlug="mobile-development" limit={3} />
-
       <section className="relative min-h-[min(88vh,820px)] flex items-center overflow-hidden bg-slate-950 text-white">
         <SectionAtmosphere tone="dark" grid={false} />
         <div className="container mx-auto px-4 relative z-10 py-24 md:py-28">
@@ -186,6 +183,9 @@ export default function MobileDevelopmentPage() {
       </section>
 
       <ServiceFaqBlock service="mobile-development" />
+
+      {/* Отзывы клиентов об этой услуге */}
+      <ReviewsByService serviceSlug="mobile-development" limit={3} />
 
       <section className="relative py-20 md:py-28 overflow-hidden bg-slate-950 text-white">
         <SectionAtmosphere tone="dark" grid={false} />
