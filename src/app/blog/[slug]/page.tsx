@@ -85,7 +85,7 @@ export default async function BlogPostPage({ params }: Props) {
 
       <article>
         {/* Hero — обложка статьи */}
-        <section className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] flex w-screen -mt-16 min-h-[420px] items-center justify-center overflow-hidden bg-slate-950 md:-mt-20 md:min-h-[520px] lg:min-h-[580px]">
+        {/* <section className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] flex w-screen -mt-16 min-h-[420px] items-center justify-center overflow-hidden bg-slate-950 md:-mt-20 md:min-h-[520px] lg:min-h-[580px]">
           <img
             src={post.image}
             alt=""
@@ -100,6 +100,62 @@ export default async function BlogPostPage({ params }: Props) {
             <p className="mt-6 text-sm font-medium text-white/85 md:mt-8 md:text-base">
               {post.date}
             </p>
+          </div>
+        </section> */}
+        {/* Hero — обложка статьи */}
+        <section className="apsod-bleed-hero relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] flex w-screen min-h-[520px] items-end overflow-hidden bg-slate-950 md:min-h-[620px] lg:min-h-[680px]">          <Image
+            src={post.image}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div
+            className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/40 to-slate-950/95"
+            aria-hidden
+          />
+          <div
+            className="apsod-grain absolute inset-0 opacity-30"
+            aria-hidden
+          />
+
+          <div
+            className="relative z-10 mx-auto w-full max-w-5xl px-6 pb-16 md:px-8 md:pb-20"
+            style={{ paddingTop: "calc(var(--apsod-header-h) + 3rem)" }}
+          >
+            {/* Breadcrumbs */}
+            <nav
+              className="mb-8 flex flex-wrap items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-white/55"
+              aria-label="Breadcrumb"
+            >
+              <Link href="/" className="transition-colors hover:text-white">
+                {isEn ? "Home" : "Главная"}
+              </Link>
+              <span className="text-white/25" aria-hidden>
+                /
+              </span>
+              <Link href="/blog" className="transition-colors hover:text-white">
+                {isEn ? "Blog" : "Блог"}
+              </Link>
+            </nav>
+
+            {/* Category pill + meta */}
+            <div className="mb-6 flex flex-wrap items-center gap-3">
+              <span className="inline-flex rounded-full border border-orange-300/40 bg-orange-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-orange-200 backdrop-blur-sm">
+                {post.category}
+              </span>
+              <span className="text-xs font-medium uppercase tracking-[0.14em] text-white/60">
+                {post.date}
+                <span className="mx-2 opacity-50">·</span>
+                {post.readTime} {isEn ? "min read" : "мин чтения"}
+              </span>
+            </div>
+
+            {/* H1 с акцентным последним словом */}
+            <h1 className="font-display max-w-4xl text-balance text-[clamp(1.75rem,4.5vw,3.5rem)] font-extrabold uppercase leading-[1.05] tracking-[-0.02em] text-white">
+              {post.title}
+            </h1>
           </div>
         </section>
 

@@ -42,7 +42,7 @@
 }
 
 .blog-prose h2::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0.15em;
@@ -64,15 +64,22 @@
 .blog-prose strong {
   font-weight: 600;
   color: var(--blog-text);
-  background: linear-gradient(180deg, transparent 60%, var(--blog-accent-soft) 60%);
+  background: linear-gradient(
+    180deg,
+    transparent 60%,
+    var(--blog-accent-soft) 60%
+  );
   padding: 0 0.15em;
 }
 
 .blog-prose a {
   color: var(--blog-accent);
   text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--blog-accent) 40%, transparent);
-  transition: border-color 0.2s, background 0.2s;
+  border-bottom: 1px solid
+    color-mix(in srgb, var(--blog-accent) 40%, transparent);
+  transition:
+    border-color 0.2s,
+    background 0.2s;
 }
 
 .blog-prose a:hover {
@@ -96,7 +103,7 @@
 }
 
 .blog-prose ul li::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0.25rem;
   top: 0.65em;
@@ -183,7 +190,12 @@
   margin: 3rem 0;
   border: none;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--blog-border), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--blog-border),
+    transparent
+  );
 }
 
 /* -------- Изображения -------- */
@@ -197,8 +209,9 @@
 .blog-reveal {
   opacity: 0;
   transform: translateY(16px);
-  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .blog-reveal.is-visible {
@@ -264,8 +277,9 @@
 .blog-related-card:hover {
   transform: translateY(-4px);
   border-color: var(--apsod-accent);
-  box-shadow: 0 20px 40px -20px var(--apsod-glow),
-              0 0 0 1px var(--apsod-accent);
+  box-shadow:
+    0 20px 40px -20px var(--apsod-glow),
+    0 0 0 1px var(--apsod-accent);
 }
 
 /* -------- Оглавление (TOC) -------- */
@@ -289,4 +303,31 @@
 .blog-toc a.is-active {
   color: var(--apsod-accent);
   border-left-color: var(--apsod-accent);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BLOG LIST — hero, фильтры, карточки (анимации)
+   ═══════════════════════════════════════════════════════════ */
+
+.apsod-journal-card {
+  height: 100%;
+}
+
+.apsod-journal-card:hover h2 {
+  color: var(--apsod-arigo-accent, #ff6a2b);
+}
+
+.dark .apsod-journal-card.apsod-journal-tile:hover h2 {
+  color: var(--apsod-accent, #38bdf8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apsod-journal-card,
+  .apsod-journal-slide-left,
+  .apsod-journal-slide-right,
+  .apsod-journal-slide-bottom {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
