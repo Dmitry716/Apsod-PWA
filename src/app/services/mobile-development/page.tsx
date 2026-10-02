@@ -6,6 +6,7 @@ import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { MOBILE_APP_PACKAGES } from '../../lib/mobile-app-packages'
 import { COMPANY_AREA_SERVED, SITE_URL, buildServiceMetadata } from '../../lib/seo'
+import ReviewsByService from '../../components/ReviewsByService'
 
 export const metadata = buildServiceMetadata('mobile-development')
 
@@ -44,6 +45,9 @@ export default function MobileDevelopmentPage() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <ServiceBreadcrumbs service="mobile-development" />
       <SeoJsonLd data={serviceSchema} />
+
+      {/* Отзывы клиентов об этой услуге */}
+      <ReviewsByService serviceSlug="mobile-development" limit={3} />
 
       <section className="relative min-h-[min(88vh,820px)] flex items-center overflow-hidden bg-slate-950 text-white">
         <SectionAtmosphere tone="dark" grid={false} />

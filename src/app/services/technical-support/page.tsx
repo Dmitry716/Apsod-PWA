@@ -4,6 +4,7 @@ import TechStackSection from '../../components/TechStackSection'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
 import { SUPPORT_STACK_CATEGORIES } from '../../lib/tech-stack'
+import ReviewsByService from '../../components/ReviewsByService'
 
 export const metadata = buildServiceMetadata('technical-support')
 
@@ -114,6 +115,9 @@ export default function TechnicalSupportPage() {
         subtitle="Работаем с популярными фреймворками 2026 года — JS/TS, .NET и современными базами данных."
         categories={SUPPORT_STACK_CATEGORIES}
       />
+
+      {/* Отзывы клиентов об этой услуге */}
+      <ReviewsByService serviceSlug="technical-support" limit={3} />
 
       <section className="py-20 bg-slate-950">
         <div className="container mx-auto px-4 text-center">

@@ -2,6 +2,7 @@
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
+import ReviewsByService from '../../components/ReviewsByService'
 
 export const metadata = buildServiceMetadata('pwa-development')
 
@@ -365,6 +366,9 @@ export default function PWADevelopmentPage() {
           </Link>
         </div>
       </section>
+
+      {/* Отзывы клиентов об этой услуге */}
+      <ReviewsByService serviceSlug="pwa-development" limit={3} />
           <ServiceFaqBlock service="pwa-development" />
 </div>
   )

@@ -3,6 +3,7 @@ import SeoJsonLd from '../../components/SeoJsonLd'
 import ServiceSemanticBlocks from '../../components/ServiceSemanticBlocks'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
+import ReviewsByService from '../../components/ReviewsByService'
 
 export const metadata = buildServiceMetadata('seo')
 
@@ -264,6 +265,9 @@ export default function SEOPage() {
           </Link>
         </div>
       </section>
+
+      {/* Отзывы клиентов об этой услуге */}
+      <ReviewsByService serviceSlug="seo" limit={3} />
 
       <section className="py-14 bg-slate-950 text-white">
         <div className="container mx-auto px-4 text-center max-w-2xl">

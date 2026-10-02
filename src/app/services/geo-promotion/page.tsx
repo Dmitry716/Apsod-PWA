@@ -2,6 +2,7 @@
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
 import { buildServiceMetadata, SITE_URL } from '../../lib/seo'
+import ReviewsByService from '../../components/ReviewsByService'
 
 export const metadata = buildServiceMetadata('geo-promotion')
 
@@ -406,6 +407,9 @@ export default function GeoPromotionPage() {
       </section>
 
       {/* CTA */}
+
+      {/* Отзывы клиентов об этой услуге */}
+      <ReviewsByService serviceSlug="geo-promotion" limit={3} />
       <section className="py-20 bg-slate-950">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
