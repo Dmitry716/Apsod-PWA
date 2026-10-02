@@ -12,6 +12,7 @@ import {
 } from "../data";
 import SeoJsonLd from "../../components/SeoJsonLd";
 import AgencyPageHero from "../../components/AgencyPageHero";
+import ReviewByCase from "../../components/ReviewByCase";
 import {
   buildPageMetadata,
   generateBreadcrumbSchema,
@@ -299,6 +300,9 @@ export default async function PortfolioSlugPage({ params }: Props) {
                 ))}
               </ul>
             </div>
+
+            {/* ⬇️ ВСТАВЬ СЮДА ⬇️ */}
+            <ReviewByCase caseSlug={slug} />
 
             {/* CTA */}
             <div className="mt-12 flex flex-wrap gap-3 border-t border-slate-200 pt-10 dark:border-slate-800">
