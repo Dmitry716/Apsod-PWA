@@ -44,15 +44,20 @@ export default function AboutPage() {
       <AboutEngineering />
       <AboutStats stats={[...STATS]} />
 
-      <section className="w-full overflow-hidden bg-white py-16 text-slate-900 transition-colors dark:bg-black dark:text-white md:py-20">
+      <section
+        className="w-full overflow-hidden bg-white py-16 text-slate-900 transition-colors dark:bg-black dark:text-white md:py-20"
+        aria-labelledby="about-clients-heading"
+      >
         <div className="mx-auto max-w-7xl px-4 md:px-8">
-          <h2 className="font-display mb-12 text-center text-[clamp(1.75rem,4.5vw,3.5rem)] font-extrabold uppercase tracking-[-0.02em] text-slate-900 dark:text-white">
+          <h2
+            id="about-clients-heading"
+            className="font-display mb-12 text-center text-[clamp(1.75rem,4.5vw,3.5rem)] font-extrabold uppercase tracking-[-0.02em] text-slate-900 dark:text-white"
+          >
             Клиенты{" "}
             <span className="text-slate-400 dark:text-white/40">APSOD</span>
           </h2>
         </div>
 
-        {/* Бегущая строка */}
         <div className="apsod-marquee relative w-full overflow-hidden">
           <div
             className="pointer-events-none absolute inset-y-0 left-0 z-10 w-20 bg-gradient-to-r from-white to-transparent dark:from-black md:w-32"
@@ -63,69 +68,108 @@ export default function AboutPage() {
             aria-hidden
           />
 
-          <div className="apsod-marquee__track flex w-max gap-10 whitespace-nowrap md:gap-16">
-            {[...CLIENTS, ...CLIENTS].map((name, i) => (
-              <span
-                key={`${name}-${i}`}
+          <ul
+            className="apsod-marquee__track flex w-max gap-10 whitespace-nowrap md:gap-16"
+            role="list"
+          >
+            {CLIENTS.map((name) => (
+              <li
+                key={name}
                 className="font-display shrink-0 text-xl font-extrabold uppercase tracking-[0.04em] text-slate-500 transition-colors hover:text-slate-900 dark:text-white/55 dark:hover:text-white sm:text-2xl md:text-3xl lg:text-4xl"
               >
                 {name}
-              </span>
+              </li>
             ))}
-          </div>
+            {CLIENTS.map((name) => (
+              <li
+                key={`${name}-dup`}
+                aria-hidden="true"
+                className="font-display shrink-0 text-xl font-extrabold uppercase tracking-[0.04em] text-slate-500 transition-colors hover:text-slate-900 dark:text-white/55 dark:hover:text-white sm:text-2xl md:text-3xl lg:text-4xl"
+              >
+                {name}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <section className="border-t border-white/10 bg-black py-16 md:py-24">
+      <section
+        className="border-t border-white/10 bg-black py-16 md:py-24"
+        aria-labelledby="about-cases-heading"
+      >
         <div className="mx-auto max-w-7xl px-4 md:px-8">
           <div className="mb-10 flex items-center gap-4 md:mb-14">
-            <span className="text-xs font-medium tracking-[0.18em] text-white/45">
+            <span
+              className="text-xs font-medium tracking-[0.18em] text-white/45"
+              aria-hidden="true"
+            >
               02
             </span>
             <span className="h-px w-16 bg-white/15" aria-hidden />
-            <h2 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold uppercase tracking-[-0.02em]">
+            <h2
+              id="about-cases-heading"
+              className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold uppercase tracking-[-0.02em]"
+            >
               Избранные кейсы
             </h2>
           </div>
 
-          <div className="divide-y divide-white/10 border-y border-white/10">
+          <ul
+            className="divide-y divide-white/10 border-y border-white/10"
+            role="list"
+          >
             {milestones.map((project, index) => (
-              <Link
-                key={project.id}
-                href={getCasePath(project)}
-                className="group grid items-center gap-5 py-6 transition-colors sm:grid-cols-12 sm:gap-6 md:py-8"
-              >
-                <span className="text-xs tracking-[0.18em] text-white/35 sm:col-span-1">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <div className="relative h-20 overflow-hidden rounded-2xl bg-zinc-900 sm:col-span-3 sm:h-24">
-                  <Image
-                    src={project.image}
-                    alt=""
-                    fill
-                    className="object-cover object-top"
-                    sizes="200px"
-                  />
-                </div>
-                <div className="min-w-0 sm:col-span-6">
-                  <h3 className="font-display text-lg font-extrabold uppercase tracking-tight transition-colors group-hover:text-orange-300 md:text-xl">
-                    {project.title}
-                  </h3>
-                  <p className="mt-1 text-xs uppercase tracking-[0.14em] text-white/40">
-                    {project.year} · {project.category}
-                  </p>
-                </div>
-                <span className="text-xs font-bold uppercase tracking-[0.16em] text-white/40 transition-colors group-hover:text-white sm:col-span-2 sm:text-right">
-                  →
-                </span>
-              </Link>
+              <li key={project.id}>
+                <Link
+                  href={getCasePath(project)}
+                  className="group grid items-center gap-5 py-6 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black sm:grid-cols-12 sm:gap-6 md:py-8"
+                  aria-label={`Открыть кейс: ${project.title} — ${project.category}, ${project.year}`}
+                >
+                  <span
+                    className="text-xs tracking-[0.18em] text-white/35 sm:col-span-1"
+                    aria-hidden="true"
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-[#050a1f] sm:col-span-3 sm:aspect-[4/3]">
+                    <Image
+                      src={project.image}
+                      alt={`Превью проекта ${project.title} — ${project.category}`}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 25vw, 240px"
+                      className="object-contain object-center transition-transform duration-700 group-hover:scale-[1.03]"
+                    />
+                    <div
+                      className="apsod-photo-vignette pointer-events-none absolute inset-0 rounded-2xl"
+                      aria-hidden
+                    />
+                  </div>
+
+                  <div className="min-w-0 sm:col-span-6">
+                    <h3 className="font-display text-lg font-extrabold uppercase tracking-tight transition-colors group-hover:text-orange-300 md:text-xl">
+                      {project.title}
+                    </h3>
+                    <p className="mt-1 text-xs uppercase tracking-[0.14em] text-white/40">
+                      {project.year} · {project.category}
+                    </p>
+                  </div>
+
+                  <span
+                    className="text-xs font-bold uppercase tracking-[0.16em] text-white/40 transition-colors group-hover:text-white sm:col-span-2 sm:text-right"
+                    aria-hidden="true"
+                  >
+                    →
+                  </span>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
 
           <div className="mt-10 text-center">
             <Link
               href="/portfolio"
-              className="text-xs font-bold uppercase tracking-[0.16em] text-white/70 transition-colors hover:text-white"
+              className="text-xs font-bold uppercase tracking-[0.16em] text-white/70 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               Все кейсы →
             </Link>
@@ -133,10 +177,16 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="apsod-arigo-hero-bg relative overflow-hidden">
+      <section
+        className="apsod-arigo-hero-bg relative overflow-hidden"
+        aria-labelledby="about-cta-heading"
+      >
         <div className="apsod-arigo-hero-noise absolute inset-0" aria-hidden />
         <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-28">
-          <h2 className="font-display mb-6 max-w-3xl text-[clamp(2rem,5vw,3.5rem)] font-extrabold uppercase leading-[1.02] tracking-[-0.02em]">
+          <h2
+            id="about-cta-heading"
+            className="font-display mb-6 max-w-3xl text-[clamp(2rem,5vw,3.5rem)] font-extrabold uppercase leading-[1.02] tracking-[-0.02em]"
+          >
             Обсудим задачу вашей компании
           </h2>
           <p className="mb-10 max-w-xl text-white/70">
@@ -146,13 +196,13 @@ export default function AboutPage() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/contact"
-              className="inline-flex rounded-full bg-white px-8 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-slate-950 transition-colors hover:bg-orange-100"
+              className="inline-flex rounded-full bg-white px-8 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-slate-950 transition-colors hover:bg-orange-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               Связаться с нами
             </Link>
             <Link
               href="/services"
-              className="inline-flex rounded-full border border-white/35 px-8 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-white transition-colors hover:border-white hover:bg-white/10"
+              className="inline-flex rounded-full border border-white/35 px-8 py-3.5 text-xs font-bold uppercase tracking-[0.14em] text-white transition-colors hover:border-white hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
             >
               Смотреть услуги
             </Link>
