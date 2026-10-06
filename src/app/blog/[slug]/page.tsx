@@ -1,4 +1,3 @@
-import "../blog-prose.css";
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";

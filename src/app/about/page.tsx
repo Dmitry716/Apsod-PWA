@@ -9,7 +9,6 @@ import {
   getFeaturedPortfolioProjects,
   PORTFOLIO_PROJECTS,
 } from "../portfolio/data";
-import "./about-animations.css";
 
 export const metadata = buildSnippetMetadata("/about");
 

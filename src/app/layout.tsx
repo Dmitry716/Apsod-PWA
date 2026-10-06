@@ -30,6 +30,8 @@ import { getLocaleFromPathname } from "./lib/locale-path";
 import "./globals.css";
 import "./hero-animations.css";
 import "./premium-motion.css";
+import "./blog/blog-prose.css";
+import "./about/about-animations.css";
 
 /** Nerox body/paragraph — Roboto (full Cyrillic) */
 const roboto = Roboto({
