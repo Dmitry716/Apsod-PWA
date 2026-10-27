@@ -2,58 +2,58 @@
 
 import Link from 'next/link'
 import { HOMEPAGE_FAQ } from '../lib/homepage-faq'
-import { t } from '../lib/i18n'
 import { useLocale } from '../lib/useLocale'
 
-/** FAQ only — без SEO-стены текста и дублирующих ссылок */
+/** FAQ на главной — тёмный Arigo-блок + коммерческие анкоры */
 export default function HomeSeoSection() {
   const { locale } = useLocale()
+  const isEn = locale === 'en'
 
   return (
-    <section className="py-14 md:py-16 bg-slate-50 dark:bg-gray-900/50 border-t border-slate-200 dark:border-slate-800">
-      <div className="container mx-auto px-4 max-w-2xl">
-        <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-8 tracking-tight text-center">
-          {t(locale, 'home.faq.title')}
+    <section className="border-t border-white/10 bg-black py-14 text-white md:py-20">
+      <div className="mx-auto max-w-2xl px-4 md:px-8">
+        <h2 className="font-display mb-8 text-center text-2xl font-extrabold uppercase tracking-tight md:text-3xl">
+          {isEn ? 'FAQ' : 'Частые вопросы'}
         </h2>
         <div className="space-y-2">
           {HOMEPAGE_FAQ.map((item) => (
             <details
               key={item.question}
-              className="group border border-slate-200 dark:border-slate-700 bg-white dark:bg-gray-950 open:border-slate-300 dark:open:border-slate-600"
+              className="group border border-white/15 bg-white/[0.03] open:border-white/30"
             >
-              <summary className="cursor-pointer px-5 py-3.5 font-medium text-slate-900 dark:text-white list-none flex justify-between items-center gap-4 text-sm md:text-base">
-                {item.question}
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-3.5 text-sm font-medium text-white md:text-base">
+                {isEn ? item.question : item.question}
                 <span
-                  className="text-slate-400 shrink-0 group-open:rotate-45 transition-transform text-lg leading-none"
+                  className="shrink-0 text-lg leading-none text-white/40 transition-transform group-open:rotate-45"
                   aria-hidden
                 >
                   +
                 </span>
               </summary>
-              <p className="px-5 pb-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                {item.answer}
-              </p>
+              <p className="px-5 pb-4 text-sm leading-relaxed text-white/65">{item.answer}</p>
             </details>
           ))}
         </div>
-        <p className="mt-8 text-center text-sm text-slate-500">
+        <p className="mt-8 text-center text-sm text-white/45">
           <Link
             href="/services/web-development"
-            className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200"
+            className="text-white/80 underline-offset-4 transition-colors hover:text-orange-300 hover:underline"
           >
-            {t(locale, 'home.faq.link.dev')}
+            {isEn ? 'Web development' : 'Разработка сайтов'}
           </Link>
           {' · '}
-          <Link href="/contact" className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200">
-            {t(locale, 'home.faq.link.pricing')}
+          <Link
+            href="/services/seo"
+            className="text-white/80 underline-offset-4 transition-colors hover:text-orange-300 hover:underline"
+          >
+            {isEn ? 'SEO' : 'SEO продвижение'}
           </Link>
           {' · '}
-          <Link href="/services/seo" className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200">
-            {t(locale, 'home.faq.link.seo')}
-          </Link>
-          {' · '}
-          <Link href="/contact" className="underline-offset-4 hover:underline text-slate-800 dark:text-slate-200">
-            {t(locale, 'home.faq.link.contact')}
+          <Link
+            href="/contact"
+            className="text-white/80 underline-offset-4 transition-colors hover:text-orange-300 hover:underline"
+          >
+            {isEn ? 'Get a quote' : 'Смета / контакты'}
           </Link>
         </p>
       </div>

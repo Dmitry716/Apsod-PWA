@@ -58,27 +58,54 @@ export default function HomeHero() {
           id="hero-title"
           className="apsod-hero-enter apsod-hero-enter-delay-2 font-display font-extrabold uppercase leading-[0.92] tracking-[-0.03em]"
         >
-          <span className="block text-[clamp(2.75rem,11vw,9.5rem)]">
-            Digital
-          </span>
-          <span className="mt-1 flex flex-wrap items-center gap-2 text-[clamp(2.25rem,10vw,9.5rem)] sm:gap-3 md:gap-5 md:mt-2">
-            <span
-              className="apsod-arigo-star apsod-star-spin shrink-0"
-              role="img"
-              aria-label={isEn ? "Star" : "Звезда"}
-            >
-              <svg
-                viewBox="0 0 64 64"
-                className="h-[0.55em] w-[0.55em]"
-                fill="currentColor"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path d="M32 4l4.2 20.2L56 32l-19.8 7.8L32 60l-4.2-20.2L8 32l19.8-7.8L32 4z" />
-              </svg>
-            </span>
-            <span className="break-words">Engineering</span>
-          </span>
+          {isEn ? (
+            <>
+              <span className="block text-[clamp(2.75rem,11vw,9.5rem)]">Digital</span>
+              <span className="mt-1 flex flex-wrap items-center gap-2 text-[clamp(2.25rem,10vw,9.5rem)] sm:gap-3 md:gap-5 md:mt-2">
+                <span
+                  className="apsod-arigo-star apsod-star-spin shrink-0"
+                  role="img"
+                  aria-label="Star"
+                >
+                  <svg
+                    viewBox="0 0 64 64"
+                    className="h-[0.55em] w-[0.55em]"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M32 4l4.2 20.2L56 32l-19.8 7.8L32 60l-4.2-20.2L8 32l19.8-7.8L32 4z" />
+                  </svg>
+                </span>
+                <span className="break-words">Engineering</span>
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="block text-[clamp(2.1rem,8.5vw,6.5rem)]">Разработка</span>
+              <span className="mt-1 flex flex-wrap items-center gap-2 text-[clamp(2.1rem,8.5vw,6.5rem)] sm:gap-3 md:gap-5 md:mt-2">
+                <span
+                  className="apsod-arigo-star apsod-star-spin shrink-0"
+                  role="img"
+                  aria-label="Звезда"
+                >
+                  <svg
+                    viewBox="0 0 64 64"
+                    className="h-[0.55em] w-[0.55em]"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M32 4l4.2 20.2L56 32l-19.8 7.8L32 60l-4.2-20.2L8 32l19.8-7.8L32 4z" />
+                  </svg>
+                </span>
+                <span className="break-words">сайтов</span>
+              </span>
+              <span className="mt-3 block text-[clamp(1rem,3.2vw,1.75rem)] font-bold tracking-[0.18em] text-white/70">
+                в Минске
+              </span>
+            </>
+          )}
         </h1>
 
         {/* CTA */}

@@ -115,13 +115,13 @@ export default function HomeArigoIntro() {
                 ))}
               </div>
 
-              <Reveal className="mt-12">
+              <Reveal className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3">
                 <Link
-                  href="/about"
+                  href="/services/web-development"
                   className="group inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.16em] text-white transition-colors hover:text-orange-300"
                 >
                   <span className="relative">
-                    {isEn ? "About APSOD" : "О компании"}
+                    {isEn ? "Web development" : "Разработка сайтов"}
                     <span
                       className="absolute -bottom-1 left-0 h-px w-0 bg-orange-300 transition-all duration-500 group-hover:w-full"
                       aria-hidden
@@ -133,6 +133,12 @@ export default function HomeArigoIntro() {
                   >
                     →
                   </span>
+                </Link>
+                <Link
+                  href="/about"
+                  className="text-xs font-bold uppercase tracking-[0.16em] text-white/55 transition-colors hover:text-orange-300"
+                >
+                  {isEn ? "About APSOD" : "О компании"}
                 </Link>
               </Reveal>
             </div>

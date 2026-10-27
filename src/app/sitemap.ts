@@ -24,7 +24,6 @@ function entry(
   const alts = buildLocaleAlternates(path)
   const base = SITE_URL.replace(/\/$/, '')
   const ruPath = path === '/' ? '' : path
-  const enPath = path === '/' ? '/en' : `/en${path}`
 
   return [
     {
@@ -32,13 +31,6 @@ function entry(
       lastModified: opts.lastModified,
       changeFrequency: opts.changeFrequency,
       priority: opts.priority,
-      alternates: { languages: alts },
-    },
-    {
-      url: `${base}${enPath}`,
-      lastModified: opts.lastModified,
-      changeFrequency: opts.changeFrequency,
-      priority: Math.max(0.1, opts.priority - 0.02),
       alternates: { languages: alts },
     },
   ]

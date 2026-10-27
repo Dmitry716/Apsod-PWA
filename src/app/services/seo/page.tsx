@@ -88,7 +88,7 @@ export default function SEOPage() {
               Яндекс · Google
             </p>
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-5">
-              SEO продвижение сайта
+              SEO продвижение сайта в Минске
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6">
               Аудит, семантика, техника и контент под заявки из поиска. Смета после аудита. Для AI-видимости в нейросетях — отдельно{' '}

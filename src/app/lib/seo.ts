@@ -107,15 +107,15 @@ export function buildCanonical(path: string): string {
   return `${base}${p}`
 }
 
+/** RU-only hreflang — `/en/` закрыт в robots.txt и не должен попадать в индекс. */
 export function buildLocaleAlternates(path: string) {
   const clean = path.startsWith('/') ? path : `/${path}`
   const base = SITE_URL.replace(/\/$/, '')
   const ruPath = clean === '/' ? '' : clean
-  const enPath = clean === '/' ? '/en' : `/en${clean}`
+  const ru = `${base}${ruPath}` || base
   return {
-    ru: `${base}${ruPath}` || base,
-    en: `${base}${enPath}`,
-    'x-default': `${base}${ruPath}` || base,
+    ru,
+    'x-default': ru,
   }
 }
 
@@ -270,7 +270,6 @@ export function buildPageMetadata(options: PageMetadataOptions): Metadata {
       url: canonical,
       siteName: SITE_NAME,
       locale: SITE_LOCALE,
-      alternateLocale: ['en_US'],
       type: ogType,
       images: ogImages,
       ...(publishedIso ? { publishedTime: publishedIso } : {}),

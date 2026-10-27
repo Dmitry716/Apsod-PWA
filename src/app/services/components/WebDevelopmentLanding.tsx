@@ -13,6 +13,7 @@ import {
 import { WEB_STACK } from "../../lib/tech-stack";
 import { TechStackChips } from "../../components/TechStackSection";
 import ServiceDetailsCarousel from "./ServiceDetailsCarousel";
+import ServiceSemanticBlocks from "../../components/ServiceSemanticBlocks";
 import ReviewsByService from "../../components/ReviewsByService";
 
 const PILL_LINKS = [
@@ -77,9 +78,9 @@ export default function WebDevelopmentLanding() {
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "Разработка сайтов",
+    name: "Разработка сайтов в Минске",
     description:
-      "Разработка сайтов: лендинг, корпоративный сайт, каталог и интернет-магазин на Next.js, Angular, Vue, Svelte и ASP.NET Core.",
+      "Разработка и создание сайтов в Минске: лендинг, корпоративный сайт, каталог и интернет-магазин на Next.js, Angular, Vue, Svelte и ASP.NET Core.",
     provider: { "@type": "Organization", name: "APSOD", url: SITE_URL },
     areaServed: COMPANY_AREA_SERVED,
     url: `${SITE_URL}/services/web-development`,
@@ -115,9 +116,16 @@ export default function WebDevelopmentLanding() {
           className="relative z-10 mx-auto max-w-5xl px-4 pb-16 text-center md:px-8 md:pb-24"
           style={{ paddingTop: "calc(var(--apsod-header-h) + 4.5rem)" }}
         >
-          <h1 className="font-display text-[clamp(2.5rem,9vw,5.5rem)] font-extrabold uppercase leading-[0.92] tracking-[-0.03em]">
+          <h1 className="font-display text-[clamp(2.25rem,8vw,5rem)] font-extrabold uppercase leading-[0.92] tracking-[-0.03em]">
             Разработка сайтов
+            <span className="mt-2 block text-[clamp(1rem,2.8vw,1.5rem)] font-bold tracking-[0.16em] text-white/65 normal-case md:tracking-[0.2em]">
+              в Минске
+            </span>
           </h1>
+          <p className="mx-auto mt-6 max-w-2xl text-sm leading-relaxed text-white/70 md:text-base">
+            Создание сайта для бизнеса: лендинг, корпоративный или магазин — от брифа до
+            запуска, с SEO-базой. Смета обычно за 1 рабочий день.
+          </p>
           <ul className="mt-8 flex flex-wrap items-center justify-center gap-2.5 md:mt-10 md:gap-3">
             {PILL_LINKS.map((item) => (
               <li key={item.href}>
@@ -512,6 +520,8 @@ export default function WebDevelopmentLanding() {
           </Reveal>
         </div>
       </section>
+
+      <ServiceSemanticBlocks service="web-development" />
 
       <ServiceFaqBlock service="web-development" />
 

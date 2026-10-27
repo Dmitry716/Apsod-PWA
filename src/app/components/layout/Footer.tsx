@@ -38,6 +38,14 @@ export default function Footer() {
   const nav = [
     { href: "/about", label: t(locale, "nav.about") },
     { href: "/services", label: t(locale, "nav.services") },
+    {
+      href: "/services/web-development",
+      label: isEn ? "Web development" : "Разработка сайтов",
+    },
+    {
+      href: "/services/seo",
+      label: isEn ? "SEO" : "SEO продвижение",
+    },
     { href: "/portfolio", label: t(locale, "nav.cases") },
     { href: "/blog", label: t(locale, "nav.blog") },
   ];

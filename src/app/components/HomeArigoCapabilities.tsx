@@ -7,16 +7,16 @@ import { useLocale } from '../lib/useLocale'
 const CAPS = [
   {
     n: '01',
-    titleRu: 'Web',
-    titleEn: 'Web',
-    bodyRu: 'Сайты и платформы: лендинг, корпоратив, магазин.',
-    bodyEn: 'Sites and platforms: landing, corporate, store.',
+    titleRu: 'Разработка сайтов',
+    titleEn: 'Web development',
+    bodyRu: 'Лендинг, корпоративный сайт и интернет-магазин под заявки.',
+    bodyEn: 'Landing, corporate site and store built for leads.',
     href: '/services/web-development',
   },
   {
     n: '02',
-    titleRu: 'Mobile',
-    titleEn: 'Mobile',
+    titleRu: 'Мобильные приложения',
+    titleEn: 'Mobile apps',
     bodyRu: 'iOS, Android и PWA — от MVP до релиза в сторах.',
     bodyEn: 'iOS, Android and PWA — from MVP to store release.',
     href: '/services/mobile-development',
@@ -31,10 +31,10 @@ const CAPS = [
   },
   {
     n: '04',
-    titleRu: 'Growth',
-    titleEn: 'Growth',
-    bodyRu: 'SEO и GEO — видимость после запуска.',
-    bodyEn: 'SEO and GEO — visibility after launch.',
+    titleRu: 'SEO продвижение',
+    titleEn: 'SEO growth',
+    bodyRu: 'Яндекс и Google + GEO — видимость после запуска.',
+    bodyEn: 'Yandex, Google and GEO — visibility after launch.',
     href: '/services/seo',
   },
 ] as const
