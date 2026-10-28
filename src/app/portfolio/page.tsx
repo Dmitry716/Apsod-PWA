@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useMemo, useState } from "react";
@@ -19,6 +18,7 @@ export default function PortfolioPage() {
       "Производство",
       "Финансы",
       "Медицина",
+      "Психология",
       "Ритейл",
       "Логистика",
       "Образование",
