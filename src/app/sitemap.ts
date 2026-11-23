@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 import { blogPosts } from './blog/data/posts'
 import { PORTFOLIO_SITEMAP_SLUGS } from './portfolio/sitemap-slugs'
+import { getAllReadySiteSlugs } from './ready-sites/data'
 import {
   SITE_URL,
   SERVICE_PATHS,
@@ -43,6 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/',
     '/services',
     '/portfolio',
+    '/ready-sites',
     '/contact',
     '/blog',
     '/about',
@@ -88,11 +90,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   )
 
+  const readySitePages = getAllReadySiteSlugs().flatMap((slug) =>
+    entry(`/ready-sites/${slug}`, {
+      lastModified: now,
+      changeFrequency: 'monthly',
+      priority: 0.86,
+    }),
+  )
+
   return [
     ...staticPages,
     ...servicePages,
     ...blogPages,
     ...portfolioPages,
+    ...readySitePages,
     ...legalPages,
   ]
 }

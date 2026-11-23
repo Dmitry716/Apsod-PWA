@@ -272,6 +272,11 @@ export default function PortfolioPage() {
                           {project.type === "mobile" ? "Mobile" : "Web"}
                         </span>
                       </div>
+                      {project.forSale ? (
+                        <span className="pointer-events-none absolute right-3 top-3 rounded-sm bg-orange-500 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.1em] text-slate-950">
+                          {locale === "en" ? "For sale" : "В продаже"}
+                        </span>
+                      ) : null}
                     </div>
 
                     <div className="flex flex-1 flex-col p-5 md:p-6">

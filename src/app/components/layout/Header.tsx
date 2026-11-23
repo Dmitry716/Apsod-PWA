@@ -20,7 +20,6 @@ const DARK_HERO_PATHS = new Set([
   "/about",
   "/portfolio",
   "/blog",
-  "/contact",
 ]);
 const MEGA_CLOSE_MS = 120;
 
@@ -89,6 +88,10 @@ export default function Header() {
 
   const navLinks = [
     { href: "/portfolio", label: t(locale, "nav.cases") },
+    {
+      href: "/ready-sites",
+      label: locale === "en" ? "Ready sites" : "Готовые сайты",
+    },
     { href: "/about", label: t(locale, "nav.about") },
     { href: "/blog", label: t(locale, "nav.blog") },
     { href: "/contact", label: t(locale, "nav.contact") },

@@ -133,9 +133,29 @@ export default async function PortfolioSlugPage({ params }: Props) {
 
             {/* Мета — справа */}
             <div className="lg:col-span-6 lg:pl-6 xl:pl-10">
-              <h1 className="font-display mb-10 text-balance text-[clamp(1.75rem,4vw,3rem)] font-extrabold uppercase leading-[1.08] tracking-[-0.015em] text-slate-900 dark:text-white">
+              <h1 className="font-display mb-6 text-balance text-[clamp(1.75rem,4vw,3rem)] font-extrabold uppercase leading-[1.08] tracking-[-0.015em] text-slate-900 dark:text-white">
                 {project.title}
               </h1>
+
+              {project.forSale && project.readySiteSlug ? (
+                <div className="mb-8 flex flex-col gap-4 rounded-sm border border-orange-200 bg-orange-50 p-5 sm:flex-row sm:items-center dark:border-orange-900/50 dark:bg-orange-950/30">
+                  <div className="flex-1">
+                    <p className="font-semibold text-orange-950 dark:text-orange-100">
+                      В продаже: разработка с нуля + SEO и GEO
+                    </p>
+                    <p className="mt-1 text-sm text-orange-900/80 dark:text-orange-200/80">
+                      Готовый продукт APSOD: ребренд, перенос на ваш домен, база
+                      под поиск и нейросети.
+                    </p>
+                  </div>
+                  <Link
+                    href={`/ready-sites/${project.readySiteSlug}`}
+                    className="inline-flex justify-center whitespace-nowrap rounded-md bg-orange-500 px-5 py-2.5 text-sm font-semibold text-slate-950 transition-colors hover:bg-orange-400"
+                  >
+                    Смотреть лот
+                  </Link>
+                </div>
+              ) : null}
 
               <ul className="space-y-4 text-base text-slate-600 dark:text-slate-300">
                 <li className="flex flex-wrap gap-x-2">

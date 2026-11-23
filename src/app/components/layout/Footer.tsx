@@ -47,6 +47,10 @@ export default function Footer() {
       label: isEn ? "SEO" : "SEO продвижение",
     },
     { href: "/portfolio", label: t(locale, "nav.cases") },
+    {
+      href: "/ready-sites",
+      label: isEn ? "Ready sites" : "Готовые сайты",
+    },
     { href: "/blog", label: t(locale, "nav.blog") },
   ];
 

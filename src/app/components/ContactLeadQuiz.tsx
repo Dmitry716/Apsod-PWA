@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { IMaskInput } from 'react-imask'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { MOBILE_APP_PACKAGES } from '../lib/mobile-app-packages'
+import { getReadySiteBySlug } from '../ready-sites/data'
 
 const GOALS = [
   {
@@ -24,6 +25,12 @@ const GOALS = [
     service: 'web',
     label: 'Интернет-магазин',
     hint: 'Каталог, оплата, доставка',
+  },
+  {
+    value: 'ready-site',
+    service: 'web',
+    label: 'Готовый сайт в продаже',
+    hint: 'Ребренд + перенос + SEO/GEO',
   },
   {
     value: 'mobile',
@@ -46,6 +53,7 @@ const GOALS = [
 ] as const
 
 const WEB_BUDGETS = [
+  { value: 'ready-site', label: 'Готовый сайт', hint: 'смета после брифа' },
   { value: 'landing', label: 'Старт', hint: 'лендинг' },
   { value: 'corporate', label: 'Стандарт', hint: 'корп. сайт' },
   { value: 'shop', label: 'Масштаб', hint: 'магазин' },
@@ -140,19 +148,29 @@ export default function ContactLeadQuiz() {
     const goal = searchParams.get('goal') || ''
     const budget = searchParams.get('budget') || ''
     const service = searchParams.get('service') || ''
-    const ref = searchParams.get('ref') || ''
+    const readySite = searchParams.get('ready-site') || ''
+    const ref = searchParams.get('ref') || readySite || ''
     const matchedGoal = GOALS.find((g) => g.value === goal || g.service === service)
+    const readySiteData = readySite ? getReadySiteBySlug(readySite) : undefined
+    const defaultReadyBudget = readySiteData?.contactBudgetKey ?? 'ready-site'
 
     if (matchedGoal || budget || ref) {
       setFormData((prev) => ({
         ...prev,
-        goal: matchedGoal?.value || prev.goal,
-        service: matchedGoal?.service || service || prev.service,
-        budget: ALL_BUDGET_VALUES.has(budget) ? budget : prev.budget,
+        goal: matchedGoal?.value || (readySite ? 'ready-site' : prev.goal),
+        service: matchedGoal?.service || service || (readySite ? 'web' : prev.service),
+        budget: ALL_BUDGET_VALUES.has(budget)
+          ? budget
+          : readySite
+            ? defaultReadyBudget
+            : prev.budget,
         ref,
+        description: readySite
+          ? `Интересует готовый сайт: ${readySite}`
+          : prev.description,
       }))
       if (matchedGoal && budget) setStep(2)
-      else if (matchedGoal) setStep(1)
+      else if (matchedGoal || readySite) setStep(1)
     }
   }, [searchParams])
 

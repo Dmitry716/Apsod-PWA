@@ -33,6 +33,10 @@ export type PortfolioProject = {
   imageMobile?: string;
   /** Скрины внутренних страниц сайта (галерея внизу кейса) */
   gallery?: string[];
+  /** Лот доступен к покупке как готовый сайт */
+  forSale?: boolean;
+  /** slug в /ready-sites/[slug] */
+  readySiteSlug?: string;
 };
 
 /** Порядок проектов на главной и в портфолио */
@@ -299,6 +303,8 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       "/portfolio/gallery/artdetailing/03.jpg",
       "/portfolio/gallery/artdetailing/04.jpg",
     ],
+    forSale: true,
+    readySiteSlug: "detailing-studio",
   },
 
   {

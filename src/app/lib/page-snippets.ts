@@ -55,6 +55,19 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
       'заказать SEO',
     ],
   },
+  '/ready-sites': {
+    title: 'Готовые сайты в Минске — разработка с нуля, SEO и GEO',
+    description:
+      'Купить готовый сайт APSOD в Минске: индивидуальная разработка с нуля, ребренд, перенос на ваш домен, база SEO и GEO. Смета после брифа.',
+    absoluteTitle: true,
+    keywords: [
+      'готовые сайты Минск',
+      'купить готовый сайт',
+      'разработка сайта с нуля',
+      'готовый сайт SEO',
+      'готовый сайт GEO',
+    ],
+  },
   '/portfolio': {
     title: 'Кейсы APSOD — разработка сайтов в Минске',
     description:
@@ -254,6 +267,26 @@ export const PAGE_SNIPPETS: Record<string, PageSnippet> = {
 export function getPageSnippet(path: string): PageSnippet | undefined {
   const normalized = path.replace(/\/+$/, '') || '/'
   return PAGE_SNIPPETS[normalized] ?? PAGE_SNIPPETS[path]
+}
+
+export function readySiteSnippet(site: {
+  title: string
+  subtitle: string
+}): PageSnippet {
+  return {
+    title: clipTitle(`${site.title} — разработка с нуля в Минске`),
+    description: clipDescription(
+      `${site.subtitle} Купить готовый сайт APSOD в Минске с ребрендом. Смета после брифа.`,
+    ),
+    absoluteTitle: true,
+    keywords: [
+      'купить готовый сайт Минск',
+      'готовый сайт детейлинг',
+      'разработка сайта с нуля',
+      'готовый сайт SEO',
+      'готовый сайт GEO',
+    ],
+  }
 }
 
 /** Сниппет гео-страницы */
