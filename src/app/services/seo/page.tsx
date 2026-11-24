@@ -10,12 +10,13 @@ export const metadata = buildServiceMetadata('seo')
 const ENTRY = [
   {
     title: 'SEO-аудит',
-    description: 'Техника, контент, индексация, конкуренты — карта проблем и приоритетов.',
+    description:
+      'Техника, контент, индексация, конкуренты — карта проблем и приоритетов. Удобная точка, если нужно понять SEO аудит цена до старта цикла.',
     tag: 'Старт',
   },
   {
     title: 'Сбор семантики',
-    description: 'Ядро запросов, кластеризация, структура посадочных под бизнес-цели.',
+    description: 'Ядро запросов, кластеризация, структура посадочных под бизнес-цели в Яндексе и Google.',
     tag: 'Основа',
   },
   {
@@ -31,9 +32,9 @@ const ENTRY = [
 ]
 
 const COMPLEX = {
-  title: 'Комплексное SEO',
+  title: 'SEO продвижение под ключ',
   description:
-    'Ежемесячный цикл: техника, семантика, контент, внешние факторы и отчётность. Старт после аудита.',
+    'Заказать SEO можно как ежемесячный цикл: техника, семантика, контент, внешние факторы и отчётность. Старт после аудита.',
   points: [
     'План работ по приоритетам аудита',
     'Регулярные доработки страниц и контента',
@@ -58,19 +59,29 @@ const STEPS = [
 ]
 
 const AUDIENCE = [
-  'Сайт есть, но мало заявок из органики',
-  'Запускаете новый сайт и сразу закладываете SEO',
-  'Нужен рост в Яндексе и Google',
+  'Нужно заказать SEO продвижение сайта в Минске / Беларуси',
+  'Сайт есть, но мало заявок из органики Яндекса и Google',
+  'Запускаете новый сайт и сразу закладываете SEO под ключ',
+  'Нужен SEO аудит с понятной сметой до старта работ',
   'Готовы к системной работе 2–4+ месяца',
+]
+
+const SEO_INCLUDES = [
+  'SEO аудит: техника, контент, индексация, конкуренты',
+  'Семантика и кластеризация коммерческих запросов',
+  'Технические правки и базовая разметка',
+  'Оптимизация посадочных под заявки',
+  'Мониторинг позиций, трафика и целей',
+  'Ежемесячный отчёт и план на следующий цикл',
 ]
 
 export default function SEOPage() {
   const serviceSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'SEO продвижение сайтов',
+    name: 'Заказать SEO продвижение в Минске',
     description:
-      'SEO продвижение сайта в Минске: аудит, семантика, техника, контент в Яндексе и Google.',
+      'Заказать SEO сайта в Минске: аудит, семантика, техника и контент в Яндексе и Google. SEO под ключ или разовый аудит.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
     areaServed: [{ '@type': 'City', name: 'Minsk' }],
     url: `${SITE_URL}/services/seo`,
@@ -85,13 +96,14 @@ export default function SEOPage() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mb-3">
-              Яндекс · Google
+              Заказать SEO · Яндекс · Google · Минск
             </p>
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-5">
-              SEO продвижение сайта в Минске
+              Заказать SEO продвижение сайта в Минске
             </h1>
             <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-6">
-              Аудит, семантика, техника и контент под заявки из поиска. Смета после аудита. Для AI-видимости в нейросетях — отдельно{' '}
+              SEO под ключ: аудит, семантика, техника и контент под заявки из поиска. Смета после аудита.
+              Для AI-видимости в нейросетях — отдельно{' '}
               <Link href="/services/geo-promotion" className="text-blue-600 dark:text-blue-400 hover:underline">
                 GEO
               </Link>
@@ -125,6 +137,25 @@ export default function SEOPage() {
                 className="flex gap-2 text-sm text-gray-600 dark:text-gray-300 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4"
               >
                 <span className="text-blue-500 shrink-0">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="pb-14">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            Что входит, когда заказываете SEO
+          </h2>
+          <ul className="space-y-3">
+            {SEO_INCLUDES.map((item) => (
+              <li
+                key={item}
+                className="flex gap-3 border-b border-gray-200 py-3 text-sm text-gray-700 last:border-b-0 dark:border-gray-700 dark:text-gray-300"
+              >
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600" />
                 <span>{item}</span>
               </li>
             ))}

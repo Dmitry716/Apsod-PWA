@@ -30,8 +30,8 @@ const packageFrom = (
 
 /** Единые форматы веб-разработки — /services/web-development и гео-офферы */
 export const WEB_DEV_PACKAGES: WebDevPackage[] = [
-  packageFrom("landing", "Лендинг", "2–4 недели", "landing", "landing", false, [
-    "Уникальный дизайн и адаптив",
+  packageFrom("landing", "Лендинг / landing page", "2–4 недели", "landing", "landing", false, [
+    "Уникальный дизайн посадочной страницы",
     "Форма заявки / WhatsApp / Telegram",
     "Базовая SEO-разметка",
     "Подключение аналитики",
@@ -88,8 +88,8 @@ export const WEB_DEV_FEATURED_PACKAGES = WEB_DEV_PACKAGES.filter(
 export const WEB_DEV_SITE_TYPES = [
   {
     id: "landing" as const,
-    title: "Лендинг",
-    body: "Одностраничный сайт под рекламу и заявки.",
+    title: "Заказать лендинг",
+    body: "Посадочная страница / landing page под рекламу и заявки.",
     href: "/services/landing-page",
   },
   {
@@ -106,8 +106,8 @@ export const WEB_DEV_SITE_TYPES = [
   },
   {
     id: "shop" as const,
-    title: "Интернет-магазин",
-    body: "Онлайн-продажи: корзина, оплата, доставка.",
+    title: "Создание интернет-магазина",
+    body: "Онлайн-продажи: корзина, оплата, доставка, SEO каталога.",
     href: "/services/ecommerce",
   },
 ];

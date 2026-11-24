@@ -136,6 +136,79 @@ export default function ServiceLanding({ content }: Props) {
         </div>
       </section>
 
+      {content.audience?.length ? (
+        <section className="border-b border-slate-200 bg-slate-50 py-16 md:py-24 dark:border-slate-800 dark:bg-gray-900/40">
+          <div className="container mx-auto px-4">
+            <Reveal className="mb-8 max-w-2xl">
+              <h2 className="font-display mb-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
+                Кому подходит
+              </h2>
+            </Reveal>
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {content.audience.map((item) => (
+                <Reveal
+                  key={item}
+                  className="flex gap-3 rounded-sm border border-slate-200 bg-white p-5 text-sm leading-relaxed text-slate-700 dark:border-slate-800 dark:bg-gray-950 dark:text-slate-300"
+                >
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
+                  <span>{item}</span>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
+
+      {content.useCases?.length ? (
+        <section className="border-b border-slate-200 py-16 md:py-24 dark:border-slate-800">
+          <div className="container mx-auto px-4">
+            <Reveal className="mb-8 max-w-2xl">
+              <h2 className="font-display mb-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
+                Типовые задачи
+              </h2>
+            </Reveal>
+            <div className="grid gap-px border border-slate-200 bg-slate-200 dark:border-slate-800 dark:bg-slate-800 md:grid-cols-2">
+              {content.useCases.map((item) => (
+                <Reveal
+                  key={item.title}
+                  className="apsod-surface-hover bg-white p-6 md:p-8 dark:bg-gray-950"
+                >
+                  <h3 className="font-display mb-3 text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                    {item.body}
+                  </p>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
+
+      {content.includes?.length ? (
+        <section className="border-b border-slate-200 py-16 md:py-24 dark:border-slate-800">
+          <div className="container mx-auto px-4">
+            <Reveal className="mb-8 max-w-2xl">
+              <h2 className="font-display mb-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
+                Что входит в работу
+              </h2>
+            </Reveal>
+            <ul className="mx-auto grid max-w-3xl gap-3">
+              {content.includes.map((item) => (
+                <Reveal
+                  key={item}
+                  className="flex gap-3 border-b border-slate-200 py-3 text-sm text-slate-700 last:border-b-0 dark:border-slate-800 dark:text-slate-300"
+                >
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-900 dark:bg-white" />
+                  <span>{item}</span>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
+        </section>
+      ) : null}
+
       <section className="py-16 md:py-24 bg-slate-50 dark:bg-gray-900/40 border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">
           <div

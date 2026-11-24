@@ -38,6 +38,9 @@ export type ServiceLandingContent = {
   heroDevice: DeviceKind
   heroScreen: { src: string; alt: string }
   outcomes: { title: string; body: string }[]
+  audience?: string[]
+  useCases?: { title: string; body: string }[]
+  includes?: string[]
   screens: ServiceLandingScreen[]
   stack: TechItem[]
   processTitle: string
@@ -245,7 +248,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     outcomes: [
       {
         title: 'Google Play ready',
-        body: 'Сборка, политики стора и публикация.',
+        body: 'Сборка, политики стора, внутреннее тестирование и публикация.',
       },
       {
         title: 'Современный UI',
@@ -255,6 +258,50 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
         title: 'Производительность',
         body: 'Оптимизация под разные экраны и версии Android.',
       },
+      {
+        title: 'Бэкенд и push',
+        body: 'API, авторизация, уведомления и аналитика событий.',
+      },
+      {
+        title: 'MVP или продукт',
+        body: 'От первого релиза до масштабирования фич без смены стека.',
+      },
+      {
+        title: 'Поддержка после релиза',
+        body: 'Обновления ОС, стора и доработки по договору.',
+      },
+    ],
+    audience: [
+      'Нужна разработка приложений для Android в Минске с публикацией в Google Play',
+      'Есть идея MVP и нужно понять цену / срок после Discovery',
+      'Нужен натив на Kotlin или кроссплатформа на React Native',
+      'Уже есть iOS — хотите Android без потери качества UX',
+    ],
+    useCases: [
+      {
+        title: 'Сервис и запись',
+        body: 'Каталог услуг, запись, push-напоминания, личный кабинет.',
+      },
+      {
+        title: 'Каталог и заказы',
+        body: 'Товары / прайс, корзина или заявка менеджеру, статусы.',
+      },
+      {
+        title: 'Полевые сотрудники',
+        body: 'Офлайн-сценарии, фото/отчёты, синхронизация с CRM.',
+      },
+      {
+        title: 'Клиентский портал',
+        body: 'Авторизация, документы, уведомления и история обращений.',
+      },
+    ],
+    includes: [
+      'Discovery: сценарии, платформы, интеграции',
+      'UX/UI под Android и Material',
+      'Разработка на Kotlin / Compose или React Native',
+      'API, push, аналитика (по брифу)',
+      'Сборка и публикация в Google Play',
+      'Передача и поддержка после релиза',
     ],
     screens: [
       { src: '/devices/app-screens/home.png', alt: 'Главный экран', device: 'samsung' },

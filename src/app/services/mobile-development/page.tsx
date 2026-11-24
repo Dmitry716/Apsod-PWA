@@ -22,12 +22,28 @@ const PLATFORMS = [
   },
   {
     title: 'Android',
-    body: 'Kotlin, Jetpack Compose и React Native. Google Play и широкий парк устройств — включая Samsung Galaxy S26.',
+    body: 'Разработка приложений для Android в Минске: Kotlin, Jetpack Compose и React Native. Google Play и широкий парк устройств.',
     href: '/services/android-apps',
     device: 'samsung' as const,
     screen: '/devices/app-screens/services.png',
-    cta: 'Android подробнее',
+    cta: 'Android в Минске →',
   },
+]
+
+const MOBILE_AUDIENCE = [
+  'Нужно заказать разработку мобильного приложения в Минске',
+  'MVP для проверки спроса или полноценный продукт с бэкендом',
+  'iOS, Android или обе платформы на одном стеке',
+  'Нужна публикация в App Store / Google Play «под ключ»',
+]
+
+const MOBILE_INCLUDES = [
+  'Discovery: сценарии, платформы, интеграции и смета',
+  'UX/UI под iOS и/или Android',
+  'Натив (Swift / Kotlin) или кроссплатформа (React Native / Flutter)',
+  'API, push, аналитика — по брифу',
+  'QA, сборка и публикация в сторах',
+  'Поддержка и развитие после релиза',
 ]
 
 export default function MobileDevelopmentPage() {
@@ -90,6 +106,27 @@ export default function MobileDevelopmentPage() {
         </div>
       </section>
 
+      <section className="border-b border-slate-200 py-14 md:py-16 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="mb-8 max-w-2xl">
+            <h2 className="font-display mb-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
+              Кому подходит
+            </h2>
+          </Reveal>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {MOBILE_AUDIENCE.map((item) => (
+              <Reveal
+                key={item}
+                className="flex gap-3 rounded-sm border border-slate-200 bg-white p-5 text-sm leading-relaxed text-slate-700 dark:border-slate-800 dark:bg-gray-950 dark:text-slate-300"
+              >
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
+                <span>{item}</span>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section id="directions" className="scroll-mt-24 py-16 md:py-24 border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4">
           <Reveal className="mb-12 md:mb-16">
@@ -98,6 +135,7 @@ export default function MobileDevelopmentPage() {
             </h2>
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
               Выберите платформу — на отдельной странице детали по стеку, срокам и публикации в сторе.
+              Отдельный фокус: разработка приложений для Android в Минске.
             </p>
           </Reveal>
 
@@ -129,6 +167,27 @@ export default function MobileDevelopmentPage() {
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="border-b border-slate-200 py-16 md:py-20 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="mb-8 max-w-2xl">
+            <h2 className="font-display mb-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
+              Что входит, когда заказываете приложение
+            </h2>
+          </Reveal>
+          <ul className="mx-auto grid max-w-3xl gap-3">
+            {MOBILE_INCLUDES.map((item) => (
+              <Reveal
+                key={item}
+                className="flex gap-3 border-b border-slate-200 py-3 text-sm text-slate-700 last:border-b-0 dark:border-slate-800 dark:text-slate-300"
+              >
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-900 dark:bg-white" />
+                <span>{item}</span>
+              </Reveal>
+            ))}
+          </ul>
         </div>
       </section>
 

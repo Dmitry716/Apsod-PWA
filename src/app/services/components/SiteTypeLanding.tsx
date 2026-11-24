@@ -143,10 +143,77 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
         <div className="container mx-auto px-4">
           <Reveal className="mb-8 max-w-2xl">
             <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-              Формат
+              Кому подходит
+            </h2>
+          </Reveal>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {page.audience.map((item) => (
+              <Reveal
+                key={item}
+                className="flex gap-3 rounded-sm border border-slate-200 bg-white p-5 text-sm leading-relaxed text-slate-700 dark:border-slate-800 dark:bg-gray-950 dark:text-slate-300"
+              >
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
+                <span>{item}</span>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="py-14 md:py-20 border-b border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="mb-8 max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+              Типовые задачи
+            </h2>
+          </Reveal>
+          <div className="grid gap-px border border-slate-200 bg-slate-200 dark:border-slate-800 dark:bg-slate-800 md:grid-cols-2">
+            {page.useCases.map((item) => (
+              <Reveal
+                key={item.title}
+                className="apsod-surface-hover bg-white p-6 md:p-8 dark:bg-gray-950"
+              >
+                <h3 className="font-display mb-3 text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
+                  {item.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                  {item.body}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 md:py-20 border-b border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="mb-8 max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+              Что входит в работу
+            </h2>
+          </Reveal>
+          <ul className="mx-auto grid max-w-3xl gap-3">
+            {page.includes.map((item) => (
+              <Reveal
+                key={item}
+                className="flex gap-3 border-b border-slate-200 py-3 text-sm text-slate-700 last:border-b-0 dark:border-slate-800 dark:text-slate-300"
+              >
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-900 dark:bg-white" />
+                <span>{item}</span>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="py-14 md:py-20 bg-slate-50 dark:bg-gray-900/40 border-b border-slate-200 dark:border-slate-800">
+        <div className="container mx-auto px-4">
+          <Reveal className="mb-8 max-w-2xl">
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+              Формат и смета
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400">
-              Смета после брифа — обычно за 1 рабочий день.
+              Цены зависят от объёма. Смета после брифа — обычно за 1 рабочий день.
             </p>
           </Reveal>
           <Reveal className="apsod-price-card max-w-lg bg-white dark:bg-gray-950 border border-slate-200 dark:border-slate-800 p-7 flex flex-col">
