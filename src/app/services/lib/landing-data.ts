@@ -187,7 +187,10 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     primaryCta: { label: 'Начать Discovery', href: '/contact' },
     secondaryCta: { label: 'Все мобильные', href: '/services/mobile-development' },
     heroDevice: 'iphone',
-    heroScreen: { src: '/devices/app-screens/home.png', alt: 'Главный экран приложения' },
+    heroScreen: {
+      src: '/devices/app-screens/serious/bank-home.jpg',
+      alt: 'Northline — главный экран банкинга',
+    },
     outcomes: [
       {
         title: 'App Store ready',
@@ -203,9 +206,21 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       },
     ],
     screens: [
-      { src: '/devices/app-screens/home.png', alt: 'Главный экран', device: 'iphone' },
-      { src: '/devices/app-screens/services.png', alt: 'Список услуг', device: 'iphone' },
-      { src: '/devices/app-screens/booking.png', alt: 'Запись', device: 'iphone' },
+      {
+        src: '/devices/app-screens/serious/bank-home.jpg',
+        alt: 'Банкинг — баланс и операции',
+        device: 'iphone',
+      },
+      {
+        src: '/devices/app-screens/serious/bank-cards.jpg',
+        alt: 'Банкинг — карты и лимиты',
+        device: 'iphone',
+      },
+      {
+        src: '/devices/app-screens/serious/social-feed.jpg',
+        alt: 'Соцсеть — лента',
+        device: 'iphone',
+      },
     ],
     stack: IOS_STACK,
     processTitle: 'Как делаем iOS-приложение',
@@ -213,22 +228,22 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     process: MOBILE_DEVELOPMENT_PROCESS,
     cases: [
       {
-        title: 'ArtDetailing',
-        result: 'PWA с мобильным UX под запись',
-        href: '/portfolio/artdetailing',
-        image: '/portfolio/artdetailing.png',
+        title: 'Northline',
+        result: 'Мобильный банкинг: счета, карты, переводы',
+        href: '/portfolio/northline',
+        image: '/portfolio/northline.jpg',
       },
       {
-        title: 'NEXTON',
-        result: 'App-like интерфейс автосервиса',
-        href: '/portfolio/nexton',
-        image: '/portfolio/nexton.png',
+        title: 'North',
+        result: 'Социальная сеть: лента, stories, сообщения',
+        href: '/portfolio/north-social',
+        image: '/portfolio/north-social.jpg',
       },
       {
-        title: 'Amba Detail',
-        result: 'Витрина услуг с сильным мобильным сценарием',
-        href: '/portfolio/amba-detail',
-        image: '/portfolio/amba.png',
+        title: 'VSE NASHI',
+        result: 'Социальная платформа для сообщества',
+        href: '/portfolio/vsenashi',
+        image: '/portfolio/vsenashi.jpg',
       },
     ],
   },
@@ -244,7 +259,10 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     primaryCta: { label: 'Начать Discovery', href: '/contact' },
     secondaryCta: { label: 'Все мобильные', href: '/services/mobile-development' },
     heroDevice: 'samsung',
-    heroScreen: { src: '/devices/app-screens/home.png', alt: 'Главный экран приложения' },
+    heroScreen: {
+      src: '/devices/app-screens/serious/social-feed.jpg',
+      alt: 'North — лента социальной сети',
+    },
     outcomes: [
       {
         title: 'Google Play ready',
@@ -279,20 +297,20 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     ],
     useCases: [
       {
-        title: 'Сервис и запись',
-        body: 'Каталог услуг, запись, push-напоминания, личный кабинет.',
+        title: 'Банкинг и финансы',
+        body: 'Счета, карты, переводы, лимиты и история операций.',
       },
       {
-        title: 'Каталог и заказы',
-        body: 'Товары / прайс, корзина или заявка менеджеру, статусы.',
-      },
-      {
-        title: 'Полевые сотрудники',
-        body: 'Офлайн-сценарии, фото/отчёты, синхронизация с CRM.',
+        title: 'Социальные сети',
+        body: 'Лента, профили, сообщения, медиа и push.',
       },
       {
         title: 'Клиентский портал',
         body: 'Авторизация, документы, уведомления и история обращений.',
+      },
+      {
+        title: 'Полевые сотрудники',
+        body: 'Офлайн-сценарии, фото/отчёты, синхронизация с CRM.',
       },
     ],
     includes: [
@@ -304,9 +322,21 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       'Передача и поддержка после релиза',
     ],
     screens: [
-      { src: '/devices/app-screens/home.png', alt: 'Главный экран', device: 'samsung' },
-      { src: '/devices/app-screens/services.png', alt: 'Список услуг', device: 'samsung' },
-      { src: '/devices/app-screens/booking.png', alt: 'Запись', device: 'samsung' },
+      {
+        src: '/devices/app-screens/serious/social-feed.jpg',
+        alt: 'Соцсеть — лента',
+        device: 'samsung',
+      },
+      {
+        src: '/devices/app-screens/serious/social-chat.jpg',
+        alt: 'Соцсеть — сообщения',
+        device: 'samsung',
+      },
+      {
+        src: '/devices/app-screens/serious/bank-home.jpg',
+        alt: 'Банкинг — баланс',
+        device: 'samsung',
+      },
     ],
     stack: ANDROID_STACK,
     processTitle: 'Как делаем Android-приложение',
@@ -314,22 +344,22 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     process: MOBILE_DEVELOPMENT_PROCESS,
     cases: [
       {
-        title: 'ArtDetailing',
-        result: 'PWA с мобильным UX под запись',
-        href: '/portfolio/artdetailing',
-        image: '/portfolio/artdetailing.png',
+        title: 'North',
+        result: 'Социальная сеть: лента, stories, сообщения',
+        href: '/portfolio/north-social',
+        image: '/portfolio/north-social.jpg',
       },
       {
-        title: 'NEXTON',
-        result: 'App-like интерфейс автосервиса',
-        href: '/portfolio/nexton',
-        image: '/portfolio/nexton.png',
+        title: 'Northline',
+        result: 'Мобильный банкинг: счета, карты, переводы',
+        href: '/portfolio/northline',
+        image: '/portfolio/northline.jpg',
       },
       {
-        title: 'Amba Detail',
-        result: 'Витрина услуг с сильным мобильным сценарием',
-        href: '/portfolio/amba-detail',
-        image: '/portfolio/amba.png',
+        title: 'VSE NASHI',
+        result: 'Социальная платформа для сообщества',
+        href: '/portfolio/vsenashi',
+        image: '/portfolio/vsenashi.jpg',
       },
     ],
   },

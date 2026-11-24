@@ -14,10 +14,10 @@ export const metadata = buildServiceMetadata('mobile-development')
 const PLATFORMS = [
   {
     title: 'iOS',
-    body: 'Swift, SwiftUI и React Native. Продукт под App Store на iPhone 17 Pro Max и всей линейке Apple.',
+    body: 'Swift, SwiftUI и React Native. Банкинг, соцсети и клиентские продукты под App Store.',
     href: '/services/ios-apps',
     device: 'iphone' as const,
-    screen: '/devices/app-screens/home.png',
+    screen: '/devices/app-screens/serious/bank-home.jpg',
     cta: 'iOS подробнее',
   },
   {
@@ -25,16 +25,16 @@ const PLATFORMS = [
     body: 'Kotlin, Jetpack Compose и React Native. Google Play и широкий парк устройств.',
     href: '/services/android-apps',
     device: 'samsung' as const,
-    screen: '/devices/app-screens/services.png',
+    screen: '/devices/app-screens/serious/social-feed.jpg',
     cta: 'Android подробнее',
   },
 ]
 
 const MOBILE_AUDIENCE = [
-  'Нужен MVP для проверки спроса или полноценный продукт с бэкендом',
+  'Банкинг, финансы, соцсеть или другой продуктовый сценарий',
+  'MVP для проверки спроса или полноценный продукт с бэкендом',
   'iOS, Android или обе платформы на одном стеке',
   'Нужна публикация в App Store / Google Play',
-  'Есть идея и нужен понятный план: Discovery → смета → релиз',
 ]
 
 const MOBILE_INCLUDES = [

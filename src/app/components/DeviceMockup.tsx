@@ -24,6 +24,10 @@ const SAMSUNG_MOCKUPS: Record<string, string> = {
   '/devices/app-screens/booking.png': '/devices/mockups/samsung-booking.png',
 }
 
+/** Dynamic frame + screen when no precomposed mockup exists */
+const IPHONE_FRAME = '/devices/iphone-17-pro-max-frame.png'
+const SAMSUNG_FRAME = '/devices/samsung-s26-frame.png'
+
 export default function DeviceMockup({
   device,
   screenSrc,
@@ -59,13 +63,58 @@ export default function DeviceMockup({
   }
 
   if (device === 'iphone') {
-    const mockupSrc = IPHONE_MOCKUPS[screenSrc] ?? '/devices/mockups/iphone-home.png'
+    const precomposed = IPHONE_MOCKUPS[screenSrc]
+    if (precomposed) {
+      return (
+        <div className={`relative mx-auto w-full ${className}`}>
+          <div className="relative w-full" style={{ aspectRatio: '629 / 1283' }}>
+            <Image
+              src={precomposed}
+              alt={screenAlt}
+              fill
+              priority={priority}
+              className="object-contain object-center"
+              sizes="(max-width: 640px) 48vw, 200px"
+            />
+          </div>
+        </div>
+      )
+    }
 
     return (
       <div className={`relative mx-auto w-full ${className}`}>
         <div className="relative w-full" style={{ aspectRatio: '629 / 1283' }}>
+          <div className="absolute inset-[2.4%_4.2%_2.2%_4.2%] overflow-hidden rounded-[12%]">
+            <Image
+              src={screenSrc}
+              alt=""
+              fill
+              priority={priority}
+              className="object-cover object-top"
+              sizes="(max-width: 640px) 48vw, 200px"
+              aria-hidden
+            />
+          </div>
           <Image
-            src={mockupSrc}
+            src={IPHONE_FRAME}
+            alt={screenAlt}
+            fill
+            priority={priority}
+            className="pointer-events-none object-contain object-center"
+            sizes="(max-width: 640px) 48vw, 200px"
+          />
+        </div>
+      </div>
+    )
+  }
+
+  const precomposed = SAMSUNG_MOCKUPS[screenSrc]
+  if (precomposed) {
+    return (
+      <div className={`relative mx-auto w-full ${className}`}>
+        <div className="relative w-full" style={{ aspectRatio: '615 / 1000' }}>
+          <Image
+            src={precomposed}
             alt={screenAlt}
             fill
             priority={priority}
@@ -77,17 +126,26 @@ export default function DeviceMockup({
     )
   }
 
-  const mockupSrc = SAMSUNG_MOCKUPS[screenSrc] ?? '/devices/mockups/samsung-home.png'
-
   return (
     <div className={`relative mx-auto w-full ${className}`}>
       <div className="relative w-full" style={{ aspectRatio: '615 / 1000' }}>
+        <div className="absolute inset-[1.8%_3.6%_3.8%_3.6%] overflow-hidden rounded-[10%]">
+          <Image
+            src={screenSrc}
+            alt=""
+            fill
+            priority={priority}
+            className="object-cover object-top"
+            sizes="(max-width: 640px) 48vw, 200px"
+            aria-hidden
+          />
+        </div>
         <Image
-          src={mockupSrc}
+          src={SAMSUNG_FRAME}
           alt={screenAlt}
           fill
           priority={priority}
-          className="object-contain object-center"
+          className="pointer-events-none object-contain object-center"
           sizes="(max-width: 640px) 48vw, 200px"
         />
       </div>

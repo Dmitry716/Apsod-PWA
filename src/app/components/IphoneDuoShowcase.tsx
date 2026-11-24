@@ -9,8 +9,8 @@ type Props = {
 
 /** Two realistic iPhone 17 Pro Max frames — primary + secondary screen, fluid layout */
 export default function IphoneDuoShowcase({
-  primarySrc = '/devices/app-screens/home.png',
-  secondarySrc = '/devices/app-screens/services.png',
+  primarySrc = '/devices/app-screens/serious/bank-home.jpg',
+  secondarySrc = '/devices/app-screens/serious/social-feed.jpg',
   className = '',
   priority = false,
 }: Props) {
@@ -20,7 +20,7 @@ export default function IphoneDuoShowcase({
         <DeviceMockup
           device="iphone"
           screenSrc={primarySrc}
-          screenAlt="Главный экран приложения на iPhone 17 Pro Max"
+          screenAlt="Банкинг на iPhone 17 Pro Max"
           priority={priority}
         />
       </div>
@@ -28,7 +28,7 @@ export default function IphoneDuoShowcase({
         <DeviceMockup
           device="iphone"
           screenSrc={secondarySrc}
-          screenAlt="Экран услуг на iPhone 17 Pro Max"
+          screenAlt="Соцсеть на iPhone 17 Pro Max"
           priority={priority}
         />
       </div>

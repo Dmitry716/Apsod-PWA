@@ -17,6 +17,7 @@ export default function PortfolioPage() {
     () => [
       "Производство",
       "Финансы",
+      "Соцсеть",
       "Медицина",
       "Психология",
       "Ритейл",
@@ -57,6 +58,8 @@ export default function PortfolioPage() {
         return t(locale, "industries.manufacturing");
       case "Финансы":
         return t(locale, "industries.finances");
+      case "Соцсеть":
+        return t(locale, "industries.social");
       case "Медицина":
         return t(locale, "industries.medicine");
       case "Ритейл":

@@ -80,6 +80,7 @@ const dictionary = {
     // Industries labels
     'industries.manufacturing': 'Производство',
     'industries.finances': 'Финансы',
+    'industries.social': 'Соцсеть',
     'industries.medicine': 'Медицина',
     'industries.retail': 'Ритейл',
     'industries.logistics': 'Логистика',
@@ -214,6 +215,7 @@ const dictionary = {
     // Industries labels
     'industries.manufacturing': 'Manufacturing',
     'industries.finances': 'Finance',
+    'industries.social': 'Social',
     'industries.medicine': 'Healthcare',
     'industries.retail': 'Retail',
     'industries.logistics': 'Logistics',

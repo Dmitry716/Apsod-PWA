@@ -342,6 +342,70 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     ],
   },
   {
+    id: 40,
+    slug: "northline",
+    title: "Northline",
+    category: "Финансы",
+    type: "mobile",
+    description:
+      "Мобильный банкинг: счета, карты, переводы и контроль расходов — продукт уровня retail banking.",
+    challenge:
+      "Нужен был клиентский banking UX с доверием, скоростью и понятными сценариями денег — без ощущения «ещё один лендинг».",
+    solution:
+      "iOS/Android-приложение: баланс и карты, история операций, переводы, лимиты и biometric login. Бэкенд-контур под транзакции и уведомления.",
+    results: [
+      "Сценарии retail banking на телефоне",
+      "Карты, переводы и контроль расходов в одном продукте",
+      "Архитектура под рост транзакционной нагрузки",
+    ],
+    detailParagraphs: [
+      "Northline собран как серьёзный финансовый продукт: спокойная визуальная иерархия, короткие пути к переводу и статусу операции, экраны карт с лимитами и блокировкой.",
+      "Стек подбираем под задачу: натив (Swift / Kotlin) или React Native, API, push и аналитика событий — с фокусом на безопасность и сопровождаемость.",
+    ],
+    image: "/portfolio/northline.jpg",
+    gallery: [
+      "/portfolio/gallery/northline/01.jpg",
+      "/portfolio/gallery/northline/02.jpg",
+    ],
+    tags: ["React Native", "FinTech", "iOS", "Android"],
+    link: "/portfolio/northline",
+    color: "from-indigo-900 to-blue-700",
+    year: "2025",
+    location: "Лондон / Минск",
+  },
+  {
+    id: 41,
+    slug: "north-social",
+    title: "North",
+    category: "Соцсеть",
+    type: "mobile",
+    description:
+      "Социальная сеть: лента, истории, сообщения и профили — продукт для сообщества, а не витрина.",
+    challenge:
+      "Нужна была живая социальная платформа с лентой и перепиской — с архитектурой под рост аудитории, а не набор шаблонных экранов.",
+    solution:
+      "Мобильное приложение: лента и stories, профили, inbox сообщений, медиа и push. Серверная часть под ленту, чаты и медиа.",
+    results: [
+      "Лента и messaging в одном продукте",
+      "Сценарии вовлечения сообщества",
+      "База для масштабирования аудитории",
+    ],
+    detailParagraphs: [
+      "North — пример социальной сети как продукта: быстрый скролл ленты, понятный inbox, профили и медиа без визуального шума.",
+      "Делаем такой класс продуктов на React Native / Flutter с API, realtime-сообщениями и аналитикой удержания.",
+    ],
+    image: "/portfolio/north-social.jpg",
+    gallery: [
+      "/portfolio/gallery/north-social/01.jpg",
+      "/portfolio/gallery/north-social/02.jpg",
+    ],
+    tags: ["React Native", "Social", "Realtime", "Node.js"],
+    link: "/portfolio/north-social",
+    color: "from-fuchsia-700 to-indigo-900",
+    year: "2025",
+    location: "США / ЕС",
+  },
+  {
     id: 4,
     slug: "sparkite",
     title: "Sparkite",
@@ -430,7 +494,11 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
       "Архитектура под рост сообществ",
       "Единая точка входа для русскоязычной аудитории",
     ],
-    image: "/portfolio/vsenashi.jpg",
+    image: "/portfolio/north-social.jpg",
+    gallery: [
+      "/portfolio/gallery/north-social/01.jpg",
+      "/portfolio/gallery/north-social/02.jpg",
+    ],
     tags: ["React Native", "Node.js", "MongoDB"],
     link: "/portfolio/vsenashi",
     color: "from-teal-500 to-green-500",
