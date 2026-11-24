@@ -216,8 +216,8 @@ export default function ServiceLanding({ content }: Props) {
               content.screens.every(
                 (s) => s.device === "iphone" || s.device === "samsung",
               )
-                ? "grid-cols-1 sm:grid-cols-3 items-start justify-items-center"
-                : "md:grid-cols-3 items-stretch"
+                ? "grid-cols-1 items-end justify-items-center sm:grid-cols-3"
+                : "items-stretch md:grid-cols-3"
             }`}
           >
             {content.screens.map((screen, i) => {
@@ -228,13 +228,16 @@ export default function ServiceLanding({ content }: Props) {
                   key={`${screen.src}-${i}`}
                   stagger={Math.min(i + 1, 3) as 1 | 2 | 3}
                   className={
-                    isPhone ? "w-full max-w-[min(38vw,180px)]" : "w-full"
+                    isPhone
+                      ? "flex h-[300px] w-full max-w-[180px] items-end justify-center sm:h-[340px]"
+                      : "w-full"
                   }
                 >
                   <DeviceMockup
                     device={screen.device}
                     screenSrc={screen.src}
                     screenAlt={screen.alt}
+                    className={isPhone ? "h-full w-full" : undefined}
                   />
                 </Reveal>
               );

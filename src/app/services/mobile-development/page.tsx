@@ -138,26 +138,36 @@ export default function MobileDevelopmentPage() {
             </p>
           </Reveal>
 
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-14">
+          <div className="grid gap-10 md:grid-cols-2 md:gap-12 lg:gap-16">
             {PLATFORMS.map((item, index) => (
               <Reveal key={item.href} stagger={(Math.min(index + 1, 2) as 1 | 2)} className="h-full">
                 <Link
                   href={item.href}
-                  className="group grid h-full grid-cols-1 gap-6 sm:grid-cols-[132px_minmax(0,1fr)] sm:gap-8 sm:items-center"
+                  className="group flex h-full flex-col"
                 >
-                  <div className="mx-auto w-[132px] shrink-0 sm:mx-0">
-                    <DeviceMockup device={item.device} screenSrc={item.screen} screenAlt={item.title} />
+                  <div className="mb-8 flex h-[300px] items-end justify-center sm:h-[320px]">
+                    <div className="flex h-full w-[148px] items-end justify-center">
+                      <DeviceMockup
+                        device={item.device}
+                        screenSrc={item.screen}
+                        screenAlt={item.title}
+                        className="h-full max-h-full w-auto"
+                      />
+                    </div>
                   </div>
-                  <div className="min-w-0 text-center sm:text-left">
-                    <h3 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-3 group-hover:translate-x-1 transition-transform duration-500">
+                  <div className="min-w-0 text-center md:text-left">
+                    <h3 className="font-display mb-3 text-2xl font-bold tracking-tight text-slate-900 transition-transform duration-500 group-hover:translate-x-1 dark:text-white md:text-3xl">
                       {item.title}
                     </h3>
-                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-5 text-pretty">
+                    <p className="mb-5 text-pretty leading-relaxed text-slate-600 dark:text-slate-300">
                       {item.body}
                     </p>
                     <span className="inline-flex items-center gap-2 text-sm font-medium text-slate-900 dark:text-white">
                       {item.cta}
-                      <span aria-hidden className="transition-transform duration-500 group-hover:translate-x-1">
+                      <span
+                        aria-hidden
+                        className="transition-transform duration-500 group-hover:translate-x-1"
+                      >
                         →
                       </span>
                     </span>
