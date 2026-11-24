@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react'
 import Image from 'next/image'
 
 export type DeviceKind = 'iphone' | 'samsung' | 'desktop'
@@ -12,7 +11,7 @@ type Props = {
   screenPosition?: string
 }
 
-/** Pre-composited photorealistic phone mockups (frame + screen) */
+/** Pre-composited mockups (frame + screen baked together) */
 const IPHONE_MOCKUPS: Record<string, string> = {
   '/devices/app-screens/home.png': '/devices/mockups/iphone-home.png',
   '/devices/app-screens/services.png': '/devices/mockups/iphone-services.png',
@@ -48,27 +47,96 @@ const SAMSUNG_MOCKUPS: Record<string, string> = {
 const IPHONE_FRAME = '/devices/iphone-17-pro-max-frame.png'
 const SAMSUNG_FRAME = '/devices/samsung-s26-frame.png'
 
-const IPHONE_ASPECT = '629 / 1283'
-const SAMSUNG_ASPECT = '615 / 1000'
-const PHONE_SLOT_ASPECT = '9 / 19'
+/** Native PNG sizes — never force a mismatched slot aspect */
+const IPHONE_RATIO = 629 / 1283
+const SAMSUNG_RATIO = 615 / 1000
 
-const IPHONE_SCREEN_INSET = '1.71% 3.18% 1.56% 3.5%'
-const SAMSUNG_SCREEN_INSET = '1.6% 2.6% 1.9% 2.6%'
+/** Measured hole in frame PNGs */
+const IPHONE_INSET = { top: '1.71%', right: '3.18%', bottom: '1.56%', left: '3.5%' }
+const SAMSUNG_INSET = { top: '1.6%', right: '2.6%', bottom: '1.9%', left: '2.6%' }
 
-function PhoneShell({
+function PrecomposedPhone({
+  src,
+  alt,
+  ratio,
   className,
-  aspect,
-  children,
+  priority,
 }: {
+  src: string
+  alt: string
+  ratio: number
   className?: string
-  aspect: string
-  children: ReactNode
+  priority?: boolean
 }) {
   return (
-    <div className={`relative mx-auto h-full w-full max-w-[180px] ${className ?? ''}`}>
-      <div className="relative mx-auto h-full w-full" style={{ aspectRatio: aspect }}>
-        {children}
+    <div
+      className={`relative mx-auto w-full ${className ?? ''}`}
+      style={{ aspectRatio: `${ratio}` }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        priority={priority}
+        className="object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)]"
+        sizes="(max-width: 640px) 55vw, 240px"
+      />
+    </div>
+  )
+}
+
+function FramedPhone({
+  frameSrc,
+  screenSrc,
+  alt,
+  ratio,
+  inset,
+  radius,
+  className,
+  priority,
+}: {
+  frameSrc: string
+  screenSrc: string
+  alt: string
+  ratio: number
+  inset: { top: string; right: string; bottom: string; left: string }
+  radius: string
+  className?: string
+  priority?: boolean
+}) {
+  return (
+    <div
+      className={`relative mx-auto w-full ${className ?? ''}`}
+      style={{ aspectRatio: `${ratio}` }}
+    >
+      <div
+        className="absolute overflow-hidden bg-black"
+        style={{
+          top: inset.top,
+          right: inset.right,
+          bottom: inset.bottom,
+          left: inset.left,
+          borderRadius: radius,
+        }}
+      >
+        <Image
+          src={screenSrc}
+          alt=""
+          fill
+          priority={priority}
+          className="object-cover object-top"
+          sizes="(max-width: 640px) 55vw, 240px"
+          aria-hidden
+        />
       </div>
+      <Image
+        src={frameSrc}
+        alt={alt}
+        fill
+        priority={priority}
+        className="pointer-events-none object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)]"
+        sizes="(max-width: 640px) 55vw, 240px"
+      />
     </div>
   )
 }
@@ -111,87 +179,52 @@ export default function DeviceMockup({
     const precomposed = IPHONE_MOCKUPS[screenSrc]
     if (precomposed) {
       return (
-        <PhoneShell className={className} aspect={PHONE_SLOT_ASPECT}>
-          <Image
-            src={precomposed}
-            alt={screenAlt}
-            fill
-            priority={priority}
-            className="object-contain object-bottom"
-            sizes="(max-width: 640px) 48vw, 180px"
-          />
-        </PhoneShell>
+        <PrecomposedPhone
+          src={precomposed}
+          alt={screenAlt}
+          ratio={IPHONE_RATIO}
+          className={className}
+          priority={priority}
+        />
       )
     }
-
     return (
-      <PhoneShell className={className} aspect={IPHONE_ASPECT}>
-        <div
-          className="absolute overflow-hidden rounded-[12.5%]"
-          style={{ inset: IPHONE_SCREEN_INSET }}
-        >
-          <Image
-            src={screenSrc}
-            alt=""
-            fill
-            priority={priority}
-            className="object-cover object-top"
-            sizes="(max-width: 640px) 48vw, 180px"
-            aria-hidden
-          />
-        </div>
-        <Image
-          src={IPHONE_FRAME}
-          alt={screenAlt}
-          fill
-          priority={priority}
-          className="pointer-events-none object-fill"
-          sizes="(max-width: 640px) 48vw, 180px"
-        />
-      </PhoneShell>
+      <FramedPhone
+        frameSrc={IPHONE_FRAME}
+        screenSrc={screenSrc}
+        alt={screenAlt}
+        ratio={IPHONE_RATIO}
+        inset={IPHONE_INSET}
+        radius="12.5%"
+        className={className}
+        priority={priority}
+      />
     )
   }
 
   const precomposed = SAMSUNG_MOCKUPS[screenSrc]
   if (precomposed) {
     return (
-      <PhoneShell className={className} aspect={PHONE_SLOT_ASPECT}>
-        <Image
-          src={precomposed}
-          alt={screenAlt}
-          fill
-          priority={priority}
-          className="object-contain object-bottom"
-          sizes="(max-width: 640px) 48vw, 180px"
-        />
-      </PhoneShell>
+      <PrecomposedPhone
+        src={precomposed}
+        alt={screenAlt}
+        ratio={SAMSUNG_RATIO}
+        className={className}
+        priority={priority}
+      />
     )
   }
 
   return (
-    <PhoneShell className={className} aspect={SAMSUNG_ASPECT}>
-      <div
-        className="absolute overflow-hidden rounded-[10%]"
-        style={{ inset: SAMSUNG_SCREEN_INSET }}
-      >
-        <Image
-          src={screenSrc}
-          alt=""
-          fill
-          priority={priority}
-          className="object-cover object-top"
-          sizes="(max-width: 640px) 48vw, 180px"
-          aria-hidden
-        />
-      </div>
-      <Image
-        src={SAMSUNG_FRAME}
-        alt={screenAlt}
-        fill
-        priority={priority}
-        className="pointer-events-none object-fill"
-        sizes="(max-width: 640px) 48vw, 180px"
-      />
-    </PhoneShell>
+    <FramedPhone
+      frameSrc={SAMSUNG_FRAME}
+      screenSrc={screenSrc}
+      alt={screenAlt}
+      ratio={SAMSUNG_RATIO}
+      inset={SAMSUNG_INSET}
+      radius="10%"
+      className={className}
+      priority={priority}
+    />
   )
 }

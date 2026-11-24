@@ -145,13 +145,12 @@ export default function MobileDevelopmentPage() {
                   href={item.href}
                   className="group flex h-full flex-col"
                 >
-                  <div className="mb-8 flex h-[300px] items-end justify-center sm:h-[320px]">
-                    <div className="flex h-full w-[148px] items-end justify-center">
+                  <div className="mb-8 flex justify-center md:justify-start">
+                    <div className="w-[160px] sm:w-[180px]">
                       <DeviceMockup
                         device={item.device}
                         screenSrc={item.screen}
                         screenAlt={item.title}
-                        className="h-full max-h-full w-auto"
                       />
                     </div>
                   </div>

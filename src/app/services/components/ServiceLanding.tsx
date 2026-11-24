@@ -42,39 +42,39 @@ export default function ServiceLanding({ content }: Props) {
       <ServiceBreadcrumbs service={content.slug} />
       <SeoJsonLd data={serviceSchema} />
 
-      <section className="relative overflow-hidden bg-slate-950 text-white">
+      <section className="relative overflow-x-clip bg-slate-950 text-white">
         <SectionAtmosphere tone="dark" grid={false} />
-        <div className="container mx-auto px-4 relative z-10 py-20 md:py-24 lg:py-28">
+        <div className="container relative z-10 mx-auto px-4 pb-16 pt-20 md:pb-20 md:pt-24 lg:pb-24 lg:pt-28">
           <div
-            className={`grid gap-10 lg:gap-14 items-center ${
+            className={`grid items-center gap-10 lg:gap-14 ${
               iosDuo
-                ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]"
+                ? "lg:grid-cols-[minmax(0,1fr)_minmax(280px,440px)]"
                 : phoneHero
-                  ? "lg:grid-cols-[1fr_auto]"
+                  ? "lg:grid-cols-[1fr_minmax(160px,220px)]"
                   : "lg:grid-cols-2"
             }`}
           >
             <div className="max-w-xl lg:max-w-none">
-              <p className="apsod-hero-enter apsod-hero-enter-delay-1 text-[11px] font-medium tracking-[0.22em] uppercase text-slate-400 mb-6">
+              <p className="apsod-hero-enter apsod-hero-enter-delay-1 mb-6 text-[11px] font-medium uppercase tracking-[0.22em] text-slate-400">
                 {content.eyebrow}
               </p>
-              <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-bold tracking-tight leading-[1.08] mb-6">
+              <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 mb-6 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-bold leading-[1.08] tracking-tight">
                 {content.title}
               </h1>
-              <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-base md:text-lg text-slate-300 leading-relaxed mb-5 max-w-lg">
+              <p className="apsod-hero-enter apsod-hero-enter-delay-3 mb-5 max-w-lg text-base leading-relaxed text-slate-300 md:text-lg">
                 {content.lead}
               </p>
               <div className="mb-9" />
               <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3">
                 <Link
                   href={content.primaryCta.href}
-                  className="apsod-btn-solid apsod-cta-primary px-7 py-3.5 rounded-md text-sm font-semibold"
+                  className="apsod-btn-solid apsod-cta-primary rounded-md px-7 py-3.5 text-sm font-semibold"
                 >
                   <span>{content.primaryCta.label}</span>
                 </Link>
                 <Link
                   href={content.secondaryCta.href}
-                  className="px-7 py-3.5 rounded-md text-sm font-semibold border border-white/30 text-white hover:border-white transition-colors"
+                  className="rounded-md border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:border-white"
                 >
                   {content.secondaryCta.label}
                 </Link>
@@ -84,10 +84,10 @@ export default function ServiceLanding({ content }: Props) {
             <div
               className={`apsod-hero-enter apsod-hero-enter-delay-3 w-full ${
                 iosDuo
-                  ? "mx-auto max-w-md lg:max-w-lg lg:mx-0"
+                  ? "mx-auto max-w-[420px] lg:mx-0 lg:max-w-none"
                   : phoneHero
-                    ? "w-[min(46vw,200px)] sm:w-[190px] mx-auto lg:mx-0 lg:justify-self-end"
-                    : "max-w-2xl mx-auto lg:max-w-none lg:justify-self-stretch"
+                    ? "mx-auto w-full max-w-[200px] lg:mx-0 lg:justify-self-end"
+                    : "mx-auto max-w-2xl lg:max-w-none lg:justify-self-stretch"
               }`}
             >
               {iosDuo ? (
@@ -229,17 +229,12 @@ export default function ServiceLanding({ content }: Props) {
                 <Reveal
                   key={`${screen.src}-${i}`}
                   stagger={Math.min(i + 1, 3) as 1 | 2 | 3}
-                  className={
-                    isPhone
-                      ? "flex h-[300px] w-full max-w-[180px] items-end justify-center sm:h-[340px]"
-                      : "w-full"
-                  }
+                  className={isPhone ? "w-full max-w-[170px]" : "w-full"}
                 >
                   <DeviceMockup
                     device={screen.device}
                     screenSrc={screen.src}
                     screenAlt={screen.alt}
-                    className={isPhone ? "h-full w-full" : undefined}
                   />
                 </Reveal>
               );

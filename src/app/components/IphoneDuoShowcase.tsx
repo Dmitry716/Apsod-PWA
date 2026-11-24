@@ -7,7 +7,7 @@ type Props = {
   priority?: boolean
 }
 
-/** Two realistic iPhone frames — banking home + social feed */
+/** Two full iPhone frames side by side — never clipped */
 export default function IphoneDuoShowcase({
   primarySrc = '/devices/app-screens/serious/bank-home.png',
   secondarySrc = '/devices/app-screens/serious/social-feed.jpg',
@@ -15,20 +15,22 @@ export default function IphoneDuoShowcase({
   priority = false,
 }: Props) {
   return (
-    <div className={`flex w-full items-end justify-center gap-[3%] ${className}`}>
-      <div className="w-[50%] max-w-[220px]">
+    <div
+      className={`relative flex w-full items-end justify-center gap-3 sm:gap-4 ${className}`}
+    >
+      <div className="w-[48%] max-w-[230px] shrink-0">
         <DeviceMockup
           device="iphone"
           screenSrc={primarySrc}
-          screenAlt="Банкинг на iPhone 17 Pro Max"
+          screenAlt="Банкинг на iPhone"
           priority={priority}
         />
       </div>
-      <div className="w-[44%] max-w-[190px] translate-y-[-2%] opacity-95">
+      <div className="mb-4 w-[42%] max-w-[200px] shrink-0 opacity-95 sm:mb-6">
         <DeviceMockup
           device="iphone"
           screenSrc={secondarySrc}
-          screenAlt="Соцсеть на iPhone 17 Pro Max"
+          screenAlt="Соцсеть на iPhone"
           priority={priority}
         />
       </div>
