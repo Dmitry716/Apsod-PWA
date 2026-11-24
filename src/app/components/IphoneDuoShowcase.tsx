@@ -7,7 +7,7 @@ type Props = {
   priority?: boolean
 }
 
-/** Two full iPhone frames side by side — never clipped */
+/** Hero duo — full CSS iPhones with float motion */
 export default function IphoneDuoShowcase({
   primarySrc = '/devices/app-screens/serious/bank-home.png',
   secondarySrc = '/devices/app-screens/serious/social-feed.jpg',
@@ -16,9 +16,12 @@ export default function IphoneDuoShowcase({
 }: Props) {
   return (
     <div
-      className={`relative flex w-full items-end justify-center gap-3 sm:gap-4 ${className}`}
+      className={`apsod-phone-duo relative mx-auto flex w-full max-w-[440px] items-end justify-center ${className}`}
     >
-      <div className="w-[48%] max-w-[230px] shrink-0">
+      <div
+        className="apsod-phone-float relative z-20 w-[58%] max-w-[240px]"
+        style={{ animationDelay: '0s' }}
+      >
         <DeviceMockup
           device="iphone"
           screenSrc={primarySrc}
@@ -26,7 +29,10 @@ export default function IphoneDuoShowcase({
           priority={priority}
         />
       </div>
-      <div className="mb-4 w-[42%] max-w-[200px] shrink-0 opacity-95 sm:mb-6">
+      <div
+        className="apsod-phone-float relative z-10 -ml-[14%] mb-[8%] w-[48%] max-w-[200px]"
+        style={{ animationDelay: '0.6s' }}
+      >
         <DeviceMockup
           device="iphone"
           screenSrc={secondarySrc}
@@ -34,6 +40,10 @@ export default function IphoneDuoShowcase({
           priority={priority}
         />
       </div>
+      <div
+        className="pointer-events-none absolute bottom-[6%] left-1/2 h-[18%] w-[70%] -translate-x-1/2 rounded-[100%] bg-sky-400/20 blur-3xl"
+        aria-hidden
+      />
     </div>
   )
 }

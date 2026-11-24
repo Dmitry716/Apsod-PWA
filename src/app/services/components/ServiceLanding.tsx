@@ -36,62 +36,75 @@ export default function ServiceLanding({ content }: Props) {
   const phoneHero =
     content.heroDevice === "iphone" || content.heroDevice === "samsung";
   const iosDuo = content.slug === "ios-apps";
+  const androidHero = content.slug === "android-apps";
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-white text-slate-950 dark:bg-gray-950 dark:text-white">
       <ServiceBreadcrumbs service={content.slug} />
       <SeoJsonLd data={serviceSchema} />
 
-      <section className="relative overflow-x-clip bg-slate-950 text-white">
-        <SectionAtmosphere tone="dark" grid={false} />
-        <div className="container relative z-10 mx-auto px-4 pb-16 pt-20 md:pb-20 md:pt-24 lg:pb-24 lg:pt-28">
+      {/* Dark hero */}
+      <section className="apsod-bleed-hero relative overflow-hidden text-white">
+        <div className="apsod-arigo-hero-bg absolute inset-0" aria-hidden />
+        <div className="apsod-arigo-hero-noise absolute inset-0" aria-hidden />
+        <div
+          className="pointer-events-none absolute -right-10 top-1/4 h-[min(52vw,480px)] w-[min(52vw,480px)] rounded-full bg-sky-500/10 blur-3xl"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -left-16 bottom-0 h-[min(40vw,360px)] w-[min(40vw,360px)] rounded-full bg-violet-500/10 blur-3xl"
+          aria-hidden
+        />
+
+        <div
+          className="relative z-10 mx-auto max-w-[1200px] px-4 md:px-8"
+          style={{ paddingTop: "calc(var(--apsod-header-h) + 3.5rem)" }}
+        >
           <div
-            className={`grid items-center gap-10 lg:gap-14 ${
-              iosDuo
-                ? "lg:grid-cols-[minmax(0,1fr)_minmax(280px,440px)]"
-                : phoneHero
-                  ? "lg:grid-cols-[1fr_minmax(160px,220px)]"
-                  : "lg:grid-cols-2"
+            className={`grid items-end gap-10 pb-20 md:gap-12 md:pb-28 ${
+              phoneHero
+                ? "lg:grid-cols-[minmax(0,1.05fr)_minmax(260px,420px)] lg:items-center"
+                : "lg:grid-cols-2"
             }`}
           >
-            <div className="max-w-xl lg:max-w-none">
-              <p className="apsod-hero-enter apsod-hero-enter-delay-1 mb-6 text-[11px] font-medium uppercase tracking-[0.22em] text-slate-400">
+            <div className="max-w-xl pb-2">
+              <p className="apsod-hero-enter apsod-hero-enter-delay-1 mb-5 text-[11px] font-semibold uppercase tracking-[0.22em] text-white/50">
                 {content.eyebrow}
               </p>
-              <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 mb-6 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-bold leading-[1.08] tracking-tight">
+              <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display mb-5 text-[clamp(2.35rem,5.5vw,3.75rem)] font-extrabold leading-[1.02] tracking-[-0.03em]">
                 {content.title}
               </h1>
-              <p className="apsod-hero-enter apsod-hero-enter-delay-3 mb-5 max-w-lg text-base leading-relaxed text-slate-300 md:text-lg">
+              <p className="apsod-hero-enter apsod-hero-enter-delay-3 mb-8 max-w-lg text-base leading-relaxed text-white/70 md:text-lg">
                 {content.lead}
               </p>
-              <div className="mb-9" />
               <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3">
                 <Link
                   href={content.primaryCta.href}
-                  className="apsod-btn-solid apsod-cta-primary rounded-md px-7 py-3.5 text-sm font-semibold"
+                  className="apsod-btn-solid apsod-cta-primary rounded-full px-7 py-3.5 text-sm font-semibold"
                 >
                   <span>{content.primaryCta.label}</span>
                 </Link>
                 <Link
                   href={content.secondaryCta.href}
-                  className="rounded-md border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:border-white"
+                  className="rounded-full border border-white/30 px-7 py-3.5 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white/5"
                 >
                   {content.secondaryCta.label}
                 </Link>
               </div>
             </div>
 
-            <div
-              className={`apsod-hero-enter apsod-hero-enter-delay-3 w-full ${
-                iosDuo
-                  ? "mx-auto max-w-[420px] lg:mx-0 lg:max-w-none"
-                  : phoneHero
-                    ? "mx-auto w-full max-w-[200px] lg:mx-0 lg:justify-self-end"
-                    : "mx-auto max-w-2xl lg:max-w-none lg:justify-self-stretch"
-              }`}
-            >
+            <div className="apsod-hero-enter apsod-hero-enter-delay-3 relative mx-auto w-full max-w-[400px] lg:mx-0 lg:max-w-none">
               {iosDuo ? (
                 <IphoneDuoShowcase priority />
+              ) : androidHero ? (
+                <div className="apsod-phone-float mx-auto w-[min(58%,220px)]">
+                  <DeviceMockup
+                    device="samsung"
+                    screenSrc={content.heroScreen.src}
+                    screenAlt={content.heroScreen.alt}
+                    priority
+                  />
+                </div>
               ) : (
                 <DeviceMockup
                   device={content.heroDevice}
@@ -105,29 +118,34 @@ export default function ServiceLanding({ content }: Props) {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
+      {/* Light body — overlaps hero */}
+      <section className="relative z-10 -mt-8 rounded-t-[1.75rem] bg-white pb-4 dark:bg-gray-950 md:-mt-12 md:rounded-t-[2.5rem]">
+        <div className="mx-auto max-w-[1200px] px-4 pt-10 md:px-8 md:pt-14">
           <Reveal className="mb-10 md:mb-14">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+            <h2 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold tracking-[-0.03em] text-slate-950 dark:text-white">
               Что получите
             </h2>
           </Reveal>
           <div
-            className={`grid gap-px bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-slate-800 ${
+            className={`grid gap-3 md:gap-4 ${
               content.outcomes.length % 3 === 0
                 ? "md:grid-cols-2 lg:grid-cols-3"
                 : "md:grid-cols-2"
             }`}
           >
-            {content.outcomes.map((item) => (
+            {content.outcomes.map((item, i) => (
               <Reveal
                 key={item.title}
-                className="apsod-surface-hover bg-white dark:bg-gray-950 p-6 md:p-8 min-h-[140px]"
+                stagger={Math.min(i + 1, 3) as 1 | 2 | 3}
+                className="apsod-surface-hover rounded-2xl border border-slate-200 bg-slate-50/80 p-6 md:p-8 dark:border-slate-800 dark:bg-gray-900/50"
               >
-                <h3 className="font-display text-lg font-semibold text-slate-900 dark:text-white mb-3 tracking-tight">
+                <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="font-display mb-3 text-lg font-bold tracking-tight text-slate-900 dark:text-white">
                   {item.title}
                 </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
                   {item.body}
                 </p>
               </Reveal>
@@ -138,7 +156,7 @@ export default function ServiceLanding({ content }: Props) {
 
       {content.audience?.length ? (
         <section className="border-b border-slate-200 bg-slate-50 py-16 md:py-24 dark:border-slate-800 dark:bg-gray-900/40">
-          <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-[1200px] px-4 md:px-8">
             <Reveal className="mb-8 max-w-2xl">
               <h2 className="font-display mb-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
                 Кому подходит
@@ -148,7 +166,7 @@ export default function ServiceLanding({ content }: Props) {
               {content.audience.map((item) => (
                 <Reveal
                   key={item}
-                  className="flex gap-3 rounded-sm border border-slate-200 bg-white p-5 text-sm leading-relaxed text-slate-700 dark:border-slate-800 dark:bg-gray-950 dark:text-slate-300"
+                  className="flex gap-3 rounded-2xl border border-slate-200 bg-white p-5 text-sm leading-relaxed text-slate-700 dark:border-slate-800 dark:bg-gray-950 dark:text-slate-300"
                 >
                   <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-500" />
                   <span>{item}</span>
@@ -161,17 +179,18 @@ export default function ServiceLanding({ content }: Props) {
 
       {content.useCases?.length ? (
         <section className="border-b border-slate-200 py-16 md:py-24 dark:border-slate-800">
-          <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-[1200px] px-4 md:px-8">
             <Reveal className="mb-8 max-w-2xl">
               <h2 className="font-display mb-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
                 Типовые задачи
               </h2>
             </Reveal>
-            <div className="grid gap-px border border-slate-200 bg-slate-200 dark:border-slate-800 dark:bg-slate-800 md:grid-cols-2">
-              {content.useCases.map((item) => (
+            <div className="grid gap-3 md:grid-cols-2 md:gap-4">
+              {content.useCases.map((item, i) => (
                 <Reveal
                   key={item.title}
-                  className="apsod-surface-hover bg-white p-6 md:p-8 dark:bg-gray-950"
+                  stagger={Math.min(i + 1, 3) as 1 | 2 | 3}
+                  className="apsod-surface-hover rounded-2xl border border-slate-200 bg-white p-6 md:p-8 dark:border-slate-800 dark:bg-gray-950"
                 >
                   <h3 className="font-display mb-3 text-lg font-semibold tracking-tight text-slate-900 dark:text-white">
                     {item.title}
@@ -188,7 +207,7 @@ export default function ServiceLanding({ content }: Props) {
 
       {content.includes?.length ? (
         <section className="border-b border-slate-200 py-16 md:py-24 dark:border-slate-800">
-          <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-[1200px] px-4 md:px-8">
             <Reveal className="mb-8 max-w-2xl">
               <h2 className="font-display mb-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
                 Что входит в работу
@@ -209,47 +228,52 @@ export default function ServiceLanding({ content }: Props) {
         </section>
       ) : null}
 
-      <section className="py-16 md:py-24 bg-slate-50 dark:bg-gray-900/40 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
+      {/* Screens showcase */}
+      <section className="relative overflow-hidden border-b border-slate-200 bg-slate-950 py-16 text-white md:py-24 dark:border-slate-800">
+        <div className="apsod-arigo-hero-noise absolute inset-0 opacity-40" aria-hidden />
+        <div className="relative z-10 mx-auto max-w-[1200px] px-4 md:px-8">
+          <Reveal className="mb-10 max-w-2xl md:mb-14">
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/45">
+              Интерфейсы
+            </p>
+            <h2 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold tracking-[-0.03em]">
+              Экраны продукта
+            </h2>
+          </Reveal>
           <div
-            className={`grid gap-8 md:gap-10 ${
-              content.screens.every(
-                (s) => s.device === "iphone" || s.device === "samsung",
-              )
-                ? `grid-cols-2 items-end justify-items-center sm:grid-cols-3 ${
-                    content.screens.length >= 5 ? "lg:grid-cols-5" : ""
-                  }`
-                : "items-stretch md:grid-cols-3"
+            className={`grid justify-items-center gap-6 sm:gap-8 ${
+              content.screens.length >= 5
+                ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5"
+                : "grid-cols-2 sm:grid-cols-3"
             }`}
           >
-            {content.screens.map((screen, i) => {
-              const isPhone =
-                screen.device === "iphone" || screen.device === "samsung";
-              return (
-                <Reveal
-                  key={`${screen.src}-${i}`}
-                  stagger={Math.min(i + 1, 3) as 1 | 2 | 3}
-                  className={isPhone ? "w-full max-w-[170px]" : "w-full"}
-                >
-                  <DeviceMockup
-                    device={screen.device}
-                    screenSrc={screen.src}
-                    screenAlt={screen.alt}
-                  />
-                </Reveal>
-              );
-            })}
+            {content.screens.map((screen, i) => (
+              <Reveal
+                key={`${screen.src}-${i}`}
+                stagger={Math.min(i + 1, 5) as 1 | 2 | 3 | 4 | 5}
+                className="w-full max-w-[160px]"
+              >
+                <DeviceMockup
+                  device={screen.device}
+                  screenSrc={screen.src}
+                  screenAlt={screen.alt}
+                />
+                <p className="mt-3 text-center text-[11px] leading-snug text-white/50">
+                  {screen.alt}
+                </p>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 md:py-20 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4">
+      <section className="border-b border-slate-200 py-16 md:py-20 dark:border-slate-800">
+        <div className="mx-auto max-w-[1200px] px-4 md:px-8">
           <Reveal className="mb-8 max-w-2xl">
-            <h2 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
+            <h2 className="font-display mb-2 text-2xl font-bold tracking-tight text-slate-900 dark:text-white md:text-3xl">
               Стек
             </h2>
-            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
               Технологии под задачу продукта — без привязки к одному фреймворку.
             </p>
           </Reveal>
@@ -265,15 +289,15 @@ export default function ServiceLanding({ content }: Props) {
         phases={content.process}
       />
 
-      <section className="py-16 md:py-24 bg-white dark:bg-gray-950 border-b border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-4 mb-10 md:mb-14">
+      <section className="border-b border-slate-200 bg-white py-16 md:py-24 dark:border-slate-800 dark:bg-gray-950">
+        <div className="mx-auto mb-10 max-w-[1200px] px-4 md:mb-14 md:px-8">
           <Reveal className="flex items-end justify-between gap-6">
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">
+            <h2 className="font-display text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
               Кейсы
             </h2>
             <Link
               href="/portfolio"
-              className="apsod-link-nudge text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white shrink-0"
+              className="apsod-link-nudge shrink-0 text-sm font-medium text-slate-500 hover:text-slate-900 dark:hover:text-white"
             >
               Все проекты
             </Link>
@@ -287,10 +311,10 @@ export default function ServiceLanding({ content }: Props) {
               <Reveal key={`${item.href}-${item.title}`}>
                 <Link
                   href={item.href}
-                  className="apsod-case-row group grid lg:grid-cols-12 border-b border-slate-200 dark:border-slate-800 last:border-b-0"
+                  className="apsod-case-row group grid border-b border-slate-200 last:border-b-0 dark:border-slate-800 lg:grid-cols-12"
                 >
                   <div
-                    className={`lg:col-span-8 relative min-h-[220px] md:min-h-[320px] lg:min-h-[380px] overflow-hidden bg-slate-100 dark:bg-slate-900 ${
+                    className={`relative min-h-[220px] overflow-hidden bg-slate-100 dark:bg-slate-900 md:min-h-[320px] lg:col-span-8 lg:min-h-[380px] ${
                       odd ? "lg:order-2" : ""
                     }`}
                   >
@@ -303,17 +327,17 @@ export default function ServiceLanding({ content }: Props) {
                     />
                   </div>
                   <div
-                    className={`lg:col-span-4 flex flex-col justify-end p-8 md:p-12 lg:p-14 bg-white dark:bg-gray-950 ${
+                    className={`flex flex-col justify-end bg-white p-8 dark:bg-gray-950 md:p-12 lg:col-span-4 lg:p-14 ${
                       odd ? "lg:order-1" : ""
                     }`}
                   >
-                    <p className="text-[11px] tracking-[0.22em] uppercase text-slate-400 mb-4">
+                    <p className="mb-4 text-[11px] uppercase tracking-[0.22em] text-slate-400">
                       {String(index + 1).padStart(2, "0")}
                     </p>
-                    <h3 className="font-display text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-4 group-hover:translate-x-1 transition-transform duration-500">
+                    <h3 className="font-display mb-4 text-2xl font-bold tracking-tight text-slate-900 transition-transform duration-500 group-hover:translate-x-1 dark:text-white md:text-3xl">
                       {item.title}
                     </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                    <p className="mb-6 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
                       {item.result}
                     </p>
                     <span className="inline-flex items-center gap-2 text-sm font-medium text-slate-900 dark:text-white">
@@ -334,29 +358,26 @@ export default function ServiceLanding({ content }: Props) {
       </section>
 
       {content.slug === "android-apps" ? (
-        <ServiceSemanticBlocks
-          service={content.slug as SemanticServiceKey}
-        />
+        <ServiceSemanticBlocks service={content.slug as SemanticServiceKey} />
       ) : null}
 
       <ServiceFaqBlock service={content.slug} />
 
-      {/* Отзывы клиентов об этой услуге */}
       <ReviewsByService
         serviceSlug={content.slug as ReviewServiceSlug}
         limit={3}
       />
 
-      <section className="relative py-20 md:py-28 overflow-hidden bg-slate-950 text-white">
+      <section className="relative overflow-hidden bg-slate-950 py-20 text-white md:py-28">
         <SectionAtmosphere tone="dark" grid={false} />
-        <div className="container mx-auto px-4 relative z-10 text-center max-w-2xl">
+        <div className="container relative z-10 mx-auto max-w-2xl px-4 text-center">
           <Reveal>
-            <h2 className="font-display text-3xl md:text-5xl font-bold tracking-tight mb-8">
+            <h2 className="font-display mb-8 text-3xl font-bold tracking-tight md:text-5xl">
               Обсудим ваш проект
             </h2>
             <Link
               href="/contact"
-              className="apsod-btn-solid apsod-cta-primary inline-flex px-10 py-4 rounded-md text-sm font-semibold"
+              className="apsod-btn-solid apsod-cta-primary inline-flex rounded-full px-10 py-4 text-sm font-semibold"
             >
               <span>Начать проект</span>
             </Link>

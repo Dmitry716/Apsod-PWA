@@ -11,132 +11,102 @@ type Props = {
   screenPosition?: string
 }
 
-/** Pre-composited mockups (frame + screen baked together) */
-const IPHONE_MOCKUPS: Record<string, string> = {
-  '/devices/app-screens/home.png': '/devices/mockups/iphone-home.png',
-  '/devices/app-screens/services.png': '/devices/mockups/iphone-services.png',
-  '/devices/app-screens/booking.png': '/devices/mockups/iphone-booking.png',
-  '/devices/app-screens/serious/bank-home.png': '/devices/mockups/iphone-bank-home.png',
-  '/devices/app-screens/serious/bank-cards.png': '/devices/mockups/iphone-bank-cards.png',
-  '/devices/app-screens/serious/bank-transactions.png': '/devices/mockups/iphone-bank-transactions.png',
-  '/devices/app-screens/serious/bank-transfer.png': '/devices/mockups/iphone-bank-transfer.png',
-  '/devices/app-screens/serious/bank-stats.png': '/devices/mockups/iphone-bank-stats.png',
-  '/devices/app-screens/serious/social-feed.jpg': '/devices/mockups/iphone-social-feed.png',
-  '/devices/app-screens/serious/social-chat.jpg': '/devices/mockups/iphone-social-chat.png',
-  '/devices/app-screens/serious/social-profile.jpg': '/devices/mockups/iphone-social-profile.png',
-  '/devices/app-screens/serious/social-moments.jpg': '/devices/mockups/iphone-social-moments.png',
-  '/devices/app-screens/serious/social-community.jpg': '/devices/mockups/iphone-social-community.png',
-}
-
-const SAMSUNG_MOCKUPS: Record<string, string> = {
-  '/devices/app-screens/home.png': '/devices/mockups/samsung-home.png',
-  '/devices/app-screens/services.png': '/devices/mockups/samsung-services.png',
-  '/devices/app-screens/booking.png': '/devices/mockups/samsung-booking.png',
-  '/devices/app-screens/serious/bank-home.png': '/devices/mockups/samsung-bank-home.png',
-  '/devices/app-screens/serious/bank-cards.png': '/devices/mockups/samsung-bank-cards.png',
-  '/devices/app-screens/serious/bank-transactions.png': '/devices/mockups/samsung-bank-transactions.png',
-  '/devices/app-screens/serious/bank-transfer.png': '/devices/mockups/samsung-bank-transfer.png',
-  '/devices/app-screens/serious/bank-stats.png': '/devices/mockups/samsung-bank-stats.png',
-  '/devices/app-screens/serious/social-feed.jpg': '/devices/mockups/samsung-social-feed.png',
-  '/devices/app-screens/serious/social-chat.jpg': '/devices/mockups/samsung-social-chat.png',
-  '/devices/app-screens/serious/social-profile.jpg': '/devices/mockups/samsung-social-profile.png',
-  '/devices/app-screens/serious/social-moments.jpg': '/devices/mockups/samsung-social-moments.png',
-  '/devices/app-screens/serious/social-community.jpg': '/devices/mockups/samsung-social-community.png',
-}
-
-const IPHONE_FRAME = '/devices/iphone-17-pro-max-frame.png'
-const SAMSUNG_FRAME = '/devices/samsung-s26-frame.png'
-
-/** Native PNG sizes — never force a mismatched slot aspect */
-const IPHONE_RATIO = 629 / 1283
-const SAMSUNG_RATIO = 615 / 1000
-
-/** Measured hole in frame PNGs */
-const IPHONE_INSET = { top: '1.71%', right: '3.18%', bottom: '1.56%', left: '3.5%' }
-const SAMSUNG_INSET = { top: '1.6%', right: '2.6%', bottom: '1.9%', left: '2.6%' }
-
-function PrecomposedPhone({
-  src,
-  alt,
-  ratio,
-  className,
-  priority,
-}: {
-  src: string
-  alt: string
-  ratio: number
-  className?: string
-  priority?: boolean
-}) {
-  return (
-    <div
-      className={`relative mx-auto w-full ${className ?? ''}`}
-      style={{ aspectRatio: `${ratio}` }}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        fill
-        priority={priority}
-        className="object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)]"
-        sizes="(max-width: 640px) 55vw, 240px"
-      />
-    </div>
-  )
-}
-
-function FramedPhone({
-  frameSrc,
+/**
+ * CSS device chrome — screen always fills edge-to-edge.
+ * No PNG frame overlays (those caused crooked / letterboxed UIs).
+ */
+function PhoneChassis({
+  variant,
   screenSrc,
-  alt,
-  ratio,
-  inset,
-  radius,
+  screenAlt,
   className,
   priority,
 }: {
-  frameSrc: string
+  variant: 'iphone' | 'samsung'
   screenSrc: string
-  alt: string
-  ratio: number
-  inset: { top: string; right: string; bottom: string; left: string }
-  radius: string
+  screenAlt: string
   className?: string
   priority?: boolean
 }) {
+  const isIphone = variant === 'iphone'
+
   return (
     <div
-      className={`relative mx-auto w-full ${className ?? ''}`}
-      style={{ aspectRatio: `${ratio}` }}
+      className={`apsod-phone relative mx-auto w-full ${className ?? ''}`}
+      style={{ aspectRatio: isIphone ? '9 / 19.5' : '9 / 19' }}
     >
+      {/* Body */}
       <div
-        className="absolute overflow-hidden bg-black"
-        style={{
-          top: inset.top,
-          right: inset.right,
-          bottom: inset.bottom,
-          left: inset.left,
-          borderRadius: radius,
-        }}
+        className={`absolute inset-0 ${
+          isIphone
+            ? 'rounded-[2.55rem] bg-gradient-to-b from-zinc-700 via-zinc-900 to-black p-[5px] shadow-[0_28px_60px_-12px_rgba(0,0,0,0.65),inset_0_0_0_1px_rgba(255,255,255,0.12)]'
+            : 'rounded-[2.1rem] bg-gradient-to-b from-zinc-800 via-zinc-950 to-black p-[4px] shadow-[0_28px_60px_-12px_rgba(0,0,0,0.65),inset_0_0_0_1px_rgba(255,255,255,0.1)]'
+        }`}
       >
-        <Image
-          src={screenSrc}
-          alt=""
-          fill
-          priority={priority}
-          className="object-cover object-top"
-          sizes="(max-width: 640px) 55vw, 240px"
+        {/* Screen glass */}
+        <div
+          className={`relative h-full w-full overflow-hidden bg-black ${
+            isIphone ? 'rounded-[2.2rem]' : 'rounded-[1.85rem]'
+          }`}
+        >
+          <Image
+            src={screenSrc}
+            alt={screenAlt}
+            fill
+            priority={priority}
+            className="object-cover object-top"
+            sizes="(max-width: 640px) 55vw, 260px"
+          />
+
+          {/* Dynamic Island / punch-hole */}
+          {isIphone ? (
+            <div
+              className="pointer-events-none absolute left-1/2 top-[10px] z-10 h-[22px] w-[28%] -translate-x-1/2 rounded-full bg-black shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"
+              aria-hidden
+            >
+              <span className="absolute right-[18%] top-1/2 h-[7px] w-[7px] -translate-y-1/2 rounded-full bg-[#0a1628] ring-1 ring-sky-900/80" />
+            </div>
+          ) : (
+            <div
+              className="pointer-events-none absolute left-1/2 top-[9px] z-10 h-[9px] w-[9px] -translate-x-1/2 rounded-full bg-zinc-950 ring-1 ring-zinc-700"
+              aria-hidden
+            />
+          )}
+
+          {/* Home indicator */}
+          <div
+            className="pointer-events-none absolute bottom-[7px] left-1/2 z-10 h-[3px] w-[28%] -translate-x-1/2 rounded-full bg-white/35"
+            aria-hidden
+          />
+        </div>
+      </div>
+
+      {/* Hardware buttons */}
+      {isIphone ? (
+        <>
+          <span
+            className="absolute -left-[2px] top-[18%] h-[14%] w-[3px] rounded-l-sm bg-zinc-600"
+            aria-hidden
+          />
+          <span
+            className="absolute -left-[2px] top-[34%] h-[8%] w-[3px] rounded-l-sm bg-zinc-600"
+            aria-hidden
+          />
+          <span
+            className="absolute -left-[2px] top-[44%] h-[8%] w-[3px] rounded-l-sm bg-zinc-600"
+            aria-hidden
+          />
+          <span
+            className="absolute -right-[2px] top-[30%] h-[12%] w-[3px] rounded-r-sm bg-zinc-600"
+            aria-hidden
+          />
+        </>
+      ) : (
+        <span
+          className="absolute -right-[2px] top-[22%] h-[10%] w-[3px] rounded-r-sm bg-zinc-700"
           aria-hidden
         />
-      </div>
-      <Image
-        src={frameSrc}
-        alt={alt}
-        fill
-        priority={priority}
-        className="pointer-events-none object-contain drop-shadow-[0_24px_48px_rgba(0,0,0,0.45)]"
-        sizes="(max-width: 640px) 55vw, 240px"
-      />
+      )}
     </div>
   )
 }
@@ -175,54 +145,11 @@ export default function DeviceMockup({
     )
   }
 
-  if (device === 'iphone') {
-    const precomposed = IPHONE_MOCKUPS[screenSrc]
-    if (precomposed) {
-      return (
-        <PrecomposedPhone
-          src={precomposed}
-          alt={screenAlt}
-          ratio={IPHONE_RATIO}
-          className={className}
-          priority={priority}
-        />
-      )
-    }
-    return (
-      <FramedPhone
-        frameSrc={IPHONE_FRAME}
-        screenSrc={screenSrc}
-        alt={screenAlt}
-        ratio={IPHONE_RATIO}
-        inset={IPHONE_INSET}
-        radius="12.5%"
-        className={className}
-        priority={priority}
-      />
-    )
-  }
-
-  const precomposed = SAMSUNG_MOCKUPS[screenSrc]
-  if (precomposed) {
-    return (
-      <PrecomposedPhone
-        src={precomposed}
-        alt={screenAlt}
-        ratio={SAMSUNG_RATIO}
-        className={className}
-        priority={priority}
-      />
-    )
-  }
-
   return (
-    <FramedPhone
-      frameSrc={SAMSUNG_FRAME}
+    <PhoneChassis
+      variant={device === 'iphone' ? 'iphone' : 'samsung'}
       screenSrc={screenSrc}
-      alt={screenAlt}
-      ratio={SAMSUNG_RATIO}
-      inset={SAMSUNG_INSET}
-      radius="10%"
+      screenAlt={screenAlt}
       className={className}
       priority={priority}
     />

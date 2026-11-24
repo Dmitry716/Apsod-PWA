@@ -131,6 +131,27 @@
   animation-delay: 0.52s;
 }
 
+@keyframes apsod-phone-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--phone-rot, 0deg));
+  }
+  50% {
+    transform: translateY(-10px) rotate(var(--phone-rot, 0deg));
+  }
+}
+
+.apsod-phone-float {
+  --phone-rot: 0deg;
+  animation: apsod-phone-float 5.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+.apsod-phone-duo .apsod-phone-float:nth-child(2) {
+  --phone-rot: 6deg;
+  animation-duration: 6.2s;
+}
+
 .apsod-cta-primary {
   position: relative;
   overflow: hidden;
@@ -810,6 +831,10 @@
 
   .apsod-hero-enter {
     opacity: 1;
+  }
+
+  .apsod-phone-float {
+    animation: none;
   }
 
   .apsod-hero-line,
