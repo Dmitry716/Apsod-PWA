@@ -15,8 +15,8 @@ export default function IphoneDuoShowcase({
   priority = false,
 }: Props) {
   return (
-    <div className={`flex w-full items-end justify-center gap-[4%] ${className}`}>
-      <div className="w-[48%] max-w-[210px]">
+    <div className={`flex w-full items-end justify-center gap-[3%] ${className}`}>
+      <div className="w-[50%] max-w-[220px]">
         <DeviceMockup
           device="iphone"
           screenSrc={primarySrc}
@@ -24,7 +24,7 @@ export default function IphoneDuoShowcase({
           priority={priority}
         />
       </div>
-      <div className="mb-[6%] w-[42%] max-w-[180px] opacity-95">
+      <div className="w-[44%] max-w-[190px] translate-y-[-2%] opacity-95">
         <DeviceMockup
           device="iphone"
           screenSrc={secondarySrc}

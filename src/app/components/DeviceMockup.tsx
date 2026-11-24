@@ -17,30 +17,48 @@ const IPHONE_MOCKUPS: Record<string, string> = {
   '/devices/app-screens/home.png': '/devices/mockups/iphone-home.png',
   '/devices/app-screens/services.png': '/devices/mockups/iphone-services.png',
   '/devices/app-screens/booking.png': '/devices/mockups/iphone-booking.png',
+  '/devices/app-screens/serious/bank-home.jpg': '/devices/mockups/iphone-bank-home.png',
+  '/devices/app-screens/serious/bank-cards.jpg': '/devices/mockups/iphone-bank-cards.png',
+  '/devices/app-screens/serious/social-feed.jpg': '/devices/mockups/iphone-social-feed.png',
+  '/devices/app-screens/serious/social-chat.jpg': '/devices/mockups/iphone-social-chat.png',
 }
 
 const SAMSUNG_MOCKUPS: Record<string, string> = {
   '/devices/app-screens/home.png': '/devices/mockups/samsung-home.png',
   '/devices/app-screens/services.png': '/devices/mockups/samsung-services.png',
   '/devices/app-screens/booking.png': '/devices/mockups/samsung-booking.png',
+  '/devices/app-screens/serious/bank-home.jpg': '/devices/mockups/samsung-bank-home.png',
+  '/devices/app-screens/serious/bank-cards.jpg': '/devices/mockups/samsung-bank-cards.png',
+  '/devices/app-screens/serious/social-feed.jpg': '/devices/mockups/samsung-social-feed.png',
+  '/devices/app-screens/serious/social-chat.jpg': '/devices/mockups/samsung-social-chat.png',
 }
 
 const IPHONE_FRAME = '/devices/iphone-17-pro-max-frame.png'
 const SAMSUNG_FRAME = '/devices/samsung-s26-frame.png'
 
-/** Shared display box so iPhone / Samsung align in grids */
-const PHONE_ASPECT = '9 / 19'
+/** Native frame aspects — keep screen insets in sync with frame pixels */
+const IPHONE_ASPECT = '629 / 1283'
+const SAMSUNG_ASPECT = '615 / 1000'
+/** Shared grid slot so iPhone / Samsung line up at equal height */
+const PHONE_SLOT_ASPECT = '9 / 19'
+
+/** Measured transparent hole in iphone-17-pro-max-frame.png (629×1283) */
+const IPHONE_SCREEN_INSET = '1.71% 3.18% 1.56% 3.5%'
+/** Measured transparent hole in samsung-s26-frame.png (615×1000) */
+const SAMSUNG_SCREEN_INSET = '1.6% 2.6% 1.9% 2.6%'
 
 function PhoneShell({
   className,
+  aspect,
   children,
 }: {
   className?: string
+  aspect: string
   children: ReactNode
 }) {
   return (
     <div className={`relative mx-auto h-full w-full max-w-[180px] ${className ?? ''}`}>
-      <div className="relative mx-auto h-full w-full" style={{ aspectRatio: PHONE_ASPECT }}>
+      <div className="relative mx-auto h-full w-full" style={{ aspectRatio: aspect }}>
         {children}
       </div>
     </div>
@@ -85,7 +103,7 @@ export default function DeviceMockup({
     const precomposed = IPHONE_MOCKUPS[screenSrc]
     if (precomposed) {
       return (
-        <PhoneShell className={className}>
+        <PhoneShell className={className} aspect={PHONE_SLOT_ASPECT}>
           <Image
             src={precomposed}
             alt={screenAlt}
@@ -99,8 +117,11 @@ export default function DeviceMockup({
     }
 
     return (
-      <PhoneShell className={className}>
-        <div className="absolute inset-[1.6%_3.8%_1.4%_3.8%] overflow-hidden rounded-[18%]">
+      <PhoneShell className={className} aspect={IPHONE_ASPECT}>
+        <div
+          className="absolute overflow-hidden rounded-[12.5%]"
+          style={{ inset: IPHONE_SCREEN_INSET }}
+        >
           <Image
             src={screenSrc}
             alt=""
@@ -116,7 +137,7 @@ export default function DeviceMockup({
           alt={screenAlt}
           fill
           priority={priority}
-          className="pointer-events-none object-contain object-bottom"
+          className="pointer-events-none object-fill"
           sizes="(max-width: 640px) 48vw, 180px"
         />
       </PhoneShell>
@@ -126,7 +147,7 @@ export default function DeviceMockup({
   const precomposed = SAMSUNG_MOCKUPS[screenSrc]
   if (precomposed) {
     return (
-      <PhoneShell className={className}>
+      <PhoneShell className={className} aspect={PHONE_SLOT_ASPECT}>
         <Image
           src={precomposed}
           alt={screenAlt}
@@ -140,8 +161,11 @@ export default function DeviceMockup({
   }
 
   return (
-    <PhoneShell className={className}>
-      <div className="absolute inset-[2.2%_4.8%_4.5%_4.8%] overflow-hidden rounded-[14%]">
+    <PhoneShell className={className} aspect={SAMSUNG_ASPECT}>
+      <div
+        className="absolute overflow-hidden rounded-[10%]"
+        style={{ inset: SAMSUNG_SCREEN_INSET }}
+      >
         <Image
           src={screenSrc}
           alt=""
@@ -157,7 +181,7 @@ export default function DeviceMockup({
         alt={screenAlt}
         fill
         priority={priority}
-        className="pointer-events-none object-contain object-bottom"
+        className="pointer-events-none object-fill"
         sizes="(max-width: 640px) 48vw, 180px"
       />
     </PhoneShell>
