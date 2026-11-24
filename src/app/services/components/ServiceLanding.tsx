@@ -216,7 +216,9 @@ export default function ServiceLanding({ content }: Props) {
               content.screens.every(
                 (s) => s.device === "iphone" || s.device === "samsung",
               )
-                ? "grid-cols-1 items-end justify-items-center sm:grid-cols-3"
+                ? `grid-cols-2 items-end justify-items-center sm:grid-cols-3 ${
+                    content.screens.length >= 5 ? "lg:grid-cols-5" : ""
+                  }`
                 : "items-stretch md:grid-cols-3"
             }`}
           >

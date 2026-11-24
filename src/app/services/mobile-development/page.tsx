@@ -17,7 +17,7 @@ const PLATFORMS = [
     body: 'Swift, SwiftUI и React Native. Банкинг, соцсети и клиентские продукты под App Store.',
     href: '/services/ios-apps',
     device: 'iphone' as const,
-    screen: '/devices/app-screens/serious/bank-home.jpg',
+    screen: '/devices/app-screens/serious/bank-home.png',
     cta: 'iOS подробнее',
   },
   {

@@ -7,9 +7,9 @@ type Props = {
   priority?: boolean
 }
 
-/** Two realistic iPhone 17 Pro Max frames — primary + secondary screen, fluid layout */
+/** Two realistic iPhone frames — banking home + social feed */
 export default function IphoneDuoShowcase({
-  primarySrc = '/devices/app-screens/serious/bank-home.jpg',
+  primarySrc = '/devices/app-screens/serious/bank-home.png',
   secondarySrc = '/devices/app-screens/serious/social-feed.jpg',
   className = '',
   priority = false,

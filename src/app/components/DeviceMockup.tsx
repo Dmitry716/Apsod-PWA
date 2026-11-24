@@ -12,39 +12,47 @@ type Props = {
   screenPosition?: string
 }
 
-/** Pre-composited photorealistic phone mockups (frame + screen, no studio bg) */
+/** Pre-composited photorealistic phone mockups (frame + screen) */
 const IPHONE_MOCKUPS: Record<string, string> = {
   '/devices/app-screens/home.png': '/devices/mockups/iphone-home.png',
   '/devices/app-screens/services.png': '/devices/mockups/iphone-services.png',
   '/devices/app-screens/booking.png': '/devices/mockups/iphone-booking.png',
-  '/devices/app-screens/serious/bank-home.jpg': '/devices/mockups/iphone-bank-home.png',
-  '/devices/app-screens/serious/bank-cards.jpg': '/devices/mockups/iphone-bank-cards.png',
+  '/devices/app-screens/serious/bank-home.png': '/devices/mockups/iphone-bank-home.png',
+  '/devices/app-screens/serious/bank-cards.png': '/devices/mockups/iphone-bank-cards.png',
+  '/devices/app-screens/serious/bank-transactions.png': '/devices/mockups/iphone-bank-transactions.png',
+  '/devices/app-screens/serious/bank-transfer.png': '/devices/mockups/iphone-bank-transfer.png',
+  '/devices/app-screens/serious/bank-stats.png': '/devices/mockups/iphone-bank-stats.png',
   '/devices/app-screens/serious/social-feed.jpg': '/devices/mockups/iphone-social-feed.png',
   '/devices/app-screens/serious/social-chat.jpg': '/devices/mockups/iphone-social-chat.png',
+  '/devices/app-screens/serious/social-profile.jpg': '/devices/mockups/iphone-social-profile.png',
+  '/devices/app-screens/serious/social-moments.jpg': '/devices/mockups/iphone-social-moments.png',
+  '/devices/app-screens/serious/social-community.jpg': '/devices/mockups/iphone-social-community.png',
 }
 
 const SAMSUNG_MOCKUPS: Record<string, string> = {
   '/devices/app-screens/home.png': '/devices/mockups/samsung-home.png',
   '/devices/app-screens/services.png': '/devices/mockups/samsung-services.png',
   '/devices/app-screens/booking.png': '/devices/mockups/samsung-booking.png',
-  '/devices/app-screens/serious/bank-home.jpg': '/devices/mockups/samsung-bank-home.png',
-  '/devices/app-screens/serious/bank-cards.jpg': '/devices/mockups/samsung-bank-cards.png',
+  '/devices/app-screens/serious/bank-home.png': '/devices/mockups/samsung-bank-home.png',
+  '/devices/app-screens/serious/bank-cards.png': '/devices/mockups/samsung-bank-cards.png',
+  '/devices/app-screens/serious/bank-transactions.png': '/devices/mockups/samsung-bank-transactions.png',
+  '/devices/app-screens/serious/bank-transfer.png': '/devices/mockups/samsung-bank-transfer.png',
+  '/devices/app-screens/serious/bank-stats.png': '/devices/mockups/samsung-bank-stats.png',
   '/devices/app-screens/serious/social-feed.jpg': '/devices/mockups/samsung-social-feed.png',
   '/devices/app-screens/serious/social-chat.jpg': '/devices/mockups/samsung-social-chat.png',
+  '/devices/app-screens/serious/social-profile.jpg': '/devices/mockups/samsung-social-profile.png',
+  '/devices/app-screens/serious/social-moments.jpg': '/devices/mockups/samsung-social-moments.png',
+  '/devices/app-screens/serious/social-community.jpg': '/devices/mockups/samsung-social-community.png',
 }
 
 const IPHONE_FRAME = '/devices/iphone-17-pro-max-frame.png'
 const SAMSUNG_FRAME = '/devices/samsung-s26-frame.png'
 
-/** Native frame aspects — keep screen insets in sync with frame pixels */
 const IPHONE_ASPECT = '629 / 1283'
 const SAMSUNG_ASPECT = '615 / 1000'
-/** Shared grid slot so iPhone / Samsung line up at equal height */
 const PHONE_SLOT_ASPECT = '9 / 19'
 
-/** Measured transparent hole in iphone-17-pro-max-frame.png (629×1283) */
 const IPHONE_SCREEN_INSET = '1.71% 3.18% 1.56% 3.5%'
-/** Measured transparent hole in samsung-s26-frame.png (615×1000) */
 const SAMSUNG_SCREEN_INSET = '1.6% 2.6% 1.9% 2.6%'
 
 function PhoneShell({

@@ -188,7 +188,7 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     secondaryCta: { label: 'Все мобильные', href: '/services/mobile-development' },
     heroDevice: 'iphone',
     heroScreen: {
-      src: '/devices/app-screens/serious/bank-home.jpg',
+      src: '/devices/app-screens/serious/bank-home.png',
       alt: 'Northline — главный экран банкинга',
     },
     outcomes: [
@@ -207,18 +207,28 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
     ],
     screens: [
       {
-        src: '/devices/app-screens/serious/bank-home.jpg',
-        alt: 'Банкинг — баланс и операции',
+        src: '/devices/app-screens/serious/bank-home.png',
+        alt: 'Банкинг — дашборд и карта',
         device: 'iphone',
       },
       {
-        src: '/devices/app-screens/serious/bank-cards.jpg',
-        alt: 'Банкинг — карты и лимиты',
+        src: '/devices/app-screens/serious/bank-cards.png',
+        alt: 'Банкинг — карты',
         device: 'iphone',
       },
       {
-        src: '/devices/app-screens/serious/social-feed.jpg',
-        alt: 'Соцсеть — лента',
+        src: '/devices/app-screens/serious/bank-transactions.png',
+        alt: 'Банкинг — история операций',
+        device: 'iphone',
+      },
+      {
+        src: '/devices/app-screens/serious/bank-transfer.png',
+        alt: 'Банкинг — перевод',
+        device: 'iphone',
+      },
+      {
+        src: '/devices/app-screens/serious/bank-stats.png',
+        alt: 'Банкинг — статистика',
         device: 'iphone',
       },
     ],
@@ -329,12 +339,22 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       },
       {
         src: '/devices/app-screens/serious/social-chat.jpg',
-        alt: 'Соцсеть — сообщения',
+        alt: 'Соцсеть — чаты',
         device: 'samsung',
       },
       {
-        src: '/devices/app-screens/serious/bank-home.jpg',
-        alt: 'Банкинг — баланс',
+        src: '/devices/app-screens/serious/social-profile.jpg',
+        alt: 'Соцсеть — профиль',
+        device: 'samsung',
+      },
+      {
+        src: '/devices/app-screens/serious/social-moments.jpg',
+        alt: 'Соцсеть — stories / moments',
+        device: 'samsung',
+      },
+      {
+        src: '/devices/app-screens/serious/social-community.jpg',
+        alt: 'Соцсеть — сообщество',
         device: 'samsung',
       },
     ],
