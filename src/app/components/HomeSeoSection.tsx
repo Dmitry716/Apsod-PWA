@@ -43,10 +43,31 @@ export default function HomeSeoSection() {
           </Link>
           {' · '}
           <Link
+            href="/services/landing-page"
+            className="text-white/80 underline-offset-4 transition-colors hover:text-orange-300 hover:underline"
+          >
+            {isEn ? 'Landing page' : 'Заказать лендинг'}
+          </Link>
+          {' · '}
+          <Link
+            href="/services/ecommerce"
+            className="text-white/80 underline-offset-4 transition-colors hover:text-orange-300 hover:underline"
+          >
+            {isEn ? 'E-commerce' : 'Интернет-магазин'}
+          </Link>
+          {' · '}
+          <Link
             href="/services/seo"
             className="text-white/80 underline-offset-4 transition-colors hover:text-orange-300 hover:underline"
           >
-            {isEn ? 'SEO' : 'SEO продвижение'}
+            {isEn ? 'SEO' : 'Заказать SEO'}
+          </Link>
+          {' · '}
+          <Link
+            href="/services/mobile-development"
+            className="text-white/80 underline-offset-4 transition-colors hover:text-orange-300 hover:underline"
+          >
+            {isEn ? 'Apps' : 'Мобильные приложения'}
           </Link>
           {' · '}
           <Link

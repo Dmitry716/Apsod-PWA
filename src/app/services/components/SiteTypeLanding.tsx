@@ -9,11 +9,13 @@ import {
   ServiceBreadcrumbs,
   ServiceFaqBlock,
 } from "../../components/ServiceSeoExtras";
+import ServiceSemanticBlocks from "../../components/ServiceSemanticBlocks";
 import {
   CLIENT_PROOF,
   WEB_BUILD_TIMELINE,
   WHY_APSOD_WEB,
 } from "../../lib/client-proof";
+import type { SemanticServiceKey } from "../../lib/semantic-core";
 import {
   COMPANY_ADDRESS_DISPLAY,
   COMPANY_AREA_SERVED,
@@ -305,6 +307,10 @@ export default function SiteTypeLanding({ slug }: { slug: SiteTypeSlug }) {
           </div>
         </div>
       </section>
+
+      {slug === "landing-page" || slug === "ecommerce" ? (
+        <ServiceSemanticBlocks service={slug as SemanticServiceKey} />
+      ) : null}
 
       <ServiceFaqBlock service={slug} />
       {/* Отзывы клиентов об этой услуге */}

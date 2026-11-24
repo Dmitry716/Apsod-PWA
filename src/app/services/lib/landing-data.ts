@@ -232,12 +232,12 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
 
   'android-apps': {
     slug: 'android-apps',
-    schemaName: 'Разработка приложений для Android',
+    schemaName: 'Разработка приложений для Android в Минске',
     schemaDescription:
-      'Разработка мобильных приложений для Android в Минске: Kotlin, Jetpack Compose, React Native. Публикация в Google Play.',
-    eyebrow: 'Android · Samsung Galaxy S26',
-    title: 'Разработка приложений для Android',
-    lead: 'Kotlin или кроссплатформа — стабильный продукт под Google Play и широкий парк устройств.',
+      'Разработка приложений для Android в Минске: Kotlin, Jetpack Compose, React Native. Заказать приложение — публикация в Google Play.',
+    eyebrow: 'Android · Минск',
+    title: 'Разработка приложений для Android в Минске',
+    lead: 'Заказать Android-приложение: Kotlin или кроссплатформа — стабильный продукт под Google Play и широкий парк устройств.',
     primaryCta: { label: 'Начать Discovery', href: '/contact' },
     secondaryCta: { label: 'Все мобильные', href: '/services/mobile-development' },
     heroDevice: 'samsung',

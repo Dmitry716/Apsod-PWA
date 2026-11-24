@@ -11,10 +11,12 @@ import {
   ServiceBreadcrumbs,
   ServiceFaqBlock,
 } from "../../components/ServiceSeoExtras";
+import ServiceSemanticBlocks from "../../components/ServiceSemanticBlocks";
 import { COMPANY_AREA_SERVED, SITE_URL } from "../../lib/seo";
 import DevelopmentProcessSection from "./DevelopmentProcessSection";
 import { TechStackChips } from "../../components/TechStackSection";
 import type { ServiceLandingContent } from "../lib/landing-data";
+import type { SemanticServiceKey } from "../../lib/semantic-core";
 
 type Props = {
   content: ServiceLandingContent;
@@ -257,6 +259,12 @@ export default function ServiceLanding({ content }: Props) {
           })}
         </div>
       </section>
+
+      {content.slug === "android-apps" ? (
+        <ServiceSemanticBlocks
+          service={content.slug as SemanticServiceKey}
+        />
+      ) : null}
 
       <ServiceFaqBlock service={content.slug} />
 

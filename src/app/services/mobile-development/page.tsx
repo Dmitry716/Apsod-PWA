@@ -4,6 +4,7 @@ import Reveal from '../../components/Reveal'
 import SectionAtmosphere from '../../components/SectionAtmosphere'
 import SeoJsonLd from '../../components/SeoJsonLd'
 import { ServiceBreadcrumbs, ServiceFaqBlock } from '../../components/ServiceSeoExtras'
+import ServiceSemanticBlocks from '../../components/ServiceSemanticBlocks'
 import { MOBILE_APP_PACKAGES } from '../../lib/mobile-app-packages'
 import { COMPANY_AREA_SERVED, SITE_URL, buildServiceMetadata } from '../../lib/seo'
 import ReviewsByService from '../../components/ReviewsByService'
@@ -35,7 +36,7 @@ export default function MobileDevelopmentPage() {
     '@type': 'Service',
     name: 'Разработка мобильных приложений',
     description:
-      'Разработка мобильных приложений iOS и Android в Минске. React Native, Flutter, Swift, Kotlin.',
+      'Заказать разработку мобильного приложения в Минске: iOS и Android, React Native, Flutter, Swift, Kotlin.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
     areaServed: COMPANY_AREA_SERVED,
     url: `${SITE_URL}/services/mobile-development`,
@@ -51,13 +52,13 @@ export default function MobileDevelopmentPage() {
         <div className="container mx-auto px-4 relative z-10 py-24 md:py-28">
           <div className="max-w-2xl">
             <p className="apsod-hero-enter apsod-hero-enter-delay-1 text-[11px] font-medium tracking-[0.22em] uppercase text-slate-400 mb-5">
-              Мобильная разработка
+              Мобильная разработка · Минск
             </p>
             <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-bold tracking-tight leading-[1.08] mb-5">
-              Приложения для iOS и Android
+              Разработка мобильных приложений в Минске
             </h1>
             <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-base md:text-lg text-slate-300 leading-relaxed mb-9 max-w-lg">
-              Натив или кроссплатформа — от MVP до релиза в сторах. Выберите платформу или закажите обе.
+              Заказать разработку мобильного приложения: iOS и Android, натив или кроссплатформа — от MVP до релиза в сторах.
             </p>
             <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3">
               <Link
@@ -181,6 +182,8 @@ export default function MobileDevelopmentPage() {
           </div>
         </div>
       </section>
+
+      <ServiceSemanticBlocks service="mobile-development" />
 
       <ServiceFaqBlock service="mobile-development" />
 
