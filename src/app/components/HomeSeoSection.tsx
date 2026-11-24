@@ -46,7 +46,7 @@ export default function HomeSeoSection() {
             href="/services/landing-page"
             className="text-white/80 underline-offset-4 transition-colors hover:text-orange-300 hover:underline"
           >
-            {isEn ? 'Landing page' : 'Заказать лендинг'}
+            {isEn ? 'Landing page' : 'Лендинг'}
           </Link>
           {' · '}
           <Link
@@ -60,7 +60,7 @@ export default function HomeSeoSection() {
             href="/services/seo"
             className="text-white/80 underline-offset-4 transition-colors hover:text-orange-300 hover:underline"
           >
-            {isEn ? 'SEO' : 'Заказать SEO'}
+            {isEn ? 'SEO' : 'SEO'}
           </Link>
           {' · '}
           <Link

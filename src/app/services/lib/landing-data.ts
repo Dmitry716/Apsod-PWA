@@ -235,12 +235,12 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
 
   'android-apps': {
     slug: 'android-apps',
-    schemaName: 'Разработка приложений для Android в Минске',
+    schemaName: 'Разработка приложений для Android',
     schemaDescription:
-      'Разработка приложений для Android в Минске: Kotlin, Jetpack Compose, React Native. Заказать приложение — публикация в Google Play.',
-    eyebrow: 'Android · Минск',
-    title: 'Разработка приложений для Android в Минске',
-    lead: 'Заказать Android-приложение: Kotlin или кроссплатформа — стабильный продукт под Google Play и широкий парк устройств.',
+      'Мобильные приложения для Android: Kotlin, Jetpack Compose, React Native. Публикация в Google Play.',
+    eyebrow: 'Android',
+    title: 'Разработка приложений для Android',
+    lead: 'Kotlin или кроссплатформа — стабильный продукт под Google Play и широкий парк устройств.',
     primaryCta: { label: 'Начать Discovery', href: '/contact' },
     secondaryCta: { label: 'Все мобильные', href: '/services/mobile-development' },
     heroDevice: 'samsung',
@@ -272,8 +272,8 @@ export const SERVICE_LANDINGS: Partial<Record<ServicePath, ServiceLandingContent
       },
     ],
     audience: [
-      'Нужна разработка приложений для Android в Минске с публикацией в Google Play',
-      'Есть идея MVP и нужно понять цену / срок после Discovery',
+      'Нужно Android-приложение с публикацией в Google Play',
+      'Есть идея MVP и нужно понять срок и объём после Discovery',
       'Нужен натив на Kotlin или кроссплатформа на React Native',
       'Уже есть iOS — хотите Android без потери качества UX',
     ],

@@ -17,9 +17,9 @@ import ServiceSemanticBlocks from "../../components/ServiceSemanticBlocks";
 import ReviewsByService from "../../components/ReviewsByService";
 
 const PILL_LINKS = [
-  { label: "Заказать лендинг", href: "/services/landing-page" },
+  { label: "Лендинг", href: "/services/landing-page" },
   { label: "Корпоративный сайт", href: "/services/corporate-sites" },
-  { label: "Создание интернет-магазина", href: "/services/ecommerce" },
+  { label: "Интернет-магазин", href: "/services/ecommerce" },
   { label: "PWA", href: "/services/pwa-development" },
 ] as const;
 

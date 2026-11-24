@@ -22,19 +22,19 @@ const PLATFORMS = [
   },
   {
     title: 'Android',
-    body: 'Разработка приложений для Android в Минске: Kotlin, Jetpack Compose и React Native. Google Play и широкий парк устройств.',
+    body: 'Kotlin, Jetpack Compose и React Native. Google Play и широкий парк устройств.',
     href: '/services/android-apps',
     device: 'samsung' as const,
     screen: '/devices/app-screens/services.png',
-    cta: 'Android в Минске →',
+    cta: 'Android подробнее',
   },
 ]
 
 const MOBILE_AUDIENCE = [
-  'Нужно заказать разработку мобильного приложения в Минске',
-  'MVP для проверки спроса или полноценный продукт с бэкендом',
+  'Нужен MVP для проверки спроса или полноценный продукт с бэкендом',
   'iOS, Android или обе платформы на одном стеке',
-  'Нужна публикация в App Store / Google Play «под ключ»',
+  'Нужна публикация в App Store / Google Play',
+  'Есть идея и нужен понятный план: Discovery → смета → релиз',
 ]
 
 const MOBILE_INCLUDES = [
@@ -52,7 +52,7 @@ export default function MobileDevelopmentPage() {
     '@type': 'Service',
     name: 'Разработка мобильных приложений',
     description:
-      'Заказать разработку мобильного приложения в Минске: iOS и Android, React Native, Flutter, Swift, Kotlin.',
+      'Разработка мобильных приложений iOS и Android в Минске. React Native, Flutter, Swift, Kotlin.',
     provider: { '@type': 'Organization', name: 'APSOD', url: SITE_URL },
     areaServed: COMPANY_AREA_SERVED,
     url: `${SITE_URL}/services/mobile-development`,
@@ -68,13 +68,13 @@ export default function MobileDevelopmentPage() {
         <div className="container mx-auto px-4 relative z-10 py-24 md:py-28">
           <div className="max-w-2xl">
             <p className="apsod-hero-enter apsod-hero-enter-delay-1 text-[11px] font-medium tracking-[0.22em] uppercase text-slate-400 mb-5">
-              Мобильная разработка · Минск
+              Мобильная разработка
             </p>
             <h1 className="apsod-hero-enter apsod-hero-enter-delay-2 font-display text-[clamp(2.25rem,5vw,3.5rem)] font-bold tracking-tight leading-[1.08] mb-5">
-              Разработка мобильных приложений в Минске
+              Приложения для iOS и Android
             </h1>
             <p className="apsod-hero-enter apsod-hero-enter-delay-3 text-base md:text-lg text-slate-300 leading-relaxed mb-9 max-w-lg">
-              Заказать разработку мобильного приложения: iOS и Android, натив или кроссплатформа — от MVP до релиза в сторах.
+              Натив или кроссплатформа — от MVP до релиза в сторах. Выберите платформу или обе.
             </p>
             <div className="apsod-hero-enter apsod-hero-enter-delay-4 flex flex-wrap gap-3">
               <Link
@@ -135,7 +135,6 @@ export default function MobileDevelopmentPage() {
             </h2>
             <p className="text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
               Выберите платформу — на отдельной странице детали по стеку, срокам и публикации в сторе.
-              Отдельный фокус: разработка приложений для Android в Минске.
             </p>
           </Reveal>
 
@@ -174,7 +173,7 @@ export default function MobileDevelopmentPage() {
         <div className="container mx-auto px-4">
           <Reveal className="mb-8 max-w-2xl">
             <h2 className="font-display mb-3 text-3xl font-bold tracking-tight text-slate-900 dark:text-white md:text-4xl">
-              Что входит, когда заказываете приложение
+              Что входит в работу
             </h2>
           </Reveal>
           <ul className="mx-auto grid max-w-3xl gap-3">

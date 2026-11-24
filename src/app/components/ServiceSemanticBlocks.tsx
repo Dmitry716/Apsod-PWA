@@ -32,7 +32,7 @@ export default function ServiceSemanticBlocks({
       label: 'Разработка сайтов',
     })
   } else {
-    links.push({ href: '/services/landing-page', label: 'Заказать лендинг' })
+    links.push({ href: '/services/landing-page', label: 'Лендинг' })
     links.push({
       href: '/services/ecommerce',
       label: 'Интернет-магазин',
